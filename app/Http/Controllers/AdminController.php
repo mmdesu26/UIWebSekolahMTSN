@@ -63,16 +63,40 @@ class AdminController extends Controller
         ['platform' => 'WhatsApp', 'handle' => '0812-3456-7890', 'link' => '#'],
     ];
 
-    // ============ DATA GALERI ============
+    // ============ DATA GALERI  ============
     protected $galeri = [
-        ['id' => 1, 'judul' => 'Upacara Bendera Senin', 'gambar' => 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800', 'tanggal' => '2024-01-15'],
-        ['id' => 2, 'judul' => 'Kegiatan Ekstrakurikuler Robotik', 'gambar' => 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800', 'tanggal' => '2024-01-14'],
-        ['id' => 3, 'judul' => 'Lomba Futsal Antar Kelas', 'gambar' => 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800', 'tanggal' => '2024-01-13'],
-        ['id' => 4, 'judul' => 'Kegiatan Pramuka', 'gambar' => 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800', 'tanggal' => '2024-01-12'],
-        ['id' => 5, 'judul' => 'Pembelajaran di Laboratorium', 'gambar' => 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800', 'tanggal' => '2024-01-11'],
-        ['id' => 6, 'judul' => 'Kegiatan Paduan Suara', 'gambar' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800', 'tanggal' => '2024-01-10'],
-        ['id' => 7, 'judul' => 'Praktek Sholat Berjamaah', 'gambar' => 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800', 'tanggal' => '2024-01-09'],
-        ['id' => 8, 'judul' => 'Pelatihan Komputer', 'gambar' => 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800', 'tanggal' => '2024-01-08'],
+        [
+            'id' => 1, 
+            'judul' => 'Upacara Bendera Senin', 
+            'gambar' => 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800', 
+            'tanggal' => '2024-01-15',
+            'link_youtube' => 'https://youtube.com/watch?v=example1',
+            'link_instagram' => 'https://instagram.com/p/example1'
+        ],
+        [
+            'id' => 2, 
+            'judul' => 'Kegiatan Ekstrakurikuler Robotik', 
+            'gambar' => 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800', 
+            'tanggal' => '2024-01-14',
+            'link_youtube' => null,
+            'link_instagram' => 'https://instagram.com/p/example2'
+        ],
+        [
+            'id' => 3, 
+            'judul' => 'Lomba Futsal Antar Kelas', 
+            'gambar' => 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800', 
+            'tanggal' => '2024-01-13',
+            'link_youtube' => 'https://youtube.com/watch?v=example3',
+            'link_instagram' => null
+        ],
+        [
+            'id' => 4, 
+            'judul' => 'Kegiatan Pramuka', 
+            'gambar' => 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800', 
+            'tanggal' => '2024-01-12',
+            'link_youtube' => null,
+            'link_instagram' => null
+        ],
     ];
 
     // ============ LOGIN ============
@@ -298,7 +322,7 @@ class AdminController extends Controller
         return redirect()->route('admin.sosial-media')->with('success', 'Sosial Media berhasil diperbarui');
     }
 
-    // ============ GALERI ============
+        // ============ GALERI  ============
     public function manageGaleri()
     {
         return view('admin.galeri', ['galeri' => $this->galeri]);
@@ -306,10 +330,27 @@ class AdminController extends Controller
 
     public function addGaleri(Request $request)
     {
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'link_youtube' => 'nullable|url',
+            'link_instagram' => 'nullable|url',
+        ]);
+
+        // Upload gambar
+        if ($request->hasFile('gambar')) {
+            $image = $request->file('gambar');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('uploads/galeri'), $imageName);
+            $imagePath = '/uploads/galeri/' . $imageName;
+        }
+
         $this->galeri[] = [
             'id' => count($this->galeri) + 1,
             'judul' => $request->input('judul'),
-            'gambar' => $request->input('gambar'),
+            'gambar' => $imagePath,
+            'link_youtube' => $request->input('link_youtube'),
+            'link_instagram' => $request->input('link_instagram'),
             'tanggal' => date('Y-m-d'),
         ];
 
@@ -318,10 +359,32 @@ class AdminController extends Controller
 
     public function updateGaleri($id, Request $request)
     {
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'link_youtube' => 'nullable|url',
+            'link_instagram' => 'nullable|url',
+        ]);
+
         foreach ($this->galeri as &$g) {
             if ($g['id'] == $id) {
                 $g['judul'] = $request->input('judul');
-                $g['gambar'] = $request->input('gambar');
+                
+                // Update gambar jika ada upload baru
+                if ($request->hasFile('gambar')) {
+                    // Hapus gambar lama jika ada
+                    if (isset($g['gambar']) && file_exists(public_path($g['gambar']))) {
+                        unlink(public_path($g['gambar']));
+                    }
+                    
+                    $image = $request->file('gambar');
+                    $imageName = time() . '_' . $image->getClientOriginalName();
+                    $image->move(public_path('uploads/galeri'), $imageName);
+                    $g['gambar'] = '/uploads/galeri/' . $imageName;
+                }
+                
+                $g['link_youtube'] = $request->input('link_youtube');
+                $g['link_instagram'] = $request->input('link_instagram');
                 break;
             }
         }
@@ -331,9 +394,16 @@ class AdminController extends Controller
 
     public function deleteGaleri($id)
     {
-        $this->galeri = array_filter($this->galeri, function ($g) use ($id) {
-            return $g['id'] != $id;
-        });
+        foreach ($this->galeri as $key => $g) {
+            if ($g['id'] == $id) {
+                // Hapus file gambar jika ada
+                if (isset($g['gambar']) && file_exists(public_path($g['gambar']))) {
+                    unlink(public_path($g['gambar']));
+                }
+                unset($this->galeri[$key]);
+                break;
+            }
+        }
 
         return redirect()->route('admin.galeri')->with('success', 'Foto berhasil dihapus');
     }

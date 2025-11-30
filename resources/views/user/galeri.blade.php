@@ -86,6 +86,32 @@
         display: flex;
         align-items: center;
         gap: 5px;
+        margin-bottom: 10px;
+    }
+
+    .gallery-social-links {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .gallery-social-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 5px 12px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        font-size: 0.85rem;
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+
+    .gallery-social-link:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
     }
 
     /* Modal Lightbox */
@@ -262,6 +288,22 @@
                 <div class="date">
                     📅 {{ date('d F Y', strtotime($item['tanggal'])) }}
                 </div>
+                
+                @if((isset($item['link_youtube']) && $item['link_youtube']) || (isset($item['link_instagram']) && $item['link_instagram']))
+                <div class="gallery-social-links">
+                    @if(isset($item['link_youtube']) && $item['link_youtube'])
+                    <a href="{{ $item['link_youtube'] }}" target="_blank" class="gallery-social-link" onclick="event.stopPropagation()">
+                        🎥 YouTube
+                    </a>
+                    @endif
+                    
+                    @if(isset($item['link_instagram']) && $item['link_instagram'])
+                    <a href="{{ $item['link_instagram'] }}" target="_blank" class="gallery-social-link" onclick="event.stopPropagation()">
+                        📷 Instagram
+                    </a>
+                    @endif
+                </div>
+                @endif
             </div>
         </div>
         @endforeach

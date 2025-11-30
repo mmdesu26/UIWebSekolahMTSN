@@ -115,10 +115,41 @@
     .gallery-card-date {
         font-size: 0.9rem;
         color: #999;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
         display: flex;
         align-items: center;
         gap: 5px;
+    }
+
+    .gallery-card-links {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .social-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.85rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .social-link.youtube {
+        background: #ff000015;
+        color: #ff0000;
+    }
+
+    .social-link.instagram {
+        background: #e4405f15;
+        color: #e4405f;
+    }
+
+    .social-link:hover {
+        transform: scale(1.05);
     }
 
     .gallery-card-actions {
@@ -167,12 +198,14 @@
         height: 100%;
         background: rgba(0,0,0,0.5);
         animation: fadeIn 0.3s ease;
+        overflow-y: auto;
     }
 
     .modal.active {
         display: flex;
         align-items: center;
         justify-content: center;
+        padding: 20px;
     }
 
     .modal-content {
@@ -183,6 +216,8 @@
         max-width: 500px;
         box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         animation: slideDown 0.3s ease;
+        max-height: 90vh;
+        overflow-y: auto;
     }
 
     .modal-header {
@@ -224,6 +259,12 @@
         color: #333;
     }
 
+    .form-group label .optional {
+        font-weight: 400;
+        color: #999;
+        font-size: 0.9rem;
+    }
+
     .form-group input,
     .form-group textarea {
         width: 100%;
@@ -241,6 +282,43 @@
         box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.1);
     }
 
+    .file-input-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .file-input-wrapper input[type=file] {
+        position: absolute;
+        left: -9999px;
+    }
+
+    .file-input-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 12px 15px;
+        background: #f8f9fa;
+        border: 2px dashed #dee2e6;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+
+    .file-input-label:hover {
+        background: #e9ecef;
+        border-color: #52b788;
+    }
+
+    .file-name {
+        margin-top: 10px;
+        font-size: 0.9rem;
+        color: #666;
+    }
+
     .img-preview {
         width: 100%;
         height: 200px;
@@ -248,6 +326,7 @@
         border-radius: 10px;
         margin-top: 15px;
         display: none;
+        border: 2px solid #e0e0e0;
     }
 
     .img-preview.show {
@@ -345,6 +424,23 @@
             <div class="gallery-card-date">
                 📅 {{ date('d F Y', strtotime($item['tanggal'])) }}
             </div>
+            
+            @if(isset($item['link_youtube']) || isset($item['link_instagram']))
+            <div class="gallery-card-links">
+                @if(isset($item['link_youtube']) && $item['link_youtube'])
+                <a href="{{ $item['link_youtube'] }}" target="_blank" class="social-link youtube">
+                    🎥 YouTube
+                </a>
+                @endif
+                
+                @if(isset($item['link_instagram']) && $item['link_instagram'])
+                <a href="{{ $item['link_instagram'] }}" target="_blank" class="social-link instagram">
+                    📷 Instagram
+                </a>
+                @endif
+            </div>
+            @endif
+            
             <div class="gallery-card-actions">
                 <button class="btn-action btn-edit" onclick='openEditModal(@json($item))'>
                     ✏️ Edit
@@ -365,17 +461,36 @@
             <h3>Tambah Foto Baru</h3>
             <span class="modal-close" onclick="closeModal('addModal')">&times;</span>
         </div>
-        <form action="{{ route('admin.galeri.add') }}" method="POST">
+        <form action="{{ route('admin.galeri.add') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label>Judul Foto</label>
                 <input type="text" name="judul" required placeholder="Masukkan judul foto">
             </div>
+            
             <div class="form-group">
-                <label>URL Gambar</label>
-                <input type="url" name="gambar" id="addGambar" required placeholder="https://example.com/image.jpg" onchange="previewImage('addGambar', 'addPreview')">
+                <label>Upload Gambar</label>
+                <div class="file-input-wrapper">
+                    <input type="file" name="gambar" id="addGambar" accept="image/*" required onchange="previewImage('addGambar', 'addPreview')">
+                    <label for="addGambar" class="file-input-label">
+                        📁 Pilih Gambar
+                        <span style="font-size: 0.85rem; color: #999;">(Max: 2MB)</span>
+                    </label>
+                </div>
+                <div class="file-name" id="addFileName"></div>
                 <img id="addPreview" class="img-preview">
             </div>
+            
+            <div class="form-group">
+                <label>Link YouTube <span class="optional">(Opsional)</span></label>
+                <input type="url" name="link_youtube" placeholder="https://youtube.com/watch?v=...">
+            </div>
+            
+            <div class="form-group">
+                <label>Link Instagram <span class="optional">(Opsional)</span></label>
+                <input type="url" name="link_instagram" placeholder="https://instagram.com/p/...">
+            </div>
+            
             <button type="submit" class="btn-submit">💾 Simpan Foto</button>
         </form>
     </div>
@@ -388,17 +503,36 @@
             <h3>Edit Foto</h3>
             <span class="modal-close" onclick="closeModal('editModal')">&times;</span>
         </div>
-        <form id="editForm" method="POST">
+        <form id="editForm" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label>Judul Foto</label>
                 <input type="text" name="judul" id="editJudul" required>
             </div>
+            
             <div class="form-group">
-                <label>URL Gambar</label>
-                <input type="url" name="gambar" id="editGambar" required onchange="previewImage('editGambar', 'editPreview')">
+                <label>Upload Gambar Baru <span class="optional">(Opsional - Kosongkan jika tidak ingin mengubah)</span></label>
+                <div class="file-input-wrapper">
+                    <input type="file" name="gambar" id="editGambar" accept="image/*" onchange="previewImage('editGambar', 'editPreview')">
+                    <label for="editGambar" class="file-input-label">
+                        📁 Pilih Gambar Baru
+                        <span style="font-size: 0.85rem; color: #999;">(Max: 2MB)</span>
+                    </label>
+                </div>
+                <div class="file-name" id="editFileName"></div>
                 <img id="editPreview" class="img-preview">
             </div>
+            
+            <div class="form-group">
+                <label>Link YouTube <span class="optional">(Opsional)</span></label>
+                <input type="url" name="link_youtube" id="editYoutube" placeholder="https://youtube.com/watch?v=...">
+            </div>
+            
+            <div class="form-group">
+                <label>Link Instagram <span class="optional">(Opsional)</span></label>
+                <input type="url" name="link_instagram" id="editInstagram" placeholder="https://instagram.com/p/...">
+            </div>
+            
             <button type="submit" class="btn-submit">💾 Update Foto</button>
         </form>
     </div>
@@ -417,9 +551,15 @@
 
     function openEditModal(item) {
         document.getElementById('editJudul').value = item.judul;
-        document.getElementById('editGambar').value = item.gambar;
-        document.getElementById('editPreview').src = item.gambar;
-        document.getElementById('editPreview').classList.add('show');
+        document.getElementById('editYoutube').value = item.link_youtube || '';
+        document.getElementById('editInstagram').value = item.link_instagram || '';
+        
+        // Show current image
+        if (item.gambar) {
+            document.getElementById('editPreview').src = item.gambar;
+            document.getElementById('editPreview').classList.add('show');
+        }
+        
         document.getElementById('editForm').action = `/admin/galeri/update/${item.id}`;
         document.getElementById('editModal').classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -428,17 +568,42 @@
     function closeModal(modalId) {
         document.getElementById(modalId).classList.remove('active');
         document.body.style.overflow = 'auto';
+        
+        // Reset forms
+        if (modalId === 'addModal') {
+            document.querySelector('#addModal form').reset();
+            document.getElementById('addPreview').classList.remove('show');
+            document.getElementById('addFileName').textContent = '';
+        } else if (modalId === 'editModal') {
+            document.getElementById('editPreview').classList.remove('show');
+            document.getElementById('editFileName').textContent = '';
+        }
     }
 
     function previewImage(inputId, previewId) {
-        const url = document.getElementById(inputId).value;
+        const input = document.getElementById(inputId);
         const preview = document.getElementById(previewId);
+        const fileNameDisplay = document.getElementById(inputId.replace('Gambar', 'FileName'));
         
-        if (url) {
-            preview.src = url;
-            preview.classList.add('show');
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.classList.add('show');
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+            
+            // Show file name
+            if (fileNameDisplay) {
+                fileNameDisplay.textContent = '📄 ' + input.files[0].name;
+            }
         } else {
             preview.classList.remove('show');
+            if (fileNameDisplay) {
+                fileNameDisplay.textContent = '';
+            }
         }
     }
 
@@ -453,8 +618,8 @@
     // Close modal when clicking outside
     window.onclick = function(event) {
         if (event.target.classList.contains('modal')) {
-            event.target.classList.remove('active');
-            document.body.style.overflow = 'auto';
+            const modalId = event.target.id;
+            closeModal(modalId);
         }
     }
 
@@ -467,4 +632,11 @@
         }
     }, 5000);
 </script>
+
+<style>
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+</style>
 @endsection
