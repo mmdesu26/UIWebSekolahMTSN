@@ -1323,6 +1323,7 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Akademik</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{ route('akademik.kurikulum') }}">Kurikulum</a></li>
+                            <li><a class="dropdown-item" href="{{ route('akademik.kelas-program') }}">Kelas Program</a></li>
                             <li><a class="dropdown-item" href="{{ route('akademik.kalender') }}">Kalender Pendidikan</a></li>
                             <li><a class="dropdown-item" href="{{ route('akademik.jadwal') }}">Jadwal Pelajaran</a></li>
                         </ul>
