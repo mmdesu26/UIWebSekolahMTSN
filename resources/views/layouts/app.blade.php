@@ -1330,6 +1330,7 @@
                     </li>
 
                     <li class="nav-item"><a class="nav-link" href="{{ route('berita') }}">Berita & Pengumuman</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('galeri') }}">Galeri</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('ppdb') }}">PPDB</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('ekstrakurikuler') }}">Ekstrakurikuler</a></li>
 
