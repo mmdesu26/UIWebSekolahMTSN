@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminController;
 // ============================================
 Route::get('/', [FrontendUserController::class, 'index'])->name('welcome');
 Route::get('/beranda', [FrontendUserController::class, 'index'])->name('home');
+
 // ============================================
 // PROFIL SEKOLAH
 // ============================================
@@ -17,7 +18,15 @@ Route::get('/profil-sekolah/sejarah', [FrontendUserController::class, 'sejarah']
 Route::get('/profil-sekolah/visi-misi', [FrontendUserController::class, 'visiMisi'])->name('profil.visi-misi');
 Route::get('/profil-sekolah/struktur-organisasi', [FrontendUserController::class, 'struktur'])->name('profil.struktur');
 Route::get('/profil-sekolah/guru', [FrontendUserController::class, 'guru'])->name('profil.guru');
-Route::get('/profil-sekolah/fasilitas', [FrontendUserController::class, 'fasilitas'])->name('profil.fasilitas');
+
+// ROUTE FASILITAS DAN AKREDITASI (DIPINDAHKAN KE SINI - TANPA MIDDLEWARE)
+Route::get('/profil-sekolah/fasilitas', function () {
+    return view('user.fasilitas_sekolah');
+})->name('profil.fasilitas');
+
+Route::get('/profil-sekolah/akreditasi', function () {
+    return view('user.akreditasi');
+})->name('profil.akreditasi');
 
 // ============================================
 // BERITA & PENGUMUMAN
@@ -52,20 +61,19 @@ Route::get('/kontak', [FrontendUserController::class, 'kontak'])->name('kontak')
 Route::post('/kontak/kirim', [FrontendUserController::class, 'kontakKirim'])->name('kontak.kirim');
 
 // ============================================
-// FALLBACK ROUTE
+// LOGIN & LOGOUT ADMIN
 // ============================================
-Route::fallback(function () {
-    return view('errors.404');
-});
-
-// Login routes (tanpa middleware)
 Route::get('/admin/login', [AdminController::class, 'showLogin'])->name('admin.login');
-Route::post('/admin/login', [AdminController::class, 'doLogin'])->name('admin.login.submit'); // ← TAMBAHKAN INI
+Route::post('/admin/login', [AdminController::class, 'doLogin'])->name('admin.login.submit');
 Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
-// Admin routes dengan middleware AdminAuth (tanpa Kernel)
+// ============================================
+// ADMIN ROUTES (DENGAN MIDDLEWARE)
+// ============================================
 Route::prefix('admin')->middleware('\App\Http\Middleware\AdminAuth')->group(function () {
+    // Dashboard
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    
     // Master Data - Sejarah Sekolah
     Route::get('/sejarah', [AdminController::class, 'showSejarah'])->name('admin.sejarah');
     Route::post('/sejarah/update', [AdminController::class, 'updateSejarah'])->name('admin.sejarah.update');
@@ -99,4 +107,26 @@ Route::prefix('admin')->middleware('\App\Http\Middleware\AdminAuth')->group(func
     // Master Data - Sosial Media
     Route::get('/sosial-media', [AdminController::class, 'manageSosialMedia'])->name('admin.sosial-media');
     Route::post('/sosial-media/update', [AdminController::class, 'updateSosialMedia'])->name('admin.sosial-media.update');
+});
+
+    // Route Akademik
+    Route::prefix('akademik')->name('akademik.')->group(function () {
+        Route::get('/kurikulum', function () {
+            return view('user.akademik.kurikulum');
+        })->name('kurikulum');
+        
+        Route::get('/kalender-pendidikan', function () {
+            return view('user.akademik.kalender');
+        })->name('kalender');
+        
+        Route::get('/jadwal-pelajaran', function () {
+            return view('user.akademik.jadwal');
+        })->name('jadwal');
+    });
+
+// ============================================
+// FALLBACK ROUTE (404)
+// ============================================
+Route::fallback(function () {
+    return view('errors.404');
 });

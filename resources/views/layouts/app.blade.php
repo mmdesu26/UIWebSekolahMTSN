@@ -1304,20 +1304,37 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+
                     <li class="nav-item"><a class="nav-link" href="#home">Beranda</a></li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Profil</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{ route('profil.sejarah') }}">Sejarah Sekolah</a></li>
                             <li><a class="dropdown-item" href="{{ route('profil.visi-misi') }}">Visi & Misi</a></li>
                             <li><a class="dropdown-item" href="{{ route('profil.struktur') }}">Struktur Organisasi</a></li>
+                            <li><a class="dropdown-item" href="{{ route('profil.fasilitas') }}">Fasilitas Sekolah</a></li>
+                            <li><a class="dropdown-item" href="{{ route('profil.akreditasi') }}">Akreditasi & Sertifikasi</a></li>
                         </ul>
                     </li>
+
+                    <!-- Tambahkan menu Akademik setelah menu Profil -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Akademik</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ route('akademik.kurikulum') }}">Kurikulum</a></li>
+                            <li><a class="dropdown-item" href="{{ route('akademik.kalender') }}">Kalender Pendidikan</a></li>
+                            <li><a class="dropdown-item" href="{{ route('akademik.jadwal') }}">Jadwal Pelajaran</a></li>
+                        </ul>
+                    </li>
+
                     <li class="nav-item"><a class="nav-link" href="{{ route('berita') }}">Berita & Pengumuman</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('ppdb') }}">PPDB</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('ekstrakurikuler') }}">Ekstrakurikuler</a></li>
+
                 </ul>
             </div>
+
         </div>
     </nav>
 
