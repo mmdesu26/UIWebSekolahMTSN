@@ -7,7 +7,7 @@ use App\Http\Controllers\AdminController;
 // ============================================
 // HALAMAN UTAMA / HOME
 // ============================================
-Route::get('/', [FrontendUserController::class, 'index'])->name('welcome');
+Route::get('/', [FrontendUserController::class, 'index'])->name('home');
 Route::get('/beranda', [FrontendUserController::class, 'index'])->name('home');
 // ============================================
 // PROFIL SEKOLAH
