@@ -113,6 +113,10 @@
             <a href="{{ route('admin.berita') }}" class="@if(request()->routeIs('admin.berita')) active @endif">
                 <i class="fas fa-newspaper"></i> Berita & Pengumuman
             </a>
+            <a href="{{ route('admin.galeri') }}" class="menu-item {{ request()->routeIs('admin.galeri') ? 'active' : '' }}">
+                <span class="menu-icon">📸</span>
+                <span class="menu-text">Galeri</span>
+            </a>
             <a href="{{ route('admin.ppdb') }}" class="@if(request()->routeIs('admin.ppdb')) active @endif">
                 <i class="fas fa-user-tie"></i> PPDB
             </a>

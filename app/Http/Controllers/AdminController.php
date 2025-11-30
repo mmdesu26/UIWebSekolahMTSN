@@ -63,6 +63,18 @@ class AdminController extends Controller
         ['platform' => 'WhatsApp', 'handle' => '0812-3456-7890', 'link' => '#'],
     ];
 
+    // ============ DATA GALERI ============
+    protected $galeri = [
+        ['id' => 1, 'judul' => 'Upacara Bendera Senin', 'gambar' => 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800', 'tanggal' => '2024-01-15'],
+        ['id' => 2, 'judul' => 'Kegiatan Ekstrakurikuler Robotik', 'gambar' => 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800', 'tanggal' => '2024-01-14'],
+        ['id' => 3, 'judul' => 'Lomba Futsal Antar Kelas', 'gambar' => 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800', 'tanggal' => '2024-01-13'],
+        ['id' => 4, 'judul' => 'Kegiatan Pramuka', 'gambar' => 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800', 'tanggal' => '2024-01-12'],
+        ['id' => 5, 'judul' => 'Pembelajaran di Laboratorium', 'gambar' => 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800', 'tanggal' => '2024-01-11'],
+        ['id' => 6, 'judul' => 'Kegiatan Paduan Suara', 'gambar' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800', 'tanggal' => '2024-01-10'],
+        ['id' => 7, 'judul' => 'Praktek Sholat Berjamaah', 'gambar' => 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800', 'tanggal' => '2024-01-09'],
+        ['id' => 8, 'judul' => 'Pelatihan Komputer', 'gambar' => 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800', 'tanggal' => '2024-01-08'],
+    ];
+
     // ============ LOGIN ============
     public function showLogin()
     {
@@ -95,6 +107,7 @@ class AdminController extends Controller
             'total_guru' => count($this->guru),
             'total_ekstrakurikuler' => count($this->ekstrakurikuler),
             'total_berita' => count($this->berita),
+            'total_galeri' => count($this->galeri),
             'guru_terbaru' => array_slice($this->guru, -3),
             'berita_terbaru' => array_slice($this->berita, -3),
         ];
@@ -283,5 +296,45 @@ class AdminController extends Controller
     {
         // Update sosial media (simplified version)
         return redirect()->route('admin.sosial-media')->with('success', 'Sosial Media berhasil diperbarui');
+    }
+
+    // ============ GALERI ============
+    public function manageGaleri()
+    {
+        return view('admin.galeri', ['galeri' => $this->galeri]);
+    }
+
+    public function addGaleri(Request $request)
+    {
+        $this->galeri[] = [
+            'id' => count($this->galeri) + 1,
+            'judul' => $request->input('judul'),
+            'gambar' => $request->input('gambar'),
+            'tanggal' => date('Y-m-d'),
+        ];
+
+        return redirect()->route('admin.galeri')->with('success', 'Foto berhasil ditambahkan');
+    }
+
+    public function updateGaleri($id, Request $request)
+    {
+        foreach ($this->galeri as &$g) {
+            if ($g['id'] == $id) {
+                $g['judul'] = $request->input('judul');
+                $g['gambar'] = $request->input('gambar');
+                break;
+            }
+        }
+
+        return redirect()->route('admin.galeri')->with('success', 'Foto berhasil diperbarui');
+    }
+
+    public function deleteGaleri($id)
+    {
+        $this->galeri = array_filter($this->galeri, function ($g) use ($id) {
+            return $g['id'] != $id;
+        });
+
+        return redirect()->route('admin.galeri')->with('success', 'Foto berhasil dihapus');
     }
 }
