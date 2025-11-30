@@ -63,7 +63,7 @@ class AdminController extends Controller
         ['platform' => 'WhatsApp', 'handle' => '0812-3456-7890', 'link' => '#'],
     ];
 
-    // ============ DATA GALERI  ============
+    // ============ DATA GALERI ============
     protected $galeri = [
         [
             'id' => 1, 
