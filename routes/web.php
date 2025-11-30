@@ -109,11 +109,18 @@ Route::prefix('admin')->middleware('\App\Http\Middleware\AdminAuth')->group(func
     Route::post('/sosial-media/update', [AdminController::class, 'updateSosialMedia'])->name('admin.sosial-media.update');
 });
 
-    // Route Akademik
+    // ============================================
+    // ROUTE AKADEMIK
+    // ============================================
     Route::prefix('akademik')->name('akademik.')->group(function () {
         Route::get('/kurikulum', function () {
             return view('user.akademik.kurikulum');
         })->name('kurikulum');
+        
+        // KELAS PROGRAM - SATU HALAMAN
+        Route::get('/kelas-program', function () {
+            return view('user.akademik.kelas_program');
+        })->name('kelas-program');
         
         Route::get('/kalender-pendidikan', function () {
             return view('user.akademik.kalender');
@@ -123,7 +130,6 @@ Route::prefix('admin')->middleware('\App\Http\Middleware\AdminAuth')->group(func
             return view('user.akademik.jadwal');
         })->name('jadwal');
     });
-
 // ============================================
 // FALLBACK ROUTE (404)
 // ============================================
