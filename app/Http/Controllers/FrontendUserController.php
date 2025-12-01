@@ -21,9 +21,50 @@ class FrontendUserController extends Controller
         $this->data['struktur'] = "Kepala Sekolah -> Wakil Kepala -> Kepala Bidang -> Staf Pengajar.";
         $this->data['struktur_organisasi'] = $this->data['struktur'];
 
+        // DATA BERITA DENGAN GAMBAR
         $this->data['berita'] = [
-            ["title" => "Sekolah mengikuti lomba sains", "content" => "MTsN 1 Magetan meraih juara 2..."],
-            ["title" => "PPDB 2025 terbuka", "content" => "Pendaftaran dibuka mulai tanggal..."],
+            [
+                "title" => "Pengumuman PPDB Tahun 2024", 
+                "content" => "Pendaftaran PPDB MTsN 1 Magetan tahun ajaran 2024/2025 telah dibuka. Silakan kunjungi halaman PPDB untuk informasi lebih lanjut.", 
+                "gambar" => "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800", 
+                "tanggal" => "2024-01-15", 
+                "tipe" => "pengumuman"
+            ],
+            [
+                "title" => "Prestasi Terbaru: Tim Robotik Raih Juara 2 Nasional", 
+                "content" => "Tim robotik MTsN 1 Magetan berhasil meraih juara 2 dalam kompetisi robotik nasional yang diselenggarakan di Jakarta.", 
+                "gambar" => "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800", 
+                "tanggal" => "2024-01-10", 
+                "tipe" => "berita"
+            ],
+            [
+                "title" => "Libur Semester Genap", 
+                "content" => "Libur semester genap tahun ajaran 2023/2024 akan dimulai tanggal 1 Juni 2024 sampai dengan 15 Juli 2024.", 
+                "gambar" => "https://arrahmahislamicschool.com/wp-content/uploads/2024/09/1667895469_910_580.jpg", 
+                "tanggal" => "2024-01-05", 
+                "tipe" => "pengumuman"
+            ],
+            [
+                "title" => "Kegiatan Belajar Mengajar Tatap Muka", 
+                "content" => "Kegiatan pembelajaran tatap muka dilaksanakan dengan protokol kesehatan yang ketat untuk kenyamanan siswa.", 
+                "gambar" => "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800", 
+                "tanggal" => "2024-01-03", 
+                "tipe" => "berita"
+            ],
+            [
+                "title" => "Workshop Guru: Metode Pembelajaran Inovatif", 
+                "content" => "MTsN 1 Magetan mengadakan workshop untuk para guru tentang metode pembelajaran inovatif dan digital.", 
+                "gambar" => "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800", 
+                "tanggal" => "2023-12-28", 
+                "tipe" => "kegiatan"
+            ],
+            [
+                "title" => "Peringatan Hari Guru Nasional", 
+                "content" => "Seluruh warga sekolah memperingati Hari Guru Nasional dengan berbagai kegiatan apresiasi terhadap guru.", 
+                "gambar" => "https://www.infojambi.com/image/uploads/2025/11/hari-guru-batanghari-1.jpg", 
+                "tanggal" => "2023-11-25", 
+                "tipe" => "kegiatan"
+            ],
         ];
 
         $this->data['ppdb_info'] = "Pendaftaran peserta didik baru dibuka setiap awal semester. Persyaratan:...";
@@ -45,13 +86,13 @@ class FrontendUserController extends Controller
 
         // DATA GALERI
         $this->data['galeri'] = [
-            ['id' => 1, 'judul' => 'Upacara Bendera Senin', 'gambar' => 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800', 'tanggal' => '2024-01-15'],
+            ['id' => 1, 'judul' => 'Upacara Bendera Senin', 'gambar' => 'https://mtsn8kebumen.sch.id/wp-content/uploads/2023/07/photo_845@17-08-2022_07-31-47-1.jpg', 'tanggal' => '2024-01-15'],
             ['id' => 2, 'judul' => 'Kegiatan Ekstrakurikuler Robotik', 'gambar' => 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800', 'tanggal' => '2024-01-14'],
             ['id' => 3, 'judul' => 'Lomba Futsal Antar Kelas', 'gambar' => 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800', 'tanggal' => '2024-01-13'],
-            ['id' => 4, 'judul' => 'Kegiatan Pramuka', 'gambar' => 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800', 'tanggal' => '2024-01-12'],
+            ['id' => 4, 'judul' => 'Kegiatan Pramuka', 'gambar' => 'https://mtssb-suryalaya.sch.id/media_library/posts/post-image-1692183026655.jpg', 'tanggal' => '2024-01-12'],
             ['id' => 5, 'judul' => 'Pembelajaran di Laboratorium', 'gambar' => 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800', 'tanggal' => '2024-01-11'],
-            ['id' => 6, 'judul' => 'Kegiatan Paduan Suara', 'gambar' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800', 'tanggal' => '2024-01-10'],
-            ['id' => 7, 'judul' => 'Praktek Sholat Berjamaah', 'gambar' => 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800', 'tanggal' => '2024-01-09'],
+            ['id' => 6, 'judul' => 'Kegiatan Paduan Suara', 'gambar' => 'https://i.ytimg.com/vi/_Zn_WNLHds8/maxresdefault.jpg', 'tanggal' => '2024-01-10'],
+            ['id' => 7, 'judul' => 'Praktek Sholat Berjamaah', 'gambar' => 'https://tse4.mm.bing.net/th/id/OIP.Zf3tvc1x0yPCfrzulK060gHaEK?rs=1&pid=ImgDetMain&o=7&rm=3', 'tanggal' => '2024-01-09'],
             ['id' => 8, 'judul' => 'Pelatihan Komputer', 'gambar' => 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800', 'tanggal' => '2024-01-08'],
         ];
 

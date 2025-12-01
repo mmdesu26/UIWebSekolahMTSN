@@ -40,9 +40,9 @@ class AdminController extends Controller
 
     // ============ DATA BERITA & PENGUMUMAN ============
     protected $berita = [
-        ['id' => 1, 'judul' => 'Pengumuman PPDB Tahun 2024', 'konten' => 'Pendaftaran PPDB MTsN 1 Magetan tahun ajaran 2024/2025 telah dibuka. Silakan kunjungi halaman PPDB untuk informasi lebih lanjut.', 'tanggal' => '2024-01-15', 'tipe' => 'pengumuman'],
-        ['id' => 2, 'judul' => 'Prestasi Terbaru: Tim Robotik Raih Juara 2 Nasional', 'konten' => 'Tim robotik MTsN 1 Magetan berhasil meraih juara 2 dalam kompetisi robotik nasional yang diselenggarakan di Jakarta.', 'tanggal' => '2024-01-10', 'tipe' => 'berita'],
-        ['id' => 3, 'judul' => 'Libur Semester Genap', 'konten' => 'Libur semester genap tahun ajaran 2023/2024 akan dimulai tanggal 1 Juni 2024 sampai dengan 15 Juli 2024.', 'tanggal' => '2024-01-05', 'tipe' => 'pengumuman'],
+        ['id' => 1, 'judul' => 'Pengumuman PPDB Tahun 2024', 'konten' => 'Pendaftaran PPDB MTsN 1 Magetan tahun ajaran 2024/2025 telah dibuka. Silakan kunjungi halaman PPDB untuk informasi lebih lanjut.', 'tanggal' => '2024-01-15', 'tipe' => 'pengumuman', 'gambar' => 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800'],
+        ['id' => 2, 'judul' => 'Prestasi Terbaru: Tim Robotik Raih Juara 2 Nasional', 'konten' => 'Tim robotik MTsN 1 Magetan berhasil meraih juara 2 dalam kompetisi robotik nasional yang diselenggarakan di Jakarta.', 'tanggal' => '2024-01-10', 'tipe' => 'berita', 'gambar' => 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800'],
+        ['id' => 3, 'judul' => 'Libur Semester Genap', 'konten' => 'Libur semester genap tahun ajaran 2023/2024 akan dimulai tanggal 1 Juni 2024 sampai dengan 15 Juli 2024.', 'tanggal' => '2024-01-05', 'tipe' => 'pengumuman', 'gambar' => 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800'],
     ];
 
     // ============ DATA PPDB ============
@@ -238,6 +238,7 @@ class AdminController extends Controller
             'konten' => $request->input('konten'),
             'tanggal' => date('Y-m-d'),
             'tipe' => $request->input('tipe'),
+            'gambar' => $request->input('gambar'),
         ];
 
         return redirect()->route('admin.berita')->with('success', 'Berita/Pengumuman berhasil ditambahkan');
@@ -250,6 +251,7 @@ class AdminController extends Controller
                 $b['judul'] = $request->input('judul');
                 $b['konten'] = $request->input('konten');
                 $b['tipe'] = $request->input('tipe');
+                $b['gambar'] = $request->input('gambar');
                 break;
             }
         }

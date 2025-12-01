@@ -11,31 +11,25 @@
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; margin-top: 50px;">
-            @for($i = 1; $i <= 6; $i++)
-            <div class="news-card" style="animation: fadeInUp 0.6s ease-out; animation-delay: {{ ($i - 1) * 0.1 }}s;">
+            @foreach($data['berita'] as $index => $item)
+            <div class="news-card" style="animation: fadeInUp 0.6s ease-out; animation-delay: {{ $index * 0.1 }}s;">
                 <div class="news-image">
-                    <img src="https://via.placeholder.com/400x250/1a5f3a/ffffff?text=Berita+{{ $i }}" alt="Berita {{ $i }}">
-                    <span class="news-badge">
-                        @if($i % 3 == 0)
-                            Pengumuman
-                        @elseif($i % 3 == 2)
-                            Kegiatan
-                        @else
-                            Berita
-                        @endif
+                    <img src="{{ $item['gambar'] ?? 'https://via.placeholder.com/400x250/1a5f3a/ffffff?text=Berita' }}" alt="{{ $item['title'] ?? 'Berita' }}">
+                    <span class="news-badge {{ $item['tipe'] ?? 'berita' }}">
+                        {{ ucfirst($item['tipe'] ?? 'berita') }}
                     </span>
                 </div>
                 <div class="news-content">
                     <div class="news-meta">
-                        <span><i class="fas fa-calendar"></i> {{ date('d M Y', strtotime('-' . $i . ' days')) }}</span>
+                        <span><i class="fas fa-calendar"></i> {{ isset($item['tanggal']) ? date('d M Y', strtotime($item['tanggal'])) : date('d M Y') }}</span>
                         <span><i class="fas fa-user"></i> Admin</span>
                     </div>
-                    <h3>Judul Berita atau Pengumuman Penting Nomor {{ $i }}</h3>
-                    <p>Deskripsi singkat tentang berita atau pengumuman yang relevan dengan kegiatan dan informasi terkini dari MTsN 1 Magetan...</p>
+                    <h3>{{ $item['title'] ?? 'Judul Berita' }}</h3>
+                    <p>{{ isset($item['content']) ? Str::limit($item['content'], 120) : 'Deskripsi berita...' }}</p>
                     <a href="#" class="read-more">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
-            @endfor
+            @endforeach
         </div>
 
         <!-- PAGINATION -->
@@ -48,4 +42,14 @@
         </div>
     </div>
 </section>
+
+<style>
+    .news-badge.pengumuman {
+        background: var(--secondary-color);
+    }
+
+    .news-badge.kegiatan {
+        background: var(--success-color);
+    }
+</style>
 @endsection

@@ -138,7 +138,7 @@
                 <!-- Card Guru 1 -->
                 <div class="guru-card" data-category="matematika" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.08); transition: all 0.3s ease;">
                     <div class="guru-image" style="width: 100%; height: 280px; background: linear-gradient(135deg, #1a5f3a, #2d8659); position: relative; overflow: hidden;">
-                        <img src="{{ asset('images/guru/guru1.jpg') }}" alt="Guru" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img src="https://i.pinimg.com/736x/e0/c2/37/e0c237a83397f0bbfd0417f467fc4d0f.jpg?w=400" alt="Guru Matematika" style="width: 100%; height: 100%; object-fit: cover;">
                         <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); padding: 20px 15px 15px;">
                             <span style="background: var(--accent-color); color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">Matematika</span>
                         </div>
@@ -165,7 +165,7 @@
                 <!-- Card Guru 2 -->
                 <div class="guru-card" data-category="ipa" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.08); transition: all 0.3s ease;">
                     <div class="guru-image" style="width: 100%; height: 280px; background: linear-gradient(135deg, #1a5f3a, #2d8659); position: relative; overflow: hidden;">
-                        <img src="{{ asset('images/guru/guru2.jpg') }}" alt="Guru" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img src="https://i.pinimg.com/736x/74/ec/14/74ec14ae5b9779ed5255f687d29fdbb1.jpg?w=400" alt="Guru IPA" style="width: 100%; height: 100%; object-fit: cover;">
                         <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); padding: 20px 15px 15px;">
                             <span style="background: var(--accent-color); color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">IPA</span>
                         </div>
@@ -192,7 +192,7 @@
                 <!-- Card Guru 3 -->
                 <div class="guru-card" data-category="bahasa" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.08); transition: all 0.3s ease;">
                     <div class="guru-image" style="width: 100%; height: 280px; background: linear-gradient(135deg, #1a5f3a, #2d8659); position: relative; overflow: hidden;">
-                        <img src="{{ asset('images/guru/guru3.jpg') }}" alt="Guru" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img src="https://i.pinimg.com/1200x/13/95/2b/13952b13ef26a67ce2b0e429e3f1ba1c.jpg?w=400" alt="Guru Bahasa" style="width: 100%; height: 100%; object-fit: cover;">
                         <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); padding: 20px 15px 15px;">
                             <span style="background: var(--accent-color); color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">Bahasa Indonesia</span>
                         </div>
@@ -219,7 +219,7 @@
                 <!-- Card Guru 4 -->
                 <div class="guru-card" data-category="agama" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.08); transition: all 0.3s ease;">
                     <div class="guru-image" style="width: 100%; height: 280px; background: linear-gradient(135deg, #1a5f3a, #2d8659); position: relative; overflow: hidden;">
-                        <img src="{{ asset('images/guru/guru4.jpg') }}" alt="Guru" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img src="https://i.pinimg.com/1200x/88/ac/51/88ac51950087e9d2d3d5c0865e4eff49.jpg?w=400" alt="Guru PAI" style="width: 100%; height: 100%; object-fit: cover;">
                         <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); padding: 20px 15px 15px;">
                             <span style="background: var(--accent-color); color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">PAI</span>
                         </div>
@@ -238,6 +238,60 @@
                         <p style="color: #888; font-size: 13px; line-height: 1.6; margin-bottom: 15px;">Lulusan Universitas Al-Azhar, Kairo. Pembina tahfidz dan kajian keislaman.</p>
                         <div style="display: flex; gap: 10px;">
                             <a href="mailto:ahmad.fauzi@mtsn1magetan.sch.id" style="flex: 1; text-align: center; padding: 8px; background: #f5f5f5; color: var(--primary-color); border-radius: 8px; text-decoration: none; font-size: 13px; transition: all 0.3s;">
+                                <i class="fas fa-envelope"></i> Email
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Guru 5 - BONUS -->
+                <div class="guru-card" data-category="bahasa" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.08); transition: all 0.3s ease;">
+                    <div class="guru-image" style="width: 100%; height: 280px; background: linear-gradient(135deg, #1a5f3a, #2d8659); position: relative; overflow: hidden;">
+                        <img src="https://i.pinimg.com/736x/13/00/3a/13003aaa0b52d0ba254ba75f6c720ec5.jpg?w=400" alt="Guru Bahasa Inggris" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); padding: 20px 15px 15px;">
+                            <span style="background: var(--accent-color); color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">Bahasa Inggris</span>
+                        </div>
+                    </div>
+                    <div class="guru-info" style="padding: 20px;">
+                        <h4 style="font-size: 18px; font-weight: 700; color: var(--primary-color); margin-bottom: 8px;">Sarah Johnson, S.Pd</h4>
+                        <p style="color: #666; font-size: 14px; margin-bottom: 15px;">
+                            <i class="fas fa-language" style="color: var(--accent-color); margin-right: 5px;"></i>
+                            Guru Bahasa Inggris
+                        </p>
+                        <div class="mapel-badges" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px;">
+                            <span style="background: #fff3e0; color: #e65100; padding: 4px 10px; border-radius: 12px; font-size: 12px;">Speaking</span>
+                            <span style="background: #fff3e0; color: #e65100; padding: 4px 10px; border-radius: 12px; font-size: 12px;">Grammar</span>
+                        </div>
+                        <p style="color: #888; font-size: 13px; line-height: 1.6; margin-bottom: 15px;">Lulusan program pertukaran pelajar, berpengalaman mengajar conversation.</p>
+                        <div style="display: flex; gap: 10px;">
+                            <a href="mailto:sarah.j@mtsn1magetan.sch.id" style="flex: 1; text-align: center; padding: 8px; background: #f5f5f5; color: var(--primary-color); border-radius: 8px; text-decoration: none; font-size: 13px; transition: all 0.3s;">
+                                <i class="fas fa-envelope"></i> Email
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Guru 6 - BONUS -->
+                <div class="guru-card" data-category="seni" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.08); transition: all 0.3s ease;">
+                    <div class="guru-image" style="width: 100%; height: 280px; background: linear-gradient(135deg, #1a5f3a, #2d8659); position: relative; overflow: hidden;">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400" alt="Guru Olahraga" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); padding: 20px 15px 15px;">
+                            <span style="background: var(--accent-color); color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">Penjaskes</span>
+                        </div>
+                    </div>
+                    <div class="guru-info" style="padding: 20px;">
+                        <h4 style="font-size: 18px; font-weight: 700; color: var(--primary-color); margin-bottom: 8px;">Agus Prasetyo, S.Pd, M.Or</h4>
+                        <p style="color: #666; font-size: 14px; margin-bottom: 15px;">
+                            <i class="fas fa-running" style="color: var(--accent-color); margin-right: 5px;"></i>
+                            Guru Pendidikan Jasmani
+                        </p>
+                        <div class="mapel-badges" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px;">
+                            <span style="background: #e8f5e9; color: #2e7d32; padding: 4px 10px; border-radius: 12px; font-size: 12px;">Futsal</span>
+                            <span style="background: #e8f5e9; color: #2e7d32; padding: 4px 10px; border-radius: 12px; font-size: 12px;">Basket</span>
+                        </div>
+                        <p style="color: #888; font-size: 13px; line-height: 1.6; margin-bottom: 15px;">Pelatih tim futsal sekolah, atlet nasional pencak silat.</p>
+                        <div style="display: flex; gap: 10px;">
+                            <a href="mailto:agus.p@mtsn1magetan.sch.id" style="flex: 1; text-align: center; padding: 8px; background: #f5f5f5; color: var(--primary-color); border-radius: 8px; text-decoration: none; font-size: 13px; transition: all 0.3s;">
                                 <i class="fas fa-envelope"></i> Email
                             </a>
                         </div>

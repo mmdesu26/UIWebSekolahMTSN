@@ -1505,7 +1505,7 @@
                 <i class="fas fa-graduation-cap" style="margin-right: 15px; color: var(--secondary-color);"></i>
                 Selamat Datang di MTsN 1 Magetan
             </h1>
-            <p class="hero-subtitle">Membentuk Generasi Berakhlak Mulia, Berprestasi, dan Berwawasan Global</p>
+            <p class="hero-subtitle">TERWUJUDNYA SISWA YANG BERPRESTASI, MANDIRI, DAN BERAKHLAQUL KARIMAH</p>
             <div class="btn-group-hero">
                 <a href="{{ route('ppdb') }}" class="btn btn-primary">
                     <i class="fas fa-arrow-right"></i> Daftar PPDB Sekarang
@@ -1581,7 +1581,7 @@
         </div>
         <div class="about-content">
             <div class="about-image">
-                <img src="https://via.placeholder.com/600x400/1a5f3a/ffffff?text=Gedung+MTSN" alt="MTSN Magetan">
+                <img src="https://th.bing.com/th/id/R.cf7755c740584fd2d9f1d618172494bf?rik=Xf3hxKFFcngmEg&riu=http%3a%2f%2fmtsn1magetan.com%2fmedia_library%2falbums%2ff3537fc0211418910ae81085977cff0b.jpeg&ehk=32Uzit7AlPNDn8HKxjJhfB9xqMkKmgxG9lOhN3HeSuQ%3d&risl=&pid=ImgRaw&r=0" alt="MTSN Magetan">
             </div>
             <div class="about-text">
                 <h3><i class="fas fa-bullseye" style="margin-right: 10px; color: var(--secondary-color);"></i>Visi Kami</h3>
@@ -1614,65 +1614,33 @@
             <p class="section-subtitle">Informasi terkini dari MTsN 1 Magetan</p>
         </div>
         <div class="news-grid">
+            @foreach(array_slice($data['berita'], 0, 3) as $index => $item)
             <div class="news-card">
                 <div class="news-image">
-                    <img src="https://via.placeholder.com/400x250/1a5f3a/ffffff?text=Berita+1" alt="Berita">
-                    <span class="news-badge">
-                        <i class="fas fa-star" style="margin-right: 6px;"></i>Berita
+                    <img src="{{ $item['gambar'] ?? 'https://via.placeholder.com/400x250/1a5f3a/ffffff?text=Berita' }}" alt="{{ $item['title'] ?? 'Berita' }}">
+                    <span class="news-badge {{ $item['tipe'] ?? 'berita' }}">
+                        @if(($item['tipe'] ?? 'berita') == 'pengumuman')
+                            <i class="fas fa-bell" style="margin-right: 6px;"></i>Pengumuman
+                        @elseif(($item['tipe'] ?? 'berita') == 'kegiatan')
+                            <i class="fas fa-calendar-days" style="margin-right: 6px;"></i>Kegiatan
+                        @else
+                            <i class="fas fa-star" style="margin-right: 6px;"></i>Berita
+                        @endif
                     </span>
                 </div>
                 <div class="news-content">
                     <div class="news-meta">
-                        <span><i class="fas fa-calendar"></i> 25 November 2025</span>
+                        <span><i class="fas fa-calendar"></i> {{ isset($item['tanggal']) ? date('d F Y', strtotime($item['tanggal'])) : date('d F Y') }}</span>
                         <span><i class="fas fa-user"></i> Admin</span>
                     </div>
-                    <h3>MTsN 1 Magetan Raih Juara 1 Lomba KSM Tingkat Provinsi</h3>
-                    <p>Siswa MTsN 1 Magetan berhasil meraih juara 1 dalam Kompetisi Sains Madrasah tingkat Provinsi Jawa Timur...</p>
+                    <h3>{{ $item['title'] ?? 'Judul Berita' }}</h3>
+                    <p>{{ isset($item['content']) ? Str::limit($item['content'], 100) : 'Deskripsi berita...' }}</p>
                     <a href="{{ route('berita') }}" class="read-more">
                         Baca Selengkapnya <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
-
-            <div class="news-card">
-                <div class="news-image">
-                    <img src="https://via.placeholder.com/400x250/1a5f3a/ffffff?text=Pengumuman" alt="Pengumuman">
-                    <span class="news-badge pengumuman">
-                        <i class="fas fa-bell" style="margin-right: 6px;"></i>Pengumuman
-                    </span>
-                </div>
-                <div class="news-content">
-                    <div class="news-meta">
-                        <span><i class="fas fa-calendar"></i> 20 November 2025</span>
-                        <span><i class="fas fa-user"></i> Admin</span>
-                    </div>
-                    <h3>Pengumuman PPDB Tahun Ajaran 2026/2027</h3>
-                    <p>Pendaftaran Peserta Didik Baru untuk tahun ajaran 2026/2027 akan dibuka mulai tanggal 1 Januari 2026...</p>
-                    <a href="{{ route('ppdb') }}" class="read-more">
-                        Baca Selengkapnya <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="news-card">
-                <div class="news-image">
-                    <img src="https://via.placeholder.com/400x250/1a5f3a/ffffff?text=Kegiatan" alt="Kegiatan">
-                    <span class="news-badge kegiatan">
-                        <i class="fas fa-calendar-days" style="margin-right: 6px;"></i>Kegiatan
-                    </span>
-                </div>
-                <div class="news-content">
-                    <div class="news-meta">
-                        <span><i class="fas fa-calendar"></i> 15 November 2025</span>
-                        <span><i class="fas fa-user"></i> Admin</span>
-                    </div>
-                    <h3>Pelaksanaan Peringatan Hari Guru Nasional</h3>
-                    <p>MTsN 1 Magetan mengadakan serangkaian kegiatan dalam rangka memperingati Hari Guru Nasional...</p>
-                    <a href="{{ route('berita') }}" class="read-more">
-                        Baca Selengkapnya <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
