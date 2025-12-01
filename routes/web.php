@@ -107,12 +107,21 @@ Route::prefix('admin')->middleware('\App\Http\Middleware\AdminAuth')->group(func
     // Master Data - Sosial Media
     Route::get('/sosial-media', [AdminController::class, 'manageSosialMedia'])->name('admin.sosial-media');
     Route::post('/sosial-media/update', [AdminController::class, 'updateSosialMedia'])->name('admin.sosial-media.update');
+Route::delete('/admin/sosial-media/{id}', 
+    [AdminController::class, 'deleteSosmed']
+)->name('admin.sosmed.delete');
+Route::post('/admin/sosial-media/update/{id}', 
+    [AdminController::class, 'updateSosmed']
+)->name('admin.sosmed.update');
 
     // Master Data - Galeri
     Route::get('/galeri', [AdminController::class, 'manageGaleri'])->name('admin.galeri');
     Route::post('/galeri/add', [AdminController::class, 'addGaleri'])->name('admin.galeri.add');
     Route::post('/galeri/update/{id}', [AdminController::class, 'updateGaleri'])->name('admin.galeri.update');
     Route::post('/galeri/delete/{id}', [AdminController::class, 'deleteGaleri'])->name('admin.galeri.delete');
+Route::post('/admin/galeri/upload', 
+    [AdminController::class, 'uploadGaleri']
+)->name('admin.galeri.upload');
 });
 
     // ============================================

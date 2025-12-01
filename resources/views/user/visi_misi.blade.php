@@ -18,7 +18,7 @@
                     Visi Kami
                 </h3>
                 <p style="font-size: 18px; line-height: 1.8; font-weight: 500;">
-                    "Terwujudnya Madrasah yang Islami, Berprestasi, dan Berwawasan Lingkungan"
+                    "Terwujudnya Siswa yang Berprestasi, Mandiri, dan Berakhlaqul Karimah"
                 </p>
                 <p style="font-size: 15px; opacity: 0.9; margin-top: 20px;">
                     Visi kami adalah menciptakan lembaga pendidikan yang tidak hanya unggul dalam bidang akademik, tetapi juga memiliki nilai-nilai Islami yang kuat dan kepedulian terhadap lingkungan sekitar.
