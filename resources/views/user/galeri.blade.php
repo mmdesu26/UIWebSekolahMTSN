@@ -265,6 +265,12 @@
             </div>
         </div>
         @endforeach
+        <div class="gallery-item">
+    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@mtsn1magetan/video/7576676005062921492"
+        data-video-id="7576676005062921492" style="width:100%; height:100%;">
+        <section></section>
+    </blockquote>
+</div>
     </div>
 </div>
 
@@ -279,6 +285,8 @@
         <div class="lightbox-caption" id="lightbox-caption"></div>
     </div>
 </div>
+
+<script async src="https://www.tiktok.com/embed.js"></script>
 
 <script>
     const galeriData = @json($galeri);

@@ -1686,7 +1686,7 @@
                 </div>
             </div>
             <div class="ppdb-image">
-                <img src="https://via.placeholder.com/600x500/1a5f3a/ffffff?text=PPDB+2026" alt="PPDB">
+                <img src="{{ asset('icon.png') }}" alt="Icon">
             </div>
         </div>
     </div>
