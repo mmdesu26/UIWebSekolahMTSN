@@ -124,7 +124,7 @@ class FrontendUserController extends Controller
     // =============================
     public function profilIndex()
     {
-        return view('user.sejarah', [
+        return view('user.profil.sejarah', [
             'title' => 'Profil Sekolah - MTsN 1 Magetan',
             'description' => 'Profil lengkap MTsN 1 Magetan',
             'data' => $this->data
@@ -138,7 +138,7 @@ class FrontendUserController extends Controller
 
     public function sejarah()
     {
-        return view('user.sejarah', [
+        return view('user.profil.sejarah', [
             'title' => 'Sejarah Sekolah - MTsN 1 Magetan',
             'description' => 'Perjalanan sejarah MTsN 1 Magetan',
             'data' => $this->data
@@ -147,7 +147,7 @@ class FrontendUserController extends Controller
 
     public function visiMisi()
     {
-        return view('user.visi_misi', [
+        return view('user.profil.visi_misi', [
             'title' => 'Visi & Misi - MTsN 1 Magetan',
             'description' => 'Visi dan misi MTsN 1 Magetan',
             'data' => $this->data
@@ -156,16 +156,16 @@ class FrontendUserController extends Controller
 
     public function struktur()
     {
-        return view('user.struktur', [
-            'title' => 'Struktur Organisasi - MTsN 1 Magetan',
-            'description' => 'Struktur organisasi sekolah',
-            'data' => $this->data
-        ]);
+        return view('user.profil.struktur_organisasi.struktur', [
+    'title' => 'Struktur Organisasi - MTsN 1 Magetan',
+    'description' => 'Struktur organisasi sekolah',
+    'data' => $this->data
+]);
     }
 
     public function strukturOrganisasi()
     {
-        return view('user.struktur', ['data' => $this->data]);
+        return view('user.profil.struktur_organisasi.struktur', ['data' => $this->data]);
     }
 
     public function guru()
