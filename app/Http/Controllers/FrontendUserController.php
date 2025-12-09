@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sejarah;
 use Illuminate\Http\Request;
 
 class FrontendUserController extends Controller
@@ -10,9 +11,11 @@ class FrontendUserController extends Controller
 
     public function __construct()
     {
-        // Data statis (dummy)
-        $this->data['sejarah'] = "MTsN 1 Magetan memiliki sejarah panjang sebagai lembaga pendidikan islam terpadu...";
+        // =============================
+        // DUMMY DATA (MASIH DIPAKAI)
+        // =============================
         $this->data['visi'] = "Menjadi institusi yang unggul dalam mengembangkan karakter, ilmu pengetahuan, dan iman.";
+
         $this->data['misi'] = [
             "Membangun budaya belajar yang mandiri dan berakhlak.",
             "Meningkatkan kualitas pembelajaran melalui inovasi kurikulum.",
@@ -279,7 +282,6 @@ class FrontendUserController extends Controller
     // =============================
     public function galeri()
     {
-        // Ambil data galeri dari property $data
         $galeri = $this->data['galeri'];
 
         return view('user.galeri', [
