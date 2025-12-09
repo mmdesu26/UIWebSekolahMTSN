@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Sejarah;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -115,16 +117,60 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('data'));
     }
 
-    // ============ SEJARAH SEKOLAH ============
+    // =====================================================
+    // ============ CRUD SEJARAH (MENGGUNAKAN MODEL) =======
+    // =====================================================
+
     public function showSejarah()
     {
-        return view('admin.sejarah', ['sejarah' => $this->sejarah]);
+        $sejarah = Sejarah::first();
+        return view('admin.sejarah', compact('sejarah'));
     }
 
     public function updateSejarah(Request $request)
     {
-        $this->sejarah['content'] = $request->input('content');
+        $request->validate([
+            'content' => 'required|string',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        $sejarah = Sejarah::first();
+        
+        if (!$sejarah) {
+            $sejarah = new Sejarah();
+        }
+
+        $sejarah->content = $request->input('content');
+
+        if ($request->hasFile('gambar')) {
+            if ($sejarah->gambar && Storage::exists('public/sejarah/' . $sejarah->gambar)) {
+                Storage::delete('public/sejarah/' . $sejarah->gambar);
+            }
+
+            $file = $request->file('gambar');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/sejarah', $filename);
+            $sejarah->gambar = $filename;
+        }
+
+        $sejarah->save();
+
         return redirect()->route('admin.sejarah')->with('success', 'Sejarah sekolah berhasil diperbarui');
+    }
+
+    public function deleteGambarSejarah()
+    {
+        $sejarah = Sejarah::first();
+        
+        if ($sejarah && $sejarah->gambar) {
+            if (Storage::exists('public/sejarah/' . $sejarah->gambar)) {
+                Storage::delete('public/sejarah/' . $sejarah->gambar);
+            }
+            $sejarah->gambar = null;
+            $sejarah->save();
+        }
+
+        return redirect()->route('admin.sejarah')->with('success', 'Gambar berhasil dihapus');
     }
 
     // ============ VISI & MISI ============
@@ -224,7 +270,7 @@ class AdminController extends Controller
         return redirect()->route('admin.ekstrakurikuler')->with('success', 'Ekstrakurikuler berhasil dihapus');
     }
 
-    // ============ BERITA & PENGUMUMAN ============
+    // ============ BERITA ============
     public function manageBerita()
     {
         return view('admin.berita', ['berita' => $this->berita]);
@@ -296,7 +342,6 @@ class AdminController extends Controller
 
     public function updateSosialMedia(Request $request)
     {
-        // Update sosial media (simplified version)
         return redirect()->route('admin.sosial-media')->with('success', 'Sosial Media berhasil diperbarui');
     }
 
