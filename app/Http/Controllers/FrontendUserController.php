@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sejarah;
 use Illuminate\Http\Request;
+use App\Models\Sejarah;
 
 class FrontendUserController extends Controller
 {
@@ -11,9 +11,7 @@ class FrontendUserController extends Controller
 
     public function __construct()
     {
-        // =============================
-        // DUMMY DATA (MASIH DIPAKAI)
-        // =============================
+        // DATA VISI MISI
         $this->data['visi'] = "Menjadi institusi yang unggul dalam mengembangkan karakter, ilmu pengetahuan, dan iman.";
 
         $this->data['misi'] = [
@@ -21,57 +19,61 @@ class FrontendUserController extends Controller
             "Meningkatkan kualitas pembelajaran melalui inovasi kurikulum.",
             "Mengembangkan kepemimpinan, kerjasama, dan empati.",
         ];
+
+        // DATA STRUKTUR
         $this->data['struktur'] = "Kepala Sekolah -> Wakil Kepala -> Kepala Bidang -> Staf Pengajar.";
         $this->data['struktur_organisasi'] = $this->data['struktur'];
 
-        // DATA BERITA DENGAN GAMBAR
+        // DATA BERITA
         $this->data['berita'] = [
             [
-                "title" => "Pengumuman PPDB Tahun 2024", 
-                "content" => "Pendaftaran PPDB MTsN 1 Magetan tahun ajaran 2024/2025 telah dibuka. Silakan kunjungi halaman PPDB untuk informasi lebih lanjut.", 
-                "gambar" => "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800", 
-                "tanggal" => "2024-01-15", 
+                "title" => "Pengumuman PPDB Tahun 2024",
+                "content" => "Pendaftaran PPDB MTsN 1 Magetan tahun ajaran 2024/2025 telah dibuka.",
+                "gambar" => "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800",
+                "tanggal" => "2024-01-15",
                 "tipe" => "pengumuman"
             ],
             [
-                "title" => "Prestasi Terbaru: Tim Robotik Raih Juara 2 Nasional", 
-                "content" => "Tim robotik MTsN 1 Magetan berhasil meraih juara 2 dalam kompetisi robotik nasional yang diselenggarakan di Jakarta.", 
-                "gambar" => "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800", 
-                "tanggal" => "2024-01-10", 
+                "title" => "Prestasi Terbaru: Tim Robotik Raih Juara 2 Nasional",
+                "content" => "Tim robotik MTsN 1 Magetan berhasil meraih juara 2 dalam kompetisi robotik nasional.",
+                "gambar" => "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800",
+                "tanggal" => "2024-01-10",
                 "tipe" => "berita"
             ],
             [
-                "title" => "Libur Semester Genap", 
-                "content" => "Libur semester genap tahun ajaran 2023/2024 akan dimulai tanggal 1 Juni 2024 sampai dengan 15 Juli 2024.", 
-                "gambar" => "https://arrahmahislamicschool.com/wp-content/uploads/2024/09/1667895469_910_580.jpg", 
-                "tanggal" => "2024-01-05", 
+                "title" => "Libur Semester Genap",
+                "content" => "Libur semester genap dilaksanakan mulai 1 Juni - 15 Juli 2024.",
+                "gambar" => "https://arrahmahislamicschool.com/wp-content/uploads/2024/09/1667895469_910_580.jpg",
+                "tanggal" => "2024-01-05",
                 "tipe" => "pengumuman"
             ],
             [
-                "title" => "Kegiatan Belajar Mengajar Tatap Muka", 
-                "content" => "Kegiatan pembelajaran tatap muka dilaksanakan dengan protokol kesehatan yang ketat untuk kenyamanan siswa.", 
-                "gambar" => "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800", 
-                "tanggal" => "2024-01-03", 
+                "title" => "Kegiatan Belajar Mengajar Tatap Muka",
+                "content" => "Pembelajaran dilaksanakan dengan protokol kesehatan.",
+                "gambar" => "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800",
+                "tanggal" => "2024-01-03",
                 "tipe" => "berita"
             ],
             [
-                "title" => "Workshop Guru: Metode Pembelajaran Inovatif", 
-                "content" => "MTsN 1 Magetan mengadakan workshop untuk para guru tentang metode pembelajaran inovatif dan digital.", 
-                "gambar" => "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800", 
-                "tanggal" => "2023-12-28", 
+                "title" => "Workshop Guru: Metode Pembelajaran Inovatif",
+                "content" => "Workshop untuk guru tentang metode digital & inovatif.",
+                "gambar" => "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800",
+                "tanggal" => "2023-12-28",
                 "tipe" => "kegiatan"
             ],
             [
-                "title" => "Peringatan Hari Guru Nasional", 
-                "content" => "Seluruh warga sekolah memperingati Hari Guru Nasional dengan berbagai kegiatan apresiasi terhadap guru.", 
-                "gambar" => "https://www.infojambi.com/image/uploads/2025/11/hari-guru-batanghari-1.jpg", 
-                "tanggal" => "2023-11-25", 
+                "title" => "Peringatan Hari Guru Nasional",
+                "content" => "Berbagai kegiatan apresiasi terhadap guru.",
+                "gambar" => "https://www.infojambi.com/image/uploads/2025/11/hari-guru-batanghari-1.jpg",
+                "tanggal" => "2023-11-25",
                 "tipe" => "kegiatan"
             ],
         ];
 
-        $this->data['ppdb_info'] = "Pendaftaran peserta didik baru dibuka setiap awal semester. Persyaratan:...";
+        // PPDB Info
+        $this->data['ppdb_info'] = "Pendaftaran peserta didik baru dibuka setiap awal semester.";
 
+        // EKSTRAKURIKULER
         $this->data['ekstrakurikuler'] = [
             [
                 "name" => "Az-Zuhra Futsal",
@@ -87,7 +89,7 @@ class FrontendUserController extends Controller
             ],
         ];
 
-        // DATA GALERI
+        // GALERI
         $this->data['galeri'] = [
             ['id' => 1, 'judul' => 'Upacara Bendera Senin', 'gambar' => 'https://mtsn8kebumen.sch.id/wp-content/uploads/2023/07/photo_845@17-08-2022_07-31-47-1.jpg', 'tanggal' => '2024-01-15'],
             ['id' => 2, 'judul' => 'Kegiatan Ekstrakurikuler Robotik', 'gambar' => 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800', 'tanggal' => '2024-01-14'],
@@ -99,6 +101,7 @@ class FrontendUserController extends Controller
             ['id' => 8, 'judul' => 'Pelatihan Komputer', 'gambar' => 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800', 'tanggal' => '2024-01-08'],
         ];
 
+        // SOSIAL MEDIA
         $this->data['sosial'] = [
             ["name" => "Instagram", "link" => "https://instagram.com/mtsn1magetan"],
             ["name" => "Facebook", "link" => "https://facebook.com/mtsn1magetan"],
@@ -139,13 +142,14 @@ class FrontendUserController extends Controller
         return view('user.profil', ['data' => $this->data]);
     }
 
+    // ================================================
+    // SEJARAH — MENGGUNAKAN DATABASE
+    // ================================================
     public function sejarah()
     {
-        return view('user.profil.sejarah', [
-            'title' => 'Sejarah Sekolah - MTsN 1 Magetan',
-            'description' => 'Perjalanan sejarah MTsN 1 Magetan',
-            'data' => $this->data
-        ]);
+        $sejarah = Sejarah::first();
+
+        return view('user.profil.sejarah', compact('sejarah'));
     }
 
     public function visiMisi()
@@ -160,10 +164,10 @@ class FrontendUserController extends Controller
     public function struktur()
     {
         return view('user.profil.struktur_organisasi.struktur', [
-    'title' => 'Struktur Organisasi - MTsN 1 Magetan',
-    'description' => 'Struktur organisasi sekolah',
-    'data' => $this->data
-]);
+            'title' => 'Struktur Organisasi - MTsN 1 Magetan',
+            'description' => 'Struktur organisasi sekolah',
+            'data' => $this->data
+        ]);
     }
 
     public function strukturOrganisasi()
@@ -293,7 +297,6 @@ class FrontendUserController extends Controller
 
     public function galeriKategori($kategori)
     {
-        // Filter galeri berdasarkan kategori (jika diperlukan di masa depan)
         $galeri = $this->data['galeri'];
 
         return view('user.galeri', [

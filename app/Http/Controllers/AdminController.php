@@ -13,18 +13,15 @@ class AdminController extends Controller
         'password' => 'secret'
     ];
 
-    // ============ DATA SEJARAH SEKOLAH ============
     protected $sejarah = [
         'content' => 'MTsN 1 Magetan didirikan pada tahun 1975 sebagai salah satu lembaga pendidikan menengah pertama di Kabupaten Magetan. Sekolah ini telah berkembang menjadi salah satu sekolah terkemuka di daerah ini dengan fasilitas modern dan tenaga pengajar yang berpengalaman.'
     ];
 
-    // ============ DATA VISI & MISI ============
     protected $visiMisi = [
         'visi' => 'Menjadi sekolah unggul yang menghasilkan peserta didik berkualitas, berakhlak mulia, dan berdaya saing global.',
         'misi' => 'Menyelenggarakan pendidikan berkualitas dengan standar internasional; Membina peserta didik yang berkarakter dan berintegritas; Mengembangkan potensi peserta didik di bidang akademik dan non-akademik; Mempersiapkan peserta didik untuk melanjutkan ke jenjang pendidikan yang lebih tinggi.'
     ];
 
-    // ============ DATA GURU ============
     protected $guru = [
         ['id' => 1, 'nama' => 'Budi Santoso', 'mata_pelajaran' => 'Matematika', 'nip' => '1975010110000001'],
         ['id' => 2, 'nama' => 'Rina Winarni', 'mata_pelajaran' => 'Bahasa Indonesia', 'nip' => '1978050220000002'],
@@ -32,7 +29,6 @@ class AdminController extends Controller
         ['id' => 4, 'nama' => 'Siti Nurhaliza', 'mata_pelajaran' => 'IPA', 'nip' => '1982070415000004'],
     ];
 
-    // ============ DATA EKSTRAKURIKULER ============
     protected $ekstrakurikuler = [
         ['id' => 1, 'name' => 'Az-Zuhra Futsal', 'jadwal' => 'Senin & Rabu, 15:30-17:00', 'pembina' => 'Iwan Setyawan', 'prestasi' => 'Juara 1 Turnamen Futsal Antar Sekolah 2023'],
         ['id' => 2, 'name' => 'Paskibraka', 'jadwal' => 'Selasa, 15:30-17:00', 'pembina' => 'Dewi Lestari', 'prestasi' => 'Juara Harapan 2 Paskibraka Se-Magetan 2023'],
@@ -40,14 +36,12 @@ class AdminController extends Controller
         ['id' => 4, 'name' => 'Robotik', 'jadwal' => 'Jumat, 15:30-17:30', 'pembina' => 'Tri Handoko', 'prestasi' => 'Juara 2 Kompetisi Robotik Nasional 2023'],
     ];
 
-    // ============ DATA BERITA & PENGUMUMAN ============
     protected $berita = [
         ['id' => 1, 'judul' => 'Pengumuman PPDB Tahun 2024', 'konten' => 'Pendaftaran PPDB MTsN 1 Magetan tahun ajaran 2024/2025 telah dibuka. Silakan kunjungi halaman PPDB untuk informasi lebih lanjut.', 'tanggal' => '2024-01-15', 'tipe' => 'pengumuman', 'gambar' => 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800'],
         ['id' => 2, 'judul' => 'Prestasi Terbaru: Tim Robotik Raih Juara 2 Nasional', 'konten' => 'Tim robotik MTsN 1 Magetan berhasil meraih juara 2 dalam kompetisi robotik nasional yang diselenggarakan di Jakarta.', 'tanggal' => '2024-01-10', 'tipe' => 'berita', 'gambar' => 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800'],
         ['id' => 3, 'judul' => 'Libur Semester Genap', 'konten' => 'Libur semester genap tahun ajaran 2023/2024 akan dimulai tanggal 1 Juni 2024 sampai dengan 15 Juli 2024.', 'tanggal' => '2024-01-05', 'tipe' => 'pengumuman', 'gambar' => 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800'],
     ];
 
-    // ============ DATA PPDB ============
     protected $ppdb = [
         'judul' => 'Penerimaan Peserta Didik Baru MTsN 1 Magetan 2024/2025',
         'dibuka' => '1 Januari 2024',
@@ -57,7 +51,6 @@ class AdminController extends Controller
         'konten' => 'PPDB MTsN 1 Magetan dibuka untuk menerima peserta didik baru. Pendaftaran dilakukan secara online melalui website sekolah. Calon peserta didik harus memenuhi persyaratan yang telah ditentukan.'
     ];
 
-    // ============ DATA SOSIAL MEDIA ============
     protected $sosialMedia = [
         ['platform' => 'Facebook', 'handle' => 'MTsN 1 Magetan Official', 'link' => 'https://facebook.com/mtsn1magetan'],
         ['platform' => 'Instagram', 'handle' => '@mtsn1magetan', 'link' => 'https://instagram.com/mtsn1magetan'],
@@ -65,7 +58,6 @@ class AdminController extends Controller
         ['platform' => 'WhatsApp', 'handle' => '0812-3456-7890', 'link' => '#'],
     ];
 
-    // ============ DATA GALERI ============
     protected $galeri = [
         ['id' => 1, 'judul' => 'Upacara Bendera Senin', 'gambar' => 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800', 'tanggal' => '2024-01-15'],
         ['id' => 2, 'judul' => 'Kegiatan Ekstrakurikuler Robotik', 'gambar' => 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800', 'tanggal' => '2024-01-14'],
@@ -117,13 +109,21 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('data'));
     }
 
-    // =====================================================
-    // ============ CRUD SEJARAH (MENGGUNAKAN MODEL) =======
-    // =====================================================
+    // ============================================================
+    // =============== CRUD SEJARAH  ========== ========== =========
+    // ============================================================
 
     public function showSejarah()
     {
         $sejarah = Sejarah::first();
+
+        if (!$sejarah) {
+            $sejarah = Sejarah::create([
+                'content' => '',
+                'image' => null
+            ]);
+        }
+
         return view('admin.sejarah', compact('sejarah'));
     }
 
@@ -131,46 +131,47 @@ class AdminController extends Controller
     {
         $request->validate([
             'content' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         $sejarah = Sejarah::first();
-        
+
         if (!$sejarah) {
             $sejarah = new Sejarah();
         }
 
-        $sejarah->content = $request->input('content');
+        $sejarah->content = $request->content;
 
-        if ($request->hasFile('gambar')) {
-            if ($sejarah->gambar && Storage::exists('public/sejarah/' . $sejarah->gambar)) {
-                Storage::delete('public/sejarah/' . $sejarah->gambar);
+        if ($request->hasFile('image')) {
+            if ($sejarah->image && Storage::disk('public')->exists($sejarah->image)) {
+                Storage::disk('public')->delete($sejarah->image);
             }
 
-            $file = $request->file('gambar');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('public/sejarah', $filename);
-            $sejarah->gambar = $filename;
+            $imagePath = $request->file('image')->store('sejarah', 'public');
+            $sejarah->image = $imagePath;
         }
 
         $sejarah->save();
 
-        return redirect()->route('admin.sejarah')->with('success', 'Sejarah sekolah berhasil diperbarui');
+        return redirect()->route('admin.sejarah')->with('success', 'Sejarah berhasil diperbarui!');
     }
 
-    public function deleteGambarSejarah()
+    public function deleteSejarahImage()
     {
         $sejarah = Sejarah::first();
-        
-        if ($sejarah && $sejarah->gambar) {
-            if (Storage::exists('public/sejarah/' . $sejarah->gambar)) {
-                Storage::delete('public/sejarah/' . $sejarah->gambar);
+
+        if ($sejarah && $sejarah->image) {
+            if (Storage::disk('public')->exists($sejarah->image)) {
+                Storage::disk('public')->delete($sejarah->image);
             }
-            $sejarah->gambar = null;
+
+            $sejarah->image = null;
             $sejarah->save();
+
+            return response()->json(['success' => true, 'message' => 'Gambar berhasil dihapus!']);
         }
 
-        return redirect()->route('admin.sejarah')->with('success', 'Gambar berhasil dihapus');
+        return response()->json(['success' => false, 'message' => 'Gambar tidak ditemukan!']);
     }
 
     // ============ VISI & MISI ============
@@ -251,9 +252,9 @@ class AdminController extends Controller
         foreach ($this->ekstrakurikuler as &$ekstra) {
             if ($ekstra['id'] == $id) {
                 $ekstra['name'] = $request->input('name');
-                $ekstra['jadwal'] = $request->input('jadwal');
-                $ekstra['pembina'] = $request->input('pembina');
-                $ekstra['prestasi'] = $request->input('prestasi');
+                $ekstra->jadwal = $request->input('jadwal');
+                $ekstra->pembina = $request->input('pembina');
+                $ekstra->prestasi = $request->input('prestasi');
                 break;
             }
         }

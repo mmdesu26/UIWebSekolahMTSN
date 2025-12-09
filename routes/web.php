@@ -27,13 +27,8 @@ Route::prefix('profil-sekolah')->group(function () {
     Route::get('/guru', [FrontendUserController::class, 'guru'])->name('profil.guru');
 
     // Fasilitas & Akreditasi
-    Route::get('/fasilitas', function () {
-        return view('user.profil.fasilitas_sekolah');
-    })->name('profil.fasilitas');
-
-    Route::get('/akreditasi', function () {
-        return view('user.profil.akreditasi');
-    })->name('profil.akreditasi');
+    Route::get('/fasilitas', fn() => view('user.profil.fasilitas_sekolah'))->name('profil.fasilitas');
+    Route::get('/akreditasi', fn() => view('user.profil.akreditasi'))->name('profil.akreditasi');
 });
 
 
@@ -57,6 +52,7 @@ Route::prefix('ppdb')->group(function () {
     Route::post('/submit', [FrontendUserController::class, 'ppdbSubmit'])->name('ppdb.submit');
     Route::get('/status/{no_registrasi}', [FrontendUserController::class, 'ppdbStatus'])->name('ppdb.status');
 });
+
 
 /*
 |--------------------------------------------------------------------------
@@ -105,44 +101,77 @@ Route::prefix('admin')->middleware(\App\Http\Middleware\AdminAuth::class)->group
     // Dashboard
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
-    // Sejarah
+    /*
+    |--------------------------------------------------------------------------
+    | SEJARAH (UPDATED VERSION)
+    |--------------------------------------------------------------------------
+    */
     Route::get('/sejarah', [AdminController::class, 'showSejarah'])->name('admin.sejarah');
     Route::post('/sejarah/update', [AdminController::class, 'updateSejarah'])->name('admin.sejarah.update');
+    Route::delete('/sejarah/delete-image', [AdminController::class, 'deleteGambarSejarah'])->name('admin.sejarah.delete-image');
 
-    // Visi & Misi
+    /*
+    |--------------------------------------------------------------------------
+    | VISI & MISI
+    |--------------------------------------------------------------------------
+    */
     Route::get('/visi-misi', [AdminController::class, 'showVisiMisi'])->name('admin.visi-misi');
     Route::post('/visi-misi/update', [AdminController::class, 'updateVisiMisi'])->name('admin.visi-misi.update');
 
-    // Guru
+    /*
+    |--------------------------------------------------------------------------
+    | GURU
+    |--------------------------------------------------------------------------
+    */
     Route::get('/guru', [AdminController::class, 'manageGuru'])->name('admin.guru');
     Route::post('/guru/add', [AdminController::class, 'addGuru'])->name('admin.guru.add');
     Route::post('/guru/update/{id}', [AdminController::class, 'updateGuru'])->name('admin.guru.update');
     Route::post('/guru/delete/{id}', [AdminController::class, 'deleteGuru'])->name('admin.guru.delete');
 
-    // Ekstrakurikuler
+    /*
+    |--------------------------------------------------------------------------
+    | EKSTRAKURIKULER
+    |--------------------------------------------------------------------------
+    */
     Route::get('/ekstrakurikuler', [AdminController::class, 'manageEkstrakurikuler'])->name('admin.ekstrakurikuler');
     Route::post('/ekstrakurikuler/add', [AdminController::class, 'addEkstra'])->name('admin.ekstrakurikuler.add');
     Route::post('/ekstrakurikuler/update/{id}', [AdminController::class, 'updateEkstra'])->name('admin.ekstrakurikuler.update');
     Route::post('/ekstrakurikuler/delete/{id}', [AdminController::class, 'deleteEkstra'])->name('admin.ekstrakurikuler.delete');
 
-    // Berita
+    /*
+    |--------------------------------------------------------------------------
+    | BERITA
+    |--------------------------------------------------------------------------
+    */
     Route::get('/berita', [AdminController::class, 'manageBerita'])->name('admin.berita');
     Route::post('/berita/add', [AdminController::class, 'addBerita'])->name('admin.berita.add');
     Route::post('/berita/update/{id}', [AdminController::class, 'updateBerita'])->name('admin.berita.update');
     Route::post('/berita/delete/{id}', [AdminController::class, 'deleteBerita'])->name('admin.berita.delete');
 
-    // PPDB
+    /*
+    |--------------------------------------------------------------------------
+    | PPDB
+    |--------------------------------------------------------------------------
+    */
     Route::get('/ppdb', [AdminController::class, 'managePpdb'])->name('admin.ppdb');
     Route::post('/ppdb/update', [AdminController::class, 'updatePpdb'])->name('admin.ppdb.update');
 
-    // Sosial Media
+    /*
+    |--------------------------------------------------------------------------
+    | SOSIAL MEDIA
+    |--------------------------------------------------------------------------
+    */
     Route::get('/sosial-media', [AdminController::class, 'manageSosialMedia'])->name('admin.sosial-media');
     Route::post('/sosial-media/update', [AdminController::class, 'updateSosialMedia'])->name('admin.sosial-media.update');
 
     Route::delete('/sosial-media/{id}', [AdminController::class, 'deleteSosmed'])->name('admin.sosmed.delete');
     Route::post('/sosial-media/update/{id}', [AdminController::class, 'updateSosmed'])->name('admin.sosmed.update');
 
-    // Galeri
+    /*
+    |--------------------------------------------------------------------------
+    | GALERI
+    |--------------------------------------------------------------------------
+    */
     Route::get('/galeri', [AdminController::class, 'manageGaleri'])->name('admin.galeri');
     Route::post('/galeri/add', [AdminController::class, 'addGaleri'])->name('admin.galeri.add');
     Route::post('/galeri/update/{id}', [AdminController::class, 'updateGaleri'])->name('admin.galeri.update');
@@ -172,6 +201,4 @@ Route::prefix('akademik')->name('akademik.')->group(function () {
 | FALLBACK ROUTE (404)
 |--------------------------------------------------------------------------
 */
-Route::fallback(function () {
-    return view('errors.404');
-});
+Route::fallback(fn() => view('errors.404'));
