@@ -19,24 +19,21 @@
 <section class="fasilitas-main">
     <div class="container">
         <div class="section-header" data-aos="fade-up">
-            <h2 class="section-title">Fasilitas Unggulan</h2>
+            <h2 class="section-title">Fasilitas</h2>
             <p class="section-subtitle">Dilengkapi dengan fasilitas modern untuk mendukung proses belajar mengajar</p>
         </div>
 
         <div class="fasilitas-grid">
             <!-- Ruang Belajar -->
             <div class="fasilitas-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="fasilitas-image">
-                    <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600" alt="Ruang Belajar">
-                    <div class="fasilitas-badge">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                    </div>
+                <div class="fasilitas-badge-only">
+                    <i class="fas fa-chalkboard-teacher"></i>
                 </div>
                 <div class="fasilitas-content">
-                    <h3>Ruang Belajar Representatif</h3>
-                    <p>24 ruang kelas ber-AC dengan kapasitas 32 siswa, dilengkapi proyektor LCD dan papan tulis interaktif untuk pembelajaran modern.</p>
+                    <h3>Ruang Belajar yang Representatif</h3>
+                    <p>Ruang kelas yang nyaman dan papan tulis interaktif untuk pembelajaran.</p>
                     <ul class="fasilitas-features">
-                        <li><i class="fas fa-check-circle"></i> AC & Ventilasi Baik</li>
+                        <li><i class="fas fa-check-circle"></i> Ventilasi Baik</li>
                         <li><i class="fas fa-check-circle"></i> Proyektor LCD</li>
                         <li><i class="fas fa-check-circle"></i> Papan Tulis Interaktif</li>
                         <li><i class="fas fa-check-circle"></i> Meja & Kursi Ergonomis</li>
@@ -46,57 +43,47 @@
 
             <!-- Lab Komputer -->
             <div class="fasilitas-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="fasilitas-image">
-                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600" alt="Lab Komputer">
-                    <div class="fasilitas-badge">
-                        <i class="fas fa-laptop"></i>
-                    </div>
+                <div class="fasilitas-badge-only">
+                    <i class="fas fa-laptop"></i>
                 </div>
                 <div class="fasilitas-content">
                     <h3>Laboratorium Komputer</h3>
-                    <p>2 lab komputer dengan 80 unit PC modern, koneksi internet fiber optik 100 Mbps, dan software pembelajaran terkini.</p>
+                    <p>Lab komputer dengan PC modern, koneksi internet stabil, dan software pembelajaran terkini.</p>
                     <ul class="fasilitas-features">
-                        <li><i class="fas fa-check-circle"></i> 80 Unit Komputer</li>
-                        <li><i class="fas fa-check-circle"></i> Internet Fiber 100 Mbps</li>
+                        <li><i class="fas fa-check-circle"></i> Unit Komputer</li>
+                        <li><i class="fas fa-check-circle"></i> Internet Stabil</li>
                         <li><i class="fas fa-check-circle"></i> Software Terkini</li>
-                        <li><i class="fas fa-check-circle"></i> AC & Sound System</li>
+                        <li><i class="fas fa-check-circle"></i> AC </li>
                     </ul>
                 </div>
             </div>
 
             <!-- Lapangan 3 in 1 -->
             <div class="fasilitas-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="fasilitas-image">
-                    <img src="https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=600" alt="Lapangan">
-                    <div class="fasilitas-badge">
-                        <i class="fas fa-futbol"></i>
-                    </div>
+                <div class="fasilitas-badge-only">
+                    <i class="fas fa-futbol"></i>
                 </div>
                 <div class="fasilitas-content">
                     <h3>Lapangan 3 in 1</h3>
-                    <p>Lapangan multifungsi untuk sepak bola, basket, dan voli. Dilengkapi tribun penonton dan lighting system untuk kegiatan malam.</p>
+                    <p>Lapangan multifungsi untuk sepak bola, basket, dan voli.</p>
                     <ul class="fasilitas-features">
                         <li><i class="fas fa-check-circle"></i> Sepak Bola</li>
                         <li><i class="fas fa-check-circle"></i> Basket</li>
                         <li><i class="fas fa-check-circle"></i> Voli</li>
-                        <li><i class="fas fa-check-circle"></i> Tribun Penonton</li>
                     </ul>
                 </div>
             </div>
 
             <!-- Perpustakaan -->
             <div class="fasilitas-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="fasilitas-image">
-                    <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=600" alt="Perpustakaan">
-                    <div class="fasilitas-badge">
-                        <i class="fas fa-book"></i>
-                    </div>
+                <div class="fasilitas-badge-only">
+                    <i class="fas fa-book"></i>
                 </div>
                 <div class="fasilitas-content">
                     <h3>Perpustakaan Madrasah</h3>
-                    <p>Koleksi lebih dari 10.000 buku, sistem digital library, ruang baca ber-AC, dan akses e-book & jurnal online.</p>
+                    <p>Koleksi lebih dari 10.000 buku, sistem digital library, ruang baca ber-AC.</p>
                     <ul class="fasilitas-features">
-                        <li><i class="fas fa-check-circle"></i> 10.000+ Koleksi Buku</li>
+                        <li><i class="fas fa-check-circle"></i> Koleksi Buku Lengkap</li>
                         <li><i class="fas fa-check-circle"></i> Digital Library</li>
                         <li><i class="fas fa-check-circle"></i> Ruang Baca AC</li>
                         <li><i class="fas fa-check-circle"></i> E-Book & Jurnal</li>
@@ -104,42 +91,33 @@
                 </div>
             </div>
 
-            <!-- Kantin -->
+            <!-- Koperasi Siswa -->
             <div class="fasilitas-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="fasilitas-image">
-                    <img src="https://images.unsplash.com/photo-1567521464027-f127ff144326?w=600" alt="Kantin">
-                    <div class="fasilitas-badge">
-                        <i class="fas fa-utensils"></i>
-                    </div>
+                <div class="fasilitas-badge-only">
+                    <i class="fas fa-store"></i>
                 </div>
                 <div class="fasilitas-content">
-                    <h3>Kantin Sehat & Bersih</h3>
-                    <p>Area kantin luas dengan menu makanan sehat dan halal, tempat duduk nyaman, dan standar kebersihan terjaga.</p>
+                    <h3>Koperasi Siswa</h3>
+                    <p>Koperasi siswa yang menyediakan berbagai kebutuhan sekolah, alat tulis, seragam, dan makanan ringan dengan harga terjangkau.</p>
                     <ul class="fasilitas-features">
-                        <li><i class="fas fa-check-circle"></i> Makanan Halal</li>
+                        <li><i class="fas fa-check-circle"></i> Alat Tulis Lengkap</li>
                         <li><i class="fas fa-check-circle"></i> Harga Terjangkau</li>
-                        <li><i class="fas fa-check-circle"></i> Area Luas</li>
-                        <li><i class="fas fa-check-circle"></i> Kebersihan Terjaga</li>
                     </ul>
                 </div>
             </div>
 
             <!-- Tempat Parkir -->
             <div class="fasilitas-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="fasilitas-image">
-                    <img src="https://images.unsplash.com/photo-1590674899484-d5640e854abe?w=600" alt="Parkir">
-                    <div class="fasilitas-badge">
-                        <i class="fas fa-parking"></i>
-                    </div>
+                <div class="fasilitas-badge-only">
+                    <i class="fas fa-parking"></i>
                 </div>
                 <div class="fasilitas-content">
-                    <h3>Tempat Parkir Luas</h3>
+                    <h3>Tempat Parkir</h3>
                     <p>Area parkir terpisah untuk siswa dan guru, dilengkapi sistem keamanan CCTV dan petugas keamanan 24 jam.</p>
                     <ul class="fasilitas-features">
                         <li><i class="fas fa-check-circle"></i> Area Terpisah</li>
-                        <li><i class="fas fa-check-circle"></i> CCTV 24 Jam</li>
                         <li><i class="fas fa-check-circle"></i> Petugas Keamanan</li>
-                        <li><i class="fas fa-check-circle"></i> Kapasitas 500+ Motor</li>
+                        <li><i class="fas fa-check-circle"></i> Kapasitas 100+ Motor</li>
                     </ul>
                 </div>
             </div>
@@ -217,7 +195,7 @@
                     <i class="fas fa-tv"></i>
                 </div>
                 <h4>Aula</h4>
-                <p>Aula serbaguna kapasitas 500 orang</p>
+                <p>Aula serbaguna</p>
             </div>
         </div>
     </div>
@@ -259,6 +237,11 @@
     animation: float 6s ease-in-out infinite;
 }
 
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
 /* Fasilitas Main */
 .fasilitas-main {
     padding: 80px 0;
@@ -279,6 +262,8 @@
     box-shadow: 0 10px 40px rgba(0,0,0,0.1);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid #f0f0f0;
+    position: relative;
+    padding-top: 60px;
 }
 
 .fasilitas-card:hover {
@@ -286,24 +271,7 @@
     box-shadow: 0 20px 60px rgba(26,95,58,0.2);
 }
 
-.fasilitas-image {
-    position: relative;
-    height: 280px;
-    overflow: hidden;
-}
-
-.fasilitas-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.fasilitas-card:hover .fasilitas-image img {
-    transform: scale(1.15);
-}
-
-.fasilitas-badge {
+.fasilitas-badge-only {
     position: absolute;
     top: 20px;
     right: 20px;

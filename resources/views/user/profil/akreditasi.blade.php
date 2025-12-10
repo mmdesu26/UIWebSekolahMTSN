@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Akreditasi & Sertifikasi - MTsN 1 Magetan')
+@section('title', 'Akreditasi & Prestasi - MTsN 1 Magetan')
 
 @section('content')
 <!-- Hero Section -->
@@ -10,7 +10,7 @@
             <div class="hero-badge" data-aos="zoom-in">
                 <i class="fas fa-award"></i>
             </div>
-            <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">Akreditasi & Sertifikasi</h1>
+            <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">Akreditasi & Prestasi</h1>
             <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">
                 Komitmen Kami Terhadap Standar Pendidikan Berkualitas
             </p>
@@ -30,91 +30,39 @@
                 <div class="showcase-text">
                     <h2>Terakreditasi A</h2>
                     <h3>Badan Akreditasi Nasional Sekolah/Madrasah (BAN-S/M)</h3>
-                    <p class="lead">MTsN 1 Magetan telah meraih Akreditasi A dari BAN-S/M, menunjukkan komitmen kami dalam memberikan pendidikan berkualitas tinggi yang memenuhi standar nasional pendidikan.</p>
+                    <p class="lead">Sekolah ini telah terakreditasi A dengan Nomor SK Akreditasi 1179/BAN-SM/SK/2021 pada tanggal 16 November 2021. Alamat MTSN 1 MAGETAN terletak di JL.RAYA MAOSPATI-NGAWI, DS.BALUK, KEC.KARANGREJO, KAB. MAGETAN, BALUK, Kec. Karangrejo, Kab. Magetan, Jawa Timur.</p>
                     
                     <div class="akreditasi-details">
                         <div class="detail-item">
                             <i class="fas fa-calendar-check"></i>
                             <div>
-                                <strong>Tahun Akreditasi</strong>
-                                <p>2023</p>
+                                <strong>Tanggal Akreditasi</strong>
+                                <p>16 November 2021</p>
                             </div>
                         </div>
                         <div class="detail-item">
                             <i class="fas fa-star"></i>
                             <div>
-                                <strong>Nilai Akreditasi</strong>
-                                <p>95.5 (Sangat Baik)</p>
-                            </div>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-clock"></i>
-                            <div>
-                                <strong>Masa Berlaku</strong>
-                                <p>2023 - 2028</p>
+                                <strong>Peringkat</strong>
+                                <p>A (Sangat Baik)</p>
                             </div>
                         </div>
                         <div class="detail-item">
                             <i class="fas fa-certificate"></i>
                             <div>
-                                <strong>No. Sertifikat</strong>
-                                <p>123/BAN-S/M/SK/2023</p>
+                                <strong>No. SK Akreditasi</strong>
+                                <p>1179/BAN-SM/SK/2021</p>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>Lokasi</strong>
+                                <p>Karangrejo, Magetan</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Sertifikasi Lainnya -->
-<section class="sertifikasi-section">
-    <div class="container">
-        <div class="section-header" data-aos="fade-up">
-            <h2 class="section-title">Sertifikasi & Penghargaan</h2>
-            <p class="section-subtitle">Pencapaian dan pengakuan yang telah diraih</p>
-        </div>
-
-        <div class="sertifikasi-grid">
-            <!-- ISO 9001:2015 -->
-            <div class="sertifikasi-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="sertifikasi-icon">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <h3>ISO 9001:2015</h3>
-                <p>Sertifikasi Sistem Manajemen Mutu Pendidikan</p>
-                <span class="sertifikasi-year">2022</span>
-            </div>
-
-            <!-- Sekolah Adiwiyata -->
-            <div class="sertifikasi-card" data-aos="fade-up" data-aos-delay="150">
-                <div class="sertifikasi-icon">
-                    <i class="fas fa-leaf"></i>
-                </div>
-                <h3>Adiwiyata Nasional</h3>
-                <p>Sekolah Peduli dan Berbudaya Lingkungan</p>
-                <span class="sertifikasi-year">2023</span>
-            </div>
-
-            <!-- Madrasah Digital -->
-            <div class="sertifikasi-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="sertifikasi-icon">
-                    <i class="fas fa-laptop"></i>
-                </div>
-                <h3>Madrasah Digital</h3>
-                <p>Penerapan Teknologi dalam Pembelajaran</p>
-                <span class="sertifikasi-year">2024</span>
-            </div>
-
-            <!-- Sekolah Sehat -->
-            <div class="sertifikasi-card" data-aos="fade-up" data-aos-delay="250">
-                <div class="sertifikasi-icon">
-                    <i class="fas fa-heartbeat"></i>
-                </div>
-                <h3>Sekolah Sehat</h3>
-                <p>Program Kesehatan Sekolah Terbaik</p>
-                <span class="sertifikasi-year">2023</span>
             </div>
         </div>
     </div>
@@ -124,53 +72,145 @@
 <section class="prestasi-section">
     <div class="container">
         <div class="section-header" data-aos="fade-up">
-            <h2 class="section-title">Prestasi & Penghargaan</h2>
-            <p class="section-subtitle">Bukti dedikasi kami dalam dunia pendidikan</p>
+            <h2 class="section-title">Prestasi MTsN 1 Magetan</h2>
+            <p class="section-subtitle">Pencapaian membanggakan siswa-siswi kami</p>
         </div>
 
-        <div class="prestasi-timeline">
-            <div class="timeline-item" data-aos="fade-right" data-aos-delay="100">
-                <div class="timeline-year">2024</div>
-                <div class="timeline-content">
-                    <div class="timeline-icon">
-                        <i class="fas fa-trophy"></i>
-                    </div>
-                    <h4>Juara 1 Olimpiade Sains Nasional</h4>
-                    <p>Bidang Matematika Tingkat Provinsi Jawa Timur</p>
+        <div class="prestasi-grid">
+            <!-- Prestasi 1 -->
+            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="50">
+                <div class="prestasi-icon">
+                    <i class="fas fa-medal"></i>
                 </div>
+                <h4>Juara 1 Beregu KSM Magetan</h4>
             </div>
 
-            <div class="timeline-item" data-aos="fade-left" data-aos-delay="150">
-                <div class="timeline-year">2023</div>
-                <div class="timeline-content">
-                    <div class="timeline-icon">
-                        <i class="fas fa-medal"></i>
-                    </div>
-                    <h4>Madrasah Berprestasi Tingkat Nasional</h4>
-                    <p>Penghargaan dari Kementerian Agama RI</p>
+            <!-- Prestasi 2 -->
+            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="75">
+                <div class="prestasi-icon">
+                    <i class="fas fa-medal"></i>
                 </div>
+                <h4>Juara 2 KSM IPA</h4>
             </div>
 
-            <div class="timeline-item" data-aos="fade-right" data-aos-delay="200">
-                <div class="timeline-year">2023</div>
-                <div class="timeline-content">
-                    <div class="timeline-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h4>Juara Umum MTQ Tingkat Kabupaten</h4>
-                    <p>Musabaqah Tilawatil Quran Magetan</p>
+            <!-- Prestasi 3 -->
+            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="prestasi-icon">
+                    <i class="fas fa-medal"></i>
                 </div>
+                <h4>Finalis Myres Tk Nasional</h4>
             </div>
 
-            <div class="timeline-item" data-aos="fade-left" data-aos-delay="250">
-                <div class="timeline-year">2022</div>
-                <div class="timeline-content">
-                    <div class="timeline-icon">
-                        <i class="fas fa-award"></i>
-                    </div>
-                    <h4>Sekolah Rujukan Nasional</h4>
-                    <p>Kategori Implementasi Kurikulum Merdeka</p>
+            <!-- Prestasi 4 -->
+            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="125">
+                <div class="prestasi-icon">
+                    <i class="fas fa-medal"></i>
                 </div>
+                <h4>Juara 1 Olimpiade IPA</h4>
+            </div>
+
+            <!-- Prestasi 5 -->
+            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="150">
+                <div class="prestasi-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <h4>Juara 1 Olimpiade MTK</h4>
+            </div>
+
+            <!-- Prestasi 6 -->
+            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="175">
+                <div class="prestasi-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <h4>Juara 2 Olimpiade IPS Terpadu</h4>
+            </div>
+
+            <!-- Prestasi 7 -->
+            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="prestasi-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <h4>Juara 2 Nembang Campursari Putri</h4>
+            </div>
+
+            <!-- Prestasi 8 -->
+            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="225">
+                <div class="prestasi-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <h4>Juara 1 Kata Perorangan SMP 7-8 Putri</h4>
+            </div>
+
+            <!-- Prestasi 9 -->
+            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="250">
+                <div class="prestasi-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <h4>Juara 3 Bulutangkis Ganda Putra</h4>
+            </div>
+
+            <!-- Prestasi 10 -->
+            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="275">
+                <div class="prestasi-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <h4>Juara 1 Karate Kelas 60-65 kg Piala Koni Pusat</h4>
+            </div>
+
+            <!-- Prestasi 11 -->
+            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="prestasi-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <h4>Juara 1 Futsal</h4>
+            </div>
+
+            <!-- Prestasi 12 -->
+            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="325">
+                <div class="prestasi-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <h4>Juara 1 Try Out UKM</h4>
+            </div>
+
+            <!-- Prestasi 13 -->
+            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="350">
+                <div class="prestasi-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <h4>Juara 1 Taekwondo Nasional Piala Kapolri</h4>
+            </div>
+
+            <!-- Prestasi 14 -->
+            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="375">
+                <div class="prestasi-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <h4>Juara 1 MTQ Porseni</h4>
+            </div>
+
+            <!-- Prestasi 15 -->
+            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="prestasi-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <h4>Juara 3 Lomba PBB Piala Panglima TNI</h4>
+            </div>
+
+            <!-- Prestasi 16 -->
+            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="425">
+                <div class="prestasi-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <h4>Juara 1 Lari 100m Putri Porseni</h4>
+            </div>
+
+            <!-- Prestasi 17 -->
+            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="450">
+                <div class="prestasi-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <h4>Juara 2 Kata Perorangan Kejurnas Karate</h4>
             </div>
         </div>
     </div>
@@ -212,6 +252,11 @@
     background: rgba(255,255,255,0.1);
     border-radius: 50%;
     animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
 }
 
 .hero-badge {
@@ -311,7 +356,7 @@
 }
 
 .showcase-text .lead {
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.8;
     color: var(--text-muted);
     margin-bottom: 30px;
@@ -348,188 +393,56 @@
     font-size: 15px;
 }
 
-/* Sertifikasi Section */
-.sertifikasi-section {
-    padding: 80px 0;
-    background: var(--light-bg);
-}
-
-.sertifikasi-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    margin-top: 50px;
-}
-
-.sertifikasi-card {
-    background: white;
-    padding: 40px 30px;
-    border-radius: 15px;
-    text-align: center;
-    transition: all 0.4s;
-    border: 2px solid transparent;
-    position: relative;
-    overflow: hidden;
-}
-
-.sertifikasi-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-    transform: scaleX(0);
-    transition: transform 0.4s;
-}
-
-.sertifikasi-card:hover::before {
-    transform: scaleX(1);
-}
-
-.sertifikasi-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(26,95,58,0.15);
-    border-color: var(--primary-color);
-}
-
-.sertifikasi-icon {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 36px;
-    margin: 0 auto 20px;
-    transition: all 0.4s;
-}
-
-.sertifikasi-card:hover .sertifikasi-icon {
-    transform: rotateY(360deg);
-    background: linear-gradient(135deg, var(--accent-color), #e67e22);
-}
-
-.sertifikasi-card h3 {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--dark-text);
-    margin-bottom: 12px;
-}
-
-.sertifikasi-card p {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin-bottom: 15px;
-    line-height: 1.6;
-}
-
-.sertifikasi-year {
-    display: inline-block;
-    background: var(--accent-color);
-    color: white;
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
-}
-
 /* Prestasi Section */
 .prestasi-section {
     padding: 80px 0;
-    background: white;
-}
-
-.prestasi-timeline {
-    max-width: 900px;
-    margin: 50px auto 0;
+    background: var(--light-bg);
     position: relative;
 }
 
-.prestasi-timeline::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
-    transform: translateX(-50%);
-}
-
-.timeline-item {
+.prestasi-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    margin-bottom: 60px;
-    position: relative;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 50px;
 }
 
-.timeline-item:nth-child(even) .timeline-year {
-    order: 2;
+.prestasi-card {
+    background: white;
+    padding: 30px 25px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-.timeline-item:nth-child(even) .timeline-content {
-    order: 1;
-    text-align: right;
+.prestasi-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
 }
 
-.timeline-year {
-    font-size: 48px;
-    font-weight: 700;
-    color: var(--primary-color);
-    opacity: 0.3;
-    font-family: 'Playfair Display', serif;
+.prestasi-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: white;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.timeline-content {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    border: 2px solid var(--light-bg);
-    transition: all 0.3s;
-    position: relative;
-}
-
-.timeline-content:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(26,95,58,0.2);
-    border-color: var(--primary-color);
-}
-
-.timeline-icon {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, var(--accent-color), #e67e22);
-    color: white;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
     font-size: 24px;
-    margin-bottom: 15px;
-    box-shadow: 0 5px 15px rgba(243,156,18,0.3);
+    flex-shrink: 0;
+    box-shadow: 0 5px 15px rgba(255,215,0,0.4);
 }
 
-.timeline-content h4 {
-    font-size: 18px;
-    font-weight: 700;
+.prestasi-card h4 {
+    font-size: 16px;
+    font-weight: 600;
     color: var(--dark-text);
-    margin-bottom: 10px;
-}
-
-.timeline-content p {
-    font-size: 14px;
-    color: var(--text-muted);
     margin: 0;
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
 /* CTA Section */
@@ -621,31 +534,8 @@
         justify-content: center;
     }
     
-    .sertifikasi-grid {
+    .prestasi-grid {
         grid-template-columns: 1fr;
-    }
-    
-    .prestasi-timeline::before {
-        left: 30px;
-    }
-    
-    .timeline-item {
-        grid-template-columns: 1fr;
-        padding-left: 60px;
-    }
-    
-    .timeline-item:nth-child(even) .timeline-year {
-        order: 1;
-    }
-    
-    .timeline-item:nth-child(even) .timeline-content {
-        order: 2;
-        text-align: left;
-    }
-    
-    .timeline-year {
-        font-size: 32px;
-        justify-content: flex-start;
     }
     
     .cta-content h2 {
