@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -14,11 +15,11 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->timestamps();
         });
-        
+
         // Insert default data
         DB::table('sejarah')->insert([
-            'content' => 'MTsN 1 Magetan didirikan pada tahun 1975 sebagai salah satu lembaga pendidikan menengah pertama di Kabupaten Magetan. Sekolah ini telah berkembang menjadi salah satu sekolah terkemuka di daerah ini dengan fasilitas modern dan tenaga pengajar yang berpengalaman.',
-            'gambar' => null,
+            'content' => 'MTsN 1 Magetan didirikan pada tahun 1975 sebagai salah satu lembaga pendidikan menengah pertama di Kabupaten Magetan.',
+            'image' => null, 
             'created_at' => now(),
             'updated_at' => now(),
         ]);

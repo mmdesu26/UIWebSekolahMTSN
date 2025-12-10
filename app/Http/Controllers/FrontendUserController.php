@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Sejarah;
 use App\Models\VisiMisi;
+use App\Models\Kurikulum;
 use Illuminate\Support\Facades\Schema;
 
 class FrontendUserController extends Controller
@@ -196,6 +197,46 @@ class FrontendUserController extends Controller
             'data' => $this->data
         ]);
     }
+
+    // =============================
+    // KURIKULUM
+    // =============================
+    public function kurikulum()
+    {
+        $kurikulum = null;
+
+        try {
+            if (Schema::hasTable('kurikulum')) {
+                $kurikulum = Kurikulum::first();
+                
+                if (!$kurikulum) {
+                    $kurikulum = (object)[
+                        'nama_kurikulum' => 'Kurikulum Merdeka',
+                        'deskripsi_kurikulum' => 'MTsN 1 Magetan menerapkan Kurikulum Merdeka yang memberikan keleluasaan kepada satuan pendidikan dan guru untuk mengembangkan potensi serta kreatifitas peserta didik sesuai dengan kebutuhan belajar mereka.',
+                        'tujuan_kurikulum' => "Mengembangkan pengetahuan, keterampilan, dan sikap peserta didik\nMenumbuhkan karakter Profil Pelajar Pancasila\nMempersiapkan siswa menghadapi tantangan abad 21\nMengintegrasikan nilai-nilai Islam dalam pembelajaran",
+                        'projek_penguatan' => 'Pembelajaran berbasis projek yang dilaksanakan untuk menguatkan karakter dan kompetensi siswa melalui tema-tema yang kontekstual dan relevan dengan kehidupan sehari-hari.',
+                    ];
+                }
+            } else {
+                $kurikulum = (object)[
+                    'nama_kurikulum' => 'Kurikulum Merdeka',
+                    'deskripsi_kurikulum' => 'MTsN 1 Magetan menerapkan Kurikulum Merdeka yang memberikan keleluasaan kepada satuan pendidikan dan guru untuk mengembangkan potensi serta kreatifitas peserta didik sesuai dengan kebutuhan belajar mereka.',
+                    'tujuan_kurikulum' => "Mengembangkan pengetahuan, keterampilan, dan sikap peserta didik\nMenumbuhkan karakter Profil Pelajar Pancasila\nMempersiapkan siswa menghadapi tantangan abad 21\nMengintegrasikan nilai-nilai Islam dalam pembelajaran",
+                    'projek_penguatan' => 'Pembelajaran berbasis projek yang dilaksanakan untuk menguatkan karakter dan kompetensi siswa melalui tema-tema yang kontekstual dan relevan dengan kehidupan sehari-hari.',
+                ];
+            }
+        } catch (\Exception $e) {
+            $kurikulum = (object)[
+                'nama_kurikulum' => 'Kurikulum Merdeka',
+                'deskripsi_kurikulum' => 'MTsN 1 Magetan menerapkan Kurikulum Merdeka yang memberikan keleluasaan kepada satuan pendidikan dan guru untuk mengembangkan potensi serta kreatifitas peserta didik sesuai dengan kebutuhan belajar mereka.',
+                'tujuan_kurikulum' => "Mengembangkan pengetahuan, keterampilan, dan sikap peserta didik\nMenumbuhkan karakter Profil Pelajar Pancasila\nMempersiapkan siswa menghadapi tantangan abad 21\nMengintegrasikan nilai-nilai Islam dalam pembelajaran",
+                'projek_penguatan' => 'Pembelajaran berbasis projek yang dilaksanakan untuk menguatkan karakter dan kompetensi siswa melalui tema-tema yang kontekstual dan relevan dengan kehidupan sehari-hari.',
+            ];
+        }
+
+        return view('user.akademik.kurikulum', compact('kurikulum'));
+    }
+
 
     // =============================
     // STRUKTUR ORGANISASI (GAMBAR)

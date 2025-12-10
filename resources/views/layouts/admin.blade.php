@@ -200,6 +200,52 @@
             margin: 12px 0;
         }
 
+        /* ==================== SUBMENU AKADEMIK ==================== */
+        .menu-parent {
+            position: relative;
+        }
+
+        .menu-parent > a {
+            justify-content: space-between;
+        }
+
+        .menu-parent > a .arrow-icon {
+            transition: transform 0.3s ease;
+            font-size: 12px;
+        }
+
+        .menu-parent.open > a .arrow-icon {
+            transform: rotate(180deg);
+        }
+
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            margin-left: 16px;
+            margin-top: 4px;
+        }
+
+        .submenu.show {
+            max-height: 500px;
+        }
+
+        .submenu a {
+            padding: 8px 12px;
+            font-size: clamp(11px, 1.3vw, 13px);
+            background: rgba(255, 255, 255, 0.05);
+            margin-bottom: 4px;
+        }
+
+        .submenu a:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .submenu a.active {
+            background: rgba(255, 255, 255, 0.2);
+            border-left: 3px solid white;
+        }
+
         .sidebar nav a[data-logout="true"] {
             background: rgba(255, 0, 0, 0.15) !important;
             color: #fff !important;
@@ -449,6 +495,10 @@
             .sidebar nav a i {
                 font-size: 16px;
             }
+
+            .submenu {
+                margin-left: 0;
+            }
         }
 
         @media (max-width: 768px) {
@@ -689,6 +739,21 @@
                     <i class="fas fa-user-tie"></i> 
                     <span>PPDB</span>
                 </a>
+                
+                <!-- MENU AKADEMIK DENGAN SUBMENU -->
+                <div class="menu-parent @if(request()->routeIs('admin.kurikulum')) open @endif">
+                    <a href="javascript:void(0)" onclick="toggleSubmenu(this)">
+                        <span><i class="fas fa-book-open"></i> Akademik</span>
+                        <i class="fas fa-chevron-down arrow-icon"></i>
+                    </a>
+                    <div class="submenu @if(request()->routeIs('admin.kurikulum')) show @endif">
+                        <a href="{{ route('admin.kurikulum') }}" class="@if(request()->routeIs('admin.kurikulum')) active @endif">
+                            <i class="fas fa-book"></i> 
+                            <span>Kurikulum</span>
+                        </a>
+                    </div>
+                </div>
+                
                 <a href="{{ route('admin.sosial-media') }}" class="@if(request()->routeIs('admin.sosial-media')) active @endif">
                     <i class="fas fa-share-alt"></i> 
                     <span>Sosial Media</span>
@@ -761,6 +826,15 @@
                 }
             });
         });
+
+        // Toggle submenu function
+        function toggleSubmenu(element) {
+            const parent = element.closest('.menu-parent');
+            const submenu = parent.querySelector('.submenu');
+            
+            parent.classList.toggle('open');
+            submenu.classList.toggle('show');
+        }
     </script>
     @yield('js')
 </body>

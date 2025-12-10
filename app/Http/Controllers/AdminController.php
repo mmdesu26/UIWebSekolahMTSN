@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Sejarah;
 use App\Models\VisiMisi;
+use App\Models\Kurikulum;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Schema;
 
@@ -349,6 +350,78 @@ class AdminController extends Controller
 
         return redirect()->route('admin.guru')->with('success', 'Guru berhasil dihapus');
     }
+
+
+    // ============================================================
+    // =============== CRUD KURIKULUM =============================
+    // ============================================================
+
+    public function manageKurikulum()
+    {
+        try {
+            if (Schema::hasTable('kurikulum')) {
+                $kurikulum = Kurikulum::first();
+                
+                if (!$kurikulum) {
+                    $kurikulum = Kurikulum::create([
+                        'nama_kurikulum' => 'Kurikulum Merdeka',
+                        'deskripsi_kurikulum' => 'MTsN 1 Magetan menerapkan Kurikulum Merdeka yang memberikan keleluasaan kepada satuan pendidikan dan guru untuk mengembangkan potensi serta kreatifitas peserta didik sesuai dengan kebutuhan belajar mereka.',
+                        'tujuan_kurikulum' => "Mengembangkan pengetahuan, keterampilan, dan sikap peserta didik\nMenumbuhkan karakter Profil Pelajar Pancasila\nMempersiapkan siswa menghadapi tantangan abad 21\nMengintegrasikan nilai-nilai Islam dalam pembelajaran",
+                        'projek_penguatan' => 'Pembelajaran berbasis projek yang dilaksanakan untuk menguatkan karakter dan kompetensi siswa melalui tema-tema yang kontekstual dan relevan dengan kehidupan sehari-hari.',
+                    ]);
+                }
+            } else {
+                return redirect()->route('admin.dashboard')
+                    ->with('error', 'Tabel kurikulum belum dibuat. Jalankan: php artisan migrate');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('admin.dashboard')
+                ->with('error', 'Error: ' . $e->getMessage());
+        }
+
+        return view('admin.kurikulum', compact('kurikulum'));
+    }
+
+    public function updateKurikulum(Request $request)
+    {
+        $request->validate([
+            'nama_kurikulum' => 'required|string|max:255',
+            'deskripsi_kurikulum' => 'required|string',
+            'tujuan_kurikulum' => 'required|string',
+            'projek_penguatan' => 'required|string',
+        ], [
+            'nama_kurikulum.required' => 'Nama kurikulum harus diisi',
+            'deskripsi_kurikulum.required' => 'Deskripsi kurikulum harus diisi',
+            'tujuan_kurikulum.required' => 'Tujuan kurikulum harus diisi',
+            'projek_penguatan.required' => 'Projek penguatan harus diisi',
+        ]);
+
+        try {
+            if (Schema::hasTable('kurikulum')) {
+                $kurikulum = Kurikulum::first();
+
+                if (!$kurikulum) {
+                    $kurikulum = new Kurikulum();
+                }
+
+                $kurikulum->nama_kurikulum = $request->input('nama_kurikulum');
+                $kurikulum->deskripsi_kurikulum = $request->input('deskripsi_kurikulum');
+                $kurikulum->tujuan_kurikulum = $request->input('tujuan_kurikulum');
+                $kurikulum->projek_penguatan = $request->input('projek_penguatan');
+                $kurikulum->save();
+
+                return redirect()->route('admin.kurikulum')->with('success', 'Data kurikulum berhasil diperbarui!');
+            } else {
+                return redirect()->route('admin.dashboard')
+                    ->with('error', 'Tabel kurikulum belum dibuat. Jalankan: php artisan migrate');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Terjadi kesalahan: ' . $e->getMessage())
+                ->withInput();
+        }
+    }
+
 
     // ============================================================
     // =============== CRUD EKSTRAKURIKULER =======================

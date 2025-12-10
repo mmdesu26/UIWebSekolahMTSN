@@ -187,6 +187,14 @@ Route::prefix('admin')->middleware(\App\Http\Middleware\AdminAuth::class)->group
     Route::post('/galeri/delete/{id}', [AdminController::class, 'deleteGaleri'])->name('admin.galeri.delete');
     Route::post('/galeri/upload', [AdminController::class, 'uploadGaleri'])->name('admin.galeri.upload');
 
+    /*
+    |--------------------------------------------------------------------------
+    | KURIKULUM (BARU)
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/kurikulum', [AdminController::class, 'manageKurikulum'])->name('admin.kurikulum');
+    Route::post('/kurikulum/update', [AdminController::class, 'updateKurikulum'])->name('admin.kurikulum.update');
+
 });
 
 
@@ -197,7 +205,7 @@ Route::prefix('admin')->middleware(\App\Http\Middleware\AdminAuth::class)->group
 */
 Route::prefix('akademik')->name('akademik.')->group(function () {
 
-    Route::get('/kurikulum', fn() => view('user.akademik.kurikulum'))->name('kurikulum');
+    Route::get('/kurikulum', [FrontendUserController::class, 'kurikulum'])->name('kurikulum');
     Route::get('/kelas-program', fn() => view('user.akademik.kelas_program'))->name('kelas-program');
     Route::get('/kalender-pendidikan', fn() => view('user.akademik.kalender'))->name('kalender');
     Route::get('/jadwal-pelajaran', fn() => view('user.akademik.jadwal'))->name('jadwal');

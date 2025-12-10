@@ -99,6 +99,34 @@
         margin: 0;
     }
 
+    .tujuan-list {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .tujuan-list li {
+        padding: 12px 15px;
+        margin-bottom: 10px;
+        background: white;
+        border-left: 4px solid var(--primary-color);
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        transition: all 0.3s;
+    }
+
+    .tujuan-list li:hover {
+        transform: translateX(10px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+    }
+
+    .tujuan-list li::before {
+        content: "✓";
+        color: var(--primary-color);
+        font-weight: bold;
+        margin-right: 10px;
+        font-size: 18px;
+    }
+
     @media (max-width: 768px) {
         .akademik-hero h1 { font-size: 32px; }
         .mata-pelajaran { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
@@ -118,22 +146,29 @@
 
 <section class="content-section">
     <div class="container">
+        <!-- Nama Kurikulum -->
         <div class="kurikulum-box">
-            <h3><i class="fas fa-book-open"></i> Kurikulum Merdeka</h3>
-            <p>MTsN 1 Magetan menerapkan <strong>Kurikulum Merdeka</strong> yang memberikan keleluasaan kepada satuan pendidikan dan guru untuk mengembangkan potensi serta kreatifitas peserta didik sesuai dengan kebutuhan belajar mereka.</p>
-            <p>Kurikulum ini dirancang untuk mengembangkan karakter dan kompetensi siswa secara holistik melalui pembelajaran berbasis proyek dan kontekstual.</p>
+            <h3><i class="fas fa-book-open"></i> {{ $kurikulum->nama_kurikulum ?? 'Kurikulum Merdeka' }}</h3>
+            <p style="white-space: pre-line;">{{ $kurikulum->deskripsi_kurikulum ?? 'Deskripsi kurikulum belum tersedia.' }}</p>
         </div>
 
+        <!-- Tujuan Kurikulum -->
         <div class="kurikulum-box">
             <h3><i class="fas fa-bullseye"></i> Tujuan Kurikulum</h3>
-            <ul style="color: var(--text-muted); line-height: 1.8;">
-                <li>Mengembangkan pengetahuan, keterampilan, dan sikap peserta didik</li>
-                <li>Menumbuhkan karakter Profil Pelajar Pancasila</li>
-                <li>Mempersiapkan siswa menghadapi tantangan abad 21</li>
-                <li>Mengintegrasikan nilai-nilai Islam dalam pembelajaran</li>
+            <ul class="tujuan-list">
+                @if($kurikulum && $kurikulum->tujuan_kurikulum)
+                    @foreach(explode("\n", $kurikulum->tujuan_kurikulum) as $tujuan)
+                        @if(trim($tujuan))
+                            <li>{{ trim($tujuan) }}</li>
+                        @endif
+                    @endforeach
+                @else
+                    <li>Tujuan kurikulum belum tersedia</li>
+                @endif
             </ul>
         </div>
 
+        <!-- Struktur Mata Pelajaran (Static) -->
         <div class="kurikulum-box">
             <h3><i class="fas fa-graduation-cap"></i> Struktur Mata Pelajaran</h3>
             
@@ -211,9 +246,10 @@
             </div>
         </div>
 
+        <!-- Projek Penguatan Profil Pelajar Pancasila -->
         <div class="kurikulum-box">
             <h3><i class="fas fa-project-diagram"></i> Projek Penguatan Profil Pelajar Pancasila</h3>
-            <p>Pembelajaran berbasis projek yang dilaksanakan untuk menguatkan karakter dan kompetensi siswa melalui tema-tema yang kontekstual dan relevan dengan kehidupan sehari-hari.</p>
+            <p style="white-space: pre-line;">{{ $kurikulum->projek_penguatan ?? 'Informasi projek penguatan belum tersedia.' }}</p>
         </div>
     </div>
 </section>
