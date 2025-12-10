@@ -103,7 +103,7 @@ Route::prefix('admin')->middleware(\App\Http\Middleware\AdminAuth::class)->group
 
     /*
     |--------------------------------------------------------------------------
-    | SEJARAH (UPDATED VERSION)
+    | SEJARAH
     |--------------------------------------------------------------------------
     */
     Route::get('/sejarah', [AdminController::class, 'showSejarah'])->name('admin.sejarah');
@@ -117,6 +117,15 @@ Route::prefix('admin')->middleware(\App\Http\Middleware\AdminAuth::class)->group
     */
     Route::get('/visi-misi', [AdminController::class, 'showVisiMisi'])->name('admin.visi-misi');
     Route::post('/visi-misi/update', [AdminController::class, 'updateVisiMisi'])->name('admin.visi-misi.update');
+
+    /*
+    |--------------------------------------------------------------------------
+    | STRUKTUR ORGANISASI (UPLOAD GAMBAR)
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/struktur-organisasi', [AdminController::class, 'manageStrukturOrganisasi'])->name('admin.struktur-organisasi');
+    Route::post('/struktur-organisasi/upload', [AdminController::class, 'uploadStrukturOrganisasi'])->name('admin.struktur.upload');
+    Route::delete('/struktur-organisasi/delete', [AdminController::class, 'deleteStrukturOrganisasi'])->name('admin.struktur.delete');
 
     /*
     |--------------------------------------------------------------------------

@@ -18,10 +18,7 @@
                     Visi Kami
                 </h3>
                 <p style="font-size: 18px; line-height: 1.8; font-weight: 500;">
-                    "Terwujudnya Siswa yang Berprestasi, Mandiri, dan Berakhlaqul Karimah"
-                </p>
-                <p style="font-size: 15px; opacity: 0.9; margin-top: 20px;">
-                    Visi kami adalah menciptakan lembaga pendidikan yang tidak hanya unggul dalam bidang akademik, tetapi juga memiliki nilai-nilai Islami yang kuat dan kepedulian terhadap lingkungan sekitar.
+                    {{ $visiMisi['visi'] ?? 'Visi belum diatur' }}
                 </p>
             </div>
 
@@ -32,34 +29,26 @@
                     Misi Kami
                 </h3>
                 <ul style="list-style: none; display: flex; flex-direction: column; gap: 20px;">
-                    <li style="display: flex; gap: 15px; animation: slideInLeft 0.6s ease-out backwards;">
-                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">1</div>
-                        <div>
-                            <h4 style="font-weight: 700; color: var(--dark-text); margin-bottom: 5px;">Menyelenggarakan Pendidikan Berkualitas</h4>
-                            <p style="color: var(--text-muted); font-size: 14px;">Memberikan pendidikan yang berkualitas dan berorientasi pada prestasi dengan standar internasional</p>
-                        </div>
-                    </li>
-                    <li style="display: flex; gap: 15px; animation: slideInLeft 0.6s ease-out backwards; animation-delay: 0.1s;">
-                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">2</div>
-                        <div>
-                            <h4 style="font-weight: 700; color: var(--dark-text); margin-bottom: 5px;">Membentuk Karakter Islami</h4>
-                            <p style="color: var(--text-muted); font-size: 14px;">Membina peserta didik yang berakhlak mulia dan berkarakter Islami dalam setiap aspek kehidupan</p>
-                        </div>
-                    </li>
-                    <li style="display: flex; gap: 15px; animation: slideInLeft 0.6s ease-out backwards; animation-delay: 0.2s;">
-                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">3</div>
-                        <div>
-                            <h4 style="font-weight: 700; color: var(--dark-text); margin-bottom: 5px;">Mengembangkan Potensi Maksimal</h4>
-                            <p style="color: var(--text-muted); font-size: 14px;">Mengembangkan potensi peserta didik di bidang akademik dan non-akademik secara optimal</p>
-                        </div>
-                    </li>
-                    <li style="display: flex; gap: 15px; animation: slideInLeft 0.6s ease-out backwards; animation-delay: 0.3s;">
-                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">4</div>
-                        <div>
-                            <h4 style="font-weight: 700; color: var(--dark-text); margin-bottom: 5px;">Menjaga Lingkungan</h4>
-                            <p style="color: var(--text-muted); font-size: 14px;">Menciptakan lingkungan madrasah yang kondusif, aman, dan ramah lingkungan untuk pembelajaran</p>
-                        </div>
-                    </li>
+                    @if(isset($visiMisi['misi']) && !empty($visiMisi['misi']))
+                        @php
+                            $misiList = explode("\n", $visiMisi['misi']);
+                            $misiList = array_filter(array_map('trim', $misiList));
+                            $counter = 0;
+                        @endphp
+                        @foreach($misiList as $misi)
+                            @php $counter++; @endphp
+                            <li style="display: flex; gap: 15px; animation: slideInLeft 0.6s ease-out backwards; animation-delay: {{ ($counter - 1) * 0.1 }}s;">
+                                <div style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">{{ $counter }}</div>
+                                <div>
+                                    <p style="color: var(--dark-text); font-size: 15px; line-height: 1.6;">{{ $misi }}</p>
+                                </div>
+                            </li>
+                        @endforeach
+                    @else
+                        <li style="display: flex; gap: 15px;">
+                            <div style="color: var(--text-muted);">Misi belum diatur</div>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </div>
@@ -89,4 +78,28 @@
         </div>
     </div>
 </section>
+
+<style>
+@media (max-width: 768px) {
+    section {
+        padding: 40px 0 !important;
+    }
+    
+    div[style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+    }
+    
+    div[style*="padding: 50px"] {
+        padding: 30px !important;
+    }
+    
+    h3[style*="font-size: 28px"] {
+        font-size: 22px !important;
+    }
+    
+    p[style*="font-size: 18px"] {
+        font-size: 16px !important;
+    }
+}
+</style>
 @endsection

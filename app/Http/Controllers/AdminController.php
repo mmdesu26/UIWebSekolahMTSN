@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sejarah;
+use App\Models\VisiMisi;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Schema;
 
 class AdminController extends Controller
 {
@@ -17,16 +19,12 @@ class AdminController extends Controller
         'content' => 'MTsN 1 Magetan didirikan pada tahun 1975 sebagai salah satu lembaga pendidikan menengah pertama di Kabupaten Magetan. Sekolah ini telah berkembang menjadi salah satu sekolah terkemuka di daerah ini dengan fasilitas modern dan tenaga pengajar yang berpengalaman.'
     ];
 
-    protected $visiMisi = [
-        'visi' => 'Menjadi sekolah unggul yang menghasilkan peserta didik berkualitas, berakhlak mulia, dan berdaya saing global.',
-        'misi' => 'Menyelenggarakan pendidikan berkualitas dengan standar internasional; Membina peserta didik yang berkarakter dan berintegritas; Mengembangkan potensi peserta didik di bidang akademik dan non-akademik; Mempersiapkan peserta didik untuk melanjutkan ke jenjang pendidikan yang lebih tinggi.'
-    ];
+    // DATA GURU - KOSONG (Admin harus input manual)
+    protected $guru = [];
 
-    protected $guru = [
-        ['id' => 1, 'nama' => 'Budi Santoso', 'mata_pelajaran' => 'Matematika', 'nip' => '1975010110000001'],
-        ['id' => 2, 'nama' => 'Rina Winarni', 'mata_pelajaran' => 'Bahasa Indonesia', 'nip' => '1978050220000002'],
-        ['id' => 3, 'nama' => 'Ahmad Wijaya', 'mata_pelajaran' => 'Bahasa Inggris', 'nip' => '1980030305000003'],
-        ['id' => 4, 'nama' => 'Siti Nurhaliza', 'mata_pelajaran' => 'IPA', 'nip' => '1982070415000004'],
+    // DATA STRUKTUR ORGANISASI - KOSONG (Admin upload gambar)
+    protected $strukturOrganisasi = [
+        'gambar' => null  // Path gambar struktur organisasi
     ];
 
     protected $ekstrakurikuler = [
@@ -110,7 +108,7 @@ class AdminController extends Controller
     }
 
     // ============================================================
-    // =============== CRUD SEJARAH  ========== ========== =========
+    // =============== CRUD SEJARAH ===============================
     // ============================================================
 
     public function showSejarah()
@@ -174,20 +172,129 @@ class AdminController extends Controller
         return response()->json(['success' => false, 'message' => 'Gambar tidak ditemukan!']);
     }
 
-    // ============ VISI & MISI ============
+    // ============================================================
+    // =============== CRUD VISI & MISI ===========================
+    // ============================================================
+
     public function showVisiMisi()
     {
-        return view('admin.visi-misi', ['visiMisi' => $this->visiMisi]);
+        $visiMisi = [
+            'visi' => '',
+            'misi' => '',
+        ];
+
+        try {
+            if (Schema::hasTable('visi_misi')) {
+                $visiMisiData = VisiMisi::first();
+                
+                if ($visiMisiData) {
+                    $visiMisi = [
+                        'visi' => $visiMisiData->visi,
+                        'misi' => $visiMisiData->misi,
+                    ];
+                }
+            } else {
+                $visiMisi = [
+                    'visi' => 'Menjadi sekolah unggul yang menghasilkan peserta didik berkualitas, berakhlak mulia, dan berdaya saing global.',
+                    'misi' => 'Menyelenggarakan pendidikan berkualitas dengan standar internasional; Membina peserta didik yang berkarakter dan berintegritas; Mengembangkan potensi peserta didik di bidang akademik dan non-akademik; Mempersiapkan peserta didik untuk melanjutkan ke jenjang pendidikan yang lebih tinggi.'
+                ];
+            }
+        } catch (\Exception $e) {
+            $visiMisi = [
+                'visi' => 'Menjadi sekolah unggul yang menghasilkan peserta didik berkualitas, berakhlak mulia, dan berdaya saing global.',
+                'misi' => 'Menyelenggarakan pendidikan berkualitas dengan standar internasional; Membina peserta didik yang berkarakter dan berintegritas; Mengembangkan potensi peserta didik di bidang akademik dan non-akademik; Mempersiapkan peserta didik untuk melanjutkan ke jenjang pendidikan yang lebih tinggi.'
+            ];
+        }
+
+        return view('admin.visi-misi', compact('visiMisi'));
     }
 
     public function updateVisiMisi(Request $request)
     {
-        $this->visiMisi['visi'] = $request->input('visi');
-        $this->visiMisi['misi'] = $request->input('misi');
-        return redirect()->route('admin.visi-misi')->with('success', 'Visi & Misi berhasil diperbarui');
+        $request->validate([
+            'visi' => 'required|string|max:500',
+            'misi' => 'required|string|max:1000',
+        ], [
+            'visi.required' => 'Visi harus diisi',
+            'visi.max' => 'Visi maksimal 500 karakter',
+            'misi.required' => 'Misi harus diisi',
+            'misi.max' => 'Misi maksimal 1000 karakter',
+        ]);
+
+        try {
+            if (Schema::hasTable('visi_misi')) {
+                $visiMisi = VisiMisi::first();
+
+                if (!$visiMisi) {
+                    $visiMisi = new VisiMisi();
+                }
+
+                $visiMisi->visi = $request->input('visi');
+                $visiMisi->misi = $request->input('misi');
+                $visiMisi->save();
+
+                return redirect()->route('admin.visi-misi')->with('success', 'Data visi & misi berhasil diperbarui!');
+            } else {
+                return redirect()->route('admin.visi-misi')->with('info', 'Database belum siap. Silakan jalankan migration terlebih dahulu: php artisan migrate');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan. Pastikan database sudah di-migrate: ' . $e->getMessage())->withInput();
+        }
     }
 
-    // ============ GURU ============
+    // ============================================================
+    // =============== CRUD STRUKTUR ORGANISASI (GAMBAR) ==========
+    // ============================================================
+
+    public function manageStrukturOrganisasi()
+    {
+        $strukturGambar = $this->strukturOrganisasi['gambar'];
+        
+        return view('admin.struktur-organisasi', ['strukturGambar' => $strukturGambar]);
+    }
+
+    public function uploadStrukturOrganisasi(Request $request)
+    {
+        $request->validate([
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120'
+        ], [
+            'gambar.required' => 'Gambar struktur organisasi harus diupload',
+            'gambar.image' => 'File harus berupa gambar',
+            'gambar.mimes' => 'Format gambar harus jpeg, png, jpg, gif, atau svg',
+            'gambar.max' => 'Ukuran gambar maksimal 5MB'
+        ]);
+
+        // Hapus gambar lama jika ada
+        if ($this->strukturOrganisasi['gambar'] && Storage::disk('public')->exists($this->strukturOrganisasi['gambar'])) {
+            Storage::disk('public')->delete($this->strukturOrganisasi['gambar']);
+        }
+
+        // Upload gambar baru
+        $imagePath = $request->file('gambar')->store('struktur-organisasi', 'public');
+        $this->strukturOrganisasi['gambar'] = $imagePath;
+
+        // Simpan ke session untuk persistensi sementara
+        session(['struktur_organisasi_gambar' => $imagePath]);
+
+        return redirect()->route('admin.struktur-organisasi')->with('success', 'Gambar struktur organisasi berhasil diupload!');
+    }
+
+    public function deleteStrukturOrganisasi()
+    {
+        if ($this->strukturOrganisasi['gambar'] && Storage::disk('public')->exists($this->strukturOrganisasi['gambar'])) {
+            Storage::disk('public')->delete($this->strukturOrganisasi['gambar']);
+        }
+
+        $this->strukturOrganisasi['gambar'] = null;
+        session()->forget('struktur_organisasi_gambar');
+
+        return redirect()->route('admin.struktur-organisasi')->with('success', 'Gambar struktur organisasi berhasil dihapus!');
+    }
+
+    // ============================================================
+    // =============== CRUD GURU (NIP OPSIONAL) ===================
+    // ============================================================
+
     public function manageGuru()
     {
         return view('admin.guru', ['guru' => $this->guru]);
@@ -195,11 +302,20 @@ class AdminController extends Controller
 
     public function addGuru(Request $request)
     {
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'mata_pelajaran' => 'required|string|max:255',
+            'nip' => 'nullable|string|max:50'  // NIP OPSIONAL
+        ]);
+
+        $maxId = count($this->guru) > 0 ? collect($this->guru)->max('id') : 0;
+        $newId = $maxId + 1;
+
         $this->guru[] = [
-            'id' => count($this->guru) + 1,
+            'id' => $newId,
             'nama' => $request->input('nama'),
             'mata_pelajaran' => $request->input('mata_pelajaran'),
-            'nip' => $request->input('nip'),
+            'nip' => $request->input('nip') ?? '-',  // Jika kosong, isi dengan '-'
         ];
 
         return redirect()->route('admin.guru')->with('success', 'Guru berhasil ditambahkan');
@@ -207,11 +323,17 @@ class AdminController extends Controller
 
     public function updateGuru($id, Request $request)
     {
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'mata_pelajaran' => 'required|string|max:255',
+            'nip' => 'nullable|string|max:50'  // NIP OPSIONAL
+        ]);
+
         foreach ($this->guru as &$guru) {
             if ($guru['id'] == $id) {
                 $guru['nama'] = $request->input('nama');
                 $guru['mata_pelajaran'] = $request->input('mata_pelajaran');
-                $guru['nip'] = $request->input('nip');
+                $guru['nip'] = $request->input('nip') ?? '-';
                 break;
             }
         }
@@ -228,7 +350,10 @@ class AdminController extends Controller
         return redirect()->route('admin.guru')->with('success', 'Guru berhasil dihapus');
     }
 
-    // ============ EKSTRAKURIKULER ============
+    // ============================================================
+    // =============== CRUD EKSTRAKURIKULER =======================
+    // ============================================================
+
     public function manageEkstrakurikuler()
     {
         return view('admin.ekstrakurikuler', ['ekstrakurikuler' => $this->ekstrakurikuler]);
@@ -252,9 +377,9 @@ class AdminController extends Controller
         foreach ($this->ekstrakurikuler as &$ekstra) {
             if ($ekstra['id'] == $id) {
                 $ekstra['name'] = $request->input('name');
-                $ekstra->jadwal = $request->input('jadwal');
-                $ekstra->pembina = $request->input('pembina');
-                $ekstra->prestasi = $request->input('prestasi');
+                $ekstra['jadwal'] = $request->input('jadwal');
+                $ekstra['pembina'] = $request->input('pembina');
+                $ekstra['prestasi'] = $request->input('prestasi');
                 break;
             }
         }
@@ -271,7 +396,10 @@ class AdminController extends Controller
         return redirect()->route('admin.ekstrakurikuler')->with('success', 'Ekstrakurikuler berhasil dihapus');
     }
 
-    // ============ BERITA ============
+    // ============================================================
+    // =============== CRUD BERITA ================================
+    // ============================================================
+
     public function manageBerita()
     {
         return view('admin.berita', ['berita' => $this->berita]);
@@ -315,7 +443,10 @@ class AdminController extends Controller
         return redirect()->route('admin.berita')->with('success', 'Berita/Pengumuman berhasil dihapus');
     }
 
-    // ============ PPDB ============
+    // ============================================================
+    // =============== CRUD PPDB ==================================
+    // ============================================================
+
     public function managePpdb()
     {
         return view('admin.ppdb', ['ppdb' => $this->ppdb]);
@@ -335,7 +466,10 @@ class AdminController extends Controller
         return redirect()->route('admin.ppdb')->with('success', 'Data PPDB berhasil diperbarui');
     }
 
-    // ============ SOSIAL MEDIA ============
+    // ============================================================
+    // =============== CRUD SOSIAL MEDIA ==========================
+    // ============================================================
+
     public function manageSosialMedia()
     {
         return view('admin.sosial-media', ['sosialMedia' => $this->sosialMedia]);
@@ -346,7 +480,10 @@ class AdminController extends Controller
         return redirect()->route('admin.sosial-media')->with('success', 'Sosial Media berhasil diperbarui');
     }
 
-    // ============ GALERI ============
+    // ============================================================
+    // =============== CRUD GALERI ================================
+    // ============================================================
+
     public function manageGaleri()
     {
         return view('admin.galeri', ['galeri' => $this->galeri]);

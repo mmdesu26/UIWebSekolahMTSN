@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sejarah;
+use App\Models\VisiMisi;
+use Illuminate\Support\Facades\Schema;
 
 class FrontendUserController extends Controller
 {
@@ -11,7 +13,7 @@ class FrontendUserController extends Controller
 
     public function __construct()
     {
-        // DATA VISI MISI
+        // DATA VISI MISI - Fallback data
         $this->data['visi'] = "Menjadi institusi yang unggul dalam mengembangkan karakter, ilmu pengetahuan, dan iman.";
 
         $this->data['misi'] = [
@@ -20,9 +22,11 @@ class FrontendUserController extends Controller
             "Mengembangkan kepemimpinan, kerjasama, dan empati.",
         ];
 
-        // DATA STRUKTUR
-        $this->data['struktur'] = "Kepala Sekolah -> Wakil Kepala -> Kepala Bidang -> Staf Pengajar.";
-        $this->data['struktur_organisasi'] = $this->data['struktur'];
+        // DATA STRUKTUR ORGANISASI - KOSONG (Admin upload gambar)
+        $this->data['struktur_organisasi_gambar'] = session('struktur_organisasi_gambar', null);
+
+        // DATA GURU - KOSONG (Admin harus input dahulu)
+        $this->data['guru'] = [];
 
         // DATA BERITA
         $this->data['berita'] = [
@@ -152,34 +156,80 @@ class FrontendUserController extends Controller
         return view('user.profil.sejarah', compact('sejarah'));
     }
 
+    // ================================================
+    // VISI & MISI — DENGAN FALLBACK JIKA TABEL BELUM ADA
+    // ================================================
     public function visiMisi()
     {
+        $visiMisi = [
+            'visi' => 'Visi belum diatur',
+            'misi' => 'Misi belum diatur',
+        ];
+
+        try {
+            if (Schema::hasTable('visi_misi')) {
+                $visiMisiData = VisiMisi::first();
+                
+                if ($visiMisiData) {
+                    $visiMisi = [
+                        'visi' => $visiMisiData->visi,
+                        'misi' => $visiMisiData->misi,
+                    ];
+                }
+            } else {
+                $visiMisi = [
+                    'visi' => 'Menjadi sekolah unggul yang menghasilkan peserta didik berkualitas, berakhlak mulia, dan berdaya saing global.',
+                    'misi' => "Menyelenggarakan pendidikan berkualitas dengan standar internasional\nMembina peserta didik yang berkarakter dan berintegritas\nMengembangkan potensi peserta didik di bidang akademik dan non-akademik\nMempersiapkan peserta didik untuk melanjutkan ke jenjang pendidikan yang lebih tinggi"
+                ];
+            }
+        } catch (\Exception $e) {
+            $visiMisi = [
+                'visi' => 'Menjadi sekolah unggul yang menghasilkan peserta didik berkualitas, berakhlak mulia, dan berdaya saing global.',
+                'misi' => "Menyelenggarakan pendidikan berkualitas dengan standar internasional\nMembina peserta didik yang berkarakter dan berintegritas\nMengembangkan potensi peserta didik di bidang akademik dan non-akademik\nMempersiapkan peserta didik untuk melanjutkan ke jenjang pendidikan yang lebih tinggi"
+            ];
+        }
+
         return view('user.profil.visi_misi', [
             'title' => 'Visi & Misi - MTsN 1 Magetan',
             'description' => 'Visi dan misi MTsN 1 Magetan',
+            'visiMisi' => $visiMisi,
             'data' => $this->data
         ]);
     }
 
+    // =============================
+    // STRUKTUR ORGANISASI (GAMBAR)
+    // =============================
     public function struktur()
     {
+        $strukturGambar = $this->data['struktur_organisasi_gambar'];
+        
         return view('user.profil.struktur_organisasi.struktur', [
             'title' => 'Struktur Organisasi - MTsN 1 Magetan',
             'description' => 'Struktur organisasi sekolah',
-            'data' => $this->data
+            'data' => $this->data,
+            'strukturGambar' => $strukturGambar
         ]);
     }
 
     public function strukturOrganisasi()
     {
-        return view('user.profil.struktur_organisasi.struktur', ['data' => $this->data]);
+        return $this->struktur();
     }
 
+    // =============================
+    // GURU
+    // =============================
     public function guru()
     {
-        return view('user.profil-guru', [
+        $guru = $this->data['guru'];
+        $jumlah_guru = count($guru);
+        
+        return view('user.profil.guru', [
             'title' => 'Data Guru - MTsN 1 Magetan',
-            'data' => $this->data
+            'data' => $this->data,
+            'guru' => $guru,
+            'jumlah_guru' => $jumlah_guru
         ]);
     }
 
