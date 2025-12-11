@@ -5,9 +5,33 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/admin/sejarah.css') }}">
+{{-- ⭐ PENTING: Tambahkan meta CSRF token untuk AJAX requests --}}
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 @section('content')
+
+<!-- Success/Error Messages -->
+@if(session('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert" style="animation: slideInDown 0.5s ease;">
+    <i class="fas fa-check-circle"></i>
+    <strong>Berhasil!</strong> {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+@endif
+
+@if($errors->any())
+<div class="alert alert-danger alert-dismissible fade show" role="alert" style="animation: slideInDown 0.5s ease;">
+    <i class="fas fa-exclamation-circle"></i>
+    <strong>Gagal!</strong>
+    <ul class="mb-0">
+        @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+@endif
 
 <!-- Main Container -->
 <div class="sejarah-container">
@@ -34,7 +58,7 @@
                             
                             <div class="image-upload-container">
                                 <div class="image-preview-wrapper">
-                                    @if($sejarah->image)
+                                    @if($sejarah && $sejarah->image)
                                     <div class="current-image">
                                         <img src="{{ Storage::url($sejarah->image) }}" alt="Sejarah Image" id="imagePreview">
                                         <button type="button" class="btn-delete-image" onclick="deleteImage()" title="Hapus Gambar">

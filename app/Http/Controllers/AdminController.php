@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Sejarah;
 use App\Models\VisiMisi;
 use App\Models\Kurikulum;
+use App\Models\Galeri; 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Schema;
 
@@ -20,12 +21,10 @@ class AdminController extends Controller
         'content' => 'MTsN 1 Magetan didirikan pada tahun 1975 sebagai salah satu lembaga pendidikan menengah pertama di Kabupaten Magetan. Sekolah ini telah berkembang menjadi salah satu sekolah terkemuka di daerah ini dengan fasilitas modern dan tenaga pengajar yang berpengalaman.'
     ];
 
-    // DATA GURU - KOSONG (Admin harus input manual)
     protected $guru = [];
 
-    // DATA STRUKTUR ORGANISASI - KOSONG (Admin upload gambar)
     protected $strukturOrganisasi = [
-        'gambar' => null  // Path gambar struktur organisasi
+        'gambar' => null
     ];
 
     protected $ekstrakurikuler = [
@@ -351,7 +350,6 @@ class AdminController extends Controller
         return redirect()->route('admin.guru')->with('success', 'Guru berhasil dihapus');
     }
 
-
     // ============================================================
     // =============== CRUD KURIKULUM =============================
     // ============================================================
@@ -421,7 +419,6 @@ class AdminController extends Controller
                 ->withInput();
         }
     }
-
 
     // ============================================================
     // =============== CRUD EKSTRAKURIKULER =======================
@@ -557,41 +554,68 @@ class AdminController extends Controller
     // =============== CRUD GALERI ================================
     // ============================================================
 
+    // Menampilkan galeri
     public function manageGaleri()
     {
-        return view('admin.galeri', ['galeri' => $this->galeri]);
+        $galeri = Galeri::all(); // Ambil data dari model Galeri
+        return view('admin.galeri', compact('galeri'));
     }
 
+    // Menambahkan galeri
     public function addGaleri(Request $request)
     {
-        $this->galeri[] = [
-            'id' => count($this->galeri) + 1,
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $imagePath = $request->file('gambar')->store('galeri', 'public'); // Upload gambar
+        
+        // Menyimpan data galeri baru
+        Galeri::create([
             'judul' => $request->input('judul'),
-            'gambar' => $request->input('gambar'),
-            'tanggal' => date('Y-m-d'),
-        ];
+            'gambar' => $imagePath,
+            'tanggal' => now() // Menggunakan now() untuk tanggal
+        ]);
 
         return redirect()->route('admin.galeri')->with('success', 'Foto berhasil ditambahkan');
     }
 
+    // Mengupdate galeri
     public function updateGaleri($id, Request $request)
     {
-        foreach ($this->galeri as &$g) {
-            if ($g['id'] == $id) {
-                $g['judul'] = $request->input('judul');
-                $g['gambar'] = $request->input('gambar');
-                break;
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $galeri = Galeri::findOrFail($id); // Ambil data berdasarkan ID
+
+        $galeri->judul = $request->input('judul');
+
+        // Jika ada gambar baru
+        if ($request->hasFile('gambar')) {
+            if ($galeri->gambar && Storage::disk('public')->exists($galeri->gambar)) {
+                Storage::disk('public')->delete($galeri->gambar); // Hapus gambar lama
             }
+            $galeri->gambar = $request->file('gambar')->store('galeri', 'public');
         }
+
+        $galeri->save(); // Simpan perubahan
 
         return redirect()->route('admin.galeri')->with('success', 'Foto berhasil diperbarui');
     }
 
+    // Menghapus galeri
     public function deleteGaleri($id)
     {
-        $this->galeri = array_filter($this->galeri, function ($g) use ($id) {
-            return $g['id'] != $id;
-        });
+        $galeri = Galeri::findOrFail($id); // Ambil galeri berdasarkan ID
+
+        if ($galeri->gambar && Storage::disk('public')->exists($galeri->gambar)) {
+            Storage::disk('public')->delete($galeri->gambar); // Hapus gambar dari penyimpanan
+        }
+
+        $galeri->delete(); // Hapus data dari database
 
         return redirect()->route('admin.galeri')->with('success', 'Foto berhasil dihapus');
     }

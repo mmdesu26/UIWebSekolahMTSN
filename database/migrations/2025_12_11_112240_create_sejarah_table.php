@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -11,18 +10,10 @@ return new class extends Migration
     {
         Schema::create('sejarah', function (Blueprint $table) {
             $table->id();
-            $table->text('content');
             $table->string('image')->nullable();
+            $table->longText('content');
             $table->timestamps();
         });
-
-        // Insert default data
-        DB::table('sejarah')->insert([
-            'content' => 'MTsN 1 Magetan didirikan pada tahun 1975 sebagai salah satu lembaga pendidikan menengah pertama di Kabupaten Magetan.',
-            'image' => null, 
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
     }
 
     public function down()

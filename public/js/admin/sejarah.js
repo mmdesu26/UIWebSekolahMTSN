@@ -120,6 +120,7 @@ function deleteImage() {
         return;
     }
 
+    // ⭐ PERBAIKAN: Ubah route dari '/admin/sejarah/delete-image' menjadi route yang benar
     fetch('/admin/sejarah/delete-image', {
         method: 'DELETE',
         headers: {
@@ -152,14 +153,14 @@ function deleteImage() {
             document.getElementById('imageInput').value = '';
 
             // Show success message
-            showNotification('Gambar berhasil dihapus!', 'success');
+            alert('Gambar berhasil dihapus!');
         } else {
-            showNotification('Gagal menghapus gambar!', 'error');
+            alert('Gagal menghapus gambar!');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        showNotification('Terjadi kesalahan!', 'error');
+        alert('Terjadi kesalahan!');
     });
 }
 
@@ -325,7 +326,7 @@ function showNotification(message, type = 'success') {
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     `;
     
-    const container = document.querySelector('.content-container');
+    const container = document.querySelector('.sejarah-container');
     container.insertBefore(alert, container.firstChild);
     
     // Auto dismiss after 5 seconds

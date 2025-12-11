@@ -10,9 +10,11 @@ class Sejarah extends Model
     use HasFactory;
 
     protected $table = 'sejarah';
-    
+
     protected $fillable = [
-        'content',
-        'image'
+        'image',
+        'content'
     ];
+
+    public $timestamps = true;
 }

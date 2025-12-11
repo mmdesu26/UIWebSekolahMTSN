@@ -711,7 +711,7 @@
                     <i class="fas fa-chart-line"></i> 
                     <span>Dashboard</span>
                 </a>
-                <a href="{{ route('admin.sejarah') }}" class="@if(request()->routeIs('admin.sejarah')) active @endif">
+                <a href="{{ route('admin.sejarah.index') }}" class="@if(request()->routeIs('admin.sejarah.*')) active @endif">
                     <i class="fas fa-history"></i> 
                     <span>Sejarah Sekolah</span>
                 </a>

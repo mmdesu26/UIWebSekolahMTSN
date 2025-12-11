@@ -144,6 +144,37 @@
         background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
     }
 
+    /* ==================== FEATURED IMAGE ==================== */
+    .featured-image-wrapper {
+        margin-bottom: 40px;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+        animation: fadeInUp 0.8s ease-out 0.2s both;
+        position: relative;
+    }
+
+    .featured-image-wrapper img {
+        width: 100%;
+        height: auto;
+        max-height: 500px;
+        object-fit: cover;
+        display: block;
+        transition: var(--transition);
+    }
+
+    .featured-image-wrapper:hover img {
+        transform: scale(1.05);
+    }
+
+    .featured-image-wrapper::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.3));
+        pointer-events: none;
+    }
+
     /* ==================== MAIN CARD ==================== */
     .sejarah-card {
         background: white;
@@ -190,23 +221,6 @@
             transform: scaleX(1);
             transform-origin: left;
         }
-    }
-
-    .sejarah-card::after {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -50%;
-        width: 300px;
-        height: 300px;
-        background: radial-gradient(circle, rgba(243, 156, 18, 0.08), transparent);
-        border-radius: 50%;
-        transition: var(--transition);
-    }
-
-    .sejarah-card:hover::after {
-        top: -30%;
-        right: -30%;
     }
 
     /* ==================== CARD HEADER ==================== */
@@ -307,12 +321,6 @@
         animation: fadeInUp 0.8s ease-out backwards;
     }
 
-    .sejarah-card-body p:nth-of-type(1) { animation-delay: 0.1s; }
-    .sejarah-card-body p:nth-of-type(2) { animation-delay: 0.2s; }
-    .sejarah-card-body p:nth-of-type(3) { animation-delay: 0.3s; }
-    .sejarah-card-body p:nth-of-type(4) { animation-delay: 0.4s; }
-    .sejarah-card-body p:nth-of-type(5) { animation-delay: 0.5s; }
-
     .sejarah-card-body ul {
         list-style: none;
         padding: 0;
@@ -359,185 +367,11 @@
         transform: translateX(5px);
     }
 
-    .highlight-box h4 {
-        color: var(--primary-color);
-        margin-bottom: 12px;
-        font-weight: 700;
-        font-size: clamp(14px, 1.5vw, 16px);
-    }
-
     .highlight-box p {
         color: var(--text-dark);
         margin: 0;
         font-size: clamp(13px, 1.5vw, 15px);
         line-height: 1.6;
-    }
-
-    /* ==================== TIMELINE ==================== */
-    .timeline {
-        position: relative;
-        padding: 20px 0;
-    }
-
-    .timeline::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 3px;
-        background: linear-gradient(180deg, var(--secondary-color), var(--primary-color), transparent);
-        border-radius: 2px;
-        animation: growDown 1s ease-out 0.5s both;
-    }
-
-    @keyframes growDown {
-        from {
-            height: 0;
-            top: 0;
-        }
-        to {
-            height: 100%;
-            top: 0;
-        }
-    }
-
-    .timeline-item {
-        margin-left: 30px;
-        margin-bottom: 30px;
-        position: relative;
-        animation: fadeInUp 0.6s ease-out backwards;
-    }
-
-    .timeline-item:nth-child(1) { animation-delay: 0.1s; }
-    .timeline-item:nth-child(2) { animation-delay: 0.2s; }
-    .timeline-item:nth-child(3) { animation-delay: 0.3s; }
-    .timeline-item:nth-child(4) { animation-delay: 0.4s; }
-    .timeline-item:nth-child(5) { animation-delay: 0.5s; }
-
-    .timeline-item::before {
-        content: '';
-        position: absolute;
-        left: -38px;
-        top: 5px;
-        width: 12px;
-        height: 12px;
-        background: var(--secondary-color);
-        border: 3px solid white;
-        border-radius: 50%;
-        box-shadow: 0 0 0 3px var(--secondary-color);
-        transition: var(--transition);
-    }
-
-    .timeline-item:hover::before {
-        transform: scale(1.3);
-        box-shadow: 0 0 0 5px var(--secondary-color);
-    }
-
-    .timeline-year {
-        color: var(--secondary-color);
-        font-weight: 700;
-        font-size: clamp(14px, 1.5vw, 16px);
-        margin-bottom: 5px;
-    }
-
-    .timeline-text {
-        color: var(--text-light);
-        font-size: clamp(13px, 1.5vw, 15px);
-        line-height: 1.6;
-    }
-
-    /* ==================== INFO GRID ==================== */
-    .info-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: clamp(20px, 3vw, 30px);
-        margin: 40px 0;
-    }
-
-    .info-item {
-        background: linear-gradient(135deg, #f8f9fa, #ffffff);
-        padding: clamp(20px, 3vw, 30px);
-        border-radius: 12px;
-        border: 1px solid var(--border-color);
-        text-align: center;
-        transition: var(--transition);
-        animation: fadeInUp 0.6s ease-out backwards;
-    }
-
-    .info-item:nth-child(1) { animation-delay: 0.1s; }
-    .info-item:nth-child(2) { animation-delay: 0.2s; }
-    .info-item:nth-child(3) { animation-delay: 0.3s; }
-
-    .info-item:hover {
-        transform: translateY(-8px);
-        box-shadow: var(--shadow-md);
-        background: white;
-    }
-
-    .info-icon-item {
-        font-size: 36px;
-        margin-bottom: 15px;
-        color: var(--secondary-color);
-    }
-
-    .info-item h4 {
-        color: var(--primary-color);
-        font-weight: 700;
-        margin-bottom: 10px;
-        font-size: clamp(16px, 2vw, 18px);
-    }
-
-    .info-item p {
-        color: var(--text-light);
-        font-size: clamp(12px, 1.5vw, 14px);
-        margin: 0;
-        line-height: 1.6;
-    }
-
-    /* ==================== STATS ==================== */
-    .stats-container {
-        background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-        color: white;
-        padding: clamp(30px, 5vw, 50px);
-        border-radius: 15px;
-        margin: 40px 0;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: clamp(20px, 3vw, 30px);
-        text-align: center;
-        animation: fadeInUp 0.8s ease-out 0.3s both;
-    }
-
-    .stat-item {
-        animation: scaleIn 0.6s ease-out backwards;
-    }
-
-    .stat-item:nth-child(1) { animation-delay: 0.1s; }
-    .stat-item:nth-child(2) { animation-delay: 0.2s; }
-    .stat-item:nth-child(3) { animation-delay: 0.3s; }
-    .stat-item:nth-child(4) { animation-delay: 0.4s; }
-
-    @keyframes scaleIn {
-        from {
-            opacity: 0;
-            transform: scale(0.8);
-        }
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-
-    .stat-number {
-        font-size: clamp(28px, 4vw, 42px);
-        font-weight: 700;
-        margin-bottom: 8px;
-    }
-
-    .stat-label {
-        font-size: clamp(12px, 1.5vw, 14px);
-        opacity: 0.9;
     }
 
     /* ==================== DIVIDER ==================== */
@@ -627,32 +461,6 @@
     }
 
     /* ==================== RESPONSIVE ==================== */
-    @media (max-width: 1024px) {
-        .sejarah-hero {
-            min-height: 50vh;
-        }
-
-        .sejarah-card {
-            padding: 30px;
-        }
-
-        .sejarah-card-header {
-            flex-direction: column;
-            text-align: center;
-            gap: 15px;
-        }
-
-        .sejarah-icon {
-            width: 70px;
-            height: 70px;
-            font-size: 35px;
-        }
-
-        .stats-container {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
     @media (max-width: 768px) {
         .sejarah-hero {
             min-height: 45vh;
@@ -668,47 +476,20 @@
             border-radius: 15px;
         }
 
-        .sejarah-hero h1 {
-            font-size: 28px;
-        }
-
-        .sejarah-hero p {
-            font-size: 14px;
-        }
-
-        .breadcrumb-custom {
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .sejarah-card-body h3 {
-            font-size: 20px;
-            margin: 25px 0 15px 0;
-        }
-
-        .info-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .stats-container {
-            grid-template-columns: repeat(2, 1fr);
+        .sejarah-card-header {
+            flex-direction: column;
+            text-align: center;
             gap: 15px;
         }
 
-        .stat-number {
-            font-size: 32px;
+        .sejarah-icon {
+            width: 70px;
+            height: 70px;
+            font-size: 35px;
         }
 
-        .timeline::before {
-            left: 0;
-        }
-
-        .timeline-item {
-            margin-left: 20px;
-        }
-
-        .timeline-item::before {
-            left: -28px;
+        .featured-image-wrapper img {
+            max-height: 350px;
         }
     }
 
@@ -727,126 +508,8 @@
             border-radius: 12px;
         }
 
-        .sejarah-hero h1 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-
-        .sejarah-hero p {
-            font-size: 12px;
-        }
-
-        .breadcrumb-custom {
-            font-size: 11px;
-            padding: 6px 12px;
-            gap: 8px;
-        }
-
-        .sejarah-icon {
-            width: 60px;
-            height: 60px;
-            font-size: 30px;
-        }
-
-        .sejarah-header-text h2 {
-            font-size: 18px;
-        }
-
-        .sejarah-header-text p {
-            font-size: 12px;
-        }
-
-        .sejarah-card-body h3 {
-            font-size: 18px;
-            margin: 20px 0 12px 0;
-        }
-
-        .sejarah-card-body p {
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        .highlight-box {
-            padding: 15px;
-            margin: 20px 0;
-        }
-
-        .highlight-box h4 {
-            font-size: 13px;
-        }
-
-        .stats-container {
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            padding: 25px;
-        }
-
-        .stat-number {
-            font-size: 24px;
-        }
-
-        .stat-label {
-            font-size: 11px;
-        }
-
-        .info-grid {
-            gap: 15px;
-            margin: 30px 0;
-        }
-
-        .info-item {
-            padding: 15px;
-        }
-
-        .info-icon-item {
-            font-size: 32px;
-        }
-
-        .timeline-item {
-            margin-left: 15px;
-            margin-bottom: 25px;
-        }
-
-        .timeline-item::before {
-            left: -22px;
-            width: 10px;
-            height: 10px;
-        }
-
-        .cta-section {
-            padding: 30px 15px;
-            margin-top: 40px;
-        }
-
-        .cta-section h3 {
-            font-size: 20px;
-        }
-
-        .cta-btn {
-            padding: 10px 20px;
-            font-size: 13px;
-        }
-
-        .divider {
-            margin: 30px 0;
-        }
-    }
-
-    @media (max-width: 360px) {
-        .sejarah-hero h1 {
-            font-size: 18px;
-        }
-
-        .sejarah-card-body h3 {
-            font-size: 16px;
-        }
-
-        .stats-container {
-            grid-template-columns: 1fr;
-        }
-
-        .sejarah-card-header {
-            gap: 10px;
+        .featured-image-wrapper img {
+            max-height: 250px;
         }
     }
 
@@ -854,53 +517,6 @@
     html {
         scroll-behavior: smooth;
     }
-
-    /* ==================== ACCESSIBILITY ==================== */
-    @media (prefers-reduced-motion: reduce) {
-        *,
-        *::before,
-        *::after {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
-            scroll-behavior: auto !important;
-        }
-    }
-
-    /* ==================== DARK MODE ==================== */
-    @media (prefers-color-scheme: dark) {
-        .sejarah-card,
-        .info-item,
-        .highlight-box {
-            background: #2c3e50;
-            color: #ecf0f1;
-            border-color: #34495e;
-        }
-
-        .sejarah-card-body h3 {
-            color: #f39c12;
-            border-color: #34495e;
-        }
-
-        .sejarah-card-body p,
-        .sejarah-card-body li,
-        .highlight-box p {
-            color: #bdc3c7;
-        }
-
-        .sejarah-header-text h2 {
-            color: #f39c12;
-        }
-
-        .info-item {
-            background: linear-gradient(135deg, #34495e, #2c3e50);
-        }
-
-        .info-item h4 {
-            color: #f39c12;
-        }
-    }
-
 </style>
 
 <!-- Hero Section -->
@@ -924,6 +540,13 @@
 <section class="sejarah-content-section">
     <div class="container">
         
+        <!-- Featured Image -->
+        @if(isset($data['image']) && $data['image'])
+        <div class="featured-image-wrapper">
+            <img src="{{ $data['image'] }}" alt="Sejarah MTsN 1 Magetan">
+        </div>
+        @endif
+
         <!-- Main Card -->
         <div class="sejarah-card">
             
@@ -947,126 +570,15 @@
                     {!! $data['sejarah'] !!}
                 @else
                     <!-- Placeholder Content -->
-                    <h3><i class="fas fa-calendar-alt"></i> Asal-Usul Pendirian</h3>
-                    <p>
-                        MTsN 1 Magetan didirikan dengan visi untuk memberikan pendidikan berkualitas kepada masyarakat Magetan. 
-                        Perjalanan ini dimulai dari sebuah komitmen untuk menciptakan generasi penerus bangsa yang cerdas, 
-                        beriman kepada Tuhan Yang Maha Esa, dan berakhlak mulia.
+                    <p style="text-align: center; color: var(--text-muted); padding: 40px 20px;">
+                        <i class="fas fa-info-circle" style="font-size: 48px; margin-bottom: 20px; display: block;"></i>
+                        <strong>Konten sejarah belum tersedia.</strong><br>
+                        Silakan hubungi administrator untuk menambahkan informasi sejarah sekolah.
                     </p>
-
-                    <div class="highlight-box">
-                        <h4><i class="fas fa-lightbulb"></i> Misi Awal</h4>
-                        <p>
-                            Mendirikan sekolah menengah pertama Islam yang mampu memberikan pendidikan umum dan agama 
-                            secara seimbang, serta menghasilkan lulusan yang siap melanjutkan ke jenjang pendidikan yang lebih tinggi.
-                        </p>
-                    </div>
-
-                    <h3><i class="fas fa-chart-line"></i> Perkembangan Institusi</h3>
-                    <p>
-                        Sejak awal berdirinya, MTsN 1 Magetan terus mengalami perkembangan pesat. Dengan dukungan dari 
-                        pemerintah, orangtua siswa, dan masyarakat, sekolah ini berhasil membangun sarana dan prasarana 
-                        yang mendukung proses pembelajaran berkualitas.
-                    </p>
-
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-year">1990</div>
-                            <div class="timeline-text">Pendirian SMP Negeri Magetan dengan 3 ruang kelas dan 50 siswa</div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-year">2000</div>
-                            <div class="timeline-text">Perubahan status menjadi Madrasah Tsanawiyah Negeri (MTsN) Magetan</div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-year">2010</div>
-                            <div class="timeline-text">Penambahan fasilitas: laboratorium, perpustakaan digital, dan lap olahraga</div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-year">2018</div>
-                            <div class="timeline-text">Akreditasi A dan pembukaan program unggulan (Sains, IT, Bilingual)</div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-year">2024</div>
-                            <div class="timeline-text">Menjadi sekolah dengan standar internasional dan teknologi terkini</div>
-                        </div>
-                    </div>
-
-                    <h3><i class="fas fa-people-group"></i> Tokoh-Tokoh Pendiri</h3>
-                    <p>
-                        MTsN 1 Magetan didirikan berkat kerja keras dan dedikasi berbagai tokoh masyarakat, pendidik, 
-                        dan pejabat pemerintah yang percaya pada pentingnya pendidikan berkualitas bagi generasi muda.
-                    </p>
-
-                    <div class="highlight-box">
-                        <h4><i class="fas fa-award"></i> Prestasi & Pengakuan</h4>
-                        <p>
-                            Sekolah telah menerima berbagai penghargaan dari pemerintah dan organisasi pendidikan internasional 
-                            atas dedikasi dalam meningkatkan kualitas pendidikan dan menghasilkan lulusan berprestasi.
-                        </p>
-                    </div>
-
-                    <h3><i class="fas fa-users"></i> Kontribusi Terhadap Masyarakat</h3>
-                    <p>
-                        Sepanjang perjalanannya, MTsN 1 Magetan telah berkontribusi signifikan dalam:
-                    </p>
-                    <ul>
-                        <li>Menghasilkan lulusan yang tersebar di berbagai profesi dan bidang industri</li>
-                        <li>Memberikan beasiswa kepada siswa berprestasi namun kurang mampu</li>
-                        <li>Aktif dalam kegiatan sosial dan pemberdayaan masyarakat lokal</li>
-                        <li>Menjadi pusat kegiatan olahraga dan seni di tingkat kabupaten</li>
-                        <li>Membangun kerjasama dengan institusi pendidikan nasional dan internasional</li>
-                    </ul>
-
                 @endif
 
             </div>
 
-        </div>
-
-        <!-- Stats Container -->
-        <div class="stats-container">
-            <div class="stat-item">
-                <div class="stat-number">34+</div>
-                <div class="stat-label">Tahun Berdiri</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">850+</div>
-                <div class="stat-label">Siswa Aktif</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">80+</div>
-                <div class="stat-label">Pendidik</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">3000+</div>
-                <div class="stat-label">Alumni Sukses</div>
-            </div>
-        </div>
-
-        <!-- Info Grid -->
-        <div class="info-grid">
-            <div class="info-item">
-                <div class="info-icon-item">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <h4>Pendidikan Berkualitas</h4>
-                <p>Menyediakan pendidikan dengan standar nasional dan internasional yang terus ditingkatkan</p>
-            </div>
-            <div class="info-item">
-                <div class="info-icon-item">
-                    <i class="fas fa-mosque"></i>
-                </div>
-                <h4>Nilai Islami</h4>
-                <p>Mengintegrasikan nilai-nilai Islam dalam setiap aspek pendidikan dan pembentukan karakter</p>
-            </div>
-            <div class="info-item">
-                <div class="info-icon-item">
-                    <i class="fas fa-lightbulb"></i>
-                </div>
-                <h4>Inovasi Terus-Menerus</h4>
-                <p>Selalu berinovasi dalam metode pembelajaran dan pengembangan teknologi pendidikan</p>
-            </div>
         </div>
 
         <!-- CTA Section -->
@@ -1098,10 +610,10 @@
     }, observerOptions);
 
     // Observe elements
-    document.querySelectorAll('.info-item, .timeline-item, .stat-item').forEach((el, index) => {
+    document.querySelectorAll('.sejarah-card-body > *').forEach((el, index) => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
-        el.style.transition = `all 0.6s ease ${index * 0.1}s`;
+        el.style.transition = `all 0.6s ease ${index * 0.05}s`;
         observer.observe(el);
     });
 
@@ -1120,27 +632,6 @@
                     behavior: 'smooth', 
                     block: 'start' 
                 });
-            }
-        });
-    });
-
-    // ==================== KEYBOARD NAVIGATION ==================== 
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowDown') {
-            window.scrollBy({ top: 100, behavior: 'smooth' });
-        } else if (e.key === 'ArrowUp') {
-            window.scrollBy({ top: -100, behavior: 'smooth' });
-        }
-    });
-
-    // ==================== ACCESSIBILITY ==================== 
-    document.querySelectorAll('.cta-btn').forEach(btn => {
-        btn.setAttribute('role', 'button');
-        btn.setAttribute('tabindex', '0');
-        
-        btn.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                btn.click();
             }
         });
     });
