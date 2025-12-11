@@ -715,7 +715,7 @@
                     <i class="fas fa-history"></i> 
                     <span>Sejarah Sekolah</span>
                 </a>
-                <a href="{{ route('admin.visi-misi') }}" class="@if(request()->routeIs('admin.visi-misi')) active @endif">
+                <a href="{{ route('admin.visi-misi.index') }}" class="@if(request()->routeIs('admin.visi-misi.*')) active @endif">
                     <i class="fas fa-lightbulb"></i> 
                     <span>Visi & Misi</span>
                 </a>

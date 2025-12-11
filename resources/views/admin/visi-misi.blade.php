@@ -415,6 +415,12 @@
         color: var(--success-color);
     }
 
+    .alert-danger {
+        background: linear-gradient(135deg, rgba(245, 101, 101, 0.1), rgba(229, 62, 62, 0.1));
+        border: 2px solid var(--danger-color);
+        color: var(--danger-color);
+    }
+
     .alert-info {
         background: linear-gradient(135deg, rgba(66, 153, 225, 0.1), rgba(49, 130, 206, 0.1));
         border: 2px solid var(--info-color);
@@ -712,7 +718,32 @@
             <div class="alert alert-success" role="alert">
                 <i class="fas fa-check-circle"></i>
                 <div>
-                    <strong>Berhasil!</strong> Data visi & misi telah diperbarui.
+                    <strong>Berhasil!</strong> {{ session('success') }}
+                </div>
+            </div>
+            @endif
+
+            <!-- Error Message -->
+            @if(session('error'))
+            <div class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-circle"></i>
+                <div>
+                    <strong>Error!</strong> {{ session('error') }}
+                </div>
+            </div>
+            @endif
+
+            <!-- Validation Errors -->
+            @if($errors->any())
+            <div class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>
+                    <strong>Terjadi kesalahan:</strong>
+                    <ul style="margin: 8px 0 0 20px; padding: 0;">
+                        @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
             @endif
@@ -746,7 +777,7 @@
                                     placeholder="Tuliskan visi sekolah yang inspiratif dan visioner..."
                                     maxlength="500"
                                     required
-                                >{{ $visiMisi['visi'] ?? '' }}</textarea>
+                                >{{ old('visi', $visiMisi['visi'] ?? '') }}</textarea>
                                 <small class="form-text">
                                     📝 Tuliskan visi yang menggambarkan cita-cita jangka panjang sekolah
                                 </small>
@@ -781,7 +812,7 @@
                                     placeholder="Tuliskan misi sekolah (pisahkan setiap poin dengan baris baru)&#10;Contoh:&#10;1. Menyelenggarakan pendidikan berkualitas&#10;2. Mengembangkan karakter peserta didik&#10;3. Mempersiapkan generasi yang kompeten"
                                     maxlength="1000"
                                     required
-                                >{{ $visiMisi['misi'] ?? '' }}</textarea>
+                                >{{ old('misi', $visiMisi['misi'] ?? '') }}</textarea>
                                 <small class="form-text">
                                     📋 Tuliskan setiap misi dalam baris terpisah untuk format yang lebih rapi
                                 </small>
@@ -847,12 +878,6 @@
                 
                 submitBtn.innerHTML = '<div class="btn-content"><i class="fas fa-spinner fa-spin"></i><span>Menyimpan...</span></div>';
                 submitBtn.disabled = true;
-
-                // Simulate save completion
-                setTimeout(() => {
-                    submitBtn.innerHTML = originalContent;
-                    submitBtn.disabled = false;
-                }, 2000);
             });
         }
     });
@@ -871,58 +896,10 @@
 
     // ==================== KEYBOARD SHORTCUTS ==================== 
     document.addEventListener('keydown', function(e) {
-        // Ctrl+S untuk submit
         if ((e.ctrlKey || e.metaKey) && e.key === 's') {
             e.preventDefault();
             document.querySelector('.visi-misi-form').submit();
         }
-
-        // Ctrl+Z untuk undo (browser default)
-        // Tidak perlu di-override
-    });
-
-    // ==================== AUTO-SAVE DRAFT ==================== 
-    let autoSaveTimeout;
-    document.querySelectorAll('.form-control').forEach(textarea => {
-        textarea.addEventListener('input', function() {
-            clearTimeout(autoSaveTimeout);
-            
-            // Auto-save ke localStorage setiap 2 detik setelah berhenti mengetik
-            autoSaveTimeout = setTimeout(() => {
-                const key = this.name === 'visi' ? 'visi_draft' : 'misi_draft';
-                localStorage.setItem(key, this.value);
-                
-                // Show subtle notification
-                console.log('Draft tersimpan otomatis');
-            }, 2000);
-        });
-    });
-
-    // ==================== LOAD DRAFT ON PAGE LOAD ==================== 
-    window.addEventListener('load', function() {
-        const visiDraft = localStorage.getItem('visi_draft');
-        const misiDraft = localStorage.getItem('misi_draft');
-
-        // Optionally load draft if available (commented out by default)
-        // if (visiDraft) document.querySelector('.visi-textarea').value = visiDraft;
-        // if (misiDraft) document.querySelector('.misi-textarea').value = misiDraft;
-    });
-
-    // ==================== CLEAR DRAFT ON SUCCESS ==================== 
-    if (document.querySelector('.alert-success')) {
-        localStorage.removeItem('visi_draft');
-        localStorage.removeItem('misi_draft');
-    }
-
-    // ==================== SMOOTH SCROLL TO FORM ==================== 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
     });
 
     // ==================== VALIDATION FEEDBACK ==================== 
@@ -943,12 +920,14 @@
 
     // ==================== PREVENT ACCIDENTAL UNLOAD ==================== 
     let hasChanges = false;
+    const originalVisi = document.querySelector('.visi-textarea').value;
+    const originalMisi = document.querySelector('.misi-textarea').value;
 
     document.querySelectorAll('.form-control').forEach(textarea => {
-        const originalValue = textarea.value;
-        
         textarea.addEventListener('input', function() {
-            hasChanges = this.value !== originalValue;
+            const visiValue = document.querySelector('.visi-textarea').value;
+            const misiValue = document.querySelector('.misi-textarea').value;
+            hasChanges = (visiValue !== originalVisi) || (misiValue !== originalMisi);
         });
     });
 
@@ -959,12 +938,8 @@
         }
     });
 
-    // ==================== FORM RESET AFTER SUBMIT ==================== 
-    document.querySelector('.visi-misi-form').addEventListener('reset', function() {
-        document.querySelectorAll('.form-control').forEach(textarea => {
-            textarea.style.borderColor = 'var(--border-color)';
-            textarea.style.boxShadow = 'none';
-        });
+    document.querySelector('.visi-misi-form').addEventListener('submit', function() {
+        hasChanges = false;
     });
 </script>
 
