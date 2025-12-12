@@ -638,7 +638,7 @@
                 </div>
             </div>
             <div class="btn-group-footer">
-                <a href="{{ route('admin.guru') }}" class="btn btn-outline-primary">
+                <a href="{{ route('admin.struktur.index') }}" class="btn btn-outline-primary">
                     <i class="fas fa-arrow-right"></i>
                     <span>Lihat Semua Guru</span>
                 </a>

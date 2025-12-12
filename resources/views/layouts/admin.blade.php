@@ -719,10 +719,13 @@
                     <i class="fas fa-lightbulb"></i> 
                     <span>Visi & Misi</span>
                 </a>
-                <a href="{{ route('admin.guru') }}" class="@if(request()->routeIs('admin.guru')) active @endif">
-                    <i class="fas fa-chalkboard-user"></i> 
-                    <span>Guru</span>
+                
+                <!-- LINK STRUKTUR YANG BENAR -->
+                <a href="{{ route('admin.struktur.index') }}" class="@if(request()->routeIs('admin.struktur.*')) active @endif">
+                    <i class="fas fa-sitemap"></i> 
+                    <span>Struktur & Guru</span>
                 </a>
+                
                 <a href="{{ route('admin.ekstrakurikuler') }}" class="@if(request()->routeIs('admin.ekstrakurikuler')) active @endif">
                     <i class="fas fa-star"></i> 
                     <span>Ekstrakurikuler</span>
@@ -741,19 +744,24 @@
                 </a>
                 
                 <!-- MENU AKADEMIK DENGAN SUBMENU -->
-                <div class="menu-parent @if(request()->routeIs('admin.kurikulum')) open @endif">
+                <div class="menu-parent @if(request()->routeIs('admin.kurikulum*')) open @endif">
                     <a href="javascript:void(0)" onclick="toggleSubmenu(this)">
                         <span><i class="fas fa-book-open"></i> Akademik</span>
                         <i class="fas fa-chevron-down arrow-icon"></i>
                     </a>
-                    <div class="submenu @if(request()->routeIs('admin.kurikulum')) show @endif">
+                    <div class="submenu @if(request()->routeIs('admin.kurikulum*')) show @endif">
+                        <!-- Di dalam file: views/layouts/admin.blade.php -->
                         <a href="{{ route('admin.kurikulum') }}" class="@if(request()->routeIs('admin.kurikulum')) active @endif">
                             <i class="fas fa-book"></i> 
                             <span>Kurikulum</span>
                         </a>
+                        <a href="{{ route('admin.kalender.index') }}" class="@if(request()->routeIs('admin.kalender.*')) active @endif">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Kalender Pendidikan</span>
+                        </a>
                     </div>
                 </div>
-                
+                                
                 <a href="{{ route('admin.sosial-media') }}" class="@if(request()->routeIs('admin.sosial-media')) active @endif">
                     <i class="fas fa-share-alt"></i> 
                     <span>Sosial Media</span>

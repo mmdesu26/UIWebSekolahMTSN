@@ -80,13 +80,29 @@
                     <i class="fas fa-book"></i>
                 </div>
                 <div class="fasilitas-content">
-                    <h3>Perpustakaan Madrasah</h3>
+                    <h3>Perpustakaan Ibnu Sina MTSN 1 Magetan</h3>
                     <p>Koleksi lebih dari 10.000 buku, sistem digital library, ruang baca ber-AC.</p>
                     <ul class="fasilitas-features">
                         <li><i class="fas fa-check-circle"></i> Koleksi Buku Lengkap</li>
                         <li><i class="fas fa-check-circle"></i> Digital Library</li>
                         <li><i class="fas fa-check-circle"></i> Ruang Baca AC</li>
                         <li><i class="fas fa-check-circle"></i> E-Book & Jurnal</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Madrasah Literasi -->
+            <div class="fasilitas-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="fasilitas-badge-only">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="fasilitas-content">
+                    <h3>Madrasah Literasi</h3>
+                    <p>Belajar untuk berliterasi, menulis juga membaca.</p>
+                    <ul class="fasilitas-features">
+                        <li><i class="fas fa-check-circle"></i> Copy Writting</li>
+                        <li><i class="fas fa-check-circle"></i> Diskusi</li>
+                        <li><i class="fas fa-check-circle"></i> Bedah buku</li>
                     </ul>
                 </div>
             </div>

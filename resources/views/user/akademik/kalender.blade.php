@@ -430,14 +430,6 @@
             padding: 50px 20px;
         }
 
-        .akademik-hero h1 {
-            font-size: 28px;
-        }
-
-        .akademik-hero p {
-            font-size: 14px;
-        }
-
         .calendar-grid {
             grid-template-columns: 1fr;
             gap: 15px;
@@ -460,134 +452,6 @@
         .filter-btn {
             padding: 6px 14px;
             font-size: 12px;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .akademik-hero {
-            min-height: 45vh;
-        }
-
-        .akademik-hero h1 {
-            font-size: 22px;
-        }
-
-        .akademik-hero p {
-            font-size: 12px;
-        }
-
-        .breadcrumb {
-            font-size: 11px;
-            padding: 6px 12px;
-            gap: 8px;
-        }
-
-        .calendar-grid {
-            gap: 10px;
-        }
-
-        .event-card {
-            padding: 15px;
-            border-left-width: 4px;
-        }
-
-        .event-date {
-            padding: 6px 10px;
-            font-size: 11px;
-        }
-
-        .event-card h3 {
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        .event-card p {
-            font-size: 12px;
-            margin-bottom: 10px;
-        }
-
-        .event-category {
-            font-size: 11px;
-            padding: 4px 10px;
-        }
-
-        .semester-title {
-            font-size: 18px;
-            margin: 25px 0 15px 0;
-        }
-
-        .calendar-header {
-            padding: 15px;
-        }
-
-        .calendar-header h2 {
-            font-size: 18px;
-        }
-
-        .calendar-header p {
-            font-size: 12px;
-        }
-    }
-
-    /* ==================== PRINT STYLES ==================== */
-    @media print {
-        .akademik-hero,
-        .calendar-filters {
-            display: none;
-        }
-
-        .event-card {
-            page-break-inside: avoid;
-            box-shadow: none;
-            border: 1px solid var(--border-color);
-        }
-    }
-
-    /* ==================== ACCESSIBILITY ==================== */
-    @media (prefers-reduced-motion: reduce) {
-        *,
-        *::before,
-        *::after {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
-        }
-    }
-
-    /* ==================== DARK MODE ==================== */
-    @media (prefers-color-scheme: dark) {
-        .calendar-header,
-        .event-card {
-            background: #2c3e50;
-            color: #ecf0f1;
-        }
-
-        .event-card h3 {
-            color: #ecf0f1;
-        }
-
-        .calendar-header h2 {
-            color: #f39c12;
-        }
-
-        .event-card p {
-            color: #bdc3c7;
-        }
-
-        .semester-title {
-            color: #f39c12;
-        }
-
-        .filter-btn {
-            background: #34495e;
-            color: #ecf0f1;
-            border-color: #7f8c8d;
-        }
-
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: var(--primary-color);
-            color: white;
         }
     }
 </style>
@@ -642,198 +506,50 @@
         </div>
 
         <!-- Semester Ganjil -->
+        @if($kalenderGanjil->count() > 0)
         <h2 class="semester-title"><i class="fas fa-calendar-week"></i> Semester Ganjil (Juli - Desember 2024)</h2>
         <div class="calendar-grid">
-            
-            <div class="event-card" data-category="kegiatan">
-                <span class="event-date"><i class="far fa-calendar"></i> 15 - 20 Juli 2024</span>
-                <h3>Masa Pengenalan Lingkungan Sekolah (MPLS)</h3>
-                <p>Kegiatan orientasi untuk siswa baru kelas 7 mengenal lingkungan sekolah, peraturan yang berlaku, dan membangun bonding dengan sesama siswa.</p>
-                <span class="event-category cat-kegiatan"><i class="fas fa-star"></i> Kegiatan</span>
+            @foreach($kalenderGanjil as $kalender)
+            <div class="event-card" data-category="{{ $kalender->kategori }}">
+                <span class="event-date">
+                    <i class="far fa-calendar"></i> {{ $kalender->tanggal_format }}
+                </span>
+                <h3>{{ $kalender->judul }}</h3>
+                <p>{{ $kalender->keterangan }}</p>
+                <span class="event-category {{ $kalender->kategori_class }}">
+                    <i class="fas fa-tag"></i> {{ $kalender->kategori_label }}
+                </span>
             </div>
-
-            <div class="event-card" data-category="akademik">
-                <span class="event-date"><i class="far fa-calendar"></i> 22 Juli 2024</span>
-                <h3>Awal Tahun Ajaran Baru</h3>
-                <p>Pelaksanaan pembelajaran semester ganjil dimulai untuk seluruh siswa kelas 7, 8, dan 9 dengan kurikulum yang telah disiapkan.</p>
-                <span class="event-category cat-akademik"><i class="fas fa-book"></i> Akademik</span>
-            </div>
-
-            <div class="event-card" data-category="libur">
-                <span class="event-date"><i class="far fa-calendar"></i> 17 Agustus 2024</span>
-                <h3>Peringatan HUT RI ke-79</h3>
-                <p>Libur nasional untuk memperingati Hari Kemerdekaan Republik Indonesia dengan upacara bendera dan berbagai lomba di sekolah.</p>
-                <span class="event-category cat-libur"><i class="fas fa-palm-tree"></i> Libur Nasional</span>
-            </div>
-
-            <div class="event-card" data-category="kegiatan">
-                <span class="event-date"><i class="far fa-calendar"></i> 16 September 2024</span>
-                <h3>Maulid Nabi Muhammad SAW</h3>
-                <p>Peringatan Maulid Nabi dengan kegiatan istighosah, ceramah inspiratif, dan berbagai lomba keagamaan yang melibatkan seluruh siswa.</p>
-                <span class="event-category cat-kegiatan"><i class="fas fa-star"></i> Kegiatan</span>
-            </div>
-
-            <div class="event-card" data-category="kegiatan">
-                <span class="event-date"><i class="far fa-calendar"></i> 2 Oktober 2024</span>
-                <h3>Hari Jadi Madrasah</h3>
-                <p>Perayaan hari jadi madrasah dengan berbagai kegiatan seni, budaya, dan aksi siswa yang menampilkan bakat-bakat terbaik mereka.</p>
-                <span class="event-category cat-kegiatan"><i class="fas fa-star"></i> Kegiatan</span>
-            </div>
-
-            <div class="event-card" data-category="akademik">
-                <span class="event-date"><i class="far fa-calendar"></i> 14 - 25 Oktober 2024</span>
-                <h3>Penilaian Tengah Semester (PTS)</h3>
-                <p>Ujian tengah semester ganjil untuk evaluasi hasil pembelajaran siswa selama setengah semester dengan menggunakan berbagai metode penilaian.</p>
-                <span class="event-category cat-akademik"><i class="fas fa-book"></i> Akademik</span>
-            </div>
-
-            <div class="event-card" data-category="ujian">
-                <span class="event-date"><i class="far fa-calendar"></i> 25 Nov - 6 Des 2024</span>
-                <h3>Penilaian Akhir Semester (PAS)</h3>
-                <p>Ujian akhir semester ganjil untuk evaluasi komprehensif hasil belajar siswa selama satu semester penuh.</p>
-                <span class="event-category cat-ujian"><i class="fas fa-clipboard-check"></i> Ujian</span>
-            </div>
-
-            <div class="event-card" data-category="penting">
-                <span class="event-date"><i class="far fa-calendar"></i> 20 Desember 2024</span>
-                <h3>Penerimaan Rapor Semester Ganjil</h3>
-                <p>Pembagian rapor hasil belajar semester ganjil kepada siswa dan orang tua/wali murid sebagai bentuk transparansi akademik.</p>
-                <span class="event-category cat-penting"><i class="fas fa-exclamation-circle"></i> Penting</span>
-            </div>
-
-            <div class="event-card" data-category="libur">
-                <span class="event-date"><i class="far fa-calendar"></i> 23 Des 2024 - 5 Jan 2025</span>
-                <h3>Libur Semester Ganjil & Akhir Tahun</h3>
-                <p>Libur akhir semester ganjil sekaligus libur Natal dan Tahun Baru 2025 untuk istirahat dan persiapan semester genap.</p>
-                <span class="event-category cat-libur"><i class="fas fa-palm-tree"></i> Libur</span>
-            </div>
-
+            @endforeach
         </div>
+        @endif
 
         <!-- Semester Genap -->
+        @if($kalenderGenap->count() > 0)
         <h2 class="semester-title"><i class="fas fa-calendar-week"></i> Semester Genap (Januari - Juni 2025)</h2>
         <div class="calendar-grid">
-            
-            <div class="event-card" data-category="akademik">
-                <span class="event-date"><i class="far fa-calendar"></i> 6 Januari 2025</span>
-                <h3>Awal Semester Genap</h3>
-                <p>Pelaksanaan pembelajaran semester genap dimulai setelah libur semester dengan materi dan program belajar yang telah disusun.</p>
-                <span class="event-category cat-akademik"><i class="fas fa-book"></i> Akademik</span>
+            @foreach($kalenderGenap as $kalender)
+            <div class="event-card" data-category="{{ $kalender->kategori }}">
+                <span class="event-date">
+                    <i class="far fa-calendar"></i> {{ $kalender->tanggal_format }}
+                </span>
+                <h3>{{ $kalender->judul }}</h3>
+                <p>{{ $kalender->keterangan }}</p>
+                <span class="event-category {{ $kalender->kategori_class }}">
+                    <i class="fas fa-tag"></i> {{ $kalender->kategori_label }}
+                </span>
             </div>
-
-            <div class="event-card" data-category="libur">
-                <span class="event-date"><i class="far fa-calendar"></i> 29 Januari 2025</span>
-                <h3>Tahun Baru Imlek 2576</h3>
-                <p>Libur nasional dalam rangka perayaan Tahun Baru Imlek sebagai bentuk penghormatan terhadap keberagaman budaya Indonesia.</p>
-                <span class="event-category cat-libur"><i class="fas fa-palm-tree"></i> Libur Nasional</span>
-            </div>
-
-            <div class="event-card" data-category="kegiatan">
-                <span class="event-date"><i class="far fa-calendar"></i> 10 Februari 2025</span>
-                <h3>Hari Isra dan Miraj Nabi Muhammad SAW</h3>
-                <p>Peringatan Isra dan Miraj dengan kegiatan doa bersama, ceramah spiritual, dan menciptakan suasana yang khidmat dan bermakna.</p>
-                <span class="event-category cat-kegiatan"><i class="fas fa-star"></i> Kegiatan</span>
-            </div>
-
-            <div class="event-card" data-category="akademik">
-                <span class="event-date"><i class="far fa-calendar"></i> 17 - 28 Februari 2025</span>
-                <h3>Penilaian Tengah Semester (PTS)</h3>
-                <p>Ujian tengah semester genap untuk mengukur pencapaian belajar siswa di pertengahan semester dengan standar penilaian yang sama.</p>
-                <span class="event-category cat-akademik"><i class="fas fa-book"></i> Akademik</span>
-            </div>
-
-            <div class="event-card" data-category="kegiatan">
-                <span class="event-date"><i class="far fa-calendar"></i> 2 - 15 Maret 2025</span>
-                <h3>Bulan Ramadhan 1446 H</h3>
-                <p>Kegiatan pesantren ramadhan, tadarus Al-Qur'an setiap hari, iftar bersama, dan berbagai kegiatan keagamaan lainnya yang mendalam dan berkualitas.</p>
-                <span class="event-category cat-kegiatan"><i class="fas fa-star"></i> Kegiatan</span>
-            </div>
-
-            <div class="event-card" data-category="libur">
-                <span class="event-date"><i class="far fa-calendar"></i> 16 - 22 Maret 2025</span>
-                <h3>Libur Hari Raya Idul Fitri 1446 H</h3>
-                <p>Libur lebaran untuk merayakan Hari Raya Idul Fitri bersama keluarga dengan tradisi mudik dan berkumpul dengan orang tercinta.</p>
-                <span class="event-category cat-libur"><i class="fas fa-palm-tree"></i> Libur</span>
-            </div>
-
-            <div class="event-card" data-category="kegiatan">
-                <span class="event-date"><i class="far fa-calendar"></i> 1 April 2025</span>
-                <h3>Hari Raya Idul Adha 1446 H</h3>
-                <p>Peringatan Hari Raya Idul Adha dengan kegiatan ibadah, berbagi qurban, dan mendekatkan diri kepada Allah SWT dalam pengorbanan.</p>
-                <span class="event-category cat-kegiatan"><i class="fas fa-star"></i> Kegiatan</span>
-            </div>
-
-                        <div class="event-card" data-category="penting">
-                <span class="event-date"><i class="far fa-calendar"></i> 14 - 19 April 2025</span>
-                <h3>Try Out Ujian Nasional</h3>
-                <p>Latihan soal ujian nasional untuk kelas 9 guna mempersiapkan mereka menghadapi ujian sebenarnya dengan situasi yang sama.</p>
-                <span class="event-category cat-penting"><i class="fas fa-exclamation-circle"></i> Penting</span>
-            </div>
-
-            <div class="event-card" data-category="libur">
-                <span class="event-date"><i class="far fa-calendar"></i> 25 April 2025</span>
-                <h3>Tahun Baru Hijriyah 1447 H</h3>
-                <p>Libur nasional untuk merayakan pergantian tahun Hijriyah dengan kegiatan doa dan refleksi spiritual di sekolah.</p>
-                <span class="event-category cat-libur"><i class="fas fa-palm-tree"></i> Libur Nasional</span>
-            </div>
-
-            <div class="event-card" data-category="ujian">
-                <span class="event-date"><i class="far fa-calendar"></i> 12 - 23 Mei 2025</span>
-                <h3>Ujian Akhir Madrasah (UAM)</h3>
-                <p>Ujian akhir untuk siswa kelas 9 sebagai syarat kelulusan dari MTsN 1 Magetan dengan materi yang telah dipelajari selama 3 tahun.</p>
-                <span class="event-category cat-ujian"><i class="fas fa-clipboard-check"></i> Ujian</span>
-            </div>
-
-            <div class="event-card" data-category="libur">
-                <span class="event-date"><i class="far fa-calendar"></i> 22 Mei 2025</span>
-                <h3>Libur Hari Raya Waisak</h3>
-                <p>Libur nasional untuk merayakan Hari Raya Waisak sebagai bentuk menghormati keberagaman agama dan kepercayaan di Indonesia.</p>
-                <span class="event-category cat-libur"><i class="fas fa-palm-tree"></i> Libur Nasional</span>
-            </div>
-
-            <div class="event-card" data-category="kegiatan">
-                <span class="event-date"><i class="far fa-calendar"></i> 27 Mei 2025</span>
-                <h3>Hari Kebangkitan Nasional</h3>
-                <p>Peringatan Hari Kebangkitan Nasional dengan upacara dan kegiatan edukatif tentang semangat perjuangan para pahlawan nasional.</p>
-                <span class="event-category cat-kegiatan"><i class="fas fa-star"></i> Kegiatan</span>
-            </div>
-
-            <div class="event-card" data-category="ujian">
-                <span class="event-date"><i class="far fa-calendar"></i> 2 - 12 Juni 2025</span>
-                <h3>Penilaian Akhir Tahun (PAT)</h3>
-                <p>Ujian akhir tahun untuk kelas 7 dan 8 sebagai evaluasi pembelajaran selama dua semester penuh dalam satu tahun ajaran.</p>
-                <span class="event-category cat-ujian"><i class="fas fa-clipboard-check"></i> Ujian</span>
-            </div>
-
-            <div class="event-card" data-category="penting">
-                <span class="event-date"><i class="far fa-calendar"></i> 16 Juni 2025</span>
-                <h3>Pengumuman Kelulusan</h3>
-                <p>Pengumuman resmi kelulusan siswa kelas 9 setelah melalui serangkaian ujian dan penilaian yang komprehensif selama tahun ajaran.</p>
-                <span class="event-category cat-penting"><i class="fas fa-exclamation-circle"></i> Penting</span>
-            </div>
-
-            <div class="event-card" data-category="kegiatan">
-                <span class="event-date"><i class="far fa-calendar"></i> 19 Juni 2025</span>
-                <h3>Upacara Kelulusan</h3>
-                <p>Acara wisuda dan upacara kelulusan siswa kelas 9 dihadiri oleh orang tua, guru, dan seluruh pihak yang telah mendukung perjalanan pendidikan mereka.</p>
-                <span class="event-category cat-kegiatan"><i class="fas fa-star"></i> Kegiatan</span>
-            </div>
-
-            <div class="event-card" data-category="penting">
-                <span class="event-date"><i class="far fa-calendar"></i> 20 Juni 2025</span>
-                <h3>Penerimaan Rapor & Libur Kenaikan Kelas</h3>
-                <p>Pembagian rapor semester genap untuk kelas 7 dan 8, sekaligus dimulainya libur kenaikan kelas untuk persiapan tahun ajaran berikutnya.</p>
-                <span class="event-category cat-penting"><i class="fas fa-exclamation-circle"></i> Penting</span>
-            </div>
-
-            <div class="event-card" data-category="libur">
-                <span class="event-date"><i class="far fa-calendar"></i> 20 Juni - 13 Juli 2025</span>
-                <h3>Libur Kenaikan Kelas</h3>
-                <p>Masa libur panjang untuk istirahat, refreshing, dan persiapan menghadapi tahun ajaran baru dengan semangat dan energi yang baru.</p>
-                <span class="event-category cat-libur"><i class="fas fa-palm-tree"></i> Libur</span>
-            </div>
-
+            @endforeach
         </div>
+        @endif
+
+        <!-- Jika tidak ada data -->
+        @if($kalenderGanjil->count() == 0 && $kalenderGenap->count() == 0)
+        <div class="no-results">
+            <i class="fas fa-calendar-times"></i>
+            <p>Belum ada kalender pendidikan yang tersedia</p>
+        </div>
+        @endif
 
         <!-- Info Box -->
         <div class="calendar-header" style="margin-top: 60px; background: linear-gradient(135deg, rgba(243,156,18,0.1), rgba(26,95,58,0.1)); border-left: 5px solid var(--secondary-color);">
@@ -871,9 +587,6 @@
             <button onclick="window.print()" style="padding: 12px 30px; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 10px;">
                 <i class="fas fa-print"></i> Cetak PDF
             </button>
-            <a href="#" onclick="return false;" style="padding: 12px 30px; background: var(--secondary-color); color: white; border: none; border-radius: 8px; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 10px; transition: 0.3s; cursor: pointer;">
-                <i class="fas fa-file-excel"></i> Export Excel
-            </a>
         </div>
     </div>
 </section>
@@ -885,13 +598,11 @@
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Update active state
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
             const filter = btn.getAttribute('data-filter');
 
-            // Animate cards
             eventCards.forEach((card, index) => {
                 const category = card.getAttribute('data-category');
                 
@@ -908,58 +619,7 @@
         });
     });
 
-    // ==================== INTERSECTION OBSERVER ==================== 
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    eventCards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = `all 0.6s ease ${index * 0.1}s`;
-        observer.observe(card);
-    });
-
-    // ==================== KEYBOARD NAVIGATION ==================== 
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowDown') {
-            window.scrollBy({ top: 100, behavior: 'smooth' });
-        } else if (e.key === 'ArrowUp') {
-            window.scrollBy({ top: -100, behavior: 'smooth' });
-        }
-    });
-
-    // ==================== ACCESSIBILITY ==================== 
-    filterBtns.forEach(btn => {
-        btn.setAttribute('role', 'button');
-        btn.setAttribute('tabindex', '0');
-        
-        btn.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                btn.click();
-            }
-        });
-    });
-
-    // ==================== PRINT FUNCTIONALITY ==================== 
-    const printBtn = document.querySelector('button[onclick*="print"]');
-    if (printBtn) {
-        printBtn.addEventListener('click', () => {
-            window.print();
-        });
-    }
-
-    // ==================== SMOOTH SCROLL ==================== 
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
@@ -977,57 +637,6 @@
             }
         });
     });
-
-    // ==================== COPY TO CLIPBOARD ==================== 
-    window.copyToClipboard = function(text) {
-        navigator.clipboard.writeText(text).then(() => {
-            alert('Teks berhasil disalin ke clipboard!');
-        }).catch(() => {
-            alert('Gagal menyalin teks');
-        });
-    };
-
-    // ==================== DARK MODE TOGGLE ==================== 
-    const darkModeToggle = document.createElement('button');
-    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-    darkModeToggle.style.cssText = `
-        position: fixed;
-        bottom: 100px;
-        right: 30px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background: var(--primary-color);
-        color: white;
-        border: none;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 998;
-        transition: all 0.3s;
-        box-shadow: 0 5px 15px rgba(26, 95, 58, 0.3);
-    `;
-
-    darkModeToggle.addEventListener('mouseenter', () => {
-        darkModeToggle.style.transform = 'scale(1.1)';
-    });
-
-    darkModeToggle.addEventListener('mouseleave', () => {
-        darkModeToggle.style.transform = 'scale(1)';
-    });
-
-    darkModeToggle.addEventListener('click', () => {
-        document.documentElement.style.colorScheme = 
-            document.documentElement.style.colorScheme === 'dark' ? 'light' : 'dark';
-        
-        darkModeToggle.innerHTML = document.documentElement.style.colorScheme === 'dark' 
-            ? '<i class="fas fa-sun"></i>' 
-            : '<i class="fas fa-moon"></i>';
-    });
-
-    // document.body.appendChild(darkModeToggle); // Uncomment jika ingin aktifkan
-
 </script>
 
 @endsection
