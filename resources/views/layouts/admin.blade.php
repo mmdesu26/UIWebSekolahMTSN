@@ -759,6 +759,10 @@
                             <i class="fas fa-calendar-alt"></i>
                             <span>Kalender Pendidikan</span>
                         </a>
+                        <a href="{{ route('admin.jadwal.index') }}" class="@if(request()->routeIs('admin.jadwal.*')) active @endif">
+                            <i class="fas fa-clock"></i>
+                            <span>Jadwal Pelajaran</span>
+                        </a>
                     </div>
                 </div>
                                 

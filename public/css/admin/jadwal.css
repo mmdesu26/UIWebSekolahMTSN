@@ -1,0 +1,417 @@
+/* ========================================
+   ADMIN JADWAL PELAJARAN - STYLES
+   Readable in both Light & Dark Mode
+   File: public/css/admin/jadwal.css
+   ======================================== */
+
+/* Force white background for all card elements */
+.card,
+.card-body,
+.jadwal-card,
+.jadwal-card .card-body {
+    background: white !important;
+    color: #2d3748 !important;
+}
+
+/* Card styling */
+.jadwal-card {
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background: white !important;
+}
+
+/* Table container */
+.table-responsive {
+    background: white !important;
+}
+
+/* Table styling */
+.jadwal-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white !important;
+}
+
+/* Table header - keep gradient with white text */
+.jadwal-table thead {
+    background: linear-gradient(135deg, #667eea, #764ba2) !important;
+    color: white !important;
+}
+
+.jadwal-table th {
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    color: white !important;
+    background: transparent !important;
+}
+
+/* Table body - force white background with dark text */
+.jadwal-table tbody {
+    background: white !important;
+}
+
+.jadwal-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 13px;
+    color: #2d3748 !important;
+    background: white !important;
+}
+
+.jadwal-table tbody tr {
+    background: white !important;
+}
+
+.jadwal-table tbody tr:hover {
+    background: #f8f9fa !important;
+}
+
+.jadwal-table tbody tr:hover td {
+    background: #f8f9fa !important;
+    color: #1a202c !important;
+}
+
+/* Badge untuk Mata Pelajaran - Dark background with white text */
+.badge-mapel {
+    background: #667eea !important;
+    color: white !important;
+    padding: 5px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+/* Badge untuk Istirahat - Yellow with black text */
+.badge-istirahat {
+    background: #ffc107 !important;
+    color: #000 !important;
+    padding: 5px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-block;
+}
+
+/* Badge untuk Waktu - Dark gray with white text */
+.badge-waktu {
+    background: #4a5568 !important;
+    color: white !important;
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+/* Action buttons */
+.btn-action {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin: 2px;
+}
+
+.btn-edit {
+    background: #3498db !important;
+    color: white !important;
+}
+
+.btn-edit:hover {
+    background: #2980b9 !important;
+    transform: translateY(-2px);
+}
+
+.btn-delete {
+    background: #e74c3c !important;
+    color: white !important;
+}
+
+.btn-delete:hover {
+    background: #c0392b !important;
+    transform: translateY(-2px);
+}
+
+/* Tab buttons */
+.tab-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    background: #f0f0f0;
+    border: 2px solid transparent;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    color: #2d3748;
+}
+
+.tab-btn.active {
+    background: #667eea;
+    color: white;
+}
+
+.tab-btn:hover {
+    background: #667eea;
+    color: white;
+}
+
+.tab-content-item {
+    display: none;
+}
+
+.tab-content-item.active {
+    display: block;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #718096;
+    background: white !important;
+}
+
+.empty-state i {
+    font-size: 48px;
+    margin-bottom: 15px;
+    opacity: 0.5;
+    color: #a0aec0;
+}
+
+.empty-state p {
+    color: #4a5568;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+/* Card header text */
+.card-header h5 {
+    color: white !important;
+    margin: 0;
+}
+
+.card-header {
+    background: linear-gradient(135deg, #667eea, #764ba2) !important;
+    color: white !important;
+    padding: 15px 20px;
+}
+
+/* Action buttons container */
+.btn-group-action {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Info text */
+.text-muted {
+    color: #718096 !important;
+}
+
+/* Modal styling */
+.modal-content {
+    background: white !important;
+    color: #2d3748 !important;
+}
+
+.modal-header {
+    border-bottom: 1px solid #e9ecef;
+}
+
+.modal-body {
+    background: white !important;
+}
+
+.modal-footer {
+    border-top: 1px solid #e9ecef;
+    background: white !important;
+}
+
+/* Form elements in modal */
+.form-label {
+    color: #2d3748 !important;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.form-control,
+.form-select {
+    border: 1px solid #cbd5e0;
+    color: #2d3748 !important;
+    background: white !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    background: white !important;
+    color: #2d3748 !important;
+}
+
+.form-check-label {
+    color: #2d3748 !important;
+}
+
+/* Alert styling */
+.alert {
+    border-radius: 8px;
+    padding: 12px 16px;
+}
+
+.alert-info {
+    background: #e6f7ff !important;
+    border: 1px solid #91d5ff !important;
+    color: #0050b3 !important;
+}
+
+.alert-info i {
+    color: #0050b3 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .jadwal-table {
+        font-size: 11px;
+    }
+    
+    .jadwal-table th,
+    .jadwal-table td {
+        padding: 8px;
+    }
+    
+    .btn-action {
+        padding: 4px 8px;
+        font-size: 10px;
+    }
+    
+    .badge-mapel,
+    .badge-istirahat,
+    .badge-waktu {
+        font-size: 10px;
+        padding: 3px 8px;
+    }
+
+    .tab-btn {
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+
+    .card-header h5 {
+        font-size: 16px;
+    }
+
+    .empty-state i {
+        font-size: 36px;
+    }
+
+    .empty-state p {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-action {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .tab-buttons {
+        flex-direction: column;
+    }
+
+    .tab-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Override any dark mode styles from parent layout */
+@media (prefers-color-scheme: dark) {
+    .jadwal-card,
+    .jadwal-card .card-body,
+    .jadwal-table,
+    .jadwal-table tbody,
+    .jadwal-table tbody tr,
+    .jadwal-table td,
+    .table-responsive,
+    .empty-state,
+    .modal-content,
+    .modal-body,
+    .modal-footer,
+    .form-control,
+    .form-select {
+        background: white !important;
+        color: #2d3748 !important;
+    }
+    
+    .jadwal-table thead {
+        background: linear-gradient(135deg, #667eea, #764ba2) !important;
+    }
+    
+    .jadwal-table th {
+        color: white !important;
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, #667eea, #764ba2) !important;
+        color: white !important;
+    }
+
+    .card-header h5 {
+        color: white !important;
+    }
+
+    .form-label,
+    .form-check-label {
+        color: #2d3748 !important;
+    }
+}
+
+/* Print styles */
+@media print {
+    .btn-action,
+    .tab-buttons,
+    .card-header button {
+        display: none !important;
+    }
+
+    .jadwal-card {
+        box-shadow: none;
+        border: 1px solid #e9ecef;
+    }
+
+    .tab-content-item {
+        display: block !important;
+    }
+}

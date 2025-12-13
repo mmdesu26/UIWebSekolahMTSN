@@ -123,6 +123,12 @@
         font-weight: 600;
     }
     
+    .istirahat-row {
+        background: #fff3cd !important;
+        font-weight: 600;
+        text-align: center;
+    }
+    
     .keterangan-box {
         background: white;
         border-radius: 12px;
@@ -138,21 +144,22 @@
         margin-bottom: 15px;
     }
     
-    .keterangan-box ul {
-        list-style: none;
-        padding: 0;
-    }
-    
-    .keterangan-box li {
-        padding: 8px 0;
+    .keterangan-box p {
         color: var(--text-muted);
-        display: flex;
-        align-items: center;
-        gap: 10px;
+        line-height: 1.6;
+        margin: 0;
     }
-    
-    .keterangan-box li i {
-        color: var(--accent-color);
+
+    .empty-jadwal {
+        text-align: center;
+        padding: 60px 20px;
+        color: var(--text-muted);
+    }
+
+    .empty-jadwal i {
+        font-size: 64px;
+        margin-bottom: 20px;
+        opacity: 0.5;
     }
 
     @media (max-width: 768px) {
@@ -177,114 +184,101 @@
 <section class="content-section">
     <div class="container">
         <div class="filter-tabs">
-            <button class="filter-tab active" data-kelas="7">Kelas 7</button>
-            <button class="filter-tab" data-kelas="8">Kelas 8</button>
-            <button class="filter-tab" data-kelas="9">Kelas 9</button>
+            @foreach($kelasList as $index => $kelas)
+            <button class="filter-tab {{ $index === 0 ? 'active' : '' }}" data-kelas="{{ $kelas }}">
+                Kelas {{ $kelas }}
+            </button>
+            @endforeach
         </div>
 
-        <div class="jadwal-container" id="jadwal-kelas-7">
-            <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-clock"></i> Jadwal Kelas 7A</h2>
+        @foreach($kelasList as $index => $kelas)
+        <div class="jadwal-container" id="jadwal-kelas-{{ $kelas }}" style="{{ $index !== 0 ? 'display: none;' : '' }}">
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;">
+                <i class="fas fa-clock"></i> Jadwal Kelas {{ $kelas }}
+            </h2>
             
+            @if(isset($jadwal[$kelas]) && count($jadwal[$kelas]) > 0)
             <table class="jadwal-table">
                 <thead>
                     <tr>
                         <th>Jam</th>
-                        <th>Senin</th>
-                        <th>Selasa</th>
-                        <th>Rabu</th>
-                        <th>Kamis</th>
-                        <th>Jumat</th>
+                        @foreach($hariList as $hari)
+                        <th>{{ $hari }}</th>
+                        @endforeach
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                        // Ambil semua waktu unik untuk baris
+                        $allTimes = [];
+                        foreach($jadwal[$kelas] as $hari => $items) {
+                            foreach($items as $item) {
+                                $timeKey = $item->jam_mulai . '-' . $item->jam_selesai;
+                                if(!isset($allTimes[$timeKey])) {
+                                    $allTimes[$timeKey] = [
+                                        'jam_mulai' => $item->jam_mulai,
+                                        'jam_selesai' => $item->jam_selesai,
+                                        'urutan' => $item->urutan
+                                    ];
+                                }
+                            }
+                        }
+                        // Sort by urutan
+                        uasort($allTimes, function($a, $b) {
+                            return $a['urutan'] - $b['urutan'];
+                        });
+                    @endphp
+                    
+                    @foreach($allTimes as $timeKey => $time)
                     <tr>
-                        <td><span class="waktu-badge">07.00 - 07.40</span></td>
-                        <td><span class="mapel-badge">Al-Qur'an Hadits</span></td>
-                        <td><span class="mapel-badge">Matematika</span></td>
-                        <td><span class="mapel-badge">IPA</span></td>
-                        <td><span class="mapel-badge">Bahasa Indonesia</span></td>
-                        <td><span class="mapel-badge">PKn</span></td>
+                        <td><span class="waktu-badge">{{ $time['jam_mulai'] }} - {{ $time['jam_selesai'] }}</span></td>
+                        @foreach($hariList as $hari)
+                        <td>
+                            @php
+                                $found = false;
+                                if(isset($jadwal[$kelas][$hari])) {
+                                    foreach($jadwal[$kelas][$hari] as $item) {
+                                        if($item->jam_mulai == $time['jam_mulai'] && $item->jam_selesai == $time['jam_selesai']) {
+                                            $found = $item;
+                                            break;
+                                        }
+                                    }
+                                }
+                            @endphp
+                            
+                            @if($found)
+                                @if($found->is_istirahat)
+                                    <span style="background: #ffc107; color: #000; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600;">ISTIRAHAT</span>
+                                @else
+                                    <span class="mapel-badge">{{ $found->mata_pelajaran }}</span>
+                                @endif
+                            @else
+                                <span style="color: #ccc;">-</span>
+                            @endif
+                        </td>
+                        @endforeach
                     </tr>
-                    <tr>
-                        <td><span class="waktu-badge">07.40 - 08.20</span></td>
-                        <td><span class="mapel-badge">Al-Qur'an Hadits</span></td>
-                        <td><span class="mapel-badge">Matematika</span></td>
-                        <td><span class="mapel-badge">IPA</span></td>
-                        <td><span class="mapel-badge">Bahasa Indonesia</span></td>
-                        <td><span class="mapel-badge">PKn</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="waktu-badge">08.20 - 09.00</span></td>
-                        <td><span class="mapel-badge">Bahasa Arab</span></td>
-                        <td><span class="mapel-badge">IPS</span></td>
-                        <td><span class="mapel-badge">Bahasa Inggris</span></td>
-                        <td><span class="mapel-badge">Fikih</span></td>
-                        <td><span class="mapel-badge">Matematika</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="waktu-badge">09.00 - 09.20</span></td>
-                        <td colspan="5" style="text-align: center; background: #fff3cd; font-weight: 600;">ISTIRAHAT</td>
-                    </tr>
-                    <tr>
-                        <td><span class="waktu-badge">09.20 - 10.00</span></td>
-                        <td><span class="mapel-badge">Bahasa Arab</span></td>
-                        <td><span class="mapel-badge">IPS</span></td>
-                        <td><span class="mapel-badge">Bahasa Inggris</span></td>
-                        <td><span class="mapel-badge">Fikih</span></td>
-                        <td><span class="mapel-badge">Seni Budaya</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="waktu-badge">10.00 - 10.40</span></td>
-                        <td><span class="mapel-badge">SKI</span></td>
-                        <td><span class="mapel-badge">PJOK</span></td>
-                        <td><span class="mapel-badge">Akidah Akhlak</span></td>
-                        <td><span class="mapel-badge">IPA</span></td>
-                        <td><span class="mapel-badge">Seni Budaya</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="waktu-badge">10.40 - 11.00</span></td>
-                        <td colspan="5" style="text-align: center; background: #fff3cd; font-weight: 600;">ISTIRAHAT</td>
-                    </tr>
-                    <tr>
-                        <td><span class="waktu-badge">11.00 - 11.40</span></td>
-                        <td><span class="mapel-badge">SKI</span></td>
-                        <td><span class="mapel-badge">PJOK</span></td>
-                        <td><span class="mapel-badge">Akidah Akhlak</span></td>
-                        <td><span class="mapel-badge">IPS</span></td>
-                        <td rowspan="2" style="text-align: center; background: #d4edda; font-weight: 600;">SELESAI</td>
-                    </tr>
-                    <tr>
-                        <td><span class="waktu-badge">11.40 - 12.20</span></td>
-                        <td><span class="mapel-badge">Bahasa Indonesia</span></td>
-                        <td><span class="mapel-badge">PJOK</span></td>
-                        <td><span class="mapel-badge">Matematika</span></td>
-                        <td><span class="mapel-badge">Bahasa Inggris</span></td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
+            @else
+            <div class="empty-jadwal">
+                <i class="fas fa-calendar-times"></i>
+                <p>Jadwal untuk Kelas {{ $kelas }} belum tersedia.</p>
+                <p>Silakan hubungi wali kelas untuk informasi lebih lanjut.</p>
+            </div>
+            @endif
 
             <div class="keterangan-box">
                 <h3><i class="fas fa-info-circle"></i> Keterangan</h3>
-                <ul>
-                    <li><i class="fas fa-check-circle"></i> Jadwal berlaku mulai Semester Genap 2024/2025</li>
-                    <li><i class="fas fa-check-circle"></i> Durasi setiap jam pelajaran: 40 menit</li>
-                    <li><i class="fas fa-check-circle"></i> Istirahat pertama: 09.00 - 09.20 (20 menit)</li>
-                    <li><i class="fas fa-check-circle"></i> Istirahat kedua: 10.40 - 11.00 (20 menit)</li>
-                    <li><i class="fas fa-check-circle"></i> Hari Jumat: Pembelajaran selesai pukul 11.00</li>
-                    <li><i class="fas fa-check-circle"></i> Jadwal dapat berubah sewaktu-waktu</li>
-                </ul>
+                <p>
+                    <i class="fas fa-exclamation-triangle" style="color: var(--warning-color);"></i>
+                    Jadwal dapat berubah sewaktu-waktu. Mohon sesuaikan dengan arahan dari wali kelas masing-masing. 
+                    Untuk informasi lebih lanjut, silakan hubungi bagian akademik sekolah.
+                </p>
             </div>
         </div>
-
-        <div class="jadwal-container" id="jadwal-kelas-8" style="display: none;">
-            <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-clock"></i> Jadwal Kelas 8A</h2>
-            <p style="text-align: center; padding: 40px; color: var(--text-muted);">Jadwal untuk Kelas 8 sedang dalam proses penyusunan. Silakan hubungi wali kelas untuk informasi lebih lanjut.</p>
-        </div>
-
-        <div class="jadwal-container" id="jadwal-kelas-9" style="display: none;">
-            <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-clock"></i> Jadwal Kelas 9A</h2>
-            <p style="text-align: center; padding: 40px; color: var(--text-muted);">Jadwal untuk Kelas 9 sedang dalam proses penyusunan. Silakan hubungi wali kelas untuk informasi lebih lanjut.</p>
-        </div>
+        @endforeach
     </div>
 </section>
 
