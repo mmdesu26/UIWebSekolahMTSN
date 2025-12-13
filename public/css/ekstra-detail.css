@@ -1,0 +1,56 @@
+.ekstra-detail {
+    padding: 80px 0;
+    background: var(--light-bg);
+}
+
+.ekstra-detail h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.ekstra-detail p {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: var(--text-dark);
+}
+
+.ekstra-detail strong {
+    color: var(--primary-color);
+}
+
+/* ==================== DETAIL UI POLISH (NO COLOR/CONTENT CHANGES) ==================== */
+.ekstra-detail { padding: clamp(50px, 8vw, 90px) 0; }
+
+.ekstra-detail .container {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    padding: clamp(18px, 4vw, 36px);
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.ekstra-detail h1 {
+    font-size: clamp(24px, 4vw, 40px);
+    line-height: 1.2;
+    color: var(--primary-color);
+    margin-bottom: 18px;
+}
+
+.ekstra-detail p {
+    font-size: clamp(13px, 1.8vw, 16px);
+    line-height: 1.8;
+    margin-bottom: 12px;
+    color: var(--text-dark);
+}
+
+.ekstra-detail p strong { color: var(--primary-color); }
+
+.ekstra-detail p + p {
+    padding-top: 10px;
+    border-top: 1px dashed var(--border-color);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ekstra-detail .container { animation: none !important; }
+}

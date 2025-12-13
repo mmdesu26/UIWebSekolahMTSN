@@ -973,3 +973,12 @@ body {
         scroll-margin-top: 80px;
     }
 }
+
+.social-box.tiktok {
+    background: linear-gradient(135deg, #000000, #ff0050, #00f2ea);
+    color: white;
+}
+.social-box.tiktok:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+}

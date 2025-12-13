@@ -1,0 +1,313 @@
+.news-hero {
+    background: linear-gradient(
+        135deg,
+        var(--primary-color) 0%,
+        var(--primary-dark) 50%,
+        var(--primary-light) 100%
+    );
+    color: white;
+    padding: clamp(60px, 10vw, 100px) 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Decorative floating shapes */
+.news-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    animation: float 8s ease-in-out infinite;
+}
+
+.news-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -5%;
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    animation: float 10s ease-in-out infinite reverse;
+}
+
+/* Floating animation */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+    }
+    50% {
+        transform: translateY(-30px) translateX(20px);
+    }
+}
+
+/* Content animation */
+.news-hero-content {
+    position: relative;
+    z-index: 2;
+    animation: slideInUp 0.8s ease-out;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Typography */
+.news-hero h1 {
+    font-size: clamp(32px, 6vw, 56px);
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.news-hero p {
+    font-size: clamp(14px, 2vw, 18px);
+    opacity: 0.95;
+    line-height: 1.8;
+    margin-bottom: 0;
+}
+
+/* Optional breadcrumb for news */
+.breadcrumb-berita {
+    background: rgba(255, 255, 255, 0.15);
+    padding: clamp(8px, 2vw, 12px) clamp(15px, 3vw, 25px);
+    border-radius: 50px;
+    display: inline-flex;
+    gap: 12px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: clamp(12px, 1.5vw, 14px);
+    transition: var(--transition);
+    margin-top: 20px;
+}
+
+.breadcrumb-berita a {
+    color: white;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.breadcrumb-berita a:hover {
+    opacity: 0.8;
+}
+
+
+.news-badge.pengumuman {
+    background: #f39c12;
+}
+
+.news-badge.kegiatan {
+    background: #27ae60;
+}
+
+.news-badge.berita {
+    background: #1a5f3a;
+}
+
+/* ==================== SECTION WRAPPER ==================== */
+.news-section {
+    padding: clamp(40px, 6vw, 80px) 0;
+    background: var(--light-bg);
+}
+
+.section-header {
+    margin-bottom: clamp(22px, 4vw, 40px);
+}
+
+.section-title {
+    font-size: clamp(24px, 3.5vw, 36px);
+    line-height: 1.2;
+    letter-spacing: -0.3px;
+    margin: 0 0 8px 0;
+}
+
+.section-subtitle {
+    margin: 0;
+    opacity: 0.85;
+    line-height: 1.7;
+    font-size: clamp(13px, 1.8vw, 16px);
+}
+
+/* ==================== NEWS GRID ==================== */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: clamp(14px, 2.2vw, 22px);
+}
+
+.news-item {
+    grid-column: span 4;
+}
+
+@media (max-width: 992px) {
+    .news-item { grid-column: span 6; }
+}
+@media (max-width: 640px) {
+    .news-item { grid-column: span 12; }
+}
+
+/* ==================== NEWS CARD ==================== */
+.news-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 18px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    will-change: transform;
+}
+
+.news-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.10);
+}
+
+.news-thumb {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+}
+
+.news-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.02);
+    transition: transform 0.35s ease;
+}
+
+.news-card:hover .news-thumb img {
+    transform: scale(1.08);
+}
+
+.news-body {
+    padding: 18px 18px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+
+.news-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    opacity: 0.85;
+}
+
+.news-title {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.35;
+    letter-spacing: -0.2px;
+}
+
+.news-excerpt {
+    margin: 0;
+    opacity: 0.9;
+    line-height: 1.7;
+    font-size: 14px;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.news-footer {
+    margin-top: auto;
+    padding-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+/* ==================== BADGE POSITIONING (tetap pakai warna Anda) ==================== */
+.news-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+    backdrop-filter: blur(8px);
+}
+
+/* Badge colors: keep exactly as you set */
+.news-badge.pengumuman { background: #f39c12; }
+.news-badge.kegiatan   { background: #27ae60; }
+.news-badge.berita     { background: #1a5f3a; }
+
+/* ==================== BUTTON / LINK MICRO-INTERACTION ==================== */
+.news-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.news-link:hover {
+    transform: translateX(2px);
+    opacity: 0.9;
+}
+
+/* ==================== REVEAL ANIMATION (optional) ==================== */
+.reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Aksesibilitas */
+@media (prefers-reduced-motion: reduce) {
+    .news-card,
+    .news-thumb img,
+    .news-link,
+    .reveal,
+    .news-hero::before,
+    .news-hero::after {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+    }
+}

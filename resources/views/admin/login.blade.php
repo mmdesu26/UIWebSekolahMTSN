@@ -4,101 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin - MTsN 1 Magetan</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap & Font Awesome -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .login-container {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            width: 100%;
-            max-width: 400px;
-        }
-        .login-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .login-header i {
-            font-size: 50px;
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-        .login-header h3 {
-            font-weight: bold;
-            color: #333;
-        }
-        .form-control {
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            padding: 12px;
-            margin-bottom: 15px;
-        }
-        .form-control:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
-        }
-        .btn-login {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            padding: 12px;
-            font-weight: bold;
-            width: 100%;
-            border-radius: 5px;
-        }
-        .btn-login:hover {
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-            color: white;
-        }
-        .alert {
-            border-radius: 5px;
-            border: none;
-            margin-bottom: 20px;
-        }
-    </style>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+<link rel="stylesheet" href="{{ asset('css/login2.css') }}">
 </head>
 <body>
+    <!-- Floating Particles Background -->
+    <div class="particles" aria-hidden="true">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
     <div class="login-container">
         <div class="login-header">
-            <i class="fas fa-graduation-cap"></i>
-            <h3>Admin MTsN 1 Magetan</h3>
-            <p class="text-muted">Login ke Panel Admin</p>
+            <div class="text-center mb-4">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Admin MTsN 1 Magetan</h3>
+                <p class="text-muted">Silakan login ke panel administrasi</p>
+            </div>
+
+            {{-- Pesan error --}}
+            @if(session('error'))
+                <div class="alert alert-danger fade show" role="alert">
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('admin.login.submit') }}" id="loginForm">
+                @csrf
+                <div class="mb-3">
+                    <label class="form-label"><i class="fas fa-envelope"></i> Email</label>
+                    <input type="email" name="email" class="form-control" placeholder="admin@mtsn1magetan.sch.id" required autofocus>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label"><i class="fas fa-lock"></i> Password</label>
+                    <div class="password-wrapper" style="position: relative;">
+                        <input type="password" name="password" class="form-control" id="passwordInput" placeholder="••••••••" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword()" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #6c757d; cursor: pointer; padding: 5px;">
+                            <i class="fas fa-eye" id="toggleIcon"></i>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-login text-white w-100" id="submitBtn">
+                    <span class="btn-text">Login Admin</span>
+                    <span class="btn-loader" style="display: none;">
+                        <i class="fas fa-spinner fa-spin"></i> Loading...
+                    </span>
+                </button>
+            </form>
+            <hr class="my-4">
+            <p class="text-center text-muted small">
+                <strong>Demo:</strong><br>
+                Username/Email: <code>admin@mtsn1magetan.sch.id</code><br>
+                Password: <code>admin123</code>
+            </p>
         </div>
-
-        @if (session('error'))
-            <div class="alert alert-danger">
-                <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
-            </div>
-        @endif
-
-        <form method="POST" action="{{ route('admin.login.submit') }}">
-            @csrf
-            <div class="mb-3">
-                <label class="form-label"><i class="fas fa-user"></i> Username</label>
-                <input type="text" class="form-control" name="username" placeholder="Masukkan username" required autofocus>
-            </div>
-            <div class="mb-3">
-                <label class="form-label"><i class="fas fa-lock"></i> Password</label>
-                <input type="password" class="form-control" name="password" placeholder="Masukkan password" required>
-            </div>
-            <button type="submit" class="btn btn-login text-white">
-                <i class="fas fa-sign-in-alt"></i> Login
-            </button>
-        </form>
-
-        <hr>
-        <p class="text-center text-muted small mt-3">
-            <strong>Demo Credentials:</strong><br>
-            Username: <strong>admin</strong><br>
-            Password: <strong>secret</strong>
-        </p>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('js/login.js') }}"></script>
+
 </body>
 </html>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontendUserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\NewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,43 +13,20 @@ use App\Http\Controllers\AdminController;
 Route::get('/', [FrontendUserController::class, 'index'])->name('home');
 Route::get('/beranda', [FrontendUserController::class, 'index'])->name('home');
 
+// Redirect setelah login standar Laravel
+Route::get('/dashboard', function () {
+    return redirect()->route('admin.dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 /*
 |--------------------------------------------------------------------------
-| PROFIL SEKOLAH
+| FRONTEND USER ROUTES (Publik)
 |--------------------------------------------------------------------------
 */
-Route::prefix('profil-sekolah')->group(function () {
-
-    Route::get('/', [FrontendUserController::class, 'profilIndex'])->name('profil.index');
-    Route::get('/sejarah', [FrontendUserController::class, 'sejarah'])->name('profil.sejarah');
-    Route::get('/visi-misi', [FrontendUserController::class, 'visiMisi'])->name('profil.visi-misi');
-    Route::get('/struktur-organisasi', [FrontendUserController::class, 'struktur'])->name('profil.struktur');
-    Route::get('/guru', [FrontendUserController::class, 'guru'])->name('profil.guru');
-
-    // Fasilitas & Akreditasi
-    Route::get('/fasilitas', function () {
-        return view('user.profil.fasilitas_sekolah');
-    })->name('profil.fasilitas');
-
-    Route::get('/akreditasi', function () {
-        return view('user.profil.akreditasi');
-    })->name('profil.akreditasi');
-});
-
-
+Route::get('/berita', [NewsController::class, 'index'])->name('berita');
+Route::get('/berita/{slug}', [NewsController::class, 'show'])->name('berita.detail');
 /*
-|--------------------------------------------------------------------------
-| BERITA & PENGUMUMAN
-|--------------------------------------------------------------------------
-*/
-Route::get('/berita', [FrontendUserController::class, 'berita'])->name('berita');
-Route::get('/berita/{slug}', [FrontendUserController::class, 'beritaDetail'])->name('berita.detail');
-
-
-/*
-|--------------------------------------------------------------------------
-| PPDB - PENERIMAAN PESERTA DIDIK BARU
+| PPDB
 |--------------------------------------------------------------------------
 */
 Route::prefix('ppdb')->group(function () {
@@ -59,119 +37,85 @@ Route::prefix('ppdb')->group(function () {
 });
 
 /*
-|--------------------------------------------------------------------------
 | EKSTRAKURIKULER
 |--------------------------------------------------------------------------
 */
 Route::get('/ekstrakurikuler', [FrontendUserController::class, 'ekstrakurikuler'])->name('ekstrakurikuler');
 Route::get('/ekstrakurikuler/{slug}', [FrontendUserController::class, 'ekstrakurikulerDetail'])->name('ekstrakurikuler.detail');
 
-
 /*
-|--------------------------------------------------------------------------
-| GALERI
-|--------------------------------------------------------------------------
-*/
-Route::get('/galeri', [FrontendUserController::class, 'galeri'])->name('galeri');
-Route::get('/galeri/{kategori}', [FrontendUserController::class, 'galeriKategori'])->name('galeri.kategori');
-
-
-/*
-|--------------------------------------------------------------------------
 | KONTAK
 |--------------------------------------------------------------------------
 */
 Route::get('/kontak', [FrontendUserController::class, 'kontak'])->name('kontak');
 Route::post('/kontak/kirim', [FrontendUserController::class, 'kontakKirim'])->name('kontak.kirim');
 
-
 /*
 |--------------------------------------------------------------------------
-| LOGIN ADMIN
+| LOGIN ADMIN (Terpisah - Publik)
 |--------------------------------------------------------------------------
 */
 Route::get('/admin/login', [AdminController::class, 'showLogin'])->name('admin.login');
-Route::post('/admin/login', [AdminController::class, 'doLogin'])->name('admin.login.submit');
+Route::post('/admin/login', [AdminController::class, 'loginSubmit'])->name('admin.login.submit');
 Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
-
 /*
 |--------------------------------------------------------------------------
-| ADMIN ROUTES (DILINDUNGI MIDDLEWARE)
+| ADMIN ROUTES (Dilindungi Middleware)
 |--------------------------------------------------------------------------
 */
-Route::prefix('admin')->middleware(\App\Http\Middleware\AdminAuth::class)->group(function () {
+Route::prefix('admin')->name('admin.')->group(function () {
 
-    // Dashboard
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    // Login admin (duplikat di luar, tetap dipertahankan di dalam prefix sesuai kode asli)
+    Route::get('/login', [AdminController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AdminController::class, 'loginSubmit'])->name('login.submit');
 
-    // Sejarah
-    Route::get('/sejarah', [AdminController::class, 'showSejarah'])->name('admin.sejarah');
-    Route::post('/sejarah/update', [AdminController::class, 'updateSejarah'])->name('admin.sejarah.update');
+    // SEMUA ROUTE ADMIN YANG DIPROTEKSI
+    Route::middleware('adminauth')->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
-    // Visi & Misi
-    Route::get('/visi-misi', [AdminController::class, 'showVisiMisi'])->name('admin.visi-misi');
-    Route::post('/visi-misi/update', [AdminController::class, 'updateVisiMisi'])->name('admin.visi-misi.update');
+        // Manajemen Berita
+        // Halaman utama kelola berita
+    Route::get('/berita', [AdminController::class, 'manageBerita'])
+         ->name('berita');                    
 
-    // Guru
-    Route::get('/guru', [AdminController::class, 'manageGuru'])->name('admin.guru');
-    Route::post('/guru/add', [AdminController::class, 'addGuru'])->name('admin.guru.add');
-    Route::post('/guru/update/{id}', [AdminController::class, 'updateGuru'])->name('admin.guru.update');
-    Route::post('/guru/delete/{id}', [AdminController::class, 'deleteGuru'])->name('admin.guru.delete');
+    // Tambah berita
+    Route::post('/berita', [AdminController::class, 'addBerita'])
+         ->name('berita.store');             
 
-    // Ekstrakurikuler
-    Route::get('/ekstrakurikuler', [AdminController::class, 'manageEkstrakurikuler'])->name('admin.ekstrakurikuler');
-    Route::post('/ekstrakurikuler/add', [AdminController::class, 'addEkstra'])->name('admin.ekstrakurikuler.add');
-    Route::post('/ekstrakurikuler/update/{id}', [AdminController::class, 'updateEkstra'])->name('admin.ekstrakurikuler.update');
-    Route::post('/ekstrakurikuler/delete/{id}', [AdminController::class, 'deleteEkstra'])->name('admin.ekstrakurikuler.delete');
+    // Update berita
+    Route::put('/berita/{id}', [AdminController::class, 'updateBerita'])
+         ->name('berita.update');
 
-    // Berita
-    Route::get('/berita', [AdminController::class, 'manageBerita'])->name('admin.berita');
-    Route::post('/berita/add', [AdminController::class, 'addBerita'])->name('admin.berita.add');
-    Route::post('/berita/update/{id}', [AdminController::class, 'updateBerita'])->name('admin.berita.update');
-    Route::post('/berita/delete/{id}', [AdminController::class, 'deleteBerita'])->name('admin.berita.delete');
+    // Hapus berita
+    Route::delete('/berita/{id}', [AdminController::class, 'deleteBerita'])
+         ->name('berita.destroy');
 
-    // PPDB
-    Route::get('/ppdb', [AdminController::class, 'managePpdb'])->name('admin.ppdb');
-    Route::post('/ppdb/update', [AdminController::class, 'updatePpdb'])->name('admin.ppdb.update');
+        // Manajemen Ekstrakurikuler
+        Route::get('/ekstrakurikuler', [AdminController::class, 'manageEkstrakurikuler'])->name('ekstrakurikuler');
+        Route::post('/ekstrakurikuler/add', [AdminController::class, 'addEkstra'])->name('ekstra.add');
+        Route::post('/ekstrakurikuler/update/{id}', [AdminController::class, 'updateEkstra'])->name('ekstra.update');
+        Route::post('/ekstrakurikuler/delete/{id}', [AdminController::class, 'deleteEkstra'])->name('ekstra.delete');
 
-    // Sosial Media
-    Route::get('/sosial-media', [AdminController::class, 'manageSosialMedia'])->name('admin.sosial-media');
-    Route::post('/sosial-media/update', [AdminController::class, 'updateSosialMedia'])->name('admin.sosial-media.update');
+        // Settings
+        Route::get('/settings', [AdminController::class, 'manageSettings'])->name('settings');
+        Route::post('/settings/update', [AdminController::class, 'updateSettings'])->name('settings.update');
 
-    Route::delete('/sosial-media/{id}', [AdminController::class, 'deleteSosmed'])->name('admin.sosmed.delete');
-    Route::post('/sosial-media/update/{id}', [AdminController::class, 'updateSosmed'])->name('admin.sosmed.update');
+        // Manajemen PPDB
+        Route::get('/ppdb', [AdminController::class, 'managePpdb'])->name('ppdb');
+        Route::post('/ppdb/update', [AdminController::class, 'updatePpdb'])->name('ppdb.update');
+        Route::post('/ppdb/delete/{id}', [AdminController::class, 'deletePpdb'])->name('ppdb.delete');
 
-    // Galeri
-    Route::get('/galeri', [AdminController::class, 'manageGaleri'])->name('admin.galeri');
-    Route::post('/galeri/add', [AdminController::class, 'addGaleri'])->name('admin.galeri.add');
-    Route::post('/galeri/update/{id}', [AdminController::class, 'updateGaleri'])->name('admin.galeri.update');
-    Route::post('/galeri/delete/{id}', [AdminController::class, 'deleteGaleri'])->name('admin.galeri.delete');
-    Route::post('/galeri/upload', [AdminController::class, 'uploadGaleri'])->name('admin.galeri.upload');
-
+        // Logout
+        Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
+    });
 });
-
-
-/*
-|--------------------------------------------------------------------------
-| AKADEMIK
-|--------------------------------------------------------------------------
-*/
-Route::prefix('akademik')->name('akademik.')->group(function () {
-
-    Route::get('/kurikulum', fn() => view('user.akademik.kurikulum'))->name('kurikulum');
-    Route::get('/kelas-program', fn() => view('user.akademik.kelas_program'))->name('kelas-program');
-    Route::get('/kalender-pendidikan', fn() => view('user.akademik.kalender'))->name('kalender');
-    Route::get('/jadwal-pelajaran', fn() => view('user.akademik.jadwal'))->name('jadwal');
-
-});
-
 
 /*
 |--------------------------------------------------------------------------
 | FALLBACK ROUTE (404)
 |--------------------------------------------------------------------------
 */
-Route::fallback(function () {
-    return view('errors.404');
-});
+Route::fallback(fn() => view('errors.404'));
+
+require __DIR__.'/auth.php';

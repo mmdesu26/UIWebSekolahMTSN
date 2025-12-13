@@ -1,0 +1,47 @@
+/* Extra particles animation */
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: float 15s infinite;
+}
+
+.particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 20s; }
+.particle:nth-child(2) { left: 30%; animation-delay: 2s; animation-duration: 25s; width: 15px; height: 15px; }
+.particle:nth-child(3) { left: 50%; animation-delay: 4s; animation-duration: 18s; }
+.particle:nth-child(4) { left: 70%; animation-delay: 1s; animation-duration: 22s; width: 8px; height: 8px; }
+.particle:nth-child(5) { left: 90%; animation-delay: 3s; animation-duration: 16s; width: 12px; height: 12px; }
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% {
+        transform: translateY(-100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+.password-wrapper .form-control {
+    padding-right: 50px;
+}
+
+.password-toggle:hover {
+    color: #667eea !important;
+}
