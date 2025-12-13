@@ -3,40 +3,70 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+/*
+|--------------------------------------------------------------------------
+| Models
+|--------------------------------------------------------------------------
+*/
+// ===== kode dira =====
 use App\Models\News;
 use App\Models\Ekstrakurikuler;
 use App\Models\SiteSetting;
 use App\Models\Ppdb;
+
+// ===== kode leni =====
+use App\Models\Sejarah;
+use App\Models\VisiMisi;
+use App\Models\Kurikulum;
+use App\Models\Galeri;
+
+/*
+|--------------------------------------------------------------------------
+| Laravel Support
+|--------------------------------------------------------------------------
+*/
+// ===== kode dira =====
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Schema;
 
 class AdminController extends Controller
 {
     // ====================================================================
     // DASHBOARD
     // ====================================================================
+    // ===== kode dira (dipakai sebagai utama, database-based) =====
     public function dashboard()
     {
         $totalGuru            = 85;
         $totalEkstrakurikuler = Ekstrakurikuler::count();
         $totalBerita          = News::count();
+        $totalGaleri          = Galeri::count(); // kode leni digabung
 
         $guruTerbaru = [
             ['nama' => 'Dr. Hj. Siti Aminah, M.Pd', 'mata_pelajaran' => 'Pendidikan Agama Islam'],
-            ['nama' => 'Drs. Ahmad Subandi',         'mata_pelajaran' => 'Matematika'],
-            ['nama' => 'Siti Nurhaliza, S.Pd',       'mata_pelajaran' => 'Bahasa Indonesia'],
+            ['nama' => 'Drs. Ahmad Subandi', 'mata_pelajaran' => 'Matematika'],
+            ['nama' => 'Siti Nurhaliza, S.Pd', 'mata_pelajaran' => 'Bahasa Indonesia'],
         ];
 
         $beritaTerbaru = News::latest()->take(5)->get();
 
         return view('admin.dashboard', compact(
-            'totalGuru', 'totalEkstrakurikuler', 'totalBerita', 'guruTerbaru', 'beritaTerbaru'));
+            'totalGuru',
+            'totalEkstrakurikuler',
+            'totalBerita',
+            'totalGaleri',
+            'guruTerbaru',
+            'beritaTerbaru'
+        ));
     }
 
     // ====================================================================
     // AUTHENTICATION ADMIN
     // ====================================================================
+    // ===== kode dira =====
     public function showLogin()
     {
         if (Auth::check() && Auth::user()->is_admin) {
@@ -46,6 +76,7 @@ class AdminController extends Controller
         return view('admin.login');
     }
 
+    // ===== kode dira =====
     public function loginSubmit(Request $request)
     {
         $credentials = $request->validate([
@@ -66,6 +97,7 @@ class AdminController extends Controller
         return back()->with('error', 'Email atau password salah!');
     }
 
+    // ===== kode dira =====
     public function logout(Request $request)
     {
         Auth::logout();
@@ -76,293 +108,138 @@ class AdminController extends Controller
     }
 
     // ====================================================================
-    // MANAJEMEN BERITA
+    // CRUD BERITA
     // ====================================================================
+    // ===== kode dira =====
     public function manageBerita()
     {
         $berita = News::latest()->get();
         return view('admin.berita', compact('berita'));
     }
 
+    // ===== kode dira =====
     public function addBerita(Request $request)
-{
-    $validated = $request->validate([
-        'judul'        => 'required|string|min:3|max:255',
-        'tipe'         => 'required|in:berita,pengumuman,kegiatan',
-        'konten'       => 'required|string|min:20', // unlimited max
-        'image_file'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-        'image_url'    => 'nullable|url',
-        'source'       => 'nullable|string|max:255',
-        'news_date'    => 'nullable|date',
-        'is_published' => 'sometimes|boolean',
-    ]);
+    {
+        $validated = $request->validate([
+            'judul'        => 'required|string|min:3|max:255',
+            'tipe'         => 'required|in:berita,pengumuman,kegiatan',
+            'konten'       => 'required|string|min:20',
+            'image_file'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image_url'    => 'nullable|url',
+            'source'       => 'nullable|string|max:255',
+            'news_date'    => 'nullable|date',
+            'is_published' => 'sometimes|boolean',
+        ]);
 
-    // Prioritas: file > URL
-    $image = null;
-    if ($request->hasFile('image_file') && $request->file('image_file')->isValid()) {
-        $path = $request->file('image_file')->store('berita', 'public');
-        $image = asset('storage/' . $path);
-    } elseif ($request->filled('image_url')) {
-        $image = $validated['image_url'];
-    }
-
-    // Slug unik
-    $baseSlug = Str::slug($validated['judul']);
-    $slug = $baseSlug;
-    $i = 1;
-    while (News::where('slug', $slug)->exists()) {
-        $slug = $baseSlug . '-' . $i++;
-    }
-
-    News::create([
-        'title'        => $validated['judul'],
-        'slug'         => $slug,
-        'content'      => $validated['konten'],
-        'tipe'         => $validated['tipe'],
-        'image'        => $image,
-        'source'       => $validated['source'] ?? null,
-        'news_date'    => $validated['news_date'] ?? now(),
-        'is_published' => $request->has('is_published'),
-        'user_id'      => auth()->id(),
-        'sentiment'    => 'netral',
-    ]);
-
-    return redirect()->route('admin.berita')->with('success', 'Berita berhasil ditambahkan!');
-}
-
-public function updateBerita($id, Request $request)
-{
-    $berita = News::findOrFail($id);
-
-    $validated = $request->validate([
-        'judul'        => 'required|string|min:3|max:255',
-        'tipe'         => 'required|in:berita,pengumuman,kegiatan',
-        'konten'       => 'required|string|min:20',
-        'image_file'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-        'image_url'    => 'nullable|url',
-        'source'       => 'nullable|string|max:255',
-        'news_date'    => 'nullable|date',
-        'is_published' => 'sometimes|boolean',
-    ]);
-
-    // Prioritas: file > URL
-    $image = $berita->image;
-    if ($request->hasFile('image_file') && $request->file('image_file')->isValid()) {
-        // Hapus lama kalau upload
-        if ($berita->image && str_starts_with($berita->image, asset('storage/'))) {
-            Storage::disk('public')->delete(str_replace(asset('storage/'), '', $berita->image));
+        $image = null;
+        if ($request->hasFile('image_file')) {
+            $path = $request->file('image_file')->store('berita', 'public');
+            $image = asset('storage/' . $path);
+        } elseif ($request->filled('image_url')) {
+            $image = $validated['image_url'];
         }
-        $path = $request->file('image_file')->store('berita', 'public');
-        $image = asset('storage/' . $path);
-    } elseif ($request->filled('image_url')) {
-        $image = $validated['image_url'];
-    }
 
-    // Update slug kalau judul berubah
-    if ($berita->title !== $validated['judul']) {
-        $baseSlug = Str::slug($validated['judul']);
-        $slug = $baseSlug;
+        $slugBase = Str::slug($validated['judul']);
+        $slug = $slugBase;
         $i = 1;
-        while (News::where('slug', $slug)->where('id', '!=', $berita->id)->exists()) {
-            $slug = $baseSlug . '-' . $i++;
+        while (News::where('slug', $slug)->exists()) {
+            $slug = $slugBase . '-' . $i++;
         }
-        $berita->slug = $slug;
+
+        News::create([
+            'title'        => $validated['judul'],
+            'slug'         => $slug,
+            'content'      => $validated['konten'],
+            'tipe'         => $validated['tipe'],
+            'image'        => $image,
+            'source'       => $validated['source'],
+            'news_date'    => $validated['news_date'] ?? now(),
+            'is_published' => $request->has('is_published'),
+            'user_id'      => auth()->id(),
+            'sentiment'    => 'netral',
+        ]);
+
+        return redirect()->route('admin.berita')->with('success', 'Berita berhasil ditambahkan!');
     }
 
-    $berita->update([
-        'title'        => $validated['judul'],
-        'content'      => $validated['konten'],
-        'tipe'         => $validated['tipe'],
-        'image'        => $image,
-        'source'       => $validated['source'] ?? null,
-        'news_date'    => $validated['news_date'] ?? $berita->news_date,
-        'is_published' => $request->has('is_published'),
-    ]);
-
-    return redirect()->route('admin.berita')->with('success', 'Berita berhasil diperbarui!');
-}
-
+    // ===== kode dira =====
     public function deleteBerita($id)
     {
-        $berita = News::findOrFail($id);
-        $berita->delete();
-
-        return redirect()->route('admin.berita')
-                         ->with('success', 'Berita berhasil dihapus!');
+        News::findOrFail($id)->delete();
+        return redirect()->route('admin.berita')->with('success', 'Berita berhasil dihapus!');
     }
 
     // ====================================================================
-    // MANAJEMEN EKSTRAKURIKULER
+    // CRUD EKSTRAKURIKULER
     // ====================================================================
+    // ===== kode dira =====
     public function manageEkstrakurikuler()
     {
         $ekstrakurikuler = Ekstrakurikuler::all();
-        return view('admin.ekstrakurikuler', ['ekstrakurikuler' => $ekstrakurikuler]);
-    }
-
-    public function addEkstra(Request $request)
-    {
-        $validated = $request->validate([
-            'name'     => 'required|string|max:255',
-            'jadwal'   => 'required|string|max:255',
-            'pembina'  => 'required|string|max:255',
-            'prestasi' => 'required|string',
-        ]);
-
-        $slug = Str::slug($request->name);
-
-        Ekstrakurikuler::create([
-            'name'     => $request->name,
-            'jadwal'   => $request->jadwal,
-            'pembina'  => $request->pembina,
-            'prestasi' => $request->prestasi,
-            'slug'     => $slug,
-        ]);
-
-        return redirect()->route('admin.ekstrakurikuler')->with('success', 'Ekstrakurikuler berhasil ditambahkan');
-    }
-
-    public function updateEkstra($id, Request $request)
-    {
-        $ekstra = Ekstrakurikuler::findOrFail($id);
-
-        $validated = $request->validate([
-            'name'     => 'required|string|max:255',
-            'jadwal'   => 'required|string|max:255',
-            'pembina'  => 'required|string|max:255',
-            'prestasi' => 'required|string',
-        ]);
-
-        $ekstra->update([
-            'name'     => $request->name,
-            'jadwal'   => $request->jadwal,
-            'pembina'  => $request->pembina,
-            'prestasi' => $request->prestasi,
-            'slug'     => Str::slug($request->name),
-        ]);
-
-        return redirect()->route('admin.ekstrakurikuler')->with('success', 'Ekstrakurikuler berhasil diperbarui');
-    }
-
-    public function deleteEkstra($id)
-    {
-        $ekstra = Ekstrakurikuler::findOrFail($id);
-        $ekstra->delete();
-
-        return redirect()->route('admin.ekstrakurikuler')->with('success', 'Ekstrakurikuler berhasil dihapus');
+        return view('admin.ekstrakurikuler', compact('ekstrakurikuler'));
     }
 
     // ====================================================================
-    // PENGATURAN SITUS (SETTINGS)
+    // CRUD SEJARAH
     // ====================================================================
-    public function manageSettings()
+    // ===== kode leni =====
+    public function showSejarah()
     {
-        $settings = SiteSetting::pluck('value', 'key')->toArray();
-        return view('admin.settings', compact('settings'));
-    }
-
-    public function updateSettings(Request $request)
-    {
-        $data = $request->validate([
-            // Hero Section
-            'hero_title'    => 'required|string|max:255',
-            'hero_subtitle' => 'required|string|max:500',
-
-            // Quick Info
-            'akreditasi'    => 'required|string|max:100',
-            'jumlah_siswa'  => 'required|string|max:50',
-            'jumlah_guru'   => 'required|string|max:50',
-            'program_sks'   => 'required|string|max:200',
-
-            // About
-            'visi'   => 'required|string',
-            'misi_1' => 'required|string|max:500',
-            'misi_2' => 'required|string|max:500',
-            'misi_3' => 'required|string|max:500',
-            'misi_4' => 'required|string|max:500',
-
-            // PPDB Section
-            'ppdb_tahun'     => 'required|string|max:50',
-            'ppdb_judul'     => 'required|string|max:255',
-            'ppdb_deskripsi' => 'required|string',
-
-            // Contact
-            'contact_address' => 'required|string|max:255',
-            'contact_phone'   => 'required|string|max:100',
-            'contact_email'   => 'required|string|max:100',
-            'contact_hours'   => 'required|string|max:255',
-
-            // Images
-            'ppdb_image'  => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'about_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        $sejarah = Sejarah::firstOrCreate(['id' => 1], [
+            'content' => '',
+            'image' => null
         ]);
 
-        // Upload PPDB Image
-        if ($request->hasFile('ppdb_image')) {
-            if ($old = SiteSetting::where('key', 'ppdb_image')->value('value')) {
-                Storage::disk('public')->delete($old);
-            }
-            $path = $request->file('ppdb_image')->store('images', 'public');
-            SiteSetting::updateOrCreate(['key' => 'ppdb_image'], ['value' => $path]);
-        }
-
-        // Upload About Image
-        if ($request->hasFile('about_image')) {
-            if ($old = SiteSetting::where('key', 'about_image')->value('value')) {
-                Storage::disk('public')->delete($old);
-            }
-            $path = $request->file('about_image')->store('images', 'public');
-            SiteSetting::updateOrCreate(['key' => 'about_image'], ['value' => $path]);
-        }
-
-        // Simpan semua field teks
-        $textFields = [
-            'hero_title', 'hero_subtitle', 'akreditasi', 'jumlah_siswa', 'jumlah_guru', 'program_sks',
-            'visi', 'misi_1', 'misi_2', 'misi_3', 'misi_4',
-            'ppdb_tahun', 'ppdb_judul', 'ppdb_deskripsi',
-            'contact_address', 'contact_phone', 'contact_email', 'contact_hours'
-        ];
-
-        foreach ($textFields as $field) {
-            SiteSetting::updateOrCreate(
-                ['key' => $field],
-                ['value' => $data[$field] ?? '']
-            );
-        }
-
-        return redirect()->route('admin.settings')->with('success', 'Semua pengaturan beranda berhasil diperbarui!');
+        return view('admin.sejarah', compact('sejarah'));
     }
 
     // ====================================================================
-    // MANAJEMEN PPDB (Single Record)
+    // CRUD VISI & MISI
     // ====================================================================
+    // ===== kode leni =====
+    public function showVisiMisi()
+    {
+        $visiMisi = VisiMisi::first();
+        return view('admin.visi-misi', compact('visiMisi'));
+    }
+
+    // ====================================================================
+    // CRUD KURIKULUM
+    // ====================================================================
+    // ===== kode leni =====
+    public function manageKurikulum()
+    {
+        $kurikulum = Kurikulum::first();
+        return view('admin.kurikulum', compact('kurikulum'));
+    }
+
+    // ====================================================================
+    // CRUD GALERI
+    // ====================================================================
+    // ===== kode leni =====
+    public function manageGaleri()
+    {
+        $galeri = Galeri::all();
+        return view('admin.galeri', compact('galeri'));
+    }
+
+    // ====================================================================
+    // CRUD PPDB
+    // ====================================================================
+    // ===== kode dira =====
     public function managePpdb()
     {
         $ppdb = Ppdb::first();
         return view('admin.ppdb', compact('ppdb'));
     }
 
-    public function updatePpdb(Request $request)
+    // ====================================================================
+    // SITE SETTINGS
+    // ====================================================================
+    // ===== kode dira =====
+    public function manageSettings()
     {
-        $validated = $request->validate([
-            'judul'       => 'required|string|max:255',
-            'dibuka'      => 'required|date',
-            'ditutup'     => 'required|date|after_or_equal:dibuka',
-            'kuota'       => 'required|integer|min:1',
-            'persyaratan' => 'required|string',
-            'konten'      => 'required|string',
-        ]);
-
-        Ppdb::updateOrCreate(['id' => 1], $validated);
-
-        return redirect()->route('admin.ppdb')->with('success', 'Data PPDB berhasil diperbarui!');
-    }
-
-    public function deletePpdb($id)
-    {
-        $ppdb = Ppdb::findOrFail($id);
-        $ppdb->delete();
-
-        return redirect()->route('admin.ppdb')->with('success', 'Data PPDB berhasil dihapus!');
+        $settings = SiteSetting::pluck('value', 'key')->toArray();
+        return view('admin.settings', compact('settings'));
     }
 }

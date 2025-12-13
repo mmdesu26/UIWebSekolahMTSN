@@ -46,19 +46,72 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Beranda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('berita') ? 'active' : '' }}" href="{{ route('berita') }}">Berita</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('ppdb') ? 'active' : '' }}" href="{{ route('ppdb') }}">PPDB</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('ekstrakurikuler') ? 'active' : '' }}" href="{{ route('ekstrakurikuler') }}">Ekstrakurikuler</a>
-                    </li>
-                </ul>
+
+    <!-- Beranda -->
+    <li class="nav-item">
+        <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}"
+           href="{{ route('home') }}">
+            Beranda
+        </a>
+    </li>
+
+    <!-- Berita -->
+    <li class="nav-item">
+        <a class="nav-link {{ request()->routeIs('berita') ? 'active' : '' }}"
+           href="{{ route('berita') }}">
+            Berita
+        </a>
+    </li>
+
+    <!-- PPDB -->
+    <li class="nav-item">
+        <a class="nav-link {{ request()->routeIs('ppdb') ? 'active' : '' }}"
+           href="{{ route('ppdb') }}">
+            PPDB
+        </a>
+    </li>
+
+    <!-- Ekstrakurikuler -->
+    <li class="nav-item">
+        <a class="nav-link {{ request()->routeIs('ekstrakurikuler') ? 'active' : '' }}"
+           href="{{ route('ekstrakurikuler') }}">
+            Ekstrakurikuler
+        </a>
+    </li>
+
+    <!-- Dropdown Akademik -->
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle {{ request()->is('akademik/*') ? 'active' : '' }}"
+           href="#"
+           role="button"
+           data-bs-toggle="dropdown"
+           aria-expanded="false">
+            Akademik
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                <a class="dropdown-item" href="{{ route('akademik.kurikulum') }}">
+                    Kurikulum
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{ route('akademik.kelas-program') }}">
+                    Kelas Program
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{ route('akademik.kalender-pendidikan') }}">
+                    Kalender Pendidikan
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{ route('akademik.jadwal') }}">
+                    Jadwal Pelajaran
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>
             </div>
         </div>
     </nav>
