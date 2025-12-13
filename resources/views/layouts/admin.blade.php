@@ -734,7 +734,7 @@
                     <i class="fas fa-newspaper"></i> 
                     <span>Berita & Pengumuman</span>
                 </a>
-                <a href="{{ route('admin.galeri') }}" class="@if(request()->routeIs('admin.galeri')) active @endif">
+                <a href="{{ route('admin.galeri.index') }}" class="@if(request()->routeIs('admin.galeri.*')) active @endif">
                     <i class="fas fa-images"></i> 
                     <span>Galeri</span>
                 </a>

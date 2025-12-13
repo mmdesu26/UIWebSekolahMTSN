@@ -7,6 +7,7 @@ use App\Models\Guru;
 use App\Models\StrukturOrganisasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class AdminStrukturController extends Controller
 {
@@ -16,8 +17,10 @@ class AdminStrukturController extends Controller
         $strukturGambar = $struktur->gambar_path;
 
         $guru = Guru::orderBy('nama', 'asc')->get();
+        $jumlah_guru = $guru->count(); // ✅ TAMBAHKAN VARIABEL INI
 
-        return view('admin.struktur-organisasi', compact('strukturGambar', 'guru'));
+        // ✅ TAMBAHKAN 'jumlah_guru' ke compact
+        return view('admin.struktur-organisasi', compact('strukturGambar', 'guru', 'jumlah_guru'));
     }
 
     // ========================
@@ -70,16 +73,23 @@ class AdminStrukturController extends Controller
 
         $data = $request->only(['nama', 'mata_pelajaran', 'nip', 'email']);
 
+        // ✅ Upload foto jika ada
         if ($request->hasFile('foto')) {
-            $data['foto'] = $request->file('foto')->store('guru', 'public');
+            $fotoPath = $request->file('foto')->store('guru', 'public');
+            $data['foto'] = $fotoPath;
+            
+            Log::info('Foto guru berhasil diupload', [
+                'nama' => $data['nama'],
+                'foto_path' => $fotoPath
+            ]);
         }
 
-        Guru::create($data);
+        $guru = Guru::create($data);
 
-        return back()->with('success', 'Guru berhasil ditambahkan!');
+        return back()->with('success', 'Guru "' . $guru->nama . '" berhasil ditambahkan!');
     }
 
-    public function updateGuru(Request $request, Guru $guru) // Route Model Binding!
+    public function updateGuru(Request $request, Guru $guru)
     {
         $request->validate([
             'nama'           => 'required|string|max:255',
@@ -91,27 +101,38 @@ class AdminStrukturController extends Controller
 
         $data = $request->only(['nama', 'mata_pelajaran', 'nip', 'email']);
 
+        // ✅ Handle upload foto baru
         if ($request->hasFile('foto')) {
-            // Hapus foto lama
-            if ($guru->foto) {
+            // Hapus foto lama jika ada
+            if ($guru->foto && Storage::disk('public')->exists($guru->foto)) {
                 Storage::disk('public')->delete($guru->foto);
+                Log::info('Foto lama dihapus', ['foto' => $guru->foto]);
             }
-            $data['foto'] = $request->file('foto')->store('guru', 'public');
+            
+            // Upload foto baru
+            $fotoPath = $request->file('foto')->store('guru', 'public');
+            $data['foto'] = $fotoPath;
+            
+            Log::info('Foto guru berhasil diupdate', [
+                'nama' => $data['nama'],
+                'foto_path' => $fotoPath
+            ]);
         }
 
         $guru->update($data);
 
-        return back()->with('success', 'Data guru berhasil diperbarui!');
+        return back()->with('success', 'Data guru "' . $guru->nama . '" berhasil diperbarui!');
     }
 
-    public function deleteGuru(Guru $guru) // Route Model Binding lagi!
+    public function deleteGuru(Guru $guru)
     {
-        if ($guru->foto) {
-            Storage::disk('public')->delete($guru->foto);
-        }
-
+        $namaGuru = $guru->nama;
+        
+        // Foto akan otomatis terhapus oleh Model::boot() deleting event
         $guru->delete();
 
-        return back()->with('success', 'Guru berhasil dihapus!');
+        Log::info('Guru dihapus', ['nama' => $namaGuru]);
+
+        return back()->with('success', 'Guru "' . $namaGuru . '" berhasil dihapus!');
     }
 }

@@ -156,7 +156,15 @@
                 @foreach($guru as $g)
                 <div class="guru-card" data-category="{{ $g->kategori }}" style="background: white; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.1); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);">
                     <div class="guru-image" style="width: 100%; height: 300px; background: linear-gradient(135deg, #1a5f3a, #2d8659); position: relative; overflow: hidden;">
-                        <img src="https://i.pinimg.com/736x/e0/c2/37/e0c237a83397f0bbfd0417f467fc4d0f.jpg?w=400" alt="{{ $g->nama }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;">
+                        @if($g->foto_url)
+                            {{-- ✅ GUNAKAN FOTO DARI DATABASE --}}
+                            <img src="{{ $g->foto_url }}" alt="{{ $g->nama }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;">
+                        @else
+                            {{-- ✅ FALLBACK: Gambar default jika tidak ada foto --}}
+                            <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1a5f3a, #2d8659);">
+                                <i class="fas fa-user-circle" style="font-size: 120px; color: rgba(255,255,255,0.3);"></i>
+                            </div>
+                        @endif
                         <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); padding: 25px 20px 18px;">
                             <span style="background: var(--accent-color); color: white; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">
                                 {{ $g->mata_pelajaran }}

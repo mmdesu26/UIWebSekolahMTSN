@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('guru', function (Blueprint $table) {
+        Schema::create('galeri', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('mata_pelajaran');
-            $table->string('nip')->nullable();
-            $table->string('email')->nullable();
-            $table->string('foto')->nullable()->comment('Path foto guru di storage');
-            $table->boolean('is_active')->default(true);
+            $table->string('judul');
+            $table->string('gambar')->nullable(); // URL or file path to image/video
+            $table->string('embed_link', 500)->nullable(); // Embed link for YouTube, TikTok, Instagram
+            $table->enum('tipe', ['image', 'video', 'embed'])->default('image');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('guru');
+        Schema::dropIfExists('galeri');
     }
 };

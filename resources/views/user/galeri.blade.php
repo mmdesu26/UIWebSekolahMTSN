@@ -88,6 +88,34 @@
         gap: 5px;
     }
 
+    .embed-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(255, 59, 48, 0.95);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        z-index: 2;
+    }
+
+    .embed-badge.youtube {
+        background: rgba(255, 0, 0, 0.95);
+    }
+
+    .embed-badge.tiktok {
+        background: rgba(0, 0, 0, 0.95);
+    }
+
+    .embed-badge.instagram {
+        background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+    }
+
     /* Modal Lightbox */
     .lightbox {
         display: none;
@@ -120,6 +148,22 @@
         max-height: 80vh;
         object-fit: contain;
         border-radius: 10px;
+    }
+
+    .lightbox-embed {
+        width: 90vw;
+        max-width: 800px;
+        height: 80vh;
+        max-height: 600px;
+        background: #000;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .lightbox-embed iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
     }
 
     .lightbox-caption {
@@ -210,6 +254,11 @@
             top: 10px;
             right: 15px;
         }
+
+        .lightbox-embed {
+            width: 95vw;
+            height: 70vh;
+        }
     }
 
     @media (max-width: 480px) {
@@ -256,7 +305,38 @@
     <div class="gallery-grid">
         @foreach($galeri as $item)
         <div class="gallery-item" onclick="openLightbox({{ $item['id'] }})">
-            <img src="{{ $item['gambar'] }}" alt="{{ $item['judul'] }}">
+            @if(!empty($item['gambar']))
+                <img src="{{ $item['gambar'] }}" alt="{{ $item['judul'] }}" loading="lazy">
+            @else
+                <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: #f0f0f0;">
+                    <i class="fas fa-image" style="font-size: 48px; color: #999;"></i>
+                </div>
+            @endif
+            
+            @if($item['tipe'] === 'embed' && !empty($item['embed_link']))
+                @php
+                    $platform = 'embed';
+                    if (strpos($item['embed_link'], 'youtube.com') !== false || strpos($item['embed_link'], 'youtu.be') !== false) {
+                        $platform = 'youtube';
+                    } elseif (strpos($item['embed_link'], 'tiktok.com') !== false) {
+                        $platform = 'tiktok';
+                    } elseif (strpos($item['embed_link'], 'instagram.com') !== false) {
+                        $platform = 'instagram';
+                    }
+                @endphp
+                <span class="embed-badge {{ $platform }}">
+                    @if($platform === 'youtube')
+                        <i class="fab fa-youtube"></i> YOUTUBE
+                    @elseif($platform === 'tiktok')
+                        <i class="fab fa-tiktok"></i> TIKTOK
+                    @elseif($platform === 'instagram')
+                        <i class="fab fa-instagram"></i> INSTAGRAM
+                    @else
+                        <i class="fas fa-link"></i> EMBED
+                    @endif
+                </span>
+            @endif
+
             <div class="gallery-caption">
                 <h3>{{ $item['judul'] }}</h3>
                 <div class="date">
@@ -265,12 +345,6 @@
             </div>
         </div>
         @endforeach
-        <div class="gallery-item">
-    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@mtsn1magetan/video/7576676005062921492"
-        data-video-id="7576676005062921492" style="width:100%; height:100%;">
-        <section></section>
-    </blockquote>
-</div>
     </div>
 </div>
 
@@ -280,13 +354,11 @@
     <span class="lightbox-nav lightbox-prev" onclick="changeImage(-1, event)">&#10094;</span>
     <span class="lightbox-nav lightbox-next" onclick="changeImage(1, event)">&#10095;</span>
     
-    <div class="lightbox-content">
-        <img id="lightbox-img" src="" alt="">
-        <div class="lightbox-caption" id="lightbox-caption"></div>
+    <div class="lightbox-content" id="lightbox-content">
+        <!-- Content will be dynamically inserted here -->
     </div>
+    <div class="lightbox-caption" id="lightbox-caption"></div>
 </div>
-
-<script async src="https://www.tiktok.com/embed.js"></script>
 
 <script>
     const galeriData = @json($galeri);
@@ -321,8 +393,52 @@
 
     function showImage(index) {
         const item = galeriData[index];
-        document.getElementById('lightbox-img').src = item.gambar;
+        const contentDiv = document.getElementById('lightbox-content');
+        
+        // Clear previous content
+        contentDiv.innerHTML = '';
+        
+        if (item.tipe === 'embed' && item.embed_link) {
+            // Show embed content
+            const embedDiv = document.createElement('div');
+            embedDiv.className = 'lightbox-embed';
+            embedDiv.innerHTML = getEmbedHTML(item.embed_link);
+            contentDiv.appendChild(embedDiv);
+        } else {
+            // Show image
+            const img = document.createElement('img');
+            img.src = item.gambar;
+            img.alt = item.judul;
+            contentDiv.appendChild(img);
+        }
+        
         document.getElementById('lightbox-caption').textContent = item.judul;
+    }
+
+    function getEmbedHTML(url) {
+        // YouTube
+        if (url.includes('youtube.com') || url.includes('youtu.be')) {
+            let videoId = '';
+            if (url.includes('youtube.com/watch?v=')) {
+                videoId = url.split('v=')[1].split('&')[0];
+            } else if (url.includes('youtu.be/')) {
+                videoId = url.split('youtu.be/')[1].split('?')[0];
+            }
+            return `<iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>`;
+        }
+        
+        // TikTok
+        if (url.includes('tiktok.com')) {
+            return `<iframe src="${url}" allowfullscreen></iframe>`;
+        }
+        
+        // Instagram
+        if (url.includes('instagram.com')) {
+            return `<iframe src="${url}/embed" allowfullscreen></iframe>`;
+        }
+        
+        // Default
+        return `<iframe src="${url}" allowfullscreen></iframe>`;
     }
 
     // Keyboard navigation

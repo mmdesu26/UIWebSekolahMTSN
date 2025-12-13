@@ -529,7 +529,13 @@
                                     <strong>{{ $loop->iteration }}</strong>
                                 </td>
                                 <td>
-                                    <img src="{{ $item->foto_url }}" alt="{{ $item->nama }}" class="guru-photo">
+                                    @if($item->foto_url)
+                                        <img src="{{ $item->foto_url }}" alt="{{ $item->nama }}" class="guru-photo">
+                                    @else
+                                        <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #e2e8f0, #cbd5e0); display: flex; align-items: center; justify-content: center; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                                            <i class="fas fa-user" style="color: #718096; font-size: 20px;"></i>
+                                        </div>
+                                    @endif
                                 </td>
                                 <td>
                                     <strong style="color: var(--text-dark);">{{ $item->nama }}</strong>
@@ -549,8 +555,7 @@
                                         <button 
                                             type="button" 
                                             class="btn btn-sm btn-warning" 
-                                            data-bs-toggle="modal" 
-                                            data-bs-target="#editGuru{{ $item->id }}" 
+                                            onclick="openEditModal({{ $item->id }})"
                                             title="Edit Data"
                                         >
                                             <i class="fas fa-edit"></i>
@@ -570,84 +575,6 @@
                                     </div>
                                 </td>
                             </tr>
-
-                            <!-- MODAL EDIT -->
-                            <div class="modal fade" id="editGuru{{ $item->id }}" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">
-                                                <i class="fas fa-user-edit"></i> Edit Data Guru
-                                            </h5>
-                                            <button 
-                                                type="button" 
-                                                class="btn-close" 
-                                                data-bs-dismiss="modal" 
-                                                aria-label="Close"
-                                            ></button>
-                                        </div>
-                                        <form method="POST" action="{{ route('admin.struktur.guru.update', $item) }}" enctype="multipart/form-data">
-                                            @csrf
-                                            @method('PUT')
-                                            <div class="modal-body">
-                                                <div class="form-group">
-                                                    <label class="form-label required">Nama Guru</label>
-                                                    <input 
-                                                        type="text" 
-                                                        class="form-control" 
-                                                        name="nama" 
-                                                        value="{{ $item->nama }}" 
-                                                        required
-                                                    >
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="form-label required">Mata Pelajaran</label>
-                                                    <input 
-                                                        type="text" 
-                                                        class="form-control" 
-                                                        name="mata_pelajaran" 
-                                                        value="{{ $item->mata_pelajaran }}" 
-                                                        required
-                                                    >
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="form-label optional">NIP</label>
-                                                    <input 
-                                                        type="text" 
-                                                        class="form-control" 
-                                                        name="nip" 
-                                                        value="{{ $item->nip }}"
-                                                        placeholder="Boleh dikosongkan"
-                                                    >
-                                                    <small style="color: var(--text-muted); font-size: 12px; margin-top: 6px; display: block;">
-                                                        <i class="fas fa-info-circle"></i> Opsional
-                                                    </small>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="form-label optional">Ganti Foto</label>
-                                                    <input 
-                                                        type="file" 
-                                                        class="form-control" 
-                                                        name="foto" 
-                                                        accept="image/*"
-                                                    >
-                                                    <small style="color: var(--text-muted); font-size: 12px; margin-top: 6px; display: block;">
-                                                        <i class="fas fa-info-circle"></i> Opsional
-                                                    </small>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                    <i class="fas fa-times"></i> Batal
-                                                </button>
-                                                <button type="submit" class="btn btn-primary">
-                                                    <i class="fas fa-save"></i> Simpan
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
                             @endforeach
                         </tbody>
                     </table>
@@ -664,6 +591,87 @@
         </div>
     </div>
 </div>
+
+<!-- ✅ MODAL EDIT - DIPINDAH KE LUAR CONTAINER! -->
+@foreach($guru as $item)
+<div class="modal fade" id="editGuru{{ $item->id }}" tabindex="-1" aria-labelledby="editGuruLabel{{ $item->id }}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editGuruLabel{{ $item->id }}">
+                    <i class="fas fa-user-edit"></i> Edit Data Guru
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" action="{{ route('admin.struktur.guru.update', $item) }}" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label required">Nama Guru</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            name="nama" 
+                            value="{{ $item->nama }}" 
+                            required
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required">Mata Pelajaran</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            name="mata_pelajaran" 
+                            value="{{ $item->mata_pelajaran }}" 
+                            required
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label optional">NIP</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            name="nip" 
+                            value="{{ $item->nip }}"
+                            placeholder="Boleh dikosongkan"
+                        >
+                        <small style="color: var(--text-muted); font-size: 12px; margin-top: 6px; display: block;">
+                            <i class="fas fa-info-circle"></i> Opsional
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label optional">Ganti Foto</label>
+                        @if($item->foto_url)
+                            <div style="margin-bottom: 10px;">
+                                <img src="{{ $item->foto_url }}" alt="Current" style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; border: 2px solid #e2e8f0;">
+                                <p style="font-size: 12px; color: #666; margin-top: 5px;">Foto saat ini</p>
+                            </div>
+                        @endif
+                        <input 
+                            type="file" 
+                            class="form-control" 
+                            name="foto" 
+                            accept="image/*"
+                        >
+                        <small style="color: var(--text-muted); font-size: 12px; margin-top: 6px; display: block;">
+                            <i class="fas fa-info-circle"></i> Kosongkan jika tidak ingin mengganti foto
+                        </small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i> Batal
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Simpan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endforeach
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -744,6 +752,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// ✅ FUNCTION UNTUK BUKA MODAL EDIT (FIXED!)
+function openEditModal(guruId) {
+    const modalElement = document.getElementById('editGuru' + guruId);
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
+}
 </script>
 
 @endsection
