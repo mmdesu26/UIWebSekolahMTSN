@@ -750,11 +750,6 @@
                         </li>
                     </ul>
                 </div>
-                <div class="program-footer">
-                    <a href="#sains" class="btn-program-detail">
-                        Lihat Detail <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
             </div>
             
             <!-- Program Bilingual -->
@@ -785,11 +780,6 @@
                             <span>Program pertukaran pelajar</span>
                         </li>
                     </ul>
-                </div>
-                <div class="program-footer">
-                    <a href="#bilingual" class="btn-program-detail">
-                        Lihat Detail <i class="fas fa-arrow-right"></i>
-                    </a>
                 </div>
             </div>
             
@@ -822,11 +812,6 @@
                         </li>
                     </ul>
                 </div>
-                <div class="program-footer">
-                    <a href="#religi" class="btn-program-detail">
-                        Lihat Detail <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
             </div>
             
             <!-- Program Olahraga -->
@@ -857,11 +842,6 @@
                             <span>Pembinaan kompetisi nasional</span>
                         </li>
                     </ul>
-                </div>
-                <div class="program-footer">
-                    <a href="#olahraga" class="btn-program-detail">
-                        Lihat Detail <i class="fas fa-arrow-right"></i>
-                    </a>
                 </div>
             </div>
             
@@ -894,11 +874,6 @@
                         </li>
                     </ul>
                 </div>
-                <div class="program-footer">
-                    <a href="#it" class="btn-program-detail">
-                        Lihat Detail <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
             </div>
             
             <!-- Program Reguler -->
@@ -929,11 +904,6 @@
                             <span>Ekstrakurikuler beragam</span>
                         </li>
                     </ul>
-                </div>
-                <div class="program-footer">
-                    <a href="#reguler" class="btn-program-detail">
-                        Lihat Detail <i class="fas fa-arrow-right"></i>
-                    </a>
                 </div>
             </div>
             

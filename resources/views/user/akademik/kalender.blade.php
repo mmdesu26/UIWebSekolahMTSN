@@ -195,7 +195,7 @@
         font-size: clamp(18px, 3vw, 24px);
     }
 
-    .semester-title::after {
+    /* .semester-title::after {
         content: '';
         position: absolute;
         bottom: -10px;
@@ -204,7 +204,7 @@
         height: 3px;
         background: linear-gradient(90deg, var(--secondary-color), transparent);
         border-radius: 2px;
-    }
+    } */
 
     /* ==================== CALENDAR GRID ==================== */
     .calendar-grid {

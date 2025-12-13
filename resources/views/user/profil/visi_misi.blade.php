@@ -55,24 +55,30 @@
 
         <!-- NILAI-NILAI INTI -->
         <div style="margin-top: 80px; text-align: center;">
-            <h3 style="font-size: 32px; font-weight: 700; color: var(--dark-text); margin-bottom: 50px;">
-                <i class="fas fa-heart"></i> Nilai-Nilai Inti Kami
+            <h3 style="font-size: 32px; font-weight: 700; color: var(--dark-text); margin-bottom: 50px;" data-aos="fade-up">
+                <i class=></i> Nilai-Nilai Inti Kami
             </h3>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
-                <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); animation: fadeInUp 0.6s ease-out; transition: all 0.3s;">
-                    <i class="fas fa-mosque" style="font-size: 40px; color: var(--primary-color); margin-bottom: 15px;"></i>
-                    <h4 style="font-size: 18px; font-weight: 700; margin-bottom: 10px; color: var(--dark-text);">Islami</h4>
-                    <p style="color: var(--text-muted); font-size: 14px;">Menjunjung tinggi nilai-nilai Islam dalam setiap pembelajaran dan aktivitas</p>
+                <div class="nilai-item" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="nilai-icon">
+                        <i class="fas fa-mosque"></i>
+                    </div>
+                    <h4>Islami</h4>
+                    <p>Menjunjung tinggi nilai-nilai Islam dalam setiap pembelajaran dan aktivitas</p>
                 </div>
-                <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); animation: fadeInUp 0.6s ease-out; animation-delay: 0.1s; transition: all 0.3s;">
-                    <i class="fas fa-star" style="font-size: 40px; color: var(--primary-color); margin-bottom: 15px;"></i>
-                    <h4 style="font-size: 18px; font-weight: 700; margin-bottom: 10px; color: var(--dark-text);">Berprestasi</h4>
-                    <p style="color: var(--text-muted); font-size: 14px;">Selalu berusaha untuk meraih prestasi tertinggi dalam setiap kompetisi dan aktivitas</p>
+                <div class="nilai-item" data-aos="zoom-in" data-aos-delay="150">
+                    <div class="nilai-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>Berprestasi</h4>
+                    <p>Selalu berusaha untuk meraih prestasi tertinggi dalam setiap kompetisi dan aktivitas</p>
                 </div>
-                <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); animation: fadeInUp 0.6s ease-out; animation-delay: 0.2s; transition: all 0.3s;">
-                    <i class="fas fa-leaf" style="font-size: 40px; color: var(--primary-color); margin-bottom: 15px;"></i>
-                    <h4 style="font-size: 18px; font-weight: 700; margin-bottom: 10px; color: var(--dark-text);">Berkelanjutan</h4>
-                    <p style="color: var(--text-muted); font-size: 14px;">Menjaga kelestarian lingkungan untuk generasi mendatang dengan penuh tanggung jawab</p>
+                <div class="nilai-item" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="nilai-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h4>Berkelanjutan</h4>
+                    <p>Menjaga kelestarian lingkungan untuk generasi mendatang dengan penuh tanggung jawab</p>
                 </div>
             </div>
         </div>
@@ -80,6 +86,56 @@
 </section>
 
 <style>
+/* Animasi untuk Nilai-Nilai Inti */
+.nilai-item {
+    background: white;
+    padding: 40px 25px;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.nilai-item:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary-color);
+    box-shadow: 0 15px 40px rgba(26,95,58,0.15);
+}
+
+.nilai-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    margin: 0 auto 20px;
+    transition: all 0.3s;
+}
+
+.nilai-item:hover .nilai-icon {
+    transform: rotateY(360deg);
+    background: linear-gradient(135deg, var(--accent-color), #e67e22);
+}
+
+.nilai-item h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin-bottom: 10px;
+}
+
+.nilai-item p {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.6;
+}
+
 @media (max-width: 768px) {
     section {
         padding: 40px 0 !important;
@@ -102,4 +158,16 @@
     }
 }
 </style>
+
+<!-- AOS Library -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 800,
+        easing: 'ease-out',
+        once: true,
+        offset: 100
+    });
+</script>
 @endsection
