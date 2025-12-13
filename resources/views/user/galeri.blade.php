@@ -295,8 +295,8 @@
 <!-- Hero Section -->
 <div class="hero-section">
     <div class="container text-center">
-        <h1>📸 Galeri MTsN 1 Magetan</h1>
-        <p>Dokumentasi kegiatan dan momen berharga di MTsN 1 Magetan</p>
+        <h1>Galeri MTsN 1 Magetan</h1>
+        <p>Dokumentasi kegiatan di MTsN 1 Magetan</p>
     </div>
 </div>
 
