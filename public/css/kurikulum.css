@@ -1,0 +1,418 @@
+/* ==================== VARIABLES ==================== */
+:root {
+    --primary-color: #1a5f3a;
+    --primary-dark: #0f3d22;
+    --primary-light: #2d8659;
+    --secondary-color: #f39c12;
+    --secondary-light: #f5b041;
+    --text-dark: #2c3e50;
+    --text-light: #7f8c8d;
+    --border-color: #ecf0f1;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.15);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== HERO SECTION ==================== */
+.hero-kurikulum {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 50%, var(--primary-light) 100%);
+    padding: clamp(60px, 10vw, 100px) 20px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-kurikulum::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    animation: float 8s ease-in-out infinite;
+}
+
+.hero-kurikulum::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -5%;
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    animation: float 10s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+    }
+    50% {
+        transform: translateY(-30px) translateX(20px);
+    }
+}
+
+.hero-kurikulum-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+    animation: slideInUp 0.8s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-kurikulum h1 {
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+}
+
+.breadcrumb-custom {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    border-radius: 25px;
+    display: inline-flex;
+    gap: 10px;
+    margin-top: 15px;
+    font-size: clamp(13px, 1.5vw, 15px);
+}
+
+.breadcrumb-custom a {
+    color: white;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.breadcrumb-custom a:hover {
+    opacity: 0.8;
+}
+
+.breadcrumb-custom span {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* ==================== CONTENT SECTION ==================== */
+.kurikulum-content-section {
+    padding: clamp(60px, 10vw, 100px) 20px;
+    background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+/* ==================== KURIKULUM BOX ==================== */
+.kurikulum-box {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    margin-bottom: clamp(25px, 4vw, 35px);
+    transition: var(--transition);
+    animation: fadeInUp 0.6s ease-out backwards;
+}
+
+.kurikulum-box:nth-child(1) { animation-delay: 0.1s; }
+.kurikulum-box:nth-child(2) { animation-delay: 0.2s; }
+.kurikulum-box:nth-child(3) { animation-delay: 0.3s; }
+.kurikulum-box:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.kurikulum-box:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ==================== KURIKULUM BOX HEADER ==================== */
+.kurikulum-box-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    color: white;
+    padding: clamp(25px, 4vw, 35px);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.kurikulum-box-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.15), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.kurikulum-box:hover .kurikulum-box-header::before {
+    opacity: 1;
+}
+
+.kurikulum-box-header i {
+    font-size: clamp(28px, 4vw, 40px);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.kurikulum-box-header h3 {
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* ==================== KURIKULUM BOX BODY ==================== */
+.kurikulum-box-body {
+    padding: clamp(25px, 4vw, 35px);
+}
+
+.kurikulum-box-body p {
+    color: var(--text-light);
+    font-size: clamp(14px, 2vw, 16px);
+    line-height: 1.8;
+    margin: 0;
+    white-space: pre-line;
+}
+
+/* ==================== TUJUAN LIST ==================== */
+.tujuan-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tujuan-list li {
+    padding: clamp(12px, 2vw, 16px) 15px;
+    margin-bottom: 12px;
+    color: var(--text-light);
+    font-size: clamp(14px, 1.5vw, 16px);
+    background: #f8f9fa;
+    border-left: 4px solid var(--primary-color);
+    border-radius: 8px;
+    transition: var(--transition);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.tujuan-list li:hover {
+    transform: translateX(10px);
+    background: #e8f5e9;
+    box-shadow: var(--shadow-sm);
+}
+
+.tujuan-list li::before {
+    content: "✓";
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 18px;
+    min-width: 20px;
+}
+
+/* ==================== KELOMPOK TITLE ==================== */
+.kelompok-title {
+    font-size: clamp(18px, 2.5vw, 22px);
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 30px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--primary-color);
+    display: inline-block;
+}
+
+.kelompok-title:first-of-type {
+    margin-top: 0;
+}
+
+/* ==================== MATA PELAJARAN GRID ==================== */
+.mata-pelajaran-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: clamp(15px, 2vw, 20px);
+    margin-bottom: 30px;
+}
+
+/* ==================== MAPEL CARD ==================== */
+.mapel-card {
+    background: white;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: clamp(20px, 3vw, 25px);
+    text-align: center;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.mapel-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.mapel-card:hover::before {
+    transform: scaleX(1);
+}
+
+.mapel-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.mapel-icon {
+    font-size: clamp(32px, 5vw, 42px);
+    color: var(--primary-color);
+    margin-bottom: 12px;
+    transition: var(--transition);
+}
+
+.mapel-card:hover .mapel-icon {
+    transform: scale(1.1) rotateY(360deg);
+}
+
+.mapel-card h5 {
+    font-size: clamp(14px, 1.8vw, 16px);
+    font-weight: 600;
+    color: var(--text-dark);
+    margin: 10px 0 5px;
+    line-height: 1.3;
+}
+
+.mapel-card p {
+    font-size: clamp(12px, 1.5vw, 14px);
+    color: var(--text-light);
+    margin: 0;
+    font-weight: 500;
+}
+
+/* ==================== NO DATA CONTAINER ==================== */
+.no-data-container {
+    text-align: center;
+    padding: clamp(60px, 10vw, 100px) 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: var(--shadow-md);
+}
+
+.no-data-container i {
+    font-size: clamp(48px, 8vw, 72px);
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.no-data-container h3 {
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+}
+
+.no-data-container p {
+    font-size: clamp(14px, 2vw, 16px);
+    color: var(--text-light);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 1024px) {
+    .mata-pelajaran-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-kurikulum {
+        min-height: auto;
+        padding: 50px 20px;
+    }
+
+    .mata-pelajaran-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
+    .kurikulum-box-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .tujuan-list li {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .kurikulum-content-section {
+        padding: 40px 15px;
+    }
+
+    .mata-pelajaran-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .mapel-card {
+        padding: 15px;
+    }
+
+    .kelompok-title {
+        font-size: 16px;
+        margin: 20px 0 15px;
+    }
+}
+
+@media (max-width: 360px) {
+    .hero-kurikulum h1 {
+        font-size: 22px;
+    }
+
+    .mata-pelajaran-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==================== ANIMATIONS ==================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

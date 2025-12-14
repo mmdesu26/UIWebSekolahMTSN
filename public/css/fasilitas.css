@@ -1,0 +1,562 @@
+/* ==================== VARIABLES ==================== */
+:root {
+    --primary-color: #1a5f3a;
+    --primary-dark: #0f3d22;
+    --primary-light: #2d8659;
+    --secondary-color: #f39c12;
+    --secondary-light: #f5b041;
+    --text-dark: #2c3e50;
+    --text-light: #7f8c8d;
+    --border-color: #ecf0f1;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.15);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== HERO SECTION ==================== */
+.hero-fasilitas {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 50%, var(--primary-light) 100%);
+    padding: clamp(60px, 10vw, 100px) 20px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-fasilitas::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    animation: float 8s ease-in-out infinite;
+}
+
+.hero-fasilitas::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -5%;
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    animation: float 10s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+    }
+    50% {
+        transform: translateY(-30px) translateX(20px);
+    }
+}
+
+.hero-fasilitas-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+    animation: slideInUp 0.8s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-fasilitas h1 {
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+}
+
+.hero-fasilitas p {
+    font-size: clamp(14px, 2vw, 20px);
+    opacity: 0.95;
+    line-height: 1.8;
+    font-weight: 300;
+}
+
+/* ==================== CONTENT SECTION ==================== */
+.fasilitas-content-section {
+    padding: clamp(60px, 10vw, 100px) 20px;
+    background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+/* ==================== SECTION INTRO ==================== */
+.section-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto clamp(40px, 8vw, 60px);
+    animation: fadeInDown 0.8s ease-out;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section-intro h2 {
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.section-intro h2::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--secondary-color), var(--secondary-light));
+    border-radius: 2px;
+}
+
+.section-intro p {
+    font-size: clamp(14px, 2vw, 18px);
+    color: var(--text-light);
+    line-height: 1.8;
+    margin-top: 30px;
+}
+
+/* ==================== SECTION DIVIDER ==================== */
+.section-divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    margin: clamp(60px, 10vw, 80px) auto;
+    max-width: 600px;
+    opacity: 0.3;
+}
+
+/* ==================== FASILITAS GRID ==================== */
+.fasilitas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: clamp(25px, 4vw, 40px);
+    margin-bottom: clamp(60px, 10vw, 80px);
+}
+
+/* ==================== FASILITAS CARD ==================== */
+.fasilitas-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    position: relative;
+    padding-top: 40px;
+    border: 2px solid var(--border-color);
+    animation: fadeInUp 0.6s ease-out backwards;
+}
+
+.fasilitas-card:nth-child(1) { animation-delay: 0.1s; }
+.fasilitas-card:nth-child(2) { animation-delay: 0.2s; }
+.fasilitas-card:nth-child(3) { animation-delay: 0.3s; }
+.fasilitas-card:nth-child(4) { animation-delay: 0.4s; }
+.fasilitas-card:nth-child(5) { animation-delay: 0.5s; }
+.fasilitas-card:nth-child(6) { animation-delay: 0.6s; }
+.fasilitas-card:nth-child(7) { animation-delay: 0.7s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fasilitas-card:hover {
+    transform: translateY(-12px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+/* ==================== FASILITAS BADGE ==================== */
+.fasilitas-badge {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    width: clamp(55px, 8vw, 65px);
+    height: clamp(55px, 8vw, 65px);
+    background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: clamp(24px, 4vw, 30px);
+    box-shadow: 0 8px 25px rgba(243, 156, 18, 0.4);
+    transition: var(--transition);
+}
+
+.fasilitas-card:hover .fasilitas-badge {
+    transform: scale(1.1) rotate(15deg);
+}
+
+/* ==================== FASILITAS CONTENT ==================== */
+.fasilitas-content {
+    padding: clamp(25px, 4vw, 35px);
+}
+
+.fasilitas-content h3 {
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+    line-height: 1.3;
+    padding-right: 80px;
+}
+
+.fasilitas-content > p {
+    color: var(--text-light);
+    font-size: clamp(13px, 1.5vw, 15px);
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+/* ==================== FASILITAS FEATURES ==================== */
+.fasilitas-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.fasilitas-features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: clamp(12px, 1.5vw, 14px);
+    color: var(--text-light);
+    padding: 8px 0;
+    transition: var(--transition);
+}
+
+.fasilitas-features li:hover {
+    color: var(--text-dark);
+    padding-left: 5px;
+}
+
+.fasilitas-features i {
+    color: var(--primary-color);
+    font-size: clamp(14px, 1.8vw, 16px);
+    transition: var(--transition);
+}
+
+.fasilitas-features li:hover i {
+    transform: scale(1.2);
+}
+
+/* ==================== OTHER GRID ==================== */
+.other-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: clamp(20px, 3vw, 30px);
+    margin-bottom: clamp(60px, 10vw, 80px);
+}
+
+/* ==================== OTHER CARD ==================== */
+.other-card {
+    background: white;
+    padding: clamp(30px, 5vw, 40px) clamp(20px, 3vw, 25px);
+    border-radius: 15px;
+    text-align: center;
+    transition: var(--transition);
+    border: 2px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    animation: fadeInUp 0.6s ease-out backwards;
+}
+
+.other-card:nth-child(1) { animation-delay: 0.1s; }
+.other-card:nth-child(2) { animation-delay: 0.2s; }
+.other-card:nth-child(3) { animation-delay: 0.3s; }
+.other-card:nth-child(4) { animation-delay: 0.4s; }
+.other-card:nth-child(5) { animation-delay: 0.5s; }
+.other-card:nth-child(6) { animation-delay: 0.6s; }
+.other-card:nth-child(7) { animation-delay: 0.7s; }
+.other-card:nth-child(8) { animation-delay: 0.8s; }
+
+.other-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ==================== OTHER ICON ==================== */
+.other-icon {
+    width: clamp(70px, 10vw, 85px);
+    height: clamp(70px, 10vw, 85px);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(32px, 5vw, 40px);
+    margin: 0 auto 20px;
+    transition: var(--transition);
+    box-shadow: 0 5px 15px rgba(26, 95, 58, 0.3);
+}
+
+.other-card:hover .other-icon {
+    transform: rotateY(360deg);
+    background: linear-gradient(135deg, var(--secondary-color), #e67e22);
+}
+
+.other-card h4 {
+    font-size: clamp(16px, 2vw, 18px);
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+
+.other-card p {
+    font-size: clamp(12px, 1.5vw, 14px);
+    color: var(--text-light);
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* ==================== CTA SECTION ==================== */
+.cta-fasilitas-section {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 50%, var(--primary-light) 100%);
+    color: white;
+    padding: clamp(40px, 8vw, 60px);
+    border-radius: 16px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.cta-fasilitas-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    animation: float 10s ease-in-out infinite;
+}
+
+.cta-fasilitas-section::after {
+    content: '';
+    position: absolute;
+    bottom: -40%;
+    left: -5%;
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    animation: float 12s ease-in-out infinite reverse;
+}
+
+.cta-fasilitas-section h3 {
+    font-size: clamp(24px, 4vw, 38px);
+    font-weight: 700;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 2;
+    line-height: 1.2;
+}
+
+.cta-fasilitas-section p {
+    font-size: clamp(14px, 2vw, 18px);
+    margin-bottom: 30px;
+    opacity: 0.95;
+    position: relative;
+    z-index: 2;
+    line-height: 1.8;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+}
+
+.btn-fasilitas-primary,
+.btn-fasilitas-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: clamp(12px, 2vw, 16px) clamp(24px, 4vw, 40px);
+    border-radius: 50px;
+    font-size: clamp(13px, 1.5vw, 16px);
+    font-weight: 700;
+    transition: var(--transition);
+    text-decoration: none;
+    border: 2px solid transparent;
+}
+
+.btn-fasilitas-primary {
+    background: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+}
+
+.btn-fasilitas-primary:hover {
+    background: var(--secondary-light);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(243, 156, 18, 0.4);
+}
+
+.btn-fasilitas-secondary {
+    background: white;
+    color: var(--primary-color);
+    border-color: white;
+}
+
+.btn-fasilitas-secondary:hover {
+    background: transparent;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(255, 255, 255, 0.3);
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 1024px) {
+    .fasilitas-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+
+    .other-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-fasilitas {
+        min-height: auto;
+        padding: 50px 20px;
+    }
+
+    .fasilitas-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .other-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 20px;
+    }
+
+    .fasilitas-features {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+    }
+
+    .btn-fasilitas-primary,
+    .btn-fasilitas-secondary {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .fasilitas-content-section {
+        padding: 40px 15px;
+    }
+
+    .fasilitas-card {
+        padding-top: 30px;
+        border-radius: 15px;
+    }
+
+    .fasilitas-badge {
+        top: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 22px;
+    }
+
+    .fasilitas-content {
+        padding: 20px;
+    }
+
+    .fasilitas-content h3 {
+        padding-right: 65px;
+    }
+
+    .other-card {
+        padding: 30px 20px;
+    }
+
+    .cta-fasilitas-section {
+        padding: 30px 15px;
+        border-radius: 12px;
+    }
+
+    .section-divider {
+        margin: 50px auto;
+    }
+}
+
+@media (max-width: 360px) {
+    .hero-fasilitas h1 {
+        font-size: 22px;
+    }
+
+    .fasilitas-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .other-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==================== ANIMATIONS ==================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
