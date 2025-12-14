@@ -23,9 +23,8 @@
                     <h5 class="mb-0"><i class="fas fa-plus-circle me-2"></i>Tambah Berita / Pengumuman Baru</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.berita.store') }}" method="POST">
+                    <form action="{{ route('admin.berita.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="mb-3">

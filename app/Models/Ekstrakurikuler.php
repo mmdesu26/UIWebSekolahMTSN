@@ -16,4 +16,8 @@ class Ekstrakurikuler extends Model
         'prestasi',
         'slug',
     ];
+    public function prestasis()
+{
+    return $this->hasMany(Prestasi::class);
+}
 }

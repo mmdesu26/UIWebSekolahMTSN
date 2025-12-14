@@ -15,6 +15,8 @@ use App\Models\News;
 use App\Models\Ekstrakurikuler;
 use App\Models\SiteSetting;
 use App\Models\Ppdb;
+use Carbon\Carbon;
+use App\Models\Prestasi;
 
 /*
 |--------------------------------------------------------------------------
@@ -113,10 +115,27 @@ class FrontendUserController extends Controller
     */
     public function index()
     {
+        // Ambil 6 berita terbaru untuk ditampilkan di homepage
         $beritaTerbaru = News::latest()->take(6)->get();
+
+        // Ambil semua pengaturan situs dari database
         $settings = SiteSetting::pluck('value', 'key');
 
-        return view('home', compact('beritaTerbaru', 'settings'));
+        $ekstrakurikuler = Ekstrakurikuler::inRandomOrder()->take(6)->get();
+
+        // Ambil data PPDB dan hitung status otomatis
+        $ppdb = Ppdb::first();
+        $today = Carbon::today();
+        $ppdbStatus = 'coming_soon';
+        if ($ppdb && $ppdb->dibuka && $ppdb->ditutup) {
+            if ($today->between(Carbon::parse($ppdb->dibuka), Carbon::parse($ppdb->ditutup))) {
+                $ppdbStatus = 'open';
+            } elseif ($today->gt(Carbon::parse($ppdb->ditutup))) {
+                $ppdbStatus = 'closed';
+            }
+        }
+
+        return view('home', compact('beritaTerbaru', 'settings', 'ppdb', 'ppdbStatus', 'ekstrakurikuler'));
     }
 
     /*
@@ -174,17 +193,19 @@ class FrontendUserController extends Controller
     |--------------------------------------------------------------------------
     */
     public function ekstrakurikuler()
-    {
-        $ekstrakurikuler = Ekstrakurikuler::all();
-        return view('user.ekstrakurikuler', compact('ekstrakurikuler'));
-    }
+{
+    $ekstrakurikuler = Ekstrakurikuler::all();
+    $prestasi = Prestasi::all(); 
 
-    public function ekstrakurikulerDetail($slug)
-    {
-        $ekstra = Ekstrakurikuler::where('slug', $slug)->firstOrFail();
-        return view('user.ekstrakurikuler-detail', compact('ekstra'));
-    }
+    return view('user.ekstrakurikuler', compact('ekstrakurikuler', 'prestasi'));
+}
 
+    public function prestasi()
+    {
+        $prestasi = Prestasi::all();
+
+        return view('user.prestasi', compact('prestasi'));
+    }
     /*
     |--------------------------------------------------------------------------
     | =========================
@@ -194,10 +215,10 @@ class FrontendUserController extends Controller
     */
     public function ppdb()
     {
-        $ppdb = Ppdb::first();
+        $ppdb = Ppdb::first(); // Ambil data PPDB (single record)
+
         return view('user.ppdb', compact('ppdb'));
     }
-
     /*
     |--------------------------------------------------------------------------
     | =========================

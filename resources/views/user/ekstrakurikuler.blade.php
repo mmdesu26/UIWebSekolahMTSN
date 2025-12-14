@@ -56,10 +56,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="{{ route('ekstrakurikuler.detail', $item->slug) }}" class="ekstra-btn">
-                        Selengkapnya <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
+                        </div>
             </div>
             @endforeach
         </div>
@@ -123,93 +120,28 @@
             </div>
         </div>
 
-        <!-- Achievements Section -->
-        <div class="achievements-section">
-            <div class="achievements-header">
-                <h3><i class="fas fa-medal"></i> Prestasi Ekstrakurikuler</h3>
+        <!-- Prestasi Umum (Tidak Terikat Ekskul) -->
+<div class="achievements-section mt-5">
+    <div class="achievements-header">
+        <h3><i class="fas fa-medal"></i> Prestasi Sekolah</h3>
+        <p>Beberapa prestasi gemilang yang diraih oleh siswa MTsN 1 Magetan</p>
+    </div>
+    <div class="achievements-grid">
+        @forelse($prestasi as $item)
+            <div class="achievement-card">
+                <div class="achievement-title">
+                    <i class="fas fa-trophy"></i>
+                    <h4>{{ $item->nama_prestasi }}</h4>
+                </div>
+                @if($item->gambar)
+                    <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->nama_prestasi }}" class="img-fluid mt-2 rounded" style="max-height: 150px;">
+                @endif
             </div>
-            <div class="achievements-grid">
-                <div class="achievement-card">
-                    <div class="achievement-title">
-                        <i class="fas fa-futbol"></i>
-                        <h4>Futsal</h4>
-                    </div>
-                    <p class="achievement-text">
-                        Juara 1 Turnamen Futsal Antar Sekolah 2023 & Juara 2 Kompetisi Futsal Se-Jawa Timur
-                    </p>
-                </div>
-
-                <div class="achievement-card">
-                    <div class="achievement-title">
-                        <i class="fas fa-music"></i>
-                        <h4>Paduan Suara</h4>
-                    </div>
-                    <p class="achievement-text">
-                        Juara 1 Festival Paduan Suara Nasional 2023 & Finalis Kompetisi Paduan Suara Tingkat Provinsi
-                    </p>
-                </div>
-
-                <div class="achievement-card">
-                    <div class="achievement-title">
-                        <i class="fas fa-microchip"></i>
-                        <h4>Robotik</h4>
-                    </div>
-                    <p class="achievement-text">
-                        Juara 2 Kompetisi Robotik Nasional 2023 & Medali Emas dalam kategori Inovasi Teknologi
-                    </p>
-                </div>
-
-                <div class="achievement-card">
-                    <div class="achievement-title">
-                        <i class="fas fa-book-quran"></i>
-                        <h4>Tahfidz Quran</h4>
-                    </div>
-                    <p class="achievement-text">
-                        5 Siswa Hafiz Al-Quran pada 2023 & Juara 1 Kompetisi Tilawah Quran Se-Kabupaten
-                    </p>
-                </div>
-
-                <div class="achievement-card">
-                    <div class="achievement-title">
-                        <i class="fas fa-person-hiking"></i>
-                        <h4>Karate</h4>
-                    </div>
-                    <p class="achievement-text">
-                        Juara 1 Kata Kelas 60-65 kg & Juara 2 Kumite Tingkat Provinsi Jawa Timur
-                    </p>
-                </div>
-
-                <div class="achievement-card">
-                    <div class="achievement-title">
-                        <i class="fas fa-fire"></i>
-                        <h4>Taekwondo</h4>
-                    </div>
-                    <p class="achievement-text">
-                        Juara 2 Pertandingan Taekwondo Se-Jawa Timur & Medali Perunggu Kompetisi Nasional
-                    </p>
-                </div>
-
-                <div class="achievement-card">
-                    <div class="achievement-title">
-                        <i class="fas fa-volleyball"></i>
-                        <h4>Volley Ball</h4>
-                    </div>
-                    <p class="achievement-text">
-                        Juara 3 Kompetisi Volley Antar Sekolah & Juara 2 Liga Volley Tingkat Kabupaten
-                    </p>
-                </div>
-
-                <div class="achievement-card">
-                    <div class="achievement-title">
-                        <i class="fas fa-masks-theater"></i>
-                        <h4>Teater & Drama</h4>
-                    </div>
-                    <p class="achievement-text">
-                        Juara 1 Festival Seni Teater Kabupaten & Penampilan di Panggung Nasional Jakarta 2023
-                    </p>
-                </div>
-            </div>
-        </div>
+        @empty
+            <p class="text-center col-12">Belum ada prestasi yang tercatat.</p>
+        @endforelse
+    </div>
+</div>
 
     </div>
 </section>

@@ -76,7 +76,6 @@ Route::prefix('ppdb')->group(function () {
 | EKSTRAKURIKULER (DIRA - DIPAKAI KARENA SUDAH ADA)
 */
 Route::get('/ekstrakurikuler', [FrontendUserController::class, 'ekstrakurikuler'])->name('ekstrakurikuler');
-Route::get('/ekstrakurikuler/{slug}', [FrontendUserController::class, 'ekstrakurikulerDetail'])->name('ekstrakurikuler.detail');
 
 /*
 | GALERI – USER (LENI - BARU DITAMBAHKAN)
@@ -152,11 +151,16 @@ Route::prefix('admin')->middleware('adminauth')->name('admin.')->group(function 
 
         Route::post('/ekstrakurikuler/delete/{id}', [AdminController::class, 'deleteEkstra'])
             ->name('ekstra.delete');
-    /*
-    | SETTINGS (DIRA)
-    */
-    Route::get('/settings', [AdminController::class, 'manageSettings'])->name('settings');
-    Route::post('/settings/update', [AdminController::class, 'updateSettings'])->name('settings.update');
+          
+// Manajemen Prestasi
+Route::get('/prestasi', [AdminController::class, 'managePrestasi'])->name('prestasi');
+Route::post('/prestasi/add', [AdminController::class, 'addPrestasi'])->name('prestasi.add');
+Route::post('/prestasi/update/{id}', [AdminController::class, 'updatePrestasi'])->name('prestasi.update');
+Route::post('/prestasi/delete/{id}', [AdminController::class, 'deletePrestasi'])->name('prestasi.delete');
+
+   // Settings
+        Route::get('/settings', [AdminController::class, 'manageSettings'])->name('settings');
+        Route::post('/settings/update', [AdminController::class, 'updateSettings'])->name('settings.update');
 
     /*
     | MANAJEMEN PPDB (DIRA)
