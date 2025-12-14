@@ -100,80 +100,22 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit{{ $item->id }}">
+                                    <!-- Tombol Edit → ke halaman terpisah -->
+                                    <a href="{{ route('admin.prestasi.edit', $item->id) }}" class="btn btn-warning btn-sm">
                                         <i class="fas fa-edit"></i>
-                                    </button>
+                                    </a>
+
+                                    <!-- Hapus -->
                                     <form action="{{ route('admin.prestasi.delete', $item->id) }}" method="POST" class="d-inline delete-form">
-                                        @csrf
-                                        <button type="submit" class="btn btn-sm btn-danger">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
+    @csrf
+    @method('DELETE')
+
+    <button type="submit" class="btn btn-sm btn-danger">
+        <i class="fas fa-trash"></i>
+    </button>
+</form>
                                 </td>
                             </tr>
-
-                            <!-- Modal Edit -->
-                            <div class="modal fade" id="edit{{ $item->id }}">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <form action="{{ route('admin.prestasi.update', $item->id) }}" method="POST" enctype="multipart/form-data" novalidate>
-                                            @csrf
-                                            <div class="modal-header bg-primary text-white">
-                                                <h5 class="modal-title">Edit Prestasi</h5>
-                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Nama Prestasi <span class="text-danger">*</span></label>
-                                                    <input type="text" 
-                                                           name="nama_prestasi" 
-                                                           class="form-control @error('nama_prestasi') is-invalid @enderror" 
-                                                           value="{{ old('nama_prestasi', $item->nama_prestasi) }}" 
-                                                           required>
-                                                    @error('nama_prestasi')
-                                                        <small class="text-danger">{{ $message }}</small>
-                                                    @enderror  
-                                                </div>
-
-                                                <div class="row g-3">
-                                                    <div class="col-md-6">
-                                                        <label class="form-label">Upload Gambar Baru</label>
-                                                        <input type="file" 
-                                                               name="gambar" 
-                                                               class="form-control @error('gambar') is-invalid @enderror" 
-                                                               accept="image/*">
-                                                        @error('gambar')
-                                                            <small class="text-danger">{{ $message }}</small>
-                                                        @enderror
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label class="form-label">URL Gambar (Opsional)</label>
-                                                        <input type="url" 
-                                                               name="gambar_url" 
-                                                               class="form-control @error('gambar_url') is-invalid @enderror" 
-                                                               placeholder="Atau ganti dengan URL gambar" 
-                                                               value="{{ old('gambar_url', $item->gambar) }}">
-                                                        @error('gambar_url')
-                                                            <small class="text-danger">{{ $message }}</small>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-
-                                                @if($item->gambar)
-                                                    <div class="mt-3">
-                                                        <p class="small text-muted mb-2">Gambar saat ini:</p>
-                                                        <img src="{{ $item->gambar }}" class="img-thumbnail rounded shadow-sm" style="max-height: 150px;">
-                                                    </div>
-                                                @endif
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                <button type="submit" class="btn btn-primary">Update</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
                             @endforeach
                         </tbody>
                     </table>
@@ -184,7 +126,6 @@
 </div>
 
 <link rel="stylesheet" href="{{ asset('css/admin-ekskul.css') }}">
-<script src="{{ asset('js/admin-ekskul.js') }}"></script>
 <script src="{{ asset('js/admin-prestasi.js') }}"></script>
 
 @endsection

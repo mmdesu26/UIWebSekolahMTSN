@@ -332,33 +332,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // ==================== MODAL FIX FOR MOBILE ====================
 document.addEventListener('DOMContentLoaded', function () {
-    // Bootstrap 5 menggunakan show.bs.modal dan hidden.bs.modal
-    const modals = document.querySelectorAll('.modal');
-    
-    modals.forEach(modal => {
-        // Gunakan Bootstrap event yang benar
-        modal.addEventListener('show.bs.modal', function (e) {
-            // Prevent body scroll saat modal terbuka
-            document.body.style.overflow = 'hidden';
-        });
+    // Tunggu Bootstrap selesai loading
+    if (typeof bootstrap !== 'undefined') {
+        console.log('Bootstrap loaded successfully');
+    }
 
-        modal.addEventListener('hidden.bs.modal', function (e) {
-            // Reset body overflow saat modal ditutup
-            document.body.style.overflow = '';
+    // Event listener untuk semua modal buttons
+    document.querySelectorAll('[data-bs-toggle="modal"]').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const targetSelector = this.getAttribute('data-bs-target');
+            if (targetSelector) {
+                const modalElement = document.querySelector(targetSelector);
+                if (modalElement) {
+                    try {
+                        const modal = new bootstrap.Modal(modalElement);
+                        modal.show();
+                    } catch(err) {
+                        console.error('Modal error:', err);
+                    }
+                }
+            }
         });
     });
 
-    // Alternative: Gunakan modal.show() dan modal.hide() jika event tidak trigger
-    document.querySelectorAll('[data-bs-toggle="modal"]').forEach(button => {
-        button.addEventListener('click', function(e) {
-            const targetId = this.getAttribute('data-bs-target');
-            if (targetId) {
-                const modalElement = document.querySelector(targetId);
-                if (modalElement) {
-                    // Pastikan body bisa scroll kembali saat modal dibuka
-                    document.body.style.overflow = 'hidden';
-                }
-            }
+    // Alternative: Handle modal show/hide events
+    document.querySelectorAll('.modal').forEach(modalElement => {
+        modalElement.addEventListener('show.bs.modal', function(e) {
+            document.body.style.overflow = 'hidden';
+            document.body.classList.add('modal-open');
+        });
+
+        modalElement.addEventListener('hidden.bs.modal', function(e) {
+            document.body.style.overflow = '';
+            document.body.classList.remove('modal-open');
         });
     });
 });

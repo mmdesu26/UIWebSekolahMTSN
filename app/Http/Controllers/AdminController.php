@@ -216,6 +216,12 @@ class AdminController extends Controller
         }
     }
 
+    public function editBerita($id)
+{
+    $berita = News::findOrFail($id);
+    return view('admin.berita-edit', compact('berita'));
+}
+
     public function deleteBerita($id)
     {
         try {
@@ -280,6 +286,33 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Gagal menambahkan ekstrakurikuler!');
         }
     }
+
+    public function editEkstra($id)
+{
+    $ekstra = Ekstrakurikuler::findOrFail($id);
+    return view('admin.ekstrakurikuler-edit', compact('ekstra'));
+}
+
+public function updateEkstra($id, Request $request)
+{
+    $ekstra = Ekstrakurikuler::findOrFail($id);
+
+    $request->validate([
+        'name'     => 'required|string|max:255|unique:ekstrakurikulers,name,' . $id,
+        'jadwal'   => 'required|string|max:255',
+        'pembina'  => 'required|string|max:255',
+        'prestasi' => 'nullable|string',
+    ]);
+
+    $ekstra->update([
+        'name'     => $request->name,
+        'jadwal'   => $request->jadwal,
+        'pembina'  => $request->pembina,
+        'prestasi' => $request->prestasi ?? null,
+    ]);
+
+    return redirect()->route('admin.ekstrakurikuler')->with('success', 'Ekstrakurikuler berhasil diperbarui!');
+}
 
     public function deleteEkstra($id)
     {
@@ -536,6 +569,12 @@ public function updatePrestasi($id, Request $request)
     } catch (\Exception $e) {
         return redirect()->back()->with('error', 'Gagal memperbarui prestasi!');
     }
+}
+
+public function editPrestasi($id)
+{
+    $prestasi = Prestasi::findOrFail($id);
+    return view('admin.prestasi-edit', compact('prestasi'));
 }
 
 public function deletePrestasi($id)

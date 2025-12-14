@@ -5,8 +5,72 @@ document.addEventListener('DOMContentLoaded', function () {
         card.style.animationDelay = `${index * 0.1}s`;
     });
 
-    // ===== FORM VALIDATION WITH FEEDBACK =====
-    const form = document.querySelector('form[action*="ekstra.add"]');
+    // ===== EDIT BUTTON FUNCTIONALITY =====
+    const editButtons = document.querySelectorAll('.edit-btn');
+    const mainForm = document.getElementById('mainForm');
+    const formTitle = document.getElementById('formTitle');
+    const submitBtn = document.getElementById('submitBtn');
+    const submitText = document.getElementById('submitText');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const formCard = document.getElementById('formCard');
+
+    editButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.dataset.id;
+            const name = this.dataset.name;
+            const jadwal = this.dataset.jadwal;
+            const pembina = this.dataset.pembina;
+            const prestasi = this.dataset.prestasi;
+
+            // Update form action
+            mainForm.action = mainForm.action.replace('/add', `/update/${id}`);
+
+            // Set edit mode
+            document.getElementById('editMode').value = '1';
+
+            // Isi form
+            document.getElementById('nameInput').value = name;
+            document.getElementById('jadwalInput').value = jadwal;
+            document.getElementById('pembinaInput').value = pembina;
+            document.getElementById('prestasiTextarea').value = prestasi;
+
+            // Update UI
+            formTitle.innerHTML = '<i class="fas fa-edit"></i> Edit Ekstrakurikuler';
+            submitText.textContent = 'Update';
+            submitBtn.classList.remove('btn-primary');
+            submitBtn.classList.add('btn-success');
+            cancelBtn.style.display = 'inline-block';
+
+            // Scroll & highlight
+            formCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            formCard.style.boxShadow = '0 0 30px rgba(102, 126, 234, 0.3)';
+            setTimeout(() => {
+                formCard.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.08)';
+            }, 2000);
+
+            setTimeout(() => document.getElementById('nameInput').focus(), 500);
+        });
+    });
+
+    // ===== CANCEL BUTTON =====
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', function() {
+            mainForm.reset();
+            mainForm.action = mainForm.action.replace(/\/update\/\d+/, '/add');
+            document.getElementById('editMode').value = '0';
+
+            formTitle.innerHTML = '<i class="fas fa-plus-circle"></i> Tambah Ekstrakurikuler Baru';
+            submitText.textContent = 'Simpan';
+            submitBtn.classList.remove('btn-success');
+            submitBtn.classList.add('btn-primary');
+            cancelBtn.style.display = 'none';
+
+            showNotification('Mode edit dibatalkan', 'info');
+        });
+    }
+
+    // ===== FORM VALIDATION =====
+    const form = document.querySelector('form[action*="ekstra"]');
     if (form) {
         form.addEventListener('submit', function (e) {
             const inputs = form.querySelectorAll('input[required], textarea[required]');
@@ -45,35 +109,46 @@ document.addEventListener('DOMContentLoaded', function () {
             ripple.classList.add('ripple');
 
             this.appendChild(ripple);
-
             setTimeout(() => ripple.remove(), 600);
         });
     });
 
-    // ===== EDIT MODAL ANIMATION =====
-    const editButtons = document.querySelectorAll('button[data-bs-toggle="modal"]');
-    editButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            const targetId = this.getAttribute('data-bs-target');
-            const modal = document.querySelector(targetId);
-            if (modal) {
-                modal.querySelector('.modal-dialog').style.animation = 'slideDown 0.4s ease-out';
+    // ===== DELETE CONFIRMATION =====
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+document.querySelectorAll('.delete-form').forEach(form => {
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Ambil teks dari tombol atau konteks sekitar (opsional, untuk pesan dinamis)
+        const button = form.querySelector('button[type="submit"]');
+        let title = 'Yakin ingin menghapus data ini?';
+        
+        // Deteksi berdasarkan route atau tambahkan data-attribute jika perlu
+        if (form.action.includes('prestasi')) {
+            title = 'Yakin hapus prestasi ini?';
+        } else if (form.action.includes('ekstra')) {
+            title = 'Yakin hapus ekstrakurikuler ini?';
+        }
+
+        Swal.fire({
+            title: title,
+            text: "Data yang dihapus tidak dapat dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
             }
         });
     });
+});
 
-    // ===== DELETE CONFIRMATION WITH ANIMATION =====
-    const deleteForms = document.querySelectorAll('form[action*="ekstra.delete"]');
-    deleteForms.forEach(form => {
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-            if (confirm('Yakin ingin menghapus?')) {
-                this.submit();
-            }
-        });
-    });
-
-    // ===== TABLE ROW HOVER EFFECT =====
+    // ===== TABLE ROW HOVER =====
     const tableRows = document.querySelectorAll('.table tbody tr');
     tableRows.forEach(row => {
         row.addEventListener('mouseenter', function () {
@@ -107,6 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
             z-index: 9999;
             animation: slideInRight 0.4s ease-out;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            min-width: 300px;
         `;
         notification.innerHTML = `
             ${message}
@@ -121,53 +197,17 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 4000);
     }
 
-    // ===== CSRF TOKEN AUTO-INCLUDE =====
-    const csrfToken = document.querySelector('meta[name="csrf-token"]');
-    if (!csrfToken) {
-        const token = document.querySelector('input[name="_token"]');
-        if (token) {
-            console.log('CSRF Token tersedia');
-        }
-    }
-
-    // ===== EMPTY STATE ANIMATION =====
-    const emptyState = document.querySelector('.text-center.py-5');
-    if (emptyState) {
-        const icon = emptyState.querySelector('i');
-        if (icon) {
-            icon.style.animation = 'float 3s ease-in-out infinite';
-        }
-    }
-
-    // ===== RESPONSIVE TABLE HANDLING =====
-    function handleTableResponsiveness() {
-        const table = document.querySelector('.table');
-        const container = document.querySelector('.table-responsive');
-
-        if (window.innerWidth <= 768 && table) {
-            container.style.overflowX = 'auto';
-        }
-    }
-
-    handleTableResponsiveness();
-    window.addEventListener('resize', handleTableResponsiveness);
-
-    // ===== FORM RESET ANIMATION =====
-    const forms = document.querySelectorAll('form');
-    forms.forEach(form => {
-        form.addEventListener('reset', function () {
-            this.style.animation = 'fadeIn 0.4s ease-out';
-        });
-    });
-
     // ===== KEYBOARD SHORTCUTS =====
     document.addEventListener('keydown', function (e) {
-        // Ctrl+Enter untuk submit form
         if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
             const activeForm = document.activeElement.closest('form');
-            if (activeForm) {
+            if (activeForm && !activeForm.classList.contains('delete-form')) {
                 activeForm.submit();
             }
+        }
+        
+        if (e.key === 'Escape' && cancelBtn.style.display !== 'none') {
+            cancelBtn.click();
         }
     });
 

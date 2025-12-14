@@ -134,6 +134,8 @@ Route::prefix('admin')->middleware('adminauth')->name('admin.')->group(function 
         Route::put('/berita/{id}', [AdminController::class, 'updateBerita'])
             ->name('berita.update');
 
+            Route::get('/berita/edit/{id}', [AdminController::class, 'editBerita'])->name('berita.edit');
+
         Route::delete('/berita/{id}', [AdminController::class, 'deleteBerita'])
             ->name('berita.destroy');
     /*
@@ -145,8 +147,8 @@ Route::prefix('admin')->middleware('adminauth')->name('admin.')->group(function 
         Route::post('/ekstrakurikuler/add', [AdminController::class, 'addEkstra'])
             ->name('ekstra.add');
 
-        Route::post('/ekstrakurikuler/update/{id}', [AdminController::class, 'updateEkstra'])
-            ->name('ekstra.update');
+        Route::get('/ekstrakurikuler/edit/{id}', [AdminController::class, 'editEkstra'])->name('ekstra.edit');
+Route::put('/ekstrakurikuler/update/{id}', [AdminController::class, 'updateEkstra'])->name('ekstra.update');
 
         Route::post('/ekstrakurikuler/delete/{id}', [AdminController::class, 'deleteEkstra'])
             ->name('ekstra.delete');
@@ -154,7 +156,8 @@ Route::prefix('admin')->middleware('adminauth')->name('admin.')->group(function 
 // Manajemen Prestasi
 Route::get('/prestasi', [AdminController::class, 'managePrestasi'])->name('prestasi');
 Route::post('/prestasi/add', [AdminController::class, 'addPrestasi'])->name('prestasi.add');
-Route::post('/prestasi/update/{id}', [AdminController::class, 'updatePrestasi'])->name('prestasi.update');
+Route::get('/prestasi/edit/{id}', [AdminController::class, 'editPrestasi'])->name('prestasi.edit');
+Route::put('/prestasi/update/{id}', [AdminController::class, 'updatePrestasi'])->name('prestasi.update');
 Route::post('/prestasi/delete/{id}', [AdminController::class, 'deletePrestasi'])->name('prestasi.delete');
 
    // Settings
