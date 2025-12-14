@@ -1,0 +1,161 @@
+/* Kalender List Styles */
+.nav-tabs {
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.nav-tabs .nav-link {
+    border: none;
+    color: #718096;
+    font-weight: 600;
+    padding: 12px 20px;
+    margin-right: 8px;
+    border-radius: 8px 8px 0 0;
+    transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: #f7fafc;
+    color: #667eea;
+}
+
+.nav-tabs .nav-link.active {
+    background: linear-gradient(135deg, #667eea, #5568d3);
+    color: white;
+    border: none;
+}
+
+.table-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table thead {
+    background: #f7fafc;
+}
+
+.table thead th {
+    color: #2d3748;
+    font-weight: 700;
+    border: none;
+    padding: 16px 12px;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid #e2e8f0;
+    transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #f7fafc;
+}
+
+.table tbody td {
+    padding: 16px 12px;
+    color: #2d3748;
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.badge {
+    padding: 6px 12px;
+    font-weight: 600;
+    font-size: 12px;
+    border-radius: 6px;
+}
+
+.btn {
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 10px 18px;
+    transition: all 0.3s ease;
+}
+
+.btn-sm {
+    padding: 8px 12px;
+    font-size: 12px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea, #5568d3);
+    border: none;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #5568d3, #4c5ab8);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-warning {
+    background: #ed8936;
+    border: none;
+    color: white;
+}
+
+.btn-warning:hover {
+    background: #d97706;
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background: #f56565;
+    border: none;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #e53e3e;
+    transform: translateY(-2px);
+}
+
+.text-center.py-5 {
+    padding: 60px 20px;
+}
+
+.text-center.py-5 i {
+    color: #cbd5e0;
+    margin-bottom: 20px;
+}
+
+.text-center.py-5 p {
+    color: #a0aec0;
+    font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-tabs .nav-link {
+        font-size: 12px;
+        padding: 10px 14px;
+    }
+    
+    .table thead th {
+        font-size: 11px;
+        padding: 12px 8px;
+    }
+    
+    .table tbody td {
+        font-size: 12px;
+        padding: 12px 8px;
+    }
+    
+    .btn {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+    
+    .btn-sm {
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+}

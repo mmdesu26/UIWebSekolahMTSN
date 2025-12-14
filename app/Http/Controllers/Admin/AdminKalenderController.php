@@ -10,13 +10,21 @@ use Illuminate\Support\Facades\Validator;
 class AdminKalenderController extends Controller
 {
     /**
-     * Tampilkan halaman manage kalender pendidikan
+     * Tampilkan halaman daftar kalender pendidikan
      */
     public function index()
     {
         $kalenders = KalenderPendidikan::orderBy('tanggal_mulai', 'asc')->get();
         
         return view('admin.kalender', compact('kalenders'));
+    }
+
+    /**
+     * Tampilkan halaman form tambah kalender
+     */
+    public function create()
+    {
+        return view('admin.create-kalender');
     }
 
     /**
@@ -65,6 +73,16 @@ class AdminKalenderController extends Controller
                 ->withInput()
                 ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Tampilkan halaman form edit kalender
+     */
+    public function edit($id)
+    {
+        $kalender = KalenderPendidikan::findOrFail($id);
+        
+        return view('admin.edit-kalender', compact('kalender'));
     }
 
     /**

@@ -1,91 +1,76 @@
-<div class="card shadow-sm">
-    <div class="card-body">
-        @if($kalenders->count() > 0)
-        <div class="table-responsive">
-            <table class="table table-hover align-middle">
-                <thead class="table-light">
-                    <tr>
-                        <th width="5%">No</th>
-                        <th width="12%">Tanggal</th>
-                        <th width="10%">Semester</th>
-                        <th>Judul Kegiatan</th>
-                        <th width="15%">Kategori</th>
-                        <th width="8%">Status</th>
-                        <th width="15%" class="text-center">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($kalenders as $index => $kalender)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>
-                            <small class="text-muted d-block">
-                                <i class="far fa-calendar"></i>
-                                {{ $kalender->tanggal_mulai->format('d/m/Y') }}
-                            </small>
-                            @if($kalender->tanggal_selesai && $kalender->tanggal_mulai != $kalender->tanggal_selesai)
-                            <small class="text-muted d-block">
-                                <i class="far fa-calendar"></i>
-                                {{ $kalender->tanggal_selesai->format('d/m/Y') }}
-                            </small>
-                            @endif
-                        </td>
-                        <td>
-                            <span class="badge {{ $kalender->semester == 'ganjil' ? 'bg-info' : 'bg-success' }}">
-                                {{ ucfirst($kalender->semester) }}
-                            </span>
-                        </td>
-                        <td>
-                            <strong>{{ $kalender->judul }}</strong>
-                            <p class="text-muted mb-0 small">{{ Str::limit($kalender->keterangan, 80) }}</p>
-                        </td>
-                        <td>
-                            <span class="badge badge-{{ $kalender->kategori }}">
-                                {{ $kalender->kategori_label }}
-                            </span>
-                        </td>
-                        <td>
-                            <form action="{{ route('admin.kalender.toggle', $kalender->id) }}" method="POST" style="display: inline;">
-                                @csrf
-                                @method('PATCH')
-                                <button type="submit" class="btn btn-sm {{ $kalender->is_active ? 'btn-success' : 'btn-secondary' }}" title="{{ $kalender->is_active ? 'Aktif' : 'Nonaktif' }}">
-                                    <i class="fas {{ $kalender->is_active ? 'fa-check-circle' : 'fa-times-circle' }}"></i>
-                                </button>
-                            </form>
-                        </td>
-                        <td class="text-center">
-                            <button 
-                                onclick="editKalender(
-                                    {{ $kalender->id }}, 
-                                    '{{ $kalender->semester }}', 
-                                    '{{ $kalender->tanggal_mulai->format('Y-m-d') }}', 
-                                    '{{ $kalender->tanggal_selesai ? $kalender->tanggal_selesai->format('Y-m-d') : '' }}', 
-                                    '{{ addslashes($kalender->judul) }}', 
-                                    '{{ addslashes($kalender->keterangan) }}',
-                                    '{{ $kalender->kategori }}'
-                                )" 
-                                class="btn btn-sm btn-warning me-1"
-                                title="Edit">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button 
-                                onclick="deleteKalender({{ $kalender->id }}, '{{ addslashes($kalender->judul) }}')" 
-                                class="btn btn-sm btn-danger"
-                                title="Hapus">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+<div class="card table-card">
+    <div class="card-body p-0">
+        @if($kalenders->isEmpty())
+            <div class="text-center py-5 text-muted">
+                <i class="fas fa-inbox fa-3x mb-3"></i>
+                <p>Belum ada data kalender</p>
+            </div>
         @else
-        <div class="text-center py-5">
-            <i class="fas fa-calendar-times fa-4x text-muted mb-3"></i>
-            <h5 class="text-muted">Belum ada kegiatan</h5>
-            <p class="text-muted">Klik tombol "Tambah Kegiatan" untuk menambahkan jadwal baru</p>
-        </div>
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>No</th>
+                            <th>Judul</th>
+                            <th>Semester</th>
+                            <th>Kategori</th>
+                            <th>Tanggal</th>
+                            <th class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($kalenders as $item)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>
+                                <strong>{{ Str::limit($item->judul, 50) }}</strong>
+                                <br>
+                                <small class="text-muted">{{ Str::limit($item->keterangan, 60) }}</small>
+                            </td>
+                            <td>
+                                @if($item->semester == 'ganjil')
+                                    <span class="badge bg-info">Ganjil</span>
+                                @else
+                                    <span class="badge bg-warning text-dark">Genap</span>
+                                @endif
+                            </td>
+                            <td>
+                                @php
+                                    $badgeClass = match($item->kategori) {
+                                        'akademik' => 'bg-primary',
+                                        'libur' => 'bg-danger',
+                                        'kegiatan' => 'bg-success',
+                                        'ujian' => 'bg-warning text-dark',
+                                        'penting' => 'bg-info',
+                                        default => 'bg-secondary'
+                                    };
+                                @endphp
+                                <span class="badge {{ $badgeClass }}">{{ ucfirst($item->kategori) }}</span>
+                            </td>
+                            <td>
+                                {{ \Carbon\Carbon::parse($item->tanggal_mulai)->format('d/m/Y') }}
+                                @if($item->tanggal_selesai)
+                                    <br>s/d {{ \Carbon\Carbon::parse($item->tanggal_selesai)->format('d/m/Y') }}
+                                @endif
+                            </td>
+                            <td class="text-center">
+                                <a href="{{ route('admin.kalender.edit', $item->id) }}" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+
+                                <form action="{{ route('admin.kalender.destroy', $item->id) }}" method="POST" class="d-inline delete-form">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         @endif
     </div>
 </div>

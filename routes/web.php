@@ -208,13 +208,26 @@ Route::prefix('admin')->middleware('adminauth')->name('admin.')->group(function 
     Route::delete('/kurikulum/delete', [AdminKurikulumController::class, 'delete'])->name('kurikulum.delete');
 
     /*
-    | KALENDER (LENI)
+    | ========================================================================
+    | KALENDER PENDIDIKAN (LENI) - UPDATED WITH SEPARATE CREATE & EDIT PAGES
+    | ========================================================================
     */
     Route::prefix('kalender')->name('kalender.')->group(function () {
+        // Halaman Utama (List Kalender)
         Route::get('/', [AdminKalenderController::class, 'index'])->name('index');
+        
+        // Tambah Kalender (Halaman Terpisah)
+        Route::get('/create', [AdminKalenderController::class, 'create'])->name('create');
         Route::post('/store', [AdminKalenderController::class, 'store'])->name('store');
+        
+        // Edit Kalender (Halaman Terpisah)
+        Route::get('/{id}/edit', [AdminKalenderController::class, 'edit'])->name('edit');
         Route::put('/{id}', [AdminKalenderController::class, 'update'])->name('update');
+        
+        // Hapus Kalender
         Route::delete('/{id}', [AdminKalenderController::class, 'destroy'])->name('destroy');
+        
+        // Toggle Status
         Route::patch('/{id}/toggle', [AdminKalenderController::class, 'toggleStatus'])->name('toggle');
     });
 
