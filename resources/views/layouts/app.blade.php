@@ -46,7 +46,6 @@
                         <a class="nav-link dropdown-toggle {{ request()->is('profil-sekolah/*') ? 'active' : '' }}"
                            href="#"
                            role="button"
-                           data-bs-toggle="dropdown"
                            aria-expanded="false"
                            id="profilDropdown">
                             Profil <i class="fas fa-chevron-down dropdown-arrow"></i>
@@ -117,7 +116,6 @@
                         <a class="nav-link dropdown-toggle {{ request()->is('akademik/*') ? 'active' : '' }}"
                            href="#"
                            role="button"
-                           data-bs-toggle="dropdown"
                            aria-expanded="false"
                            id="akademikDropdown">
                             Akademik <i class="fas fa-chevron-down dropdown-arrow"></i>

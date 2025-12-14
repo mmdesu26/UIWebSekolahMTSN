@@ -195,7 +195,15 @@ body { font-family: 'Poppins', sans-serif; background: var(--light-bg); color: v
 }
 
 /* ========================================
-   DROPDOWN MENU - PROFESSIONAL & SMOOTH
+   DROPDOWN MENU - FINAL FIX! ✅
+   PERUBAHAN:
+   - Ukuran lebih kecil (min-width: 200px dari 220px)
+   - Padding item dikurangi (8px 16px dari 10px 20px)
+   - Font-size lebih kecil (13px dari 14px)
+   - Border-radius lebih kecil (8px dari 10px)
+   - Margin & spacing dikurangi
+   - Animation lebih cepat (0.25s dari 0.3s)
+   - Mobile: dropdown lebih compact
 ======================================== */
 
 .navbar .dropdown-toggle::after {
@@ -203,11 +211,10 @@ body { font-family: 'Poppins', sans-serif; background: var(--light-bg); color: v
 }
 
 .dropdown-arrow {
-    font-size: 11px;
-    margin-left: 6px;
-    transition: transform 0.3s ease;
+    font-size: 10px; /* LEBIH KECIL: dari 11px */
+    margin-left: 5px; /* LEBIH RAPAT: dari 6px */
+    transition: transform 0.25s ease; /* LEBIH CEPAT: dari 0.3s */
     display: inline-block;
-    vertical-align: middle;
 }
 
 .navbar .dropdown.show .dropdown-arrow,
@@ -215,51 +222,62 @@ body { font-family: 'Poppins', sans-serif; background: var(--light-bg); color: v
     transform: rotate(180deg);
 }
 
+/* BASE DROPDOWN MENU STYLE */
 .navbar .dropdown-menu {
     border: none;
-    border-radius: 10px;
-    padding: 8px 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px; /* LEBIH KECIL: dari 10px */
+    padding: 6px 0; /* LEBIH KECIL: dari 8px 0 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); /* SHADOW LEBIH HALUS */
     background: white;
-    min-width: 220px;
-    margin-top: 8px;
+    min-width: 200px; /* LEBIH KECIL: dari 220px */
+    margin-top: 0;
     border: 1px solid rgba(0, 0, 0, 0.06);
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    pointer-events: none;
-}
-
-.navbar .dropdown-menu.show {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
 }
 
 .navbar .dropdown-item {
-    padding: 10px 20px;
-    font-size: 14px;
+    padding: 8px 16px; /* LEBIH KECIL: dari 10px 20px */
+    font-size: 13px; /* LEBIH KECIL: dari 14px */
     font-weight: 500;
     color: var(--text-dark);
     transition: all 0.2s ease;
-    border-radius: 6px;
-    margin: 2px 8px;
+    border-radius: 4px; /* LEBIH KECIL: dari 6px */
+    margin: 2px 6px; /* LEBIH KECIL: dari 2px 8px */
 }
 
 .navbar .dropdown-item:hover {
     background: linear-gradient(135deg, rgba(26, 95, 58, 0.08), rgba(243, 156, 18, 0.08));
     color: var(--primary-color);
-    padding-left: 24px;
+    padding-left: 20px; /* LEBIH KECIL: dari 24px */
 }
 
 .navbar .dropdown-item:active {
     background: linear-gradient(135deg, rgba(26, 95, 58, 0.12), rgba(243, 156, 18, 0.12));
 }
 
+/* ==========================================
+   DESKTOP: Hover to open
+========================================== */
 @media (min-width: 992px) {
-    .navbar .dropdown:hover > .dropdown-menu {
+    .navbar .dropdown {
+        position: relative;
+    }
+    
+    .navbar .dropdown-menu {
         display: block;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s; /* LEBIH CEPAT */
+        pointer-events: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+    }
+    
+    /* Hover trigger - SEDERHANA tanpa ::before trick */
+    .navbar .dropdown:hover > .dropdown-menu {
         opacity: 1;
+        visibility: visible;
         transform: translateY(0);
         pointer-events: auto;
     }
@@ -267,35 +285,50 @@ body { font-family: 'Poppins', sans-serif; background: var(--light-bg); color: v
     .navbar .dropdown:hover > .dropdown-toggle .dropdown-arrow {
         transform: rotate(180deg);
     }
-    
-    .navbar .dropdown-toggle:hover::after {
-        width: 0;
-    }
 }
 
+/* ==========================================
+   MOBILE: Click to toggle - SIMPLIFIED! ✅
+   PERUBAHAN UTAMA:
+   - Tidak ada !important berlebihan
+   - Tidak ada pointer-events manipulation
+   - Tidak ada user-select manipulation
+   - Tidak ada tap-highlight manipulation
+   - Logic 100% dari JavaScript, CSS hanya styling
+========================================== */
 @media (max-width: 991.98px) {
+    .navbar .dropdown {
+        position: relative;
+    }
+    
     .navbar .dropdown-menu {
         background: rgba(248, 249, 250, 0.98);
         box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05);
-        border-radius: 8px;
-        margin: 6px 12px;
-        padding: 6px 0;
-        margin-top: 8px;
-        position: static !important;
-        transform: none !important;
+        border-radius: 6px; /* LEBIH KECIL: dari 8px */
+        margin: 8px 0; /* LEBIH BESAR: dari 6px untuk spacing */
+        padding: 6px 0; /* LEBIH KECIL: dari 8px 0 */
+        position: static;
+        transform: none;
+        display: none; /* Default hidden */
+        opacity: 1;
+        visibility: visible;
+        width: 100%;
     }
     
+    /* Show class untuk mobile - TANPA !important */
     .navbar .dropdown-menu.show {
-        animation: slideDown 0.3s ease;
+        display: block;
+        animation: slideDown 0.25s ease; /* LEBIH CEPAT: dari 0.3s */
     }
     
     .navbar .dropdown-item {
-        padding: 10px 16px;
-        font-size: 14px;
+        padding: 10px 14px; /* SEDIKIT LEBIH BESAR: untuk touch target */
+        font-size: 13px; /* KONSISTEN dengan desktop */
+        margin: 2px 8px;
     }
     
     .navbar .dropdown-item:hover {
-        padding-left: 20px;
+        padding-left: 18px; /* LEBIH KECIL: dari 20px */
     }
     
     .navbar .dropdown-toggle {
@@ -303,6 +336,7 @@ body { font-family: 'Poppins', sans-serif; background: var(--light-bg); color: v
         align-items: center;
         justify-content: space-between;
         width: 100%;
+        cursor: pointer;
     }
 }
 
@@ -314,7 +348,7 @@ body { font-family: 'Poppins', sans-serif; background: var(--light-bg); color: v
     }
     to {
         opacity: 1;
-        max-height: 500px;
+        max-height: 400px; /* LEBIH KECIL: dari 500px */
     }
 }
 
