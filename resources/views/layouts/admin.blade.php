@@ -35,7 +35,9 @@
             <a href="{{ route('admin.dashboard') }}" class="@if(request()->routeIs('admin.dashboard')) active @endif">
                 <i class="fas fa-chart-line"></i><span>Dashboard</span>
             </a>
-
+            <a href="{{ route('admin.settings') }}" class="@if(request()->routeIs('admin.settings')) active @endif">
+                <i class="fas fa-cog"></i><span>Beranda User</span>
+            </a>
             <a href="{{ route('admin.sejarah.index') }}" class="@if(request()->routeIs('admin.sejarah.*')) active @endif">
                 <i class="fas fa-history"></i><span>Sejarah Sekolah</span>
             </a>

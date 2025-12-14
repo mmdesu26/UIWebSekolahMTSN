@@ -21,24 +21,6 @@
     @yield('css')
 </head>
 <body>
-    <!-- TOP BAR -->
-    <div class="top-bar">
-        <div class="container">
-            <div class="top-bar-content">
-                <div class="contact-info">
-                    <span><i class="fas fa-phone"></i> (0351) 123456</span>
-                    <span><i class="fas fa-envelope"></i> info@mtsnmagetan.sch.id</span>
-                </div>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-tiktok"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">

@@ -242,4 +242,26 @@ class AdminController extends Controller
         $settings = SiteSetting::pluck('value', 'key')->toArray();
         return view('admin.settings', compact('settings'));
     }
+    public function updateSettings(Request $request)
+{
+    // Validasi jika perlu (opsional tapi disarankan)
+    $request->validate([
+        // contoh: 'site_name' => 'required|string|max:255',
+        // sesuaikan dengan field yang ada di form kamu
+    ]);
+
+    // Ambil semua input kecuali token
+    $data = $request->except(['_token', '_method']);
+
+    // Loop dan update atau create setting di database
+    foreach ($data as $key => $value) {
+        SiteSetting::updateOrCreate(
+            ['key' => $key],
+            ['value' => $value]
+        );
+    }
+
+    // Redirect kembali dengan pesan sukses
+    return redirect()->back()->with('success', 'Pengaturan berhasil disimpan!');
+}
 }

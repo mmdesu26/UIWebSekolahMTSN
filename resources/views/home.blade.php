@@ -240,20 +240,20 @@
                 <p class="section-subtitle">Dapatkan update terbaru dari media sosial kami</p>
             </div>
             <div class="social-grid">
-                <a href="https://facebook.com/MTsN1Magetan" target="_blank" class="social-box facebook" title="Ikuti Facebook kami">
-                    <i class="fab fa-facebook-f"></i>
-                    <h3>Facebook</h3>
-                    <p>@MTsN1Magetan</p>
-                </a>
+                <a href="https://www.facebook.com/p/MTs-Negeri-1-Magetan-100076737145018/" target="_blank" class="social-box facebook" title="Ikuti Facebook kami">
+    <i class="fab fa-facebook-f"></i>
+    <h3>Facebook</h3>
+    <p>MTs Negeri 1 Magetan</p>
+</a>
                 <a href="https://instagram.com/mtsn1magetan" target="_blank" class="social-box instagram" title="Ikuti Instagram kami">
                     <i class="fab fa-instagram"></i>
                     <h3>Instagram</h3>
                     <p>@mtsn1magetan</p>
                 </a>
-                <a href="https://www.youtube.com/@MTsN1MagetanOfficial" target="_blank" class="social-box youtube" title="Subscribe YouTube kami">
+                <a href="https://www.youtube.com/@mtsn1magetan" target="_blank" class="social-box youtube" title="Subscribe YouTube kami">
                     <i class="fab fa-youtube"></i>
                     <h3>YouTube</h3>
-                    <p>MTsN 1 Magetan Official</p>
+                    <p>MTsN 1 Magetan</p>
                 </a>
                 <a href="https://www.tiktok.com/@mtsn1magetan" target="_blank" class="social-box tiktok" title="Ikuti TikTok kami">
                     <i class="fab fa-tiktok"></i>
