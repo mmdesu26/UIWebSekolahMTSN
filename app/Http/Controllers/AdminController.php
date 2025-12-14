@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 */
 // ===== kode dira =====
 use App\Models\News;
+use App\Models\Guru;
 use App\Models\Ekstrakurikuler;
 use App\Models\SiteSetting;
 use App\Models\Ppdb;
@@ -40,18 +41,17 @@ class AdminController extends Controller
     // ===== kode dira (dipakai sebagai utama, database-based) =====
     public function dashboard()
     {
-        $totalGuru            = 85;
+        // ✅ Ambil dari database, bukan hardcoded
+        $totalGuru            = Guru::count();
         $totalEkstrakurikuler = Ekstrakurikuler::count();
         $totalBerita          = News::count();
         $totalGaleri          = Galeri::count(); // kode leni digabung
 
-        $guruTerbaru = [
-            ['nama' => 'Dr. Hj. Siti Aminah, M.Pd', 'mata_pelajaran' => 'Pendidikan Agama Islam'],
-            ['nama' => 'Drs. Ahmad Subandi', 'mata_pelajaran' => 'Matematika'],
-            ['nama' => 'Siti Nurhaliza, S.Pd', 'mata_pelajaran' => 'Bahasa Indonesia'],
-        ];
+        // ✅ Ambil guru terbaru dari database
+        $guruTerbaru = Guru::orderBy('created_at', 'desc')->get()->toArray();
 
-        $beritaTerbaru = News::latest()->take(5)->get();
+        // ✅ Ambil berita terbaru dari database
+        $beritaTerbaru = News::latest()->take(6)->get();
 
         return view('admin.dashboard', compact(
             'totalGuru',

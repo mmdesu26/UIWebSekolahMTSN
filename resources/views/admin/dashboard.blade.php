@@ -37,44 +37,34 @@
 
     <!-- RECENT DATA SECTION -->
     <div class="recent-data-grid">
-        <!-- Recent Guru Card -->
+        <!-- Recent Guru Card - FIXED -->
         <div class="data-card">
             <div class="data-card-header">
                 <i class="fas fa-users"></i>
                 <span>Guru Terbaru</span>
             </div>
             <div class="data-card-body">
-                <div class="table-wrapper">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Nama</th>
-                                <th>Mata Pelajaran</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($guruTerbaru ?? [] as $guru)
-                                <tr>
-                                    <td><strong>{{ $guru['nama'] ?? '-' }}</strong></td>
-                                    <td>
-                                        <span class="badge badge-primary">
-                                            {{ $guru['mata_pelajaran'] ?? '-' }}
-                                        </span>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="2">
-                                        <div class="empty-state">
-                                            <i class="fas fa-inbox"></i>
-                                            <p>Belum ada data guru</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
+                @if(isset($guruTerbaru) && is_array($guruTerbaru) && count($guruTerbaru) > 0)
+                    <div class="guru-list">
+                        @foreach(array_slice($guruTerbaru, 0, 6) as $guru)
+                            <div class="guru-list-item">
+                                <div class="guru-list-item-content">
+                                    <div class="guru-list-item-nama">
+                                        {{ $guru['nama'] ?? '-' }}
+                                    </div>
+                                    <span class="guru-mapel-badge">
+                                        {{ $guru['mata_pelajaran'] ?? '-' }}
+                                    </span>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <p>Belum ada data guru</p>
+                    </div>
+                @endif
             </div>
             <div class="btn-group-footer">
                 <a href="{{ route('admin.struktur.index') }}" class="btn btn-outline-primary">
@@ -91,47 +81,27 @@
                 <span>Berita Terbaru</span>
             </div>
             <div class="data-card-body">
-                <div class="table-wrapper">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Judul</th>
-                                <th>Tipe</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($beritaTerbaru ?? [] as $berita)
-                                <tr>
-                                    <td>
-                                        <strong title="{{ $berita->title }}">
-                                            {{ Str::limit($berita->title, 30) }}
-                                        </strong>
-                                    </td>
-                                    <td>
-                                        @if($berita->tipe == 'berita')
-                                            <span class="badge badge-info">
-                                                Berita
-                                            </span>
-                                        @else
-                                            <span class="badge badge-warning">
-                                                Pengumuman
-                                            </span>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="2">
-                                        <div class="empty-state">
-                                            <i class="fas fa-inbox"></i>
-                                            <p>Belum ada data berita</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
+                @if(isset($beritaTerbaru) && count($beritaTerbaru) > 0)
+                    <div class="berita-list">
+                        @foreach($beritaTerbaru as $berita)
+                            <div class="berita-list-item">
+                                <div class="berita-list-item-content">
+                                    <div class="berita-list-item-judul">
+                                        {{ $berita->title ?? '-' }}
+                                    </div>
+                                    <span class="berita-tipe-badge" style="@if($berita->tipe == 'berita') background: linear-gradient(135deg, #4299e1, #3182ce); @else background: linear-gradient(135deg, #ed8936, #dd6b20); @endif">
+                                        {{ $berita->tipe == 'berita' ? 'Berita' : 'Pengumuman' }}
+                                    </span>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <p>Belum ada data berita</p>
+                    </div>
+                @endif
             </div>
             <div class="btn-group-footer">
                 <a href="{{ route('admin.berita') }}" class="btn btn-outline-primary">
