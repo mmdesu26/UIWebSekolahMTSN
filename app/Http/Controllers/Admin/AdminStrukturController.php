@@ -17,9 +17,8 @@ class AdminStrukturController extends Controller
         $strukturGambar = $struktur->gambar_path;
 
         $guru = Guru::orderBy('nama', 'asc')->get();
-        $jumlah_guru = $guru->count(); // ✅ TAMBAHKAN VARIABEL INI
+        $jumlah_guru = $guru->count();
 
-        // ✅ TAMBAHKAN 'jumlah_guru' ke compact
         return view('admin.struktur-organisasi', compact('strukturGambar', 'guru', 'jumlah_guru'));
     }
 
@@ -73,7 +72,7 @@ class AdminStrukturController extends Controller
 
         $data = $request->only(['nama', 'mata_pelajaran', 'nip', 'email']);
 
-        // ✅ Upload foto jika ada
+        // Upload foto jika ada
         if ($request->hasFile('foto')) {
             $fotoPath = $request->file('foto')->store('guru', 'public');
             $data['foto'] = $fotoPath;
@@ -89,6 +88,12 @@ class AdminStrukturController extends Controller
         return back()->with('success', 'Guru "' . $guru->nama . '" berhasil ditambahkan!');
     }
 
+    // ✅ METHOD BARU: Tampilkan halaman edit guru
+    public function editGuru(Guru $guru)
+    {
+        return view('admin.edit-guru', compact('guru'));
+    }
+
     public function updateGuru(Request $request, Guru $guru)
     {
         $request->validate([
@@ -101,7 +106,7 @@ class AdminStrukturController extends Controller
 
         $data = $request->only(['nama', 'mata_pelajaran', 'nip', 'email']);
 
-        // ✅ Handle upload foto baru
+        // Handle upload foto baru
         if ($request->hasFile('foto')) {
             // Hapus foto lama jika ada
             if ($guru->foto && Storage::disk('public')->exists($guru->foto)) {
@@ -121,7 +126,8 @@ class AdminStrukturController extends Controller
 
         $guru->update($data);
 
-        return back()->with('success', 'Data guru "' . $guru->nama . '" berhasil diperbarui!');
+        // ✅ Redirect ke halaman struktur organisasi (bukan back())
+        return redirect()->route('admin.struktur.index')->with('success', 'Data guru "' . $guru->nama . '" berhasil diperbarui!');
     }
 
     public function deleteGuru(Guru $guru)

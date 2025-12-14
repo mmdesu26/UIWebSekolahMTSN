@@ -125,56 +125,43 @@ Route::prefix('admin')->middleware('adminauth')->name('admin.')->group(function 
     /*
     | MANAJEMEN BERITA (DIRA)
     */
-    Route::get('/berita', [AdminController::class, 'manageBerita'])
-            ->name('berita');
+    Route::get('/berita', [AdminController::class, 'manageBerita'])->name('berita');
+    Route::post('/berita', [AdminController::class, 'addBerita'])->name('berita.store');
+    Route::get('/berita/edit/{id}', [AdminController::class, 'editBerita'])->name('berita.edit');
+    Route::put('/berita/{id}', [AdminController::class, 'updateBerita'])->name('berita.update');
+    Route::delete('/berita/{id}', [AdminController::class, 'deleteBerita'])->name('berita.destroy');
 
-        Route::post('/berita', [AdminController::class, 'addBerita'])
-            ->name('berita.store');
-
-        Route::put('/berita/{id}', [AdminController::class, 'updateBerita'])
-            ->name('berita.update');
-
-            Route::get('/berita/edit/{id}', [AdminController::class, 'editBerita'])->name('berita.edit');
-
-        Route::delete('/berita/{id}', [AdminController::class, 'deleteBerita'])
-            ->name('berita.destroy');
     /*
     | MANAJEMEN EKSTRAKURIKULER (DIRA)
     */
-    Route::get('/ekstrakurikuler', [AdminController::class, 'manageEkstrakurikuler'])
-            ->name('ekstrakurikuler');
-
-        Route::post('/ekstrakurikuler/add', [AdminController::class, 'addEkstra'])
-            ->name('ekstra.add');
-
-        Route::get('/ekstrakurikuler/edit/{id}', [AdminController::class, 'editEkstra'])->name('ekstra.edit');
-Route::put('/ekstrakurikuler/update/{id}', [AdminController::class, 'updateEkstra'])->name('ekstra.update');
-
-        Route::post('/ekstrakurikuler/delete/{id}', [AdminController::class, 'deleteEkstra'])
-            ->name('ekstra.delete');
+    Route::get('/ekstrakurikuler', [AdminController::class, 'manageEkstrakurikuler'])->name('ekstrakurikuler');
+    Route::post('/ekstrakurikuler/add', [AdminController::class, 'addEkstra'])->name('ekstra.add');
+    Route::get('/ekstrakurikuler/edit/{id}', [AdminController::class, 'editEkstra'])->name('ekstra.edit');
+    Route::put('/ekstrakurikuler/update/{id}', [AdminController::class, 'updateEkstra'])->name('ekstra.update');
+    Route::post('/ekstrakurikuler/delete/{id}', [AdminController::class, 'deleteEkstra'])->name('ekstra.delete');
           
-// Manajemen Prestasi
-Route::get('/prestasi', [AdminController::class, 'managePrestasi'])->name('prestasi');
-Route::post('/prestasi/add', [AdminController::class, 'addPrestasi'])->name('prestasi.add');
-Route::get('/prestasi/edit/{id}', [AdminController::class, 'editPrestasi'])->name('prestasi.edit');
-Route::put('/prestasi/update/{id}', [AdminController::class, 'updatePrestasi'])->name('prestasi.update');
-Route::post('/prestasi/delete/{id}', [AdminController::class, 'deletePrestasi'])->name('prestasi.delete');
+    /*
+    | MANAJEMEN PRESTASI (DIRA)
+    */
+    Route::get('/prestasi', [AdminController::class, 'managePrestasi'])->name('prestasi');
+    Route::post('/prestasi/add', [AdminController::class, 'addPrestasi'])->name('prestasi.add');
+    Route::get('/prestasi/edit/{id}', [AdminController::class, 'editPrestasi'])->name('prestasi.edit');
+    Route::put('/prestasi/update/{id}', [AdminController::class, 'updatePrestasi'])->name('prestasi.update');
+    Route::post('/prestasi/delete/{id}', [AdminController::class, 'deletePrestasi'])->name('prestasi.delete');
 
-   // Settings
-        Route::get('/settings', [AdminController::class, 'manageSettings'])->name('settings');
-        Route::post('/settings/update', [AdminController::class, 'updateSettings'])->name('settings.update');
+    /*
+    | SETTINGS (DIRA)
+    */
+    Route::get('/settings', [AdminController::class, 'manageSettings'])->name('settings');
+    Route::post('/settings/update', [AdminController::class, 'updateSettings'])->name('settings.update');
 
     /*
     | MANAJEMEN PPDB (DIRA)
     */
-    Route::get('/ppdb', [AdminController::class, 'managePpdb'])
-            ->name('ppdb');
+    Route::get('/ppdb', [AdminController::class, 'managePpdb'])->name('ppdb');
+    Route::post('/ppdb/update', [AdminController::class, 'updatePpdb'])->name('ppdb.update');
+    Route::post('/ppdb/delete/{id}', [AdminController::class, 'deletePpdb'])->name('ppdb.delete');
 
-        Route::post('/ppdb/update', [AdminController::class, 'updatePpdb'])
-            ->name('ppdb.update');
-
-        Route::post('/ppdb/delete/{id}', [AdminController::class, 'deletePpdb'])
-            ->name('ppdb.delete');
     /*
     | SEJARAH (LENI)
     */
@@ -194,14 +181,21 @@ Route::post('/prestasi/delete/{id}', [AdminController::class, 'deletePrestasi'])
     });
 
     /*
-    | STRUKTUR & GURU (LENI)
+    | ========================================================================
+    | STRUKTUR & GURU (LENI) - UPDATED WITH EDIT PAGE
+    | ========================================================================
     */
     Route::prefix('struktur')->name('struktur.')->group(function () {
+        // Halaman Utama
         Route::get('/', [AdminStrukturController::class, 'index'])->name('index');
+        
+        // Upload & Delete Gambar Struktur Organisasi
         Route::post('/upload', [AdminStrukturController::class, 'uploadStruktur'])->name('upload');
         Route::delete('/delete', [AdminStrukturController::class, 'deleteStruktur'])->name('delete');
 
+        // CRUD Guru
         Route::post('/guru', [AdminStrukturController::class, 'storeGuru'])->name('guru.store');
+        Route::get('/guru/{guru}/edit', [AdminStrukturController::class, 'editGuru'])->name('guru.edit'); // ✅ ROUTE BARU
         Route::put('/guru/{guru}', [AdminStrukturController::class, 'updateGuru'])->name('guru.update');
         Route::delete('/guru/{guru}', [AdminStrukturController::class, 'deleteGuru'])->name('guru.delete');
     });
@@ -249,13 +243,14 @@ Route::post('/prestasi/delete/{id}', [AdminController::class, 'deletePrestasi'])
     /*
     | LOGOUT (DIRA - DIPINDAH KE DALAM GROUP BIAR TERPROTEKSI)
     */
-Route::post('/logout', function () {
-    Auth::logout();
-    request()->session()->invalidate();
-    request()->session()->regenerateToken();
-    return redirect('/admin/login')->with('success', 'Berhasil logout.');
-})->name('logout');
-});   
+    Route::post('/logout', function () {
+        Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+        return redirect('/admin/login')->with('success', 'Berhasil logout.');
+    })->name('logout');
+});
+
 /*
 |--------------------------------------------------------------------------
 | FALLBACK 404
