@@ -72,10 +72,10 @@
 
             <!-- AKADEMIK -->
             <div class="menu-parent @if(request()->routeIs('admin.kurikulum*')) open @endif">
-                <a href="#" class="menu-toggle">
+                <!-- <a href="#" class="menu-toggle">
                     <span><i class="fas fa-book-open"></i> Akademik</span>
                     <i class="fas fa-chevron-down arrow-icon"></i>
-                </a>
+                </a> -->
                 <div class="submenu @if(request()->routeIs('admin.kurikulum*')) show @endif">
                     <a href="{{ route('admin.kurikulum') }}" class="@if(request()->routeIs('admin.kurikulum')) active @endif">
                         <i class="fas fa-book"></i><span>Kurikulum</span>
