@@ -27,7 +27,7 @@
             <a class="navbar-brand" href="{{ url('/') }}">
                 <i class="fas fa-graduation-cap"></i> MTsN 1 Magetan
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -46,36 +46,18 @@
                         <a class="nav-link dropdown-toggle {{ request()->is('profil-sekolah/*') ? 'active' : '' }}"
                            href="#"
                            role="button"
-                           aria-expanded="false"
-                           id="profilDropdown">
+                           id="profilDropdown"
+                           data-bs-toggle="dropdown"
+                           data-bs-auto-close="true"
+                           aria-expanded="false">
                             Profil <i class="fas fa-chevron-down dropdown-arrow"></i>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="profilDropdown">
-                            <li>
-                                <a class="dropdown-item" href="{{ route('profil.sejarah') }}">
-                                    Sejarah Sekolah
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('profil.visi-misi') }}">
-                                    Visi & Misi
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('profil.struktur-organisasi') }}">
-                                    Struktur Organisasi
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('profil.akreditasi') }}">
-                                    Akreditasi & Prestasi
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('profil.fasilitas') }}">
-                                    Fasilitas Sekolah
-                                </a>
-                            </li>
+                            <li><a class="dropdown-item" href="{{ route('profil.sejarah') }}">Sejarah Sekolah</a></li>
+                            <li><a class="dropdown-item" href="{{ route('profil.visi-misi') }}">Visi & Misi</a></li>
+                            <li><a class="dropdown-item" href="{{ route('profil.struktur-organisasi') }}">Struktur Organisasi</a></li>
+                            <li><a class="dropdown-item" href="{{ route('profil.akreditasi') }}">Akreditasi & Prestasi</a></li>
+                            <li><a class="dropdown-item" href="{{ route('profil.fasilitas') }}">Fasilitas Sekolah</a></li>
                         </ul>
                     </li>
 
@@ -116,31 +98,17 @@
                         <a class="nav-link dropdown-toggle {{ request()->is('akademik/*') ? 'active' : '' }}"
                            href="#"
                            role="button"
-                           aria-expanded="false"
-                           id="akademikDropdown">
+                           id="akademikDropdown"
+                           data-bs-toggle="dropdown"
+                           data-bs-auto-close="true"
+                           aria-expanded="false">
                             Akademik <i class="fas fa-chevron-down dropdown-arrow"></i>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="akademikDropdown">
-                            <li>
-                                <a class="dropdown-item" href="{{ route('akademik.kurikulum') }}">
-                                    Kurikulum
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('akademik.kelas-program') }}">
-                                    Kelas Program
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('akademik.kalender-pendidikan') }}">
-                                    Kalender Pendidikan
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('akademik.jadwal') }}">
-                                    Jadwal Pelajaran
-                                </a>
-                            </li>
+                            <li><a class="dropdown-item" href="{{ route('akademik.kurikulum') }}">Kurikulum</a></li>
+                            <li><a class="dropdown-item" href="{{ route('akademik.kelas-program') }}">Kelas Program</a></li>
+                            <li><a class="dropdown-item" href="{{ route('akademik.kalender-pendidikan') }}">Kalender Pendidikan</a></li>
+                            <li><a class="dropdown-item" href="{{ route('akademik.jadwal') }}">Jadwal Pelajaran</a></li>
                         </ul>
                     </li>
                 </ul>

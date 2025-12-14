@@ -22,173 +22,50 @@ if (scrollTopBtn) {
 }
 
 // ====================================
-// DROPDOWN HANDLER - SUPER FIXED!
+// DROPDOWN HANDLER - Bootstrap Native + Hover Desktop
 // ====================================
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const dropdowns = document.querySelectorAll('.navbar .dropdown');
     const navbarCollapse = document.querySelector('.navbar-collapse');
-    
-    // DISABLE Bootstrap dropdown behavior untuk manual control
+
     dropdowns.forEach(dropdown => {
         const toggle = dropdown.querySelector('.dropdown-toggle');
         const menu = dropdown.querySelector('.dropdown-menu');
-        
+
         if (!toggle || !menu) return;
-        
-        // Remove Bootstrap data attributes yang bisa interfere
-        toggle.removeAttribute('data-bs-toggle');
-        toggle.removeAttribute('data-toggle');
-        
-        // ==========================================
-        // MOBILE: Click/Touch Handler
-        // ==========================================
-        const handleMobileClick = function(e) {
-            if (window.innerWidth < 992) {
-                e.preventDefault();
-                e.stopPropagation();
-                e.stopImmediatePropagation();
-                
-                const isOpen = menu.classList.contains('show');
-                
-                console.log('Dropdown clicked:', isOpen ? 'closing' : 'opening'); // Debug
-                
-                // Close ALL other dropdowns
-                dropdowns.forEach(otherDropdown => {
-                    if (otherDropdown !== dropdown) {
-                        const otherMenu = otherDropdown.querySelector('.dropdown-menu');
-                        const otherToggle = otherDropdown.querySelector('.dropdown-toggle');
-                        if (otherMenu) otherMenu.classList.remove('show');
-                        if (otherToggle) otherToggle.setAttribute('aria-expanded', 'false');
-                        otherDropdown.classList.remove('show');
-                    }
-                });
-                
-                // Toggle current dropdown
-                if (isOpen) {
-                    menu.classList.remove('show');
-                    toggle.setAttribute('aria-expanded', 'false');
-                    dropdown.classList.remove('show');
-                } else {
-                    menu.classList.add('show');
-                    toggle.setAttribute('aria-expanded', 'true');
-                    dropdown.classList.add('show');
-                }
-                
-                return false;
-            }
-        };
-        
-        // Multiple event listeners untuk memastikan bekerja
-        toggle.addEventListener('click', handleMobileClick, true);
-        toggle.addEventListener('touchend', function(e) {
-            if (window.innerWidth < 992) {
-                e.preventDefault();
-                handleMobileClick(e);
-            }
-        }, true);
-        
-        // ==========================================
-        // DESKTOP: Hover Handler
-        // ==========================================
+
+        // Biarkan data-bs-toggle tetap ada → Bootstrap handle click mobile
+
+        // Hover untuk desktop
         let hoverTimeout;
-        
-        dropdown.addEventListener('mouseenter', function() {
+
+        dropdown.addEventListener('mouseenter', () => {
             if (window.innerWidth >= 992) {
                 clearTimeout(hoverTimeout);
-                menu.classList.add('show');
-                toggle.setAttribute('aria-expanded', 'true');
-                dropdown.classList.add('show');
+                bootstrap.Dropdown.getOrCreateInstance(toggle).show();
             }
         });
-        
-        dropdown.addEventListener('mouseleave', function() {
+
+        dropdown.addEventListener('mouseleave', () => {
             if (window.innerWidth >= 992) {
                 hoverTimeout = setTimeout(() => {
-                    menu.classList.remove('show');
-                    toggle.setAttribute('aria-expanded', 'false');
-                    dropdown.classList.remove('show');
-                }, 150);
+                    bootstrap.Dropdown.getOrCreateInstance(toggle).hide();
+                }, 200);
             }
         });
-        
-        // ==========================================
-        // Dropdown Item Click
-        // ==========================================
-        const items = menu.querySelectorAll('.dropdown-item');
-        items.forEach(item => {
-            item.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                
-                if (href && href !== '#') {
-                    // Allow navigation
-                    setTimeout(() => {
-                        // Close dropdown
-                        menu.classList.remove('show');
-                        toggle.setAttribute('aria-expanded', 'false');
-                        dropdown.classList.remove('show');
-                        
-                        // Close mobile navbar
-                        if (window.innerWidth < 992 && navbarCollapse) {
-                            const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
-                            if (bsCollapse) {
-                                bsCollapse.hide();
-                            }
-                        }
-                    }, 150);
-                }
-            });
-        });
     });
-    
-    // ==========================================
-    // Click outside to close
-    // ==========================================
-    document.addEventListener('click', function(e) {
-        if (window.innerWidth < 992) {
-            if (!e.target.closest('.dropdown')) {
-                dropdowns.forEach(dropdown => {
-                    const menu = dropdown.querySelector('.dropdown-menu');
-                    const toggle = dropdown.querySelector('.dropdown-toggle');
-                    if (menu) menu.classList.remove('show');
-                    if (toggle) toggle.setAttribute('aria-expanded', 'false');
-                    dropdown.classList.remove('show');
-                });
-            }
-        }
-    });
-    
-    // ==========================================
-    // Window Resize Handler
-    // ==========================================
-    let resizeTimer;
-    window.addEventListener('resize', function() {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function() {
-            dropdowns.forEach(dropdown => {
-                const menu = dropdown.querySelector('.dropdown-menu');
-                const toggle = dropdown.querySelector('.dropdown-toggle');
-                if (menu) menu.classList.remove('show');
-                if (toggle) toggle.setAttribute('aria-expanded', 'false');
-                dropdown.classList.remove('show');
-            });
-        }, 250);
-    });
-});
 
-// ====================================
-// AUTO-CLOSE MOBILE NAV AFTER CLICK
-// ====================================
-document.querySelectorAll('.navbar .nav-link:not(.dropdown-toggle)').forEach(link => {
-    link.addEventListener('click', () => {
-        const nav = document.querySelector('.navbar-collapse');
-        if (!nav) return;
-        
-        if (window.innerWidth < 992 && nav.classList.contains('show')) {
-            const bsCollapse = bootstrap.Collapse.getInstance(nav);
-            if (bsCollapse) {
-                bsCollapse.hide();
+    // Auto-close navbar collapse HANYA saat klik link biasa atau dropdown item
+    // (TIDAK saat klik dropdown-toggle)
+    document.querySelectorAll('.navbar .nav-link:not(.dropdown-toggle), .navbar .dropdown-item').forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth < 992 && navbarCollapse?.classList.contains('show')) {
+                const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+                if (bsCollapse) {
+                    bsCollapse.hide();
+                }
             }
-        }
+        });
     });
 });
 
@@ -227,27 +104,7 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const animatedElements = document.querySelectorAll('.news-card, .info-card, .ekskul-card, .gallery-item');
     animatedElements.forEach(el => observer.observe(el));
-});
-
-// ====================================
-// FORCE FIX - Load event backup
-// ====================================
-window.addEventListener('load', function() {
-    console.log('Dropdown fix loaded'); // Debug
-    
-    // Ensure all dropdown toggles are clickable
-    document.querySelectorAll('.navbar .dropdown-toggle').forEach(toggle => {
-        toggle.style.cursor = 'pointer';
-        toggle.style.pointerEvents = 'auto';
-        toggle.style.userSelect = 'none';
-    });
-    
-    // Ensure all dropdown items are clickable
-    document.querySelectorAll('.navbar .dropdown-item').forEach(item => {
-        item.style.cursor = 'pointer';
-        item.style.pointerEvents = 'auto';
-    });
 });
