@@ -122,7 +122,7 @@ body::after {
   animation: pageFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   position: relative;
   z-index: 1;
-  align-items: flex-start; /* Important untuk sticky sidebar */
+  align-items: flex-start;
 }
 
 /* ==================== SIDEBAR ==================== */
@@ -143,7 +143,6 @@ body::after {
   flex-shrink: 0;
 }
 
-/* Sidebar shine effect */
 .sidebar::before {
   content: "";
   position: absolute;
@@ -177,7 +176,6 @@ body::after {
   }
 }
 
-/* Custom Scrollbar */
 .sidebar::-webkit-scrollbar {
   width: 8px;
 }
@@ -197,7 +195,6 @@ body::after {
   background: rgba(255, 255, 255, 0.5);
 }
 
-/* Sidebar Header */
 .sidebar h4 {
   color: var(--white);
   font-size: 18px;
@@ -238,7 +235,6 @@ body::after {
   }
 }
 
-/* Navigation Links */
 .sidebar nav {
   display: flex;
   flex-direction: column;
@@ -320,7 +316,6 @@ body::after {
   transform: scale(1.2) rotate(5deg);
 }
 
-/* Active State */
 .sidebar nav a.active {
   background: rgba(255, 255, 255, 0.25);
   color: var(--white);
@@ -370,7 +365,6 @@ body::after {
   }
 }
 
-/* Sidebar Divider */
 .sidebar nav hr {
   border: none;
   height: 1px;
@@ -390,7 +384,6 @@ body::after {
   }
 }
 
-/* Logout Link Styling */
 .sidebar nav a[data-logout="true"] {
   margin-top: 8px;
   color: rgba(255, 255, 255, 0.75);
@@ -504,7 +497,6 @@ body::after {
   }
 }
 
-/* User Info Section */
 .user-info {
   display: flex;
   align-items: center;
@@ -744,7 +736,6 @@ body::after {
 }
 
 /* ==================== MOBILE SIDEBAR (OFFCANVAS) ==================== */
-/* Overlay harus punya background dan z-index lebih rendah dari sidebar */
 .sidebar-overlay {
   position: fixed;
   inset: 0;
@@ -753,7 +744,7 @@ body::after {
   visibility: hidden;
   pointer-events: none;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  z-index: 1100; /* Di bawah sidebar (1115) */
+  z-index: 1099;
 }
 
 body.sidebar-open .sidebar-overlay {
@@ -772,7 +763,7 @@ body.sidebar-open .sidebar-overlay {
 }
 
 .sidebar-toggle {
-  display: none; /* Hidden by default on desktop */
+  display: none;
   align-items: center;
   justify-content: center;
   width: 44px;
@@ -824,7 +815,6 @@ body.sidebar-open .sidebar-overlay {
   transform: scale(1.1) rotate(90deg);
 }
 
-/* Close button for mobile sidebar */
 .sidebar-close {
   display: none;
   position: absolute;
@@ -853,84 +843,150 @@ body.sidebar-open .sidebar-overlay {
   transform: rotate(90deg) scale(0.95);
 }
 
-/* ==================== RESPONSIVENESS - FIXED ==================== */
-/* Tablet and smaller */
-@media (max-width: 1024px) {
+/* ==================== RESPONSIVENESS ==================== */
+/* Ultra-wide Desktop - Sidebar sticky ONLY */
+@media (min-width: 1600px) {
   .layout-wrapper {
-    flex-direction: column;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    gap: 24px !important;
   }
 
-  /* ================= SIDEBAR MOBILE ================= */
-
-  /* Sidebar TIDAK ADA di layar sebelum diklik */
   .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 280px;
-    height: 100vh;
-    border-radius: 0;
-    transform: translateX(-100%);
-    transition: transform 0.35s ease, visibility 0s linear 0.35s;
-    z-index: 1115;
-    visibility: hidden;
-    pointer-events: auto;
+    position: sticky !important;
+    top: 24px !important;
+    transform: translateX(0) !important;
+    visibility: visible !important;
+    width: 280px !important;
+    max-width: 280px !important;
+    height: fit-content !important;
+    border-radius: var(--radius) !important;
+    max-height: calc(100vh - 48px) !important;
+    flex-shrink: 0 !important;
   }
 
-  /* Sidebar muncul SAAT tombol diklik */
-  body.sidebar-open .sidebar {
-    transform: translateX(0);
-    visibility: visible;
-    pointer-events: auto;
-    transition-delay: 0s;
-  }
-
-  /* Hapus duplikasi overlay styles di media query - gunakan yang di atas */
-
-  /* ================= TOGGLE BUTTON ================= */
   .sidebar-toggle {
-    display: inline-flex;
-    position: absolute;
-    right: 0px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1100;
+    display: none !important;
+  }
+
+  .sidebar-overlay {
+    display: none !important;
   }
 
   .sidebar-close {
-    display: flex;
+    display: none !important;
+  }
+
+  .main-content {
+    flex: 1;
+    width: auto;
+  }
+}
+
+/* Desktop to Mobile - Sidebar ALWAYS toggle/offcanvas */
+@media (max-width: 1599px) {
+  .layout-wrapper {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 280px !important;
+    height: 100vh !important;
+    border-radius: 0 !important;
+    max-height: 100vh !important;
+    overflow-y: auto !important;
+    transform: translateX(-100%) !important;
+    transition: transform 0.35s ease !important;
+    z-index: 1115 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    max-width: none !important;
+  }
+
+  body.sidebar-open .sidebar {
+    transform: translateX(0) !important;
+  }
+
+  .sidebar-toggle {
+    display: inline-flex !important;
+    position: relative !important;
+    z-index: 1100 !important;
+    margin-left: auto !important;
+  }
+
+  .sidebar-close {
+    display: flex !important;
   }
 
   .navbar-custom {
     top: 0;
     border-radius: var(--radius);
+    position: relative;
+    z-index: 1001;
   }
 
   .content-container {
     padding: 22px;
   }
+
+  .main-content {
+    width: 100%;
+  }
 }
 
-/* Mobile phones */
-@media (max-width: 768px) {
+/* Mobile - Small screens */
+@media (max-width: 767px) {
   .layout-wrapper {
     flex-direction: column;
     padding: 14px;
     gap: 0;
   }
 
-  .main-content {
-    width: 100%;
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    border-radius: 0;
+    max-height: 100vh;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform 0.35s ease;
+    z-index: 1115;
+    visibility: visible;
+    pointer-events: auto;
+    max-width: none;
   }
 
-  .sidebar {
-    max-width: 260px; /* Lebih kecil lagi di hp kecil */
-    width: 260px;
+  body.sidebar-open .sidebar {
+    transform: translateX(0);
+  }
+
+  .sidebar-toggle {
+    display: inline-flex;
+    position: relative;
+    z-index: 1100;
+    margin-left: auto;
+  }
+
+  .sidebar-close {
+    display: flex;
+  }
+
+  .main-content {
+    width: 100%;
   }
 
   .navbar-custom {
     padding: 14px 18px;
     border-radius: 14px;
+    position: relative;
+    z-index: 1001;
   }
 
   .navbar-custom h5 {
@@ -978,8 +1034,7 @@ body.sidebar-open .sidebar-overlay {
   }
 
   .sidebar {
-    max-width: 240px; /* Tidak full width */
-    width: 240px;
+    width: 240px !important;
   }
 
   .alert {
@@ -1054,4 +1109,201 @@ body.sidebar-open .sidebar-overlay {
 
 .is-invalid {
     border-color: #dc3545 !important;
+}
+
+/* ==================== MENU DROPDOWN ==================== */
+.menu-parent {
+    position: relative;
+}
+
+.menu-toggle {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 14px 16px;
+    color: rgba(255, 255, 255, 0.88);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: var(--transition-smooth);
+    position: relative;
+    font-weight: 500;
+    font-size: 14px;
+    overflow: hidden;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    text-align: left;
+    justify-content: space-between;
+}
+
+.menu-toggle:hover {
+    color: var(--white);
+    transform: translateX(6px);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.menu-toggle i:first-child {
+    width: 20px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.menu-toggle span {
+    flex: 1;
+}
+
+.arrow-icon {
+    font-size: 12px;
+    transition: transform var(--transition-smooth);
+    transform: rotate(0deg);
+}
+
+.menu-parent.open .arrow-icon {
+    transform: rotate(180deg);
+}
+
+.submenu {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px 0;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height var(--transition-smooth);
+}
+
+.submenu.show {
+    display: flex;
+    max-height: 500px;
+}
+
+.submenu a {
+    padding-left: 48px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.submenu a:hover {
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.submenu a.active {
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* ==================== LOGOUT BUTTON ==================== */
+.logout-form {
+    margin-top: auto;
+    display: contents;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 14px 16px;
+    margin-top: 20px;
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: var(--transition-smooth);
+    position: relative;
+    font-weight: 500;
+    font-size: 14px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    text-align: left;
+}
+
+.logout-btn:hover {
+    color: #ffcccc;
+    background: rgba(255, 100, 100, 0.25);
+    box-shadow: 0 4px 15px rgba(255, 100, 100, 0.3);
+}
+
+.logout-btn:hover i {
+    animation: logoutShake 0.5s ease-in-out;
+}
+
+.logout-btn i {
+    width: 20px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.logout-btn span {
+    flex: 1;
+}
+
+/* ==================== MODAL FIX ==================== */
+.modal {
+    position: fixed !important;
+    z-index: 2000 !important;
+}
+
+.modal-backdrop {
+    z-index: 1999 !important;
+}
+
+.modal.show {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-dialog {
+    margin: auto !important;
+    max-height: 90vh;
+    max-width: 90%;
+    position: relative;
+    z-index: 2001;
+}
+
+.modal-content {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    background: white;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+    border: none;
+    padding: 20px 24px;
+    color: white;
+}
+
+.modal-header .modal-title {
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: white;
+}
+
+.modal-body {
+    padding: 28px 24px;
+    animation: slideDown 0.4s ease-out;
+    max-height: calc(90vh - 150px);
+    overflow-y: auto;
+    background: white;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 16px 24px;
+    gap: 10px;
+    background: white;
+}
+
+/* Bootstrap default modal hide */
+.modal {
+    display: none !important;
+}
+
+.modal.show {
+    display: flex !important;
 }

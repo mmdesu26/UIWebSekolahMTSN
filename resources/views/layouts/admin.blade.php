@@ -49,6 +49,7 @@
     </span>
 </div>
 @endif
+
 <div class="layout-wrapper">
 
     <!-- SIDEBAR -->
@@ -79,7 +80,7 @@
             </a>
 
             <a href="{{ route('admin.prestasi') }}" class="@if(request()->routeIs('admin.prestasi')) active @endif">
-                <i class="fas fa-star"></i><span>Prestasi</span>
+                <i class="fas fa-trophy"></i><span>Prestasi</span>
             </a>
 
             <a href="{{ route('admin.berita') }}" class="@if(request()->routeIs('admin.berita')) active @endif">
@@ -94,12 +95,12 @@
                 <i class="fas fa-user-tie"></i><span>PPDB</span>
             </a>
 
-            <!-- AKADEMIK -->
+            <!-- AKADEMIK DROPDOWN -->
             <div class="menu-parent @if(request()->routeIs('admin.kurikulum*')) open @endif">
-                <!-- <a href="#" class="menu-toggle">
+                <button class="menu-toggle">
                     <span><i class="fas fa-book-open"></i> Akademik</span>
                     <i class="fas fa-chevron-down arrow-icon"></i>
-                </a> -->
+                </button>
                 <div class="submenu @if(request()->routeIs('admin.kurikulum*')) show @endif">
                     <a href="{{ route('admin.kurikulum') }}" class="@if(request()->routeIs('admin.kurikulum')) active @endif">
                         <i class="fas fa-book"></i><span>Kurikulum</span>
@@ -112,18 +113,26 @@
                     </a>
                 </div>
             </div>
-            <form action="{{ route('admin.logout') }}" method="POST" class="d-inline">
-    @csrf
-    <button type="submit" class="btn btn-link text-white p-0 border-0 bg-transparent logout-confirm" style="cursor:pointer;">
-        <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
-    </button>
-</form>
+
+            <!-- LOGOUT -->
+            <form action="{{ route('admin.logout') }}" method="POST" class="logout-form">
+                @csrf
+                <button type="submit" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+                </button>
+            </form>
         </nav>
     </aside>
+
+    <!-- OVERLAY -->
+    <div class="sidebar-overlay"></div>
 
     <!-- MAIN -->
     <main class="main-content">
         <div class="navbar-custom">
+            <button class="sidebar-toggle" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
             <h5>@yield('page-title')</h5>
         </div>
 
@@ -134,6 +143,10 @@
 
 </div>
 
+<button class="sidebar-close">
+    <i class="fas fa-times"></i>
+</button>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('js/admin.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -141,9 +154,9 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // Konfirmasi Logout
-        document.querySelectorAll('.logout-confirm').forEach(function(button) {
+        document.querySelectorAll('.logout-btn').forEach(function(button) {
             button.addEventListener('click', function(e) {
-                e.preventDefault(); // Cegah langsung submit
+                e.preventDefault();
 
                 Swal.fire({
                     title: 'Yakin ingin logout?',
@@ -156,7 +169,6 @@
                     cancelButtonText: 'Batal'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Kalau ya, baru submit form
                         button.closest('form').submit();
                     }
                 });

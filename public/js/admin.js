@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // ==================== VALIDATION ====================
     if (!sidebar || !navbar || !overlay || !toggleBtn || !closeBtn) {
-        console.error('Required elements not found');
+        console.warn('Some elements not found - this might be normal if not in admin');
         return;
     }
 
@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // ==================== CONSOLE LOG ====================
-    console.log('%c✨ Admin Panel Ready!', 'color:#667eea;font-size:16px;font-weight:bold;');
+    console.log('%câœ¨ Admin Panel Ready!', 'color:#667eea;font-size:16px;font-weight:bold;');
     console.log('%cResponsive sidebar initialized', 'color:#764ba2;font-size:12px;');
     console.log(`%cScreen width: ${window.innerWidth}px`, 'color:#667eea;font-size:11px;');
 });
@@ -272,6 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.menu-toggle').forEach((toggle) => {
         toggle.addEventListener('click', (e) => {
             e.preventDefault();
+            e.stopPropagation();
 
             const parent  = toggle.closest('.menu-parent');
             const submenu = parent.querySelector('.submenu');
@@ -282,41 +283,82 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const alerts = document.querySelectorAll('#success-alert, #error-alert');
-        alerts.forEach(alert => {
+// ==================== AUTO DISMISS ALERTS ====================
+document.addEventListener('DOMContentLoaded', function () {
+    const alerts = document.querySelectorAll('#success-alert, #error-alert');
+    alerts.forEach(alert => {
+        setTimeout(() => {
+            alert.style.opacity = '0';
+            alert.style.transition = 'opacity 0.6s ease';
             setTimeout(() => {
-                alert.style.opacity = '0';
-                setTimeout(() => alert.style.display = 'none', 600);
-            }, 6000); // Hilang setelah 6 detik
-        });
+                if (alert.parentElement) {
+                    alert.style.display = 'none';
+                }
+            }, 600);
+        }, 6000); // Hilang setelah 6 detik
     });
+});
 
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.delete-form').forEach(form => {
-            form.addEventListener('submit', function (e) {
-                e.preventDefault();
-                Swal.fire({
-                    title: 'Yakin ingin menghapus?',
-                    text: 'Data ini akan hilang permanen!',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#dc3545',
-                    cancelButtonColor: '#6c757d',
-                    confirmButtonText: 'Iya, Hapus!',
-                    cancelButtonText: 'Tidak'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        form.submit(); // Lanjut hapus kalau klik Iya
-                    }
-                });
+// ==================== DELETE FORM CONFIRMATION ====================
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.delete-form').forEach(form => {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Yakin ingin menghapus?',
+                text: 'Data ini akan hilang permanen!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Iya, Hapus!',
+                cancelButtonText: 'Tidak'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
             });
         });
     });
+});
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const firstInvalid = document.querySelector('.is-invalid');
-        if (firstInvalid) {
-            firstInvalid.focus(); // Fokus ke kolom error pertama
-        }
+// ==================== FORM VALIDATION FOCUS ====================
+document.addEventListener('DOMContentLoaded', function () {
+    const firstInvalid = document.querySelector('.is-invalid');
+    if (firstInvalid) {
+        firstInvalid.focus();
+    }
+});
+
+// ==================== MODAL FIX FOR MOBILE ====================
+document.addEventListener('DOMContentLoaded', function () {
+    // Bootstrap 5 menggunakan show.bs.modal dan hidden.bs.modal
+    const modals = document.querySelectorAll('.modal');
+    
+    modals.forEach(modal => {
+        // Gunakan Bootstrap event yang benar
+        modal.addEventListener('show.bs.modal', function (e) {
+            // Prevent body scroll saat modal terbuka
+            document.body.style.overflow = 'hidden';
+        });
+
+        modal.addEventListener('hidden.bs.modal', function (e) {
+            // Reset body overflow saat modal ditutup
+            document.body.style.overflow = '';
+        });
     });
+
+    // Alternative: Gunakan modal.show() dan modal.hide() jika event tidak trigger
+    document.querySelectorAll('[data-bs-toggle="modal"]').forEach(button => {
+        button.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('data-bs-target');
+            if (targetId) {
+                const modalElement = document.querySelector(targetId);
+                if (modalElement) {
+                    // Pastikan body bisa scroll kembali saat modal dibuka
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+        });
+    });
+});
