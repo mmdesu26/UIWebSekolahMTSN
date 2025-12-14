@@ -50,10 +50,10 @@ Route::prefix('profil-sekolah')->group(function () {
     Route::get('/', [FrontendUserController::class, 'profilIndex'])->name('profil.index');
     Route::get('/sejarah', [UserSejarahController::class, 'index'])->name('profil.sejarah');
     Route::get('/visi-misi', [UserVisiMisiController::class, 'index'])->name('profil.visi-misi');
-    Route::get('/struktur', [UserStrukturController::class, 'index'])->name('profil.struktur');
-    Route::get('/guru', fn () => redirect()->route('profil.struktur'))->name('profil.guru');
-    Route::get('/fasilitas', fn () => view('user.profil.fasilitas_sekolah'))->name('profil.fasilitas');
-    Route::get('/akreditasi', fn () => view('user.profil.akreditasi'))->name('profil.akreditasi');
+    Route::get('/struktur', [UserStrukturController::class, 'index'])->name('profil.struktur-organisasi');
+    Route::get('/guru', fn() => redirect()->route('profil.struktur-organisasi'))->name('profil.guru');
+    Route::get('/fasilitas', fn() => view('user.profil.fasilitas_sekolah'))->name('profil.fasilitas');
+    Route::get('/akreditasi', fn() => view('user.profil.akreditasi'))->name('profil.akreditasi');
 });
 
 /*
@@ -89,7 +89,7 @@ Route::get('/galeri/{kategori}', [UserGaleriController::class, 'kategori'])->nam
 */
 Route::prefix('akademik')->name('akademik.')->group(function () {
     Route::get('/kurikulum', [KurikulumController::class, 'kurikulum'])->name('kurikulum');
-    Route::get('/kelas-program', fn () => view('user.akademik.kelas_program'))->name('kelas-program');
+    Route::get('/kelas-program', fn() => view('user.akademik.kelas_program'))->name('kelas-program');
     Route::get('/kalender-pendidikan', [UserKalenderController::class, 'index'])->name('kalender-pendidikan');
     Route::get('/jadwal-pelajaran', [UserJadwalController::class, 'index'])->name('jadwal');
 });
@@ -108,7 +108,7 @@ Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.log
 /*
 | REDIRECT DASHBOARD DEFAULT (UNTUK USER BIASA YANG LOGIN)
 */
-Route::get('/dashboard', fn () => redirect()->route('admin.dashboard'))
+Route::get('/dashboard', fn() => redirect()->route('admin.dashboard'))
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
@@ -251,7 +251,7 @@ Route::prefix('admin')->middleware('adminauth')->name('admin.')->group(function 
 | FALLBACK 404
 |--------------------------------------------------------------------------
 */
-Route::fallback(fn () => view('errors.404'));
+Route::fallback(fn() => view('errors.404'));
 
 /*
 |--------------------------------------------------------------------------

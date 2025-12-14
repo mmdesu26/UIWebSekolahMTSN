@@ -27,77 +27,125 @@
             <a class="navbar-brand" href="{{ url('/') }}">
                 <i class="fas fa-graduation-cap"></i> MTsN 1 Magetan
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
 
-    <!-- Beranda -->
-    <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}"
-           href="{{ route('home') }}">
-            Beranda
-        </a>
-    </li>
+                    <!-- Beranda -->
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}"
+                           href="{{ route('home') }}">
+                            Beranda
+                        </a>
+                    </li>
 
-    <!-- Berita -->
-    <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('berita') ? 'active' : '' }}"
-           href="{{ route('berita') }}">
-            Berita
-        </a>
-    </li>
+                    <!-- Dropdown Profil -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{ request()->is('profil-sekolah/*') ? 'active' : '' }}"
+                           href="#"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false"
+                           id="profilDropdown">
+                            Profil <i class="fas fa-chevron-down dropdown-arrow"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="profilDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('profil.sejarah') }}">
+                                    Sejarah Sekolah
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('profil.visi-misi') }}">
+                                    Visi & Misi
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('profil.struktur-organisasi') }}">
+                                    Struktur Organisasi
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('profil.akreditasi') }}">
+                                    Akreditasi & Prestasi
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('profil.fasilitas') }}">
+                                    Fasilitas Sekolah
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
-    <!-- PPDB -->
-    <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('ppdb') ? 'active' : '' }}"
-           href="{{ route('ppdb') }}">
-            PPDB
-        </a>
-    </li>
+                    <!-- Berita -->
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('berita') ? 'active' : '' }}"
+                           href="{{ route('berita') }}">
+                            Berita
+                        </a>
+                    </li>
 
-    <!-- Ekstrakurikuler -->
-    <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('ekstrakurikuler') ? 'active' : '' }}"
-           href="{{ route('ekstrakurikuler') }}">
-            Ekstrakurikuler
-        </a>
-    </li>
+                    <!-- PPDB -->
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('ppdb') ? 'active' : '' }}"
+                           href="{{ route('ppdb') }}">
+                            PPDB
+                        </a>
+                    </li>
 
-    <!-- Dropdown Akademik -->
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle {{ request()->is('akademik/*') ? 'active' : '' }}"
-           href="#"
-           role="button"
-           data-bs-toggle="dropdown"
-           aria-expanded="false">
-            Akademik
-        </a>
-        <ul class="dropdown-menu">
-            <li>
-                <a class="dropdown-item" href="{{ route('akademik.kurikulum') }}">
-                    Kurikulum
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item" href="{{ route('akademik.kelas-program') }}">
-                    Kelas Program
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item" href="{{ route('akademik.kalender-pendidikan') }}">
-                    Kalender Pendidikan
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item" href="{{ route('akademik.jadwal') }}">
-                    Jadwal Pelajaran
-                </a>
-            </li>
-        </ul>
-    </li>
-</ul>
+                    <!-- Ekstrakurikuler -->
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('ekstrakurikuler') ? 'active' : '' }}"
+                           href="{{ route('ekstrakurikuler') }}">
+                            Ekstrakurikuler
+                        </a>
+                    </li>
+
+                    <!-- Galeri -->
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('galeri') ? 'active' : '' }}"
+                           href="{{ route('galeri') }}">
+                            Galeri
+                        </a>
+                    </li>
+
+                    <!-- Dropdown Akademik -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{ request()->is('akademik/*') ? 'active' : '' }}"
+                           href="#"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false"
+                           id="akademikDropdown">
+                            Akademik <i class="fas fa-chevron-down dropdown-arrow"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="akademikDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('akademik.kurikulum') }}">
+                                    Kurikulum
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('akademik.kelas-program') }}">
+                                    Kelas Program
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('akademik.kalender-pendidikan') }}">
+                                    Kalender Pendidikan
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('akademik.jadwal') }}">
+                                    Jadwal Pelajaran
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
@@ -129,7 +177,10 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Main JavaScript File -->
     <script src="{{ asset('js/app.js') }}"></script>
+    
     @yield('scripts')
 </body>
 </html>
