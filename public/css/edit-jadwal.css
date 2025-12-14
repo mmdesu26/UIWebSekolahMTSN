@@ -1,0 +1,236 @@
+:root {
+    --primary-color: #667eea;
+    --primary-dark: #5568d3;
+    --secondary-color: #6c757d;
+    --info-color: #17a2b8;
+    --border-color: #e2e8f0;
+    --text-dark: #2d3748;
+    --bg-light: #f7fafc;
+}
+
+/* Container */
+.container-fluid {
+    padding: 20px;
+}
+
+/* Card Styles */
+.edit-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.edit-card .card-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    padding: 18px 24px;
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+}
+
+.edit-card .card-header h5 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.edit-card .card-body {
+    padding: 30px;
+}
+
+/* Form Styles */
+.form-label {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.form-control,
+.form-select {
+    border-radius: 8px;
+    border: 1.5px solid var(--border-color);
+    padding: 10px 14px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-control.is-invalid,
+.form-select.is-invalid {
+    border-color: #dc3545;
+}
+
+.invalid-feedback {
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+/* Checkbox */
+.form-check-input {
+    width: 20px;
+    height: 20px;
+    margin-top: 3px;
+    border: 1.5px solid var(--border-color);
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.form-check-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-check-label {
+    color: var(--text-dark);
+    font-size: 14px;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+/* Button Styles */
+.btn {
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 10px 18px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--primary-dark), #4c5ab8);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+}
+
+.btn-secondary {
+    background: var(--secondary-color);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+}
+
+.btn-info {
+    background: var(--info-color);
+    color: white;
+}
+
+.btn-info:hover {
+    background: #138496;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(23, 162, 184, 0.3);
+}
+
+.btn-sm {
+    padding: 8px 12px;
+    font-size: 12px;
+}
+
+/* Alert */
+.alert-info {
+    background-color: rgba(23, 162, 184, 0.1);
+    border: 1px solid rgba(23, 162, 184, 0.3);
+    border-radius: 8px;
+    color: #0c5460;
+    padding: 16px;
+}
+
+.alert-info i {
+    margin-right: 8px;
+}
+
+/* Gap Utilities */
+.gap-2 {
+    gap: 8px;
+}
+
+.d-flex {
+    display: flex;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 15px;
+    }
+
+    .edit-card .card-header {
+        padding: 14px 16px;
+        font-size: 16px;
+    }
+
+    .edit-card .card-body {
+        padding: 20px;
+    }
+
+    .form-label {
+        font-size: 13px;
+    }
+
+    .form-control,
+    .form-select {
+        font-size: 13px;
+        padding: 9px 12px;
+    }
+
+    .btn {
+        padding: 9px 14px;
+        font-size: 13px;
+    }
+
+    .btn-sm {
+        padding: 7px 10px;
+        font-size: 11px;
+    }
+
+    .d-flex {
+        flex-direction: column;
+    }
+
+    .d-flex.gap-2 {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .edit-card .card-header h5 {
+        font-size: 15px;
+    }
+
+    .edit-card .card-body {
+        padding: 16px;
+    }
+
+    .alert-info {
+        font-size: 13px;
+        padding: 12px;
+    }
+}

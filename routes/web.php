@@ -195,7 +195,7 @@ Route::prefix('admin')->middleware('adminauth')->name('admin.')->group(function 
 
         // CRUD Guru
         Route::post('/guru', [AdminStrukturController::class, 'storeGuru'])->name('guru.store');
-        Route::get('/guru/{guru}/edit', [AdminStrukturController::class, 'editGuru'])->name('guru.edit'); // ✅ ROUTE BARU
+        Route::get('/guru/{guru}/edit', [AdminStrukturController::class, 'editGuru'])->name('guru.edit');
         Route::put('/guru/{guru}', [AdminStrukturController::class, 'updateGuru'])->name('guru.update');
         Route::delete('/guru/{guru}', [AdminStrukturController::class, 'deleteGuru'])->name('guru.delete');
     });
@@ -219,13 +219,27 @@ Route::prefix('admin')->middleware('adminauth')->name('admin.')->group(function 
     });
 
     /*
-    | JADWAL (LENI)
+    | ========================================================================
+    | JADWAL PELAJARAN (LENI) - UPDATED WITH EDIT PAGE & DUPLICATE PAGE
+    | ========================================================================
     */
     Route::prefix('jadwal')->name('jadwal.')->group(function () {
+        // Halaman Utama (List Jadwal)
         Route::get('/', [AdminJadwalController::class, 'index'])->name('index');
+        
+        // Tambah Jadwal (Halaman Terpisah)
+        Route::get('/create', [AdminJadwalController::class, 'create'])->name('create');
         Route::post('/store', [AdminJadwalController::class, 'store'])->name('store');
+        
+        // Edit Jadwal (Halaman Terpisah)
+        Route::get('/{id}/edit', [AdminJadwalController::class, 'edit'])->name('edit');
         Route::put('/{id}', [AdminJadwalController::class, 'update'])->name('update');
+        
+        // Hapus Jadwal
         Route::delete('/{id}', [AdminJadwalController::class, 'destroy'])->name('destroy');
+        
+        // Duplikat Jadwal (Halaman Terpisah)
+        Route::get('/duplicate', [AdminJadwalController::class, 'showDuplicate'])->name('duplicate.show');
         Route::post('/duplicate', [AdminJadwalController::class, 'duplicate'])->name('duplicate');
     });
 

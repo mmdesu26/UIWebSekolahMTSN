@@ -27,6 +27,17 @@ class AdminJadwalController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $hariList = JadwalPelajaran::getHariList();
+        $kelasList = JadwalPelajaran::getKelasList();
+
+        return view('admin.create-jadwal', compact('hariList', 'kelasList'));
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -87,6 +98,23 @@ class AdminJadwalController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
+    {
+        try {
+            $jadwal = JadwalPelajaran::findOrFail($id);
+            $hariList = JadwalPelajaran::getHariList();
+            $kelasList = JadwalPelajaran::getKelasList();
+
+            return view('admin.edit-jadwal', compact('jadwal', 'hariList', 'kelasList'));
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()->route('admin.jadwal.index')
+                ->with('error', 'Jadwal tidak ditemukan!');
+        }
+    }
+
+    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
@@ -113,6 +141,7 @@ class AdminJadwalController extends Controller
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
+                ->withInput()
                 ->with('error', 'Validasi gagal! Periksa kembali input Anda.');
         }
 
@@ -161,6 +190,15 @@ class AdminJadwalController extends Controller
     }
 
     /**
+     * Show duplicate form page
+     */
+    public function showDuplicate()
+    {
+        $kelasList = JadwalPelajaran::getKelasList();
+        return view('admin.duplicate-jadwal', compact('kelasList'));
+    }
+
+    /**
      * Duplicate jadwal from one class to another
      */
     public function duplicate(Request $request)
@@ -177,6 +215,7 @@ class AdminJadwalController extends Controller
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
+                ->withInput()
                 ->with('error', 'Validasi gagal! Pilih kelas yang berbeda.');
         }
 
@@ -186,6 +225,7 @@ class AdminJadwalController extends Controller
             
             if ($jadwalSource->isEmpty()) {
                 return redirect()->back()
+                    ->withInput()
                     ->with('error', "Kelas {$request->from_kelas} tidak memiliki jadwal untuk disalin!");
             }
 
@@ -209,6 +249,7 @@ class AdminJadwalController extends Controller
                 ->with('success', "Jadwal kelas {$request->from_kelas} berhasil disalin ke kelas {$request->to_kelas}!");
         } catch (\Exception $e) {
             return redirect()->back()
+                ->withInput()
                 ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
