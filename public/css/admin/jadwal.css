@@ -67,15 +67,15 @@
 }
 
 .jadwal-table tbody tr:hover {
-    background: #f8f9fa !important;
+    background: #f3f0ff !important;
 }
 
 .jadwal-table tbody tr:hover td {
-    background: #f8f9fa !important;
+    background: #f3f0ff !important;
     color: #1a202c !important;
 }
 
-/* Badge untuk Mata Pelajaran - Dark background with white text */
+/* Badge untuk Mata Pelajaran */
 .badge-mapel {
     background: #667eea !important;
     color: white !important;
@@ -86,7 +86,7 @@
     display: inline-block;
 }
 
-/* Badge untuk Istirahat - Yellow with black text */
+/* Badge untuk Istirahat - tetap kuning agar mudah dibedakan */
 .badge-istirahat {
     background: #ffc107 !important;
     color: #000 !important;
@@ -97,9 +97,9 @@
     display: inline-block;
 }
 
-/* Badge untuk Waktu - Dark gray with white text */
+/* Badge untuk Waktu - sesuaikan dengan palette ungu */
 .badge-waktu {
-    background: #4a5568 !important;
+    background: #764ba2 !important;
     color: white !important;
     padding: 5px 12px;
     border-radius: 8px;
@@ -124,12 +124,12 @@
 }
 
 .btn-edit {
-    background: #3498db !important;
+    background: #667eea !important;
     color: white !important;
 }
 
 .btn-edit:hover {
-    background: #2980b9 !important;
+    background: #764ba2 !important;
     transform: translateY(-2px);
 }
 
@@ -152,7 +152,7 @@
 }
 
 .tab-btn {
-    background: #f0f0f0;
+    background: #ede9fe;
     border: 2px solid transparent;
     padding: 10px 20px;
     border-radius: 8px;
@@ -162,13 +162,9 @@
     color: #2d3748;
 }
 
-.tab-btn.active {
-    background: #667eea;
-    color: white;
-}
-
+.tab-btn.active,
 .tab-btn:hover {
-    background: #667eea;
+    background: linear-gradient(135deg, #667eea, #764ba2);
     color: white;
 }
 
@@ -283,20 +279,20 @@
     color: #2d3748 !important;
 }
 
-/* Alert styling */
+/* Alert styling - sesuaikan dengan tema ungu */
 .alert {
     border-radius: 8px;
     padding: 12px 16px;
 }
 
 .alert-info {
-    background: #e6f7ff !important;
-    border: 1px solid #91d5ff !important;
-    color: #0050b3 !important;
+    background: #f3f0ff !important;
+    border: 1px solid #c4b5fd !important;
+    color: #6b46c1 !important;
 }
 
 .alert-info i {
-    color: #0050b3 !important;
+    color: #6b46c1 !important;
 }
 
 /* Responsive Design */

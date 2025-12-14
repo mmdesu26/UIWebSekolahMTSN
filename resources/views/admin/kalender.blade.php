@@ -54,7 +54,7 @@
     </div>
 </div>
 
-<link rel="stylesheet" href="{{ asset('css/admin-kalender.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin/kalender.css') }}">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{{ asset('js/admin-kalender.js') }}"></script>
+<script src="{{ asset('js/admin/kalender.js') }}"></script>
 @endsection

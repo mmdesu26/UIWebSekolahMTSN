@@ -101,7 +101,7 @@
                         <i class="fas fa-calendar-times"></i>
                         <p>Belum ada jadwal untuk kelas {{ $kelas }}</p>
                         <a href="{{ route('admin.jadwal.create') }}" class="btn btn-primary btn-sm mt-2">
-                            <i class="fas fa-plus"></i> Tambah Jadwal
+                            <i class="fas fa-plus" style="transform: translateY(8px);"></i></i> Tambah Jadwal
                         </a>
                     </div>
                     @endif

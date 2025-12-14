@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('title', 'Kelola Galeri')
+@section('page-title', 'Kelola Galeri')
 
 @section('content')
 
