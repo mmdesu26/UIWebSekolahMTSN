@@ -54,6 +54,10 @@
                 <i class="fas fa-star"></i><span>Ekstrakurikuler</span>
             </a>
 
+            <a href="{{ route('admin.prestasi') }}" class="@if(request()->routeIs('admin.prestasi')) active @endif">
+                <i class="fas fa-star"></i><span>Prestasi</span>
+            </a>
+
             <a href="{{ route('admin.berita') }}" class="@if(request()->routeIs('admin.berita')) active @endif">
                 <i class="fas fa-newspaper"></i><span>Berita & Pengumuman</span>
             </a>

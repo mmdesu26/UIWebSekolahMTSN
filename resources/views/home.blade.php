@@ -156,21 +156,21 @@
                     </div>
 
                     <div class="ppdb-buttons">
-                        <a href="{{ route('ppdb') }}" class="btn btn-primary btn-large">Info Lengkap</a>
+                        <a href="{{ route('ppdb') }}" class="btn btn-primary btn-large">Info Lengkap PPDB</a>
                     </div>
                 </div>
                 <div class="ppdb-image">
-    @if(isset($settings['ppdb_image']) && $settings['ppdb_image'])
-        <img src="{{ asset('storage/' . $settings['ppdb_image']) }}" alt="PPDB MTsN 1 Magetan" class="img-fluid">
-    @else
-        <img src="{{ asset('images/ppdb-default.png') }}" alt="PPDB MTsN 1 Magetan" class="img-fluid">
-    @endif
-</div>
+                    @if(isset($settings['ppdb_image']) && $settings['ppdb_image'])
+                        <img src="{{ asset('storage/' . $settings['ppdb_image']) }}" alt="PPDB MTsN 1 Magetan" class="img-fluid">
+                    @else
+                        <img src="{{ asset('images/ppdb-default.png') }}" alt="PPDB MTsN 1 Magetan" class="img-fluid">
+                    @endif
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Ekstrakurikuler Section -->
+    <!-- Ekstrakurikuler Section (Hanya Nama Saja) -->
     <section class="ekskul-section" id="ekstrakurikuler">
         <div class="container">
             <div class="section-header">
@@ -178,52 +178,24 @@
                     <i class="fas fa-star" style="margin-right: 10px;"></i>
                     Ekstrakurikuler
                 </h2>
-                <p class="section-subtitle">Wadah pengembangan bakat dan minat siswa</p>
+                <p class="section-subtitle">Beragam pilihan ekstrakurikuler untuk pengembangan bakat siswa</p>
             </div>
+
             <div class="ekskul-grid">
-                <div class="ekskul-card">
-                    <div class="ekskul-icon">
-                        <i class="fas fa-book-quran"></i>
+                @forelse($ekstrakurikuler as $item)
+                    <div class="ekskul-card">
+                        <div class="ekskul-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3>{{ $item->name }}</h3>
                     </div>
-                    <h3>Tahfidz Quran</h3>
-                    <p>Program menghafal Al-Quran dengan bimbingan ustadz berpengalaman</p>
-                </div>
-                <div class="ekskul-card">
-                    <div class="ekskul-icon">
-                        <i class="fas fa-futbol"></i>
+                @empty
+                    <div class="text-center py-5 text-muted col-12">
+                        <p>Belum ada data ekstrakurikuler.</p>
                     </div>
-                    <h3>Olahraga</h3>
-                    <p>Sepak bola, basket, voli, bulu tangkis, dan pencak silat</p>
-                </div>
-                <div class="ekskul-card">
-                    <div class="ekskul-icon">
-                        <i class="fas fa-flask"></i>
-                    </div>
-                    <h3>Sains Club</h3>
-                    <p>Mengembangkan minat dan bakat di bidang sains dan teknologi</p>
-                </div>
-                <div class="ekskul-card">
-                    <div class="ekskul-icon">
-                        <i class="fas fa-palette"></i>
-                    </div>
-                    <h3>Seni & Budaya</h3>
-                    <p>Seni musik, tari, teater, dan kaligrafi</p>
-                </div>
-                <div class="ekskul-card">
-                    <div class="ekskul-icon">
-                        <i class="fas fa-language"></i>
-                    </div>
-                    <h3>Bahasa Asing</h3>
-                    <p>English Club, Arabic Club, dan Japanese Club</p>
-                </div>
-                <div class="ekskul-card">
-                    <div class="ekskul-icon">
-                        <i class="fas fa-campground"></i>
-                    </div>
-                    <h3>Pramuka</h3>
-                    <p>Membentuk karakter kepemimpinan dan kemandirian</p>
-                </div>
+                @endforelse
             </div>
+
             <div class="text-center mt-40">
                 <a href="{{ route('ekstrakurikuler') }}" class="btn btn-primary">
                     <i class="fas fa-arrow-right"></i> Lihat Semua Ekstrakurikuler
@@ -241,10 +213,10 @@
             </div>
             <div class="social-grid">
                 <a href="https://www.facebook.com/p/MTs-Negeri-1-Magetan-100076737145018/" target="_blank" class="social-box facebook" title="Ikuti Facebook kami">
-    <i class="fab fa-facebook-f"></i>
-    <h3>Facebook</h3>
-    <p>MTs Negeri 1 Magetan</p>
-</a>
+                    <i class="fab fa-facebook-f"></i>
+                    <h3>Facebook</h3>
+                    <p>MTs Negeri 1 Magetan</p>
+                </a>
                 <a href="https://instagram.com/mtsn1magetan" target="_blank" class="social-box instagram" title="Ikuti Instagram kami">
                     <i class="fab fa-instagram"></i>
                     <h3>Instagram</h3>
@@ -277,14 +249,14 @@
                         <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
                         <div>
                             <h4>Alamat</h4>
-                            <p>{{ $settings['contact_address'] ?? 'Jl. Pendidikan No. 123, Magetan, Jawa Timur' }}</p>
+                            <p>{{ $settings['contact_address'] ?? 'Desa Baluk, Kec. Karangrejo, Kab. Magetan, Jawa Timur' }}</p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <div class="contact-icon"><i class="fas fa-phone"></i></div>
                         <div>
                             <h4>Telepon</h4>
-                            <p>{{ $settings['contact_phone'] ?? '(0351) 123456' }}</p>
+                            <p>{{ $settings['contact_phone'] ?? '(0351) 866007' }}</p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -304,17 +276,17 @@
                 </div>
             </div>
 
-           <div class="map-container">
-    <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3954.397692948693!2d111.4264810761235!3d-7.538460399999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e79eaffec0afc6b:0x52cfbad11119d136!2sMTsN%201%20Magetan!5e0!3m2!1sid!2sid!4v1735728000000!5m2!1sid!2sid"
-        width="100%"
-        height="450"
-        style="border:0; border-radius: 12px;"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-</div>
+            <div class="map-container">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3954.397692948693!2d111.4264810761235!3d-7.538460399999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e79eaffec0afc6b:0x52cfbad11119d136!2sMTsN%201%20Magetan!5e0!3m2!1sid!2sid!4v1735728000000!5m2!1sid!2sid"
+                    width="100%"
+                    height="450"
+                    style="border:0; border-radius: 12px;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
         </div>
     </section>
 @endsection
