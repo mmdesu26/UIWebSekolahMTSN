@@ -449,87 +449,113 @@ class AdminController extends Controller
     // CRUD PRESTASI
     // ====================================================================
     public function managePrestasi()
-    {
-        $prestasi = Prestasi::all();
-        return view('admin.prestasi', compact('prestasi'));
-    }
+{
+    $prestasi = Prestasi::all();
+    return view('admin.prestasi', compact('prestasi'));
+}
 
-    public function addPrestasi(Request $request)
-    {
-        $request->validate([
-            'nama_prestasi' => 'required|string|max:255',
-            'gambar'        => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
-        ], [
-            'nama_prestasi.required' => 'Nama prestasi wajib diisi.',
-            'gambar.image'           => 'File harus berupa gambar.',
-            'gambar.mimes'           => 'Format gambar harus jpeg, png, jpg, atau webp.',
-            'gambar.max'             => 'Ukuran gambar maksimal 10MB.',
+public function addPrestasi(Request $request)
+{
+    $request->validate([
+        'nama_prestasi' => 'required|string|max:255',
+        'gambar'        => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
+        'gambar_url'    => 'nullable|url',
+    ], [
+        'nama_prestasi.required' => 'Nama prestasi wajib diisi.',
+        'gambar.image'           => 'File harus berupa gambar.',
+        'gambar.mimes'           => 'Format gambar harus jpeg, png, jpg, atau webp.',
+        'gambar.max'             => 'Ukuran gambar maksimal 10MB.',
+        'gambar_url.url'         => 'URL gambar tidak valid.',
+    ]);
+
+    try {
+        $gambar = null;
+
+        // Prioritas: upload file > URL > null
+        if ($request->hasFile('gambar')) {
+            $path = $request->file('gambar')->store('prestasi', 'public');
+            $gambar = asset('storage/' . $path);
+        } elseif ($request->filled('gambar_url')) {
+            $gambar = $request->gambar_url;
+        }
+
+        Prestasi::create([
+            'nama_prestasi' => $request->nama_prestasi,
+            'gambar'        => $gambar,
         ]);
 
-        try {
-            $path = null;
-            if ($request->hasFile('gambar')) {
-                $path = $request->file('gambar')->store('prestasi', 'public');
+        return redirect()->route('admin.prestasi')->with('success', 'Prestasi berhasil ditambahkan!');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Gagal menambahkan prestasi!');
+    }
+}
+
+public function updatePrestasi($id, Request $request)
+{
+    $prestasi = Prestasi::findOrFail($id);
+
+    $request->validate([
+        'nama_prestasi' => 'required|string|max:255',
+        'gambar'        => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
+        'gambar_url'    => 'nullable|url',
+    ], [
+        'nama_prestasi.required' => 'Nama prestasi wajib diisi.',
+        'gambar.image'           => 'File harus berupa gambar.',
+        'gambar.max'             => 'Ukuran gambar maksimal 10MB.',
+        'gambar_url.url'         => 'URL gambar tidak valid.',
+    ]);
+
+    try {
+        $gambar = $prestasi->gambar;
+
+        // Jika upload file baru
+        if ($request->hasFile('gambar') && $request->file('gambar')->isValid()) {
+            // Hapus gambar lama jika dari storage lokal
+            if ($prestasi->gambar && str_starts_with($prestasi->gambar, asset('storage/'))) {
+                $oldPath = str_replace(asset('storage/'), '', $prestasi->gambar);
+                Storage::disk('public')->delete($oldPath);
             }
 
-            Prestasi::create([
-                'nama_prestasi' => $request->nama_prestasi,
-                'gambar'        => $path,
-            ]);
-
-            return redirect()->route('admin.prestasi')->with('success', 'Prestasi berhasil ditambahkan!');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal menambahkan prestasi!');
+            $path = $request->file('gambar')->store('prestasi', 'public');
+            $gambar = asset('storage/' . $path);
+        } elseif ($request->filled('gambar_url')) {
+            // Hapus gambar lama jika ada
+            if ($prestasi->gambar && str_starts_with($prestasi->gambar, asset('storage/'))) {
+                $oldPath = str_replace(asset('storage/'), '', $prestasi->gambar);
+                Storage::disk('public')->delete($oldPath);
+            }
+            $gambar = $request->gambar_url;
         }
-    }
 
-    public function updatePrestasi($id, Request $request)
-    {
+        $prestasi->update([
+            'nama_prestasi' => $request->nama_prestasi,
+            'gambar'        => $gambar,
+        ]);
+
+        return redirect()->route('admin.prestasi')->with('success', 'Prestasi berhasil diperbarui!');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Gagal memperbarui prestasi!');
+    }
+}
+
+public function deletePrestasi($id)
+{
+    try {
         $prestasi = Prestasi::findOrFail($id);
 
-        $request->validate([
-            'nama_prestasi' => 'required|string|max:255',
-            'gambar'        => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
-        ], [
-            'nama_prestasi.required' => 'Nama prestasi wajib diisi.',
-            'gambar.image'           => 'File harus berupa gambar.',
-            'gambar.max'             => 'Ukuran gambar maksimal 10MB.',
-        ]);
-
-        try {
-            if ($request->hasFile('gambar')) {
-                if ($prestasi->gambar) {
-                    Storage::disk('public')->delete($prestasi->gambar);
-                }
-                $path = $request->file('gambar')->store('prestasi', 'public');
-                $prestasi->gambar = $path;
-            }
-
-            $prestasi->nama_prestasi = $request->nama_prestasi;
-            $prestasi->save();
-
-            return redirect()->route('admin.prestasi')->with('success', 'Prestasi berhasil diperbarui!');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal memperbarui prestasi!');
+        // Hapus gambar jika dari storage lokal
+        if ($prestasi->gambar && str_starts_with($prestasi->gambar, asset('storage/'))) {
+            $oldPath = str_replace(asset('storage/'), '', $prestasi->gambar);
+            Storage::disk('public')->delete($oldPath);
         }
+
+        $prestasi->delete();
+
+        return redirect()->route('admin.prestasi')->with('success', 'Prestasi berhasil dihapus!');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Gagal menghapus prestasi!');
     }
-
-    public function deletePrestasi($id)
-    {
-        try {
-            $prestasi = Prestasi::findOrFail($id);
-
-            if ($prestasi->gambar) {
-                Storage::disk('public')->delete($prestasi->gambar);
-            }
-
-            $prestasi->delete();
-
-            return redirect()->route('admin.prestasi')->with('success', 'Prestasi berhasil dihapus!');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal menghapus prestasi!');
-        }
-    }
+}
 
     // ====================================================================
     // HALAMAN LAIN (Sejarah, Visi Misi, Kurikulum, Galeri) 
