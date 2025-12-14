@@ -1,57 +1,507 @@
-.berita-container {
+:root {
+    --primary-color: #667eea;
+    --primary-dark: #5568d3;
+    --secondary-color: #764ba2;
+    --success-color: #48bb78;
+    --warning-color: #ed8936;
+    --danger-color: #f56565;
+    --text-dark: #2d3748;
+    --text-light: #718096;
+    --border-color: #e2e8f0;
+    --transition: all 0.3s ease;
+}
+
+/* ===== GLOBAL STYLES ===== */
+* {
+    transition: var(--transition);
+}
+
+.container-fluid {
     padding: 20px;
+    animation: fadeIn 0.5s ease-out;
 }
 
-.berita-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.berita-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+/* ===== CARD STYLES ===== */
+.form-card, .table-card {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    margin-bottom: 30px;
+    animation: slideUp 0.6s ease-out;
+    border: 1px solid rgba(102, 126, 234, 0.1);
 }
 
-.empty-state {
-    padding: 20px;
-    font-size: 1.2em;
-    color: #999;
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #f9f9f9;
+.form-card:hover, .table-card:hover {
+    box-shadow: 0 8px 30px rgba(102, 126, 234, 0.15);
 }
 
-.table .btn {
-    transition: background-color 0.2s ease, transform 0.2s ease;
+/* ===== HEADER STYLES ===== */
+.form-card-header, .table-card-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    padding: 18px 24px;
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
 }
 
-.table .btn:hover {
-    background-color: #0069d9; /* Bootstrap primary */
-    transform: translateY(-2px);
+.form-card-header::before, .table-card-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shine 3s infinite;
 }
 
-.action-buttons button {
-    margin-right: 5px;
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+    50% {
+        left: 100%;
+    }
+    100% {
+        left: 100%;
+    }
 }
 
-.modal-header {
-    background-color: #f8f9fa;
+.form-card-header i, .table-card-header i {
+    font-size: 20px;
+    animation: bounce 2s infinite;
 }
 
-.modal-footer {
-    background-color: #f8f9fa;
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
 }
 
-.card-header {
-    background-color: #007bff;
+.table-card-header {
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.badge {
+    animation: pulse 2s infinite;
+    font-weight: 600;
+    padding: 6px 14px !important;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* ===== FORM STYLES ===== */
+.form-control, .form-select,
+.form-control:focus, .form-select:focus {
+    border-radius: 8px;
+    border: 1.5px solid var(--border-color);
+    padding: 10px 14px;
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.row.g-3 {
+    animation: fadeIn 0.7s ease-out;
+}
+
+.form-check-input {
+    width: 20px;
+    height: 20px;
+    margin-top: 3px;
+    border: 1.5px solid var(--border-color);
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.form-check-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-check-label {
+    color: var(--text-dark);
+    font-size: 14px;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+/* ===== BUTTON STYLES ===== */
+.btn {
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 10px 18px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: white;
 }
 
-.card-header i {
-    font-size: 1.5em;
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--primary-dark), #4c5ab8);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
 }
 
-.table td,
-.table th {
+.btn-warning {
+    background: var(--warning-color);
+    color: white;
+}
+
+.btn-warning:hover {
+    background: #d97706;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(237, 137, 54, 0.3);
+}
+
+.btn-danger {
+    background: var(--danger-color);
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #e53e3e;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 101, 101, 0.3);
+}
+
+.btn-secondary {
+    background: var(--text-light);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: var(--text-dark);
+}
+
+.btn-sm {
+    padding: 8px 12px;
+    font-size: 12px;
+    border-radius: 6px;
+}
+
+/* ===== TABLE STYLES ===== */
+.table {
+    margin-bottom: 0;
+}
+
+.table thead {
+    background: linear-gradient(180deg, #f7fafc, #edf2f7);
+}
+
+.table thead th {
+    color: var(--text-dark);
+    font-weight: 700;
+    border: none;
+    padding: 16px 12px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.table tbody tr:hover {
+    background-color: rgba(102, 126, 234, 0.05);
+    transform: scale(1.01);
+}
+
+.table tbody td {
+    padding: 16px 12px;
+    color: var(--text-dark);
     vertical-align: middle;
+    font-size: 14px;
+}
+
+.table tbody td strong {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ===== EMPTY STATE STYLES ===== */
+.text-center.py-5 {
+    animation: fadeIn 0.8s ease-out;
+}
+
+.text-center.py-5 i {
+    font-size: 80px;
+    color: var(--border-color);
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.text-center.py-5 p {
+    color: var(--text-light);
+    font-size: 16px;
+}
+
+/* ===== MODAL STYLES ===== */
+.modal-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)) !important;
+    border: none;
+    padding: 20px 24px;
+}
+
+.modal-header .modal-title {
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.modal-body {
+    padding: 28px 24px;
+    animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 16px 24px;
+    gap: 10px;
+}
+
+.modal-content {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== IMAGE PREVIEW ===== */
+#imagePreview {
+    text-align: center;
+    padding: 12px;
+    border-radius: 8px;
+    background: rgba(102, 126, 234, 0.05);
+    border: 1px dashed rgba(102, 126, 234, 0.3);
+}
+
+.img-thumbnail {
+    border-color: var(--border-color);
+}
+
+/* ===== FORM ACTIONS ===== */
+.text-center td {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+form {
+    display: inline;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 15px;
+    }
+
+    .form-card, .table-card {
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
+
+    .form-card-header, .table-card-header {
+        padding: 14px 16px;
+        font-size: 16px;
+        flex-wrap: wrap;
+    }
+
+    .badge {
+        padding: 4px 10px !important;
+        font-size: 12px;
+    }
+
+    .table-card-header {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .table-card-header span:first-child {
+        width: 100%;
+    }
+
+    .table thead th {
+        padding: 12px 8px;
+        font-size: 12px;
+    }
+
+    .table tbody td {
+        padding: 12px 8px;
+        font-size: 12px;
+    }
+
+    .btn-sm {
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+
+    .row.g-3 {
+        gap: 12px !important;
+    }
+
+    .col-md-6, .col-md-8 {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+
+    .text-center td {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .modal-body {
+        padding: 20px 16px;
+    }
+
+    .text-center.py-5 i {
+        font-size: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container-fluid {
+        padding: 10px;
+    }
+
+    .form-card-header, .table-card-header {
+        padding: 12px 12px;
+        font-size: 14px;
+    }
+
+    .form-label {
+        font-size: 13px;
+    }
+
+    .btn {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+
+    .btn-sm {
+        padding: 5px 8px;
+        font-size: 10px;
+    }
+
+    .table thead th, .table tbody td {
+        padding: 10px 6px;
+    }
+
+    .modal-dialog {
+        margin: 10px;
+    }
+
+    .modal-header, .modal-body, .modal-footer {
+        padding: 12px 16px !important;
+    }
 }
