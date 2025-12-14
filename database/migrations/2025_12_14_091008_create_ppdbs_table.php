@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->integer('kuota');
             $table->text('persyaratan');
             $table->text('konten');
+            $table->json('timeline')->nullable(); // Kolom untuk menyimpan jadwal
             $table->timestamps();
         });
     }

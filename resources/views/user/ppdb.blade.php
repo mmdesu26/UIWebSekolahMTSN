@@ -63,47 +63,25 @@
             </div>
 
             <!-- Timeline Section -->
-            <div class="timeline-section">
-                <div class="timeline-header">
-                    <h3><i class="fas fa-calendar-check"></i> Jadwal Pendaftaran Siswa Baru</h3>
-                </div>
-                <div class="timeline-grid">
-                    <div class="timeline-item">
-                        <div class="timeline-date">Gelombang Pertama</div>
-                        <div class="timeline-title"><i class="fas fa-pencil"></i> 03 Februari – 06 Mei 2025</div>
-                        <p class="timeline-desc">Pendaftaran online terbuka</p>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-date">10 Mei 2025</div>
-                        <div class="timeline-title"><i class="fas fa-pen-fancy"></i> Tes Akademik</div>
-                        <p class="timeline-desc">Pengumuman Hasil Tes Akademik</p>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-date">12 Mei 2025</div>
-                        <div class="timeline-title"><i class="fas fa-file-check"></i> Pengumuman Hasil</div>
-                        <p class="timeline-desc">Daftar Ulang</p>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-date">14 – 16 Mei 2025</div>
-                        <div class="timeline-title"><i class="fas fa-list"></i> Daftar Ulang</div>
-                        <p class="timeline-desc">Gelombang Kedua</p>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-date">19 Mei – 16 Juni 2025</div>
-                        <div class="timeline-title"><i class="fas fa-door-open"></i> Gelombang Kedua</div>
-                        <p class="timeline-desc">Tes Akademik Gelombang Kedua</p>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-date">21 Juni 2025</div>
-                        <div class="timeline-title"><i class="fas fa-check"></i> Pengumuman Hasil Tes Akademik</div>
-                        <p class="timeline-desc">Daftar Ulang Gelombang Kedua</p>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-date">23 Juni 2025</div>
-                        <div class="timeline-title"><i class="fas fa-check-circle"></i> Daftar Ulang</div>
-                        <p class="timeline-desc">24 – 26 Juni 2025</p>
-                    </div>
-                </div>
+<div class="timeline-section">
+    <div class="timeline-header">
+        <h3><i class="fas fa-calendar-check"></i> Jadwal Pendaftaran Siswa Baru</h3>
+    </div>
+    <div class="timeline-grid">
+        @php
+            $timelineItems = json_decode($ppdb->timeline ?? '[]', true);
+        @endphp
+        @forelse($timelineItems as $item)
+            <div class="timeline-item">
+                <div class="timeline-date">{{ $item['date'] }}</div>
+                <div class="timeline-title"><i class="fas fa-pencil"></i> {{ $item['title'] }}</div>
+                <p class="timeline-desc">{{ $item['description'] }}</p>
+            </div>
+        @empty
+            <p>Tidak ada jadwal yang tersedia saat ini.</p>
+        @endforelse
+    </div>
+</div>
             </div>
 
             <!-- Requirements Section -->

@@ -310,20 +310,36 @@ public function addEkstra(Request $request)
 
     // === DITAMBAHKAN: Update PPDB ===
     public function updatePpdb(Request $request)
-    {
-        $validated = $request->validate([
-            'judul'       => 'required|string|max:255',
-            'dibuka'      => 'required|date',
-            'ditutup'     => 'required|date|after_or_equal:dibuka',
-            'kuota'       => 'required|integer|min:1',
-            'persyaratan' => 'required|string',
-            'konten'      => 'required|string',
-        ]);
+{
+    $validated = $request->validate([
+        'judul' => 'required|string|max:255',
+        'dibuka' => 'required|date',
+        'ditutup' => 'required|date|after_or_equal:dibuka',
+        'kuota' => 'required|integer|min:1',
+        'persyaratan' => 'required|string',
+        'konten' => 'required|string',
+        'timeline' => 'nullable|array',
+        'timeline.*.date' => 'required|string',
+        'timeline.*.title' => 'required|string',
+        'timeline.*.description' => 'required|string',
+    ]);
 
-        Ppdb::updateOrCreate(['id' => 1], $validated);
+    // Gunakan updateOrCreate untuk menyederhanakan logika
+    $ppdb = Ppdb::updateOrCreate(
+        ['id' => 1], // Asumsi hanya ada satu entri PPDB, sesuaikan jika perlu
+        [
+            'judul' => $validated['judul'],
+            'dibuka' => $validated['dibuka'],
+            'ditutup' => $validated['ditutup'],
+            'kuota' => $validated['kuota'],
+            'persyaratan' => $validated['persyaratan'],
+            'konten' => $validated['konten'],
+            'timeline' => json_encode($validated['timeline'] ?? []),
+        ]
+    );
 
-        return redirect()->route('admin.ppdb')->with('success', 'Data PPDB berhasil diperbarui!');
-    }
+    return redirect()->route('admin.ppdb')->with('success', 'Data PPDB berhasil diperbarui!');
+}
 
     // === DITAMBAHKAN: Delete PPDB ===
     public function deletePpdb($id)

@@ -10,6 +10,10 @@ class Ppdb extends Model
     use HasFactory;
 
     protected $fillable = [
-        'judul', 'dibuka', 'ditutup', 'kuota', 'persyaratan', 'konten'
+        'judul', 'dibuka', 'ditutup', 'kuota', 'persyaratan', 'konten', 'timeline'
+    ];
+
+    protected $casts = [
+        'timeline' => 'array', // Otomatis parse JSON ke array
     ];
 }

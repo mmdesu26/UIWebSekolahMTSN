@@ -117,6 +117,39 @@
                             <small class="form-text">📝 Deskripsi akan ditampilkan di halaman utama PPDB</small>
                         </div>
 
+                        <!-- Jadwal Pendaftaran -->
+<div class="form-group">
+    <label class="form-label">
+        <i class="fas fa-calendar-check"></i>
+        <span>Jadwal Pendaftaran (Timeline)</span>
+    </label>
+    <div id="timeline-items">
+        @php
+            $timelineItems = old('timeline', json_decode($ppdb->timeline ?? '[]', true));
+        @endphp
+        @foreach($timelineItems as $index => $item)
+            <div class="timeline-item-input mb-3 p-3 border rounded">
+                <div class="form-group">
+                    <label>Tanggal</label>
+                    <input type="text" class="form-control" name="timeline[{{ $index }}][date]" value="{{ $item['date'] ?? '' }}" placeholder="Contoh: Gelombang Pertama atau 10 Mei 2025" required>
+                </div>
+                <div class="form-group">
+                    <label>Judul</label>
+                    <input type="text" class="form-control" name="timeline[{{ $index }}][title]" value="{{ $item['title'] ?? '' }}" placeholder="Contoh: Pendaftaran Online" required>
+                </div>
+                <div class="form-group">
+                    <label>Deskripsi</label>
+                    <textarea class="form-control" name="timeline[{{ $index }}][description]" placeholder="Deskripsi singkat" required>{{ $item['description'] ?? '' }}</textarea>
+                </div>
+                <button type="button" class="btn btn-danger btn-sm remove-timeline-item">Hapus</button>
+            </div>
+        @endforeach
+    </div>
+    <button type="button" id="add-timeline-item" class="btn btn-secondary mt-2">
+        <i class="fas fa-plus"></i> Tambah Jadwal
+    </button>
+    <small class="form-text">📅 Tambahkan jadwal seperti gelombang, tes, atau pengumuman.</small>
+</div>
                         <!-- Submit Button -->
                         <button type="submit" class="btn btn-primary">
                             <div class="btn-content">

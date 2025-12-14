@@ -146,3 +146,32 @@ document.querySelector('.ppdb-form').addEventListener('submit', function(e) {
         this.style.opacity = '0.7'; // Animasi halus
     }
 });
+
+document.getElementById('add-timeline-item').addEventListener('click', function () {
+    const timelineItems = document.getElementById('timeline-items');
+    const index = timelineItems.children.length;
+    const newItem = document.createElement('div');
+    newItem.classList.add('timeline-item-input', 'mb-3', 'p-3', 'border', 'rounded');
+    newItem.innerHTML = `
+        <div class="form-group">
+            <label>Tanggal</label>
+            <input type="text" class="form-control" name="timeline[${index}][date]" placeholder="Contoh: Gelombang Pertama atau 10 Mei 2025" required>
+        </div>
+        <div class="form-group">
+            <label>Judul</label>
+            <input type="text" class="form-control" name="timeline[${index}][title]" placeholder="Contoh: Pendaftaran Online" required>
+        </div>
+        <div class="form-group">
+            <label>Deskripsi</label>
+            <textarea class="form-control" name="timeline[${index}][description]" placeholder="Deskripsi singkat" required></textarea>
+        </div>
+        <button type="button" class="btn btn-danger btn-sm remove-timeline-item">Hapus</button>
+    `;
+    timelineItems.appendChild(newItem);
+});
+
+document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('remove-timeline-item')) {
+        e.target.parentElement.remove();
+    }
+});
