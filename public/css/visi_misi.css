@@ -1,0 +1,707 @@
+/* ==================== VARIABLES ==================== */
+:root {
+    --primary-color: #1a5f3a;
+    --primary-dark: #0f3d22;
+    --primary-light: #2d8659;
+    --secondary-color: #f39c12;
+    --secondary-light: #f5b041;
+    --text-dark: #2c3e50;
+    --text-light: #7f8c8d;
+    --border-color: #ecf0f1;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.15);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== HERO SECTION ==================== */
+.hero-visi-misi {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 50%, var(--primary-light) 100%);
+    padding: clamp(60px, 10vw, 100px) 20px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-visi-misi::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    animation: float 8s ease-in-out infinite;
+}
+
+.hero-visi-misi::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -5%;
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    animation: float 10s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+    }
+    50% {
+        transform: translateY(-30px) translateX(20px);
+    }
+}
+
+.hero-visi-misi-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+    animation: slideInUp 0.8s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-visi-misi h1 {
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+}
+
+.hero-visi-misi p {
+    font-size: clamp(14px, 2vw, 20px);
+    opacity: 0.95;
+    line-height: 1.8;
+    font-weight: 300;
+}
+
+/* ==================== CONTENT SECTION ==================== */
+.visi-misi-content-section {
+    padding: clamp(60px, 10vw, 100px) 20px;
+    background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+/* ==================== VISI MISI GRID ==================== */
+.visi-misi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: clamp(30px, 5vw, 50px);
+    margin-bottom: clamp(60px, 10vw, 100px);
+}
+
+/* ==================== VISI CARD ==================== */
+.visi-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    animation: fadeInLeft 0.8s ease-out;
+    border: 3px solid transparent;
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.visi-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(26, 95, 58, 0.3);
+}
+
+.visi-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    color: white;
+    padding: clamp(40px, 6vw, 60px);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.visi-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.2), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.visi-card:hover .visi-header::before {
+    opacity: 1;
+}
+
+.visi-icon {
+    font-size: clamp(50px, 8vw, 80px);
+    margin-bottom: 20px;
+    animation: scaleIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+}
+
+@keyframes scaleIn {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.visi-card:hover .visi-icon {
+    animation: bounce 0.6s ease-out;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+.visi-header h3 {
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.visi-body {
+    padding: clamp(30px, 5vw, 50px);
+}
+
+.visi-body p {
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--text-light);
+    line-height: 1.9;
+    margin: 0;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* ==================== MISI CARD ==================== */
+.misi-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    animation: fadeInRight 0.8s ease-out;
+    border: 3px solid transparent;
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.misi-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(243, 156, 18, 0.3);
+}
+
+.misi-header {
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--secondary-light) 100%);
+    color: white;
+    padding: clamp(40px, 6vw, 60px);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.misi-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.2), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.misi-card:hover .misi-header::before {
+    opacity: 1;
+}
+
+.misi-icon {
+    font-size: clamp(50px, 8vw, 80px);
+    margin-bottom: 20px;
+    animation: scaleIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s both;
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+}
+
+.misi-card:hover .misi-icon {
+    animation: bounce 0.6s ease-out;
+}
+
+.misi-header h3 {
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.misi-body {
+    padding: clamp(30px, 5vw, 50px);
+}
+
+/* ==================== MISI LIST ==================== */
+.misi-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(18px, 3vw, 25px);
+}
+
+.misi-list li {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    animation: slideInLeft 0.6s ease-out backwards;
+}
+
+.misi-list li:nth-child(1) { animation-delay: 0.1s; }
+.misi-list li:nth-child(2) { animation-delay: 0.2s; }
+.misi-list li:nth-child(3) { animation-delay: 0.3s; }
+.misi-list li:nth-child(4) { animation-delay: 0.4s; }
+.misi-list li:nth-child(5) { animation-delay: 0.5s; }
+.misi-list li:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.misi-number {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 18px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(26, 95, 58, 0.3);
+    transition: var(--transition);
+}
+
+.misi-list li:hover .misi-number {
+    transform: scale(1.15) rotate(360deg);
+    box-shadow: 0 6px 20px rgba(26, 95, 58, 0.4);
+}
+
+.misi-text {
+    color: var(--text-light);
+    font-size: clamp(14px, 1.8vw, 16px);
+    line-height: 1.8;
+    padding-top: 5px;
+}
+
+/* ==================== NILAI SECTION ==================== */
+.nilai-section {
+    margin-top: clamp(60px, 10vw, 100px);
+}
+
+.section-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto clamp(40px, 8vw, 60px);
+    animation: fadeInDown 0.8s ease-out;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section-intro h2 {
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.section-intro h2::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--secondary-color), var(--secondary-light));
+    border-radius: 2px;
+}
+
+.section-intro p {
+    font-size: clamp(14px, 2vw, 18px);
+    color: var(--text-light);
+    line-height: 1.8;
+    margin-top: 30px;
+}
+
+/* ==================== NILAI GRID ==================== */
+.nilai-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: clamp(25px, 4vw, 35px);
+}
+
+/* ==================== NILAI CARD ==================== */
+.nilai-card {
+    background: white;
+    padding: clamp(35px, 5vw, 45px) clamp(25px, 4vw, 35px);
+    border-radius: 15px;
+    text-align: center;
+    transition: var(--transition);
+    border: 2px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+    animation: zoomIn 0.6s ease-out backwards;
+}
+
+.nilai-card:nth-child(1) { animation-delay: 0.1s; }
+.nilai-card:nth-child(2) { animation-delay: 0.2s; }
+.nilai-card:nth-child(3) { animation-delay: 0.3s; }
+.nilai-card:nth-child(4) { animation-delay: 0.4s; }
+.nilai-card:nth-child(5) { animation-delay: 0.5s; }
+.nilai-card:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.nilai-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.nilai-card:hover::before {
+    transform: scaleX(1);
+}
+
+.nilai-card:hover {
+    transform: translateY(-12px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-lg);
+}
+
+.nilai-icon-wrapper {
+    width: clamp(70px, 10vw, 90px);
+    height: clamp(70px, 10vw, 90px);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(32px, 5vw, 45px);
+    margin: 0 auto 20px;
+    transition: var(--transition);
+    box-shadow: 0 5px 15px rgba(26, 95, 58, 0.3);
+}
+
+.nilai-card:hover .nilai-icon-wrapper {
+    transform: rotateY(360deg) scale(1.1);
+    background: linear-gradient(135deg, var(--secondary-color), #e67e22);
+}
+
+.nilai-card h4 {
+    font-size: clamp(18px, 2.5vw, 22px);
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+}
+
+.nilai-card p {
+    font-size: clamp(13px, 1.5vw, 15px);
+    color: var(--text-light);
+    margin: 0;
+    line-height: 1.7;
+}
+
+/* ==================== CTA SECTION ==================== */
+.cta-visi-misi-section {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 50%, var(--primary-light) 100%);
+    color: white;
+    padding: clamp(40px, 8vw, 60px);
+    border-radius: 16px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-top: clamp(60px, 10vw, 100px);
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.cta-visi-misi-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    animation: float 10s ease-in-out infinite;
+}
+
+.cta-visi-misi-section::after {
+    content: '';
+    position: absolute;
+    bottom: -40%;
+    left: -5%;
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    animation: float 12s ease-in-out infinite reverse;
+}
+
+.cta-visi-misi-section h3 {
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 700;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 2;
+    line-height: 1.2;
+}
+
+.cta-visi-misi-section p {
+    font-size: clamp(14px, 2vw, 18px);
+    margin-bottom: 30px;
+    opacity: 0.95;
+    position: relative;
+    z-index: 2;
+    line-height: 1.8;
+}
+
+.btn-visi-misi-daftar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: clamp(14px, 2vw, 18px) clamp(30px, 5vw, 50px);
+    background: var(--secondary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: clamp(14px, 2vw, 18px);
+    font-weight: 700;
+    transition: var(--transition);
+    border: 2px solid var(--secondary-color);
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.btn-visi-misi-daftar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--secondary-light);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.btn-visi-misi-daftar:hover::before {
+    opacity: 1;
+}
+
+.btn-visi-misi-daftar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(243, 156, 18, 0.4);
+}
+
+.btn-visi-misi-daftar:active {
+    transform: translateY(-1px);
+}
+
+.btn-visi-misi-daftar i {
+    transition: var(--transition);
+}
+
+.btn-visi-misi-daftar:hover i {
+    transform: scale(1.1);
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 1024px) {
+    .visi-misi-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nilai-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-visi-misi {
+        min-height: auto;
+        padding: 50px 20px;
+    }
+
+    .visi-misi-grid {
+        gap: 25px;
+    }
+
+    .visi-header,
+    .misi-header {
+        padding: 40px 25px;
+    }
+
+    .visi-body,
+    .misi-body {
+        padding: 30px 25px;
+    }
+
+    .nilai-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
+    .section-intro h2::after {
+        width: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .visi-misi-content-section {
+        padding: 40px 15px;
+    }
+
+    .visi-misi-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .visi-card,
+    .misi-card {
+        border-radius: 15px;
+    }
+
+    .visi-header,
+    .misi-header {
+        padding: 35px 20px;
+    }
+
+    .visi-body,
+    .misi-body {
+        padding: 25px 20px;
+    }
+
+    .misi-number {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .nilai-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nilai-card {
+        padding: 30px 20px;
+    }
+
+    .cta-visi-misi-section {
+        padding: 30px 15px;
+        border-radius: 12px;
+    }
+
+    .btn-visi-misi-daftar {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 360px) {
+    .hero-visi-misi h1 {
+        font-size: 22px;
+    }
+
+    .visi-header h3,
+    .misi-header h3 {
+        font-size: 20px;
+    }
+}
+
+/* ==================== ANIMATIONS ==================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

@@ -3,30 +3,35 @@
 @section('title', 'Fasilitas Sekolah - MTsN 1 Magetan')
 
 @section('content')
+
+<link rel="stylesheet" href="{{ asset('css/fasilitas.css') }}">
+
 <!-- Hero Section -->
-<section class="fasilitas-hero">
-    <div class="container">
-        <div class="hero-content text-center">
-            <h1 class="hero-title" data-aos="fade-up">Fasilitas Sekolah</h1>
-            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">
-                Sarana dan Prasarana Pendukung Pembelajaran Berkualitas
-            </p>
+<section class="hero-fasilitas">
+    <div class="container d-flex align-items-center justify-content-center min-vh-50">
+        <div class="hero-fasilitas-content text-center w-100">
+            <h1>Fasilitas Sekolah</h1>
+            <p>Sarana dan prasarana pendukung pembelajaran berkualitas untuk masa depan gemilang</p>
         </div>
     </div>
 </section>
 
-<!-- Fasilitas Utama -->
-<section class="fasilitas-main">
+<!-- Content Section -->
+<section class="fasilitas-content-section">
     <div class="container">
-        <div class="section-header" data-aos="fade-up">
-            <h2 class="section-title">Fasilitas</h2>
-            <p class="section-subtitle">Dilengkapi dengan fasilitas modern untuk mendukung proses belajar mengajar</p>
+
+        <!-- Section Intro -->
+        <div class="section-intro">
+            <h2>Fasilitas Utama</h2>
+            <p>Dilengkapi dengan fasilitas modern untuk mendukung proses belajar mengajar yang optimal</p>
         </div>
 
+        <!-- Fasilitas Grid -->
         <div class="fasilitas-grid">
+
             <!-- Ruang Belajar -->
-            <div class="fasilitas-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="fasilitas-badge-only">
+            <div class="fasilitas-card">
+                <div class="fasilitas-badge">
                     <i class="fas fa-chalkboard-teacher"></i>
                 </div>
                 <div class="fasilitas-content">
@@ -42,8 +47,8 @@
             </div>
 
             <!-- Lab Komputer -->
-            <div class="fasilitas-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="fasilitas-badge-only">
+            <div class="fasilitas-card">
+                <div class="fasilitas-badge">
                     <i class="fas fa-laptop"></i>
                 </div>
                 <div class="fasilitas-content">
@@ -53,14 +58,14 @@
                         <li><i class="fas fa-check-circle"></i> Unit Komputer</li>
                         <li><i class="fas fa-check-circle"></i> Internet Stabil</li>
                         <li><i class="fas fa-check-circle"></i> Software Terkini</li>
-                        <li><i class="fas fa-check-circle"></i> AC </li>
+                        <li><i class="fas fa-check-circle"></i> AC</li>
                     </ul>
                 </div>
             </div>
 
             <!-- Lapangan 3 in 1 -->
-            <div class="fasilitas-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="fasilitas-badge-only">
+            <div class="fasilitas-card">
+                <div class="fasilitas-badge">
                     <i class="fas fa-futbol"></i>
                 </div>
                 <div class="fasilitas-content">
@@ -75,12 +80,12 @@
             </div>
 
             <!-- Perpustakaan -->
-            <div class="fasilitas-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="fasilitas-badge-only">
+            <div class="fasilitas-card">
+                <div class="fasilitas-badge">
                     <i class="fas fa-book"></i>
                 </div>
                 <div class="fasilitas-content">
-                    <h3>Perpustakaan Ibnu Sina MTSN 1 Magetan</h3>
+                    <h3>Perpustakaan Ibnu Sina MTsN 1 Magetan</h3>
                     <p>Koleksi lebih dari 10.000 buku, sistem digital library, ruang baca ber-AC.</p>
                     <ul class="fasilitas-features">
                         <li><i class="fas fa-check-circle"></i> Koleksi Buku Lengkap</li>
@@ -92,24 +97,24 @@
             </div>
 
             <!-- Madrasah Literasi -->
-            <div class="fasilitas-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="fasilitas-badge-only">
-                    <i class="fas fa-book"></i>
+            <div class="fasilitas-card">
+                <div class="fasilitas-badge">
+                    <i class="fas fa-book-reader"></i>
                 </div>
                 <div class="fasilitas-content">
                     <h3>Madrasah Literasi</h3>
                     <p>Belajar untuk berliterasi, menulis juga membaca.</p>
                     <ul class="fasilitas-features">
-                        <li><i class="fas fa-check-circle"></i> Copy Writting</li>
+                        <li><i class="fas fa-check-circle"></i> Copy Writing</li>
                         <li><i class="fas fa-check-circle"></i> Diskusi</li>
-                        <li><i class="fas fa-check-circle"></i> Bedah buku</li>
+                        <li><i class="fas fa-check-circle"></i> Bedah Buku</li>
                     </ul>
                 </div>
             </div>
 
             <!-- Koperasi Siswa -->
-            <div class="fasilitas-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="fasilitas-badge-only">
+            <div class="fasilitas-card">
+                <div class="fasilitas-badge">
                     <i class="fas fa-store"></i>
                 </div>
                 <div class="fasilitas-content">
@@ -123,8 +128,8 @@
             </div>
 
             <!-- Tempat Parkir -->
-            <div class="fasilitas-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="fasilitas-badge-only">
+            <div class="fasilitas-card">
+                <div class="fasilitas-badge">
                     <i class="fas fa-parking"></i>
                 </div>
                 <div class="fasilitas-content">
@@ -132,25 +137,27 @@
                     <p>Area parkir terpisah untuk siswa dan guru, dilengkapi sistem keamanan CCTV dan petugas keamanan 24 jam.</p>
                     <ul class="fasilitas-features">
                         <li><i class="fas fa-check-circle"></i> Area Terpisah</li>
+                        <li><i class="fas fa-check-circle"></i> CCTV</li>
                         <li><i class="fas fa-check-circle"></i> Petugas Keamanan</li>
                         <li><i class="fas fa-check-circle"></i> Kapasitas 100+ Motor</li>
                     </ul>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
 
-<!-- Fasilitas Pendukung Lainnya -->
-<section class="fasilitas-other">
-    <div class="container">
-        <div class="section-header" data-aos="fade-up">
-            <h2 class="section-title">Fasilitas Pendukung Lainnya</h2>
-            <p class="section-subtitle">Kelengkapan fasilitas untuk mendukung berbagai kegiatan</p>
+        </div>
+
+        <!-- Divider -->
+        <div class="section-divider"></div>
+
+        <!-- Fasilitas Pendukung Lainnya -->
+        <div class="section-intro">
+            <h2>Fasilitas Pendukung Lainnya</h2>
+            <p>Kelengkapan fasilitas untuk mendukung berbagai kegiatan siswa</p>
         </div>
 
         <div class="other-grid">
-            <div class="other-item" data-aos="zoom-in" data-aos-delay="100">
+
+            <div class="other-card">
                 <div class="other-icon">
                     <i class="fas fa-mosque"></i>
                 </div>
@@ -158,7 +165,7 @@
                 <p>Masjid luas untuk ibadah harian dan kajian</p>
             </div>
 
-            <div class="other-item" data-aos="zoom-in" data-aos-delay="150">
+            <div class="other-card">
                 <div class="other-icon">
                     <i class="fas fa-flask"></i>
                 </div>
@@ -166,7 +173,7 @@
                 <p>Laboratorium IPA lengkap untuk praktikum</p>
             </div>
 
-            <div class="other-item" data-aos="zoom-in" data-aos-delay="200">
+            <div class="other-card">
                 <div class="other-icon">
                     <i class="fas fa-language"></i>
                 </div>
@@ -174,7 +181,7 @@
                 <p>Lab bahasa multimedia untuk pembelajaran</p>
             </div>
 
-            <div class="other-item" data-aos="zoom-in" data-aos-delay="250">
+            <div class="other-card">
                 <div class="other-icon">
                     <i class="fas fa-clinic-medical"></i>
                 </div>
@@ -182,7 +189,7 @@
                 <p>Unit Kesehatan Sekolah dengan peralatan lengkap</p>
             </div>
 
-            <div class="other-item" data-aos="zoom-in" data-aos-delay="300">
+            <div class="other-card">
                 <div class="other-icon">
                     <i class="fas fa-restroom"></i>
                 </div>
@@ -190,7 +197,7 @@
                 <p>Toilet terpisah putra-putri yang bersih</p>
             </div>
 
-            <div class="other-item" data-aos="zoom-in" data-aos-delay="350">
+            <div class="other-card">
                 <div class="other-icon">
                     <i class="fas fa-wifi"></i>
                 </div>
@@ -198,7 +205,7 @@
                 <p>Akses internet gratis di seluruh area</p>
             </div>
 
-            <div class="other-item" data-aos="zoom-in" data-aos-delay="400">
+            <div class="other-card">
                 <div class="other-icon">
                     <i class="fas fa-video"></i>
                 </div>
@@ -206,304 +213,18 @@
                 <p>Sistem keamanan CCTV 24 jam</p>
             </div>
 
-            <div class="other-item" data-aos="zoom-in" data-aos-delay="450">
+            <div class="other-card">
                 <div class="other-icon">
                     <i class="fas fa-tv"></i>
                 </div>
                 <h4>Aula</h4>
-                <p>Aula serbaguna</p>
+                <p>Aula serbaguna untuk berbagai kegiatan</p>
             </div>
+
         </div>
     </div>
 </section>
 
-<!-- CTA Section -->
-<section class="fasilitas-cta">
-    <div class="container">
-        <div class="cta-content" data-aos="zoom-in">
-            <h2>Ingin Melihat Langsung Fasilitas Kami?</h2>
-            <p>Kunjungi sekolah kami dan lihat sendiri kelengkapan fasilitasnya</p>
-            <div class="cta-buttons">
-                <a href="{{ route('ppdb') }}" class="btn btn-primary btn-large">Daftar Sekarang</a>
-                <a href="#" class="btn btn-secondary btn-large">Jadwalkan Kunjungan</a>
-            </div>
-        </div>
-    </div>
-</section>
+<script src="{{ asset('js/fasilitas.js') }}"></script>
 
-<style>
-/* Fasilitas Hero */
-.fasilitas-hero {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    padding: 100px 0 80px;
-    color: white;
-    position: relative;
-    overflow: hidden;
-}
-
-.fasilitas-hero::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -10%;
-    width: 600px;
-    height: 600px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 50%;
-    animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-}
-
-/* Fasilitas Main */
-.fasilitas-main {
-    padding: 80px 0;
-    background: white;
-}
-
-.fasilitas-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-    gap: 40px;
-    margin-top: 50px;
-}
-
-.fasilitas-card {
-    background: white;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid #f0f0f0;
-    position: relative;
-    padding-top: 60px;
-}
-
-.fasilitas-card:hover {
-    transform: translateY(-15px);
-    box-shadow: 0 20px 60px rgba(26,95,58,0.2);
-}
-
-.fasilitas-badge-only {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, var(--accent-color), #e67e22);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 26px;
-    box-shadow: 0 8px 25px rgba(243,156,18,0.4);
-    animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.08); }
-}
-
-.fasilitas-content {
-    padding: 30px;
-}
-
-.fasilitas-content h3 {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--dark-text);
-    margin-bottom: 15px;
-    font-family: 'Playfair Display', serif;
-}
-
-.fasilitas-content > p {
-    color: var(--text-muted);
-    line-height: 1.8;
-    margin-bottom: 20px;
-    font-size: 15px;
-}
-
-.fasilitas-features {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-}
-
-.fasilitas-features li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 14px;
-    color: var(--text-muted);
-}
-
-.fasilitas-features i {
-    color: var(--primary-color);
-    font-size: 16px;
-}
-
-/* Fasilitas Other */
-.fasilitas-other {
-    padding: 80px 0;
-    background: var(--light-bg);
-}
-
-.other-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 30px;
-    margin-top: 50px;
-}
-
-.other-item {
-    background: white;
-    padding: 40px 25px;
-    border-radius: 15px;
-    text-align: center;
-    transition: all 0.3s;
-    border: 2px solid transparent;
-}
-
-.other-item:hover {
-    transform: translateY(-10px);
-    border-color: var(--primary-color);
-    box-shadow: 0 15px 40px rgba(26,95,58,0.15);
-}
-
-.other-icon {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 36px;
-    margin: 0 auto 20px;
-    transition: all 0.3s;
-}
-
-.other-item:hover .other-icon {
-    transform: rotateY(360deg);
-    background: linear-gradient(135deg, var(--accent-color), #e67e22);
-}
-
-.other-item h4 {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--dark-text);
-    margin-bottom: 10px;
-}
-
-.other-item p {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin: 0;
-    line-height: 1.6;
-}
-
-/* CTA Section */
-.fasilitas-cta {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    padding: 80px 0;
-    color: white;
-    position: relative;
-    overflow: hidden;
-}
-
-.fasilitas-cta::before {
-    content: '';
-    position: absolute;
-    bottom: -30%;
-    left: -5%;
-    width: 400px;
-    height: 400px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 50%;
-}
-
-.cta-content {
-    text-align: center;
-    position: relative;
-    z-index: 2;
-}
-
-.cta-content h2 {
-    font-size: 38px;
-    font-weight: 700;
-    margin-bottom: 15px;
-    font-family: 'Playfair Display', serif;
-}
-
-.cta-content p {
-    font-size: 18px;
-    margin-bottom: 35px;
-    opacity: 0.95;
-}
-
-.cta-buttons {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .fasilitas-hero {
-        padding: 70px 0 50px;
-    }
-    
-    .hero-title {
-        font-size: 36px;
-    }
-    
-    .fasilitas-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-    
-    .other-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 20px;
-    }
-    
-    .fasilitas-features {
-        grid-template-columns: 1fr;
-    }
-    
-    .cta-content h2 {
-        font-size: 28px;
-    }
-    
-    .cta-buttons {
-        flex-direction: column;
-    }
-    
-    .btn-large {
-        width: 100%;
-    }
-}
-</style>
-
-<!-- AOS Library -->
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-    AOS.init({
-        duration: 800,
-        easing: 'ease-out',
-        once: true,
-        offset: 100
-    });
-</script>
 @endsection
