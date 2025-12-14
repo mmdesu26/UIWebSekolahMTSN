@@ -78,13 +78,6 @@
                     </a>
                 </div>
             </div>
-
-            <a href="{{ route('admin.sosial-media') }}" class="@if(request()->routeIs('admin.sosial-media')) active @endif">
-                <i class="fas fa-share-alt"></i><span>Sosial Media</span>
-            </a>
-
-            <hr>
-
             <a href="{{ route('admin.logout') }}" data-logout="true"
                onclick="return confirm('Apakah Anda yakin ingin logout?')">
                 <i class="fas fa-sign-out-alt"></i><span>Logout</span>

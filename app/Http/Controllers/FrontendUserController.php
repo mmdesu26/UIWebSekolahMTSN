@@ -201,22 +201,12 @@ class FrontendUserController extends Controller
     /*
     |--------------------------------------------------------------------------
     | =========================
-    | KODE LENI - GALERI & KONTAK
+    | KODE LENI - GALERI
     | =========================
     |--------------------------------------------------------------------------
     */
     public function galeri()
     {
         return view('user.galeri', ['galeri' => $this->data['galeri'], 'data' => $this->data]);
-    }
-
-    public function kontak()
-    {
-        return view('user.kontak', ['data' => $this->data]);
-    }
-
-    public function kontakKirim(Request $request)
-    {
-        return back()->with('success', 'Pesan berhasil dikirim.');
     }
 }
