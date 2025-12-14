@@ -3,290 +3,188 @@
 @section('title', 'Kurikulum - MTsN 1 Magetan')
 
 @section('content')
-<style>
-    .akademik-hero {
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-        color: white;
-        padding: 60px 0;
-        text-align: center;
-    }
-    
-    .akademik-hero h1 {
-        font-size: 42px;
-        font-weight: 700;
-        margin-bottom: 15px;
-        font-family: 'Playfair Display', serif;
-    }
-    
-    .breadcrumb {
-        background: rgba(255,255,255,0.1);
-        padding: 10px 20px;
-        border-radius: 25px;
-        display: inline-flex;
-        gap: 10px;
-        margin-top: 15px;
-    }
-    
-    .breadcrumb a {
-        color: white;
-        text-decoration: none;
-    }
-    
-    .content-section {
-        padding: 60px 0;
-        background: white;
-    }
-    
-    .kurikulum-box {
-        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-        border: 2px solid #e9ecef;
-        border-radius: 12px;
-        padding: 30px;
-        margin-bottom: 30px;
-        transition: all 0.3s;
-    }
-    
-    .kurikulum-box:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(26,95,58,0.15);
-        border-color: var(--primary-color);
-    }
-    
-    .kurikulum-box h3 {
-        color: var(--primary-color);
-        font-size: 24px;
-        font-weight: 700;
-        margin-bottom: 15px;
-    }
-    
-    .mata-pelajaran {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-        margin-top: 30px;
-    }
-    
-    .mapel-card {
-        background: white;
-        border: 1px solid #e9ecef;
-        border-radius: 8px;
-        padding: 20px;
-        text-align: center;
-        transition: all 0.3s;
-    }
-    
-    .mapel-card:hover {
-        border-color: var(--accent-color);
-        box-shadow: 0 5px 15px rgba(243,156,18,0.2);
-    }
-    
-    .mapel-icon {
-        font-size: 36px;
-        color: var(--primary-color);
-        margin-bottom: 10px;
-    }
-    
-    .mapel-card h4 {
-        font-size: 16px;
-        font-weight: 600;
-        color: var(--dark-text);
-        margin-bottom: 5px;
-    }
-    
-    .mapel-card p {
-        font-size: 13px;
-        color: var(--text-muted);
-        margin: 0;
-    }
 
-    .tujuan-list {
-        list-style: none;
-        padding-left: 0;
-    }
+<link rel="stylesheet" href="{{ asset('css/kurikulum.css') }}">
 
-    .tujuan-list li {
-        padding: 12px 15px;
-        margin-bottom: 10px;
-        background: white;
-        border-left: 4px solid var(--primary-color);
-        border-radius: 6px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        transition: all 0.3s;
-    }
-
-    .tujuan-list li:hover {
-        transform: translateX(10px);
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
-    }
-
-    .tujuan-list li::before {
-        content: "✓";
-        color: var(--primary-color);
-        font-weight: bold;
-        margin-right: 10px;
-        font-size: 18px;
-    }
-
-    .no-data {
-        text-align: center;
-        padding: 40px;
-        background: #f8f9fa;
-        border-radius: 8px;
-        color: #6c757d;
-        font-style: italic;
-    }
-
-    @media (max-width: 768px) {
-        .akademik-hero h1 { font-size: 32px; }
-        .mata-pelajaran { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
-    }
-</style>
-
-<div class="akademik-hero">
-    <div class="container">
-        <h1>Kurikulum MTsN 1 Magetan</h1>
-        <div class="breadcrumb">
-            <a href="{{ url('/') }}">Beranda</a>
-            <span>/</span>
-            <a href="{{ route('akademik.kurikulum') }}">Akademik</a>
-            <span>/</span>
-            <span>Kurikulum</span>
+<!-- Hero Section -->
+<section class="hero-kurikulum">
+    <div class="container d-flex align-items-center justify-content-center min-vh-50">
+        <div class="hero-kurikulum-content text-center w-100">
+            <h1>Kurikulum MTsN 1 Magetan</h1>
+            <div class="breadcrumb-custom">
+                <a href="{{ url('/') }}">Beranda</a>
+                <span>/</span>
+                <a href="{{ route('akademik.kurikulum') }}">Akademik</a>
+                <span>/</span>
+                <span>Kurikulum</span>
+            </div>
         </div>
     </div>
-</div>
+</section>
 
-<section class="content-section">
+<!-- Content Section -->
+<section class="kurikulum-content-section">
     <div class="container">
         @if($kurikulum)
             <!-- Nama Kurikulum -->
             <div class="kurikulum-box">
-                <h3><i class="fas fa-book-open"></i> {{ $kurikulum->nama_kurikulum }}</h3>
-                <p style="white-space: pre-line; font-size: 16px; line-height: 1.8;">{{ $kurikulum->deskripsi_kurikulum }}</p>
+                <div class="kurikulum-box-header">
+                    <i class="fas fa-book-open"></i>
+                    <h3>{{ $kurikulum->nama_kurikulum }}</h3>
+                </div>
+                <div class="kurikulum-box-body">
+                    <p>{{ $kurikulum->deskripsi_kurikulum }}</p>
+                </div>
             </div>
 
             <!-- Tujuan Kurikulum -->
             <div class="kurikulum-box">
-                <h3><i class="fas fa-bullseye"></i> Tujuan Kurikulum</h3>
-                <ul class="tujuan-list">
-                    @foreach(explode("\n", $kurikulum->tujuan_kurikulum) as $tujuan)
-                        @if(trim($tujuan))
-                            <li>{{ trim($tujuan) }}</li>
-                        @endif
-                    @endforeach
-                </ul>
+                <div class="kurikulum-box-header">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Tujuan Kurikulum</h3>
+                </div>
+                <div class="kurikulum-box-body">
+                    <ul class="tujuan-list">
+                        @foreach(explode("\n", $kurikulum->tujuan_kurikulum) as $tujuan)
+                            @if(trim($tujuan))
+                                <li>{{ trim($tujuan) }}</li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </div>
             </div>
 
-            <!-- Struktur Mata Pelajaran (Static) -->
+            <!-- Struktur Mata Pelajaran -->
             <div class="kurikulum-box">
-                <h3><i class="fas fa-graduation-cap"></i> Struktur Mata Pelajaran</h3>
-                
-                <h4 style="margin-top: 25px; margin-bottom: 15px; color: var(--dark-text);">Kelompok A (Umum)</h4>
-                <div class="mata-pelajaran">
-                    <div class="mapel-card">
-                        <div class="mapel-icon"><i class="fas fa-quran"></i></div>
-                        <h4>Al-Qur'an Hadits</h4>
-                        <p>4 Jam/Minggu</p>
-                    </div>
-                    <div class="mapel-card">
-                        <div class="mapel-icon"><i class="fas fa-mosque"></i></div>
-                        <h4>Akidah Akhlak</h4>
-                        <p>2 Jam/Minggu</p>
-                    </div>
-                    <div class="mapel-card">
-                        <div class="mapel-icon"><i class="fas fa-balance-scale"></i></div>
-                        <h4>Fikih</h4>
-                        <p>2 Jam/Minggu</p>
-                    </div>
-                    <div class="mapel-card">
-                        <div class="mapel-icon"><i class="fas fa-book"></i></div>
-                        <h4>SKI</h4>
-                        <p>2 Jam/Minggu</p>
-                    </div>
-                    <div class="mapel-card">
-                        <div class="mapel-icon"><i class="fas fa-language"></i></div>
-                        <h4>Bahasa Arab</h4>
-                        <p>3 Jam/Minggu</p>
-                    </div>
+                <div class="kurikulum-box-header">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Struktur Mata Pelajaran</h3>
                 </div>
+                <div class="kurikulum-box-body">
+                    <!-- Kelompok A -->
+                    <h4 class="kelompok-title">Kelompok A (Umum)</h4>
+                    <div class="mata-pelajaran-grid">
+                        <div class="mapel-card">
+                            <div class="mapel-icon">
+                                <i class="fas fa-quran"></i>
+                            </div>
+                            <h5>Al-Qur'an Hadits</h5>
+                            <p>4 Jam/Minggu</p>
+                        </div>
+                        <div class="mapel-card">
+                            <div class="mapel-icon">
+                                <i class="fas fa-mosque"></i>
+                            </div>
+                            <h5>Akidah Akhlak</h5>
+                            <p>2 Jam/Minggu</p>
+                        </div>
+                        <div class="mapel-card">
+                            <div class="mapel-icon">
+                                <i class="fas fa-balance-scale"></i>
+                            </div>
+                            <h5>Fikih</h5>
+                            <p>2 Jam/Minggu</p>
+                        </div>
+                        <div class="mapel-card">
+                            <div class="mapel-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h5>SKI</h5>
+                            <p>2 Jam/Minggu</p>
+                        </div>
+                        <div class="mapel-card">
+                            <div class="mapel-icon">
+                                <i class="fas fa-language"></i>
+                            </div>
+                            <h5>Bahasa Arab</h5>
+                            <p>3 Jam/Minggu</p>
+                        </div>
+                    </div>
 
-                <h4 style="margin-top: 30px; margin-bottom: 15px; color: var(--dark-text);">Kelompok B (Umum)</h4>
-                <div class="mata-pelajaran">
-                    <div class="mapel-card">
-                        <div class="mapel-icon"><i class="fas fa-flag"></i></div>
-                        <h4>PKn</h4>
-                        <p>3 Jam/Minggu</p>
-                    </div>
-                    <div class="mapel-card">
-                        <div class="mapel-icon"><i class="fas fa-spell-check"></i></div>
-                        <h4>Bahasa Indonesia</h4>
-                        <p>4 Jam/Minggu</p>
-                    </div>
-                    <div class="mapel-card">
-                        <div class="mapel-icon"><i class="fas fa-globe"></i></div>
-                        <h4>Bahasa Inggris</h4>
-                        <p>3 Jam/Minggu</p>
-                    </div>
-                    <div class="mapel-card">
-                        <div class="mapel-icon"><i class="fas fa-calculator"></i></div>
-                        <h4>Matematika</h4>
-                        <p>4 Jam/Minggu</p>
-                    </div>
-                    <div class="mapel-card">
-                        <div class="mapel-icon"><i class="fas fa-flask"></i></div>
-                        <h4>IPA</h4>
-                        <p>4 Jam/Minggu</p>
-                    </div>
-                    <div class="mapel-card">
-                        <div class="mapel-icon"><i class="fas fa-map-marked-alt"></i></div>
-                        <h4>IPS</h4>
-                        <p>3 Jam/Minggu</p>
-                    </div>
-                    <div class="mapel-card">
-                        <div class="mapel-icon"><i class="fas fa-paint-brush"></i></div>
-                        <h4>Seni Budaya</h4>
-                        <p>2 Jam/Minggu</p>
-                    </div>
-                    <div class="mapel-card">
-                        <div class="mapel-icon"><i class="fas fa-running"></i></div>
-                        <h4>PJOK</h4>
-                        <p>3 Jam/Minggu</p>
+                    <!-- Kelompok B -->
+                    <h4 class="kelompok-title">Kelompok B (Umum)</h4>
+                    <div class="mata-pelajaran-grid">
+                        <div class="mapel-card">
+                            <div class="mapel-icon">
+                                <i class="fas fa-flag"></i>
+                            </div>
+                            <h5>PKn</h5>
+                            <p>3 Jam/Minggu</p>
+                        </div>
+                        <div class="mapel-card">
+                            <div class="mapel-icon">
+                                <i class="fas fa-spell-check"></i>
+                            </div>
+                            <h5>Bahasa Indonesia</h5>
+                            <p>4 Jam/Minggu</p>
+                        </div>
+                        <div class="mapel-card">
+                            <div class="mapel-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <h5>Bahasa Inggris</h5>
+                            <p>3 Jam/Minggu</p>
+                        </div>
+                        <div class="mapel-card">
+                            <div class="mapel-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <h5>Matematika</h5>
+                            <p>4 Jam/Minggu</p>
+                        </div>
+                        <div class="mapel-card">
+                            <div class="mapel-icon">
+                                <i class="fas fa-flask"></i>
+                            </div>
+                            <h5>IPA</h5>
+                            <p>4 Jam/Minggu</p>
+                        </div>
+                        <div class="mapel-card">
+                            <div class="mapel-icon">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </div>
+                            <h5>IPS</h5>
+                            <p>3 Jam/Minggu</p>
+                        </div>
+                        <div class="mapel-card">
+                            <div class="mapel-icon">
+                                <i class="fas fa-paint-brush"></i>
+                            </div>
+                            <h5>Seni Budaya</h5>
+                            <p>2 Jam/Minggu</p>
+                        </div>
+                        <div class="mapel-card">
+                            <div class="mapel-icon">
+                                <i class="fas fa-running"></i>
+                            </div>
+                            <h5>PJOK</h5>
+                            <p>3 Jam/Minggu</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Projek Penguatan Profil Pelajar Pancasila -->
             <div class="kurikulum-box">
-                <h3><i class="fas fa-project-diagram"></i> Projek Penguatan Profil Pelajar Pancasila</h3>
-                <p style="white-space: pre-line; font-size: 16px; line-height: 1.8;">{{ $kurikulum->projek_penguatan }}</p>
+                <div class="kurikulum-box-header">
+                    <i class="fas fa-project-diagram"></i>
+                    <h3>Projek Penguatan Profil Pelajar Pancasila</h3>
+                </div>
+                <div class="kurikulum-box-body">
+                    <p>{{ $kurikulum->projek_penguatan }}</p>
+                </div>
             </div>
         @else
-            <!-- Fallback jika belum ada data -->
-            <div class="no-data">
-                <i class="fas fa-info-circle" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
-                <h4>Data Kurikulum Belum Tersedia</h4>
+            <!-- No Data -->
+            <div class="no-data-container">
+                <i class="fas fa-info-circle"></i>
+                <h3>Data Kurikulum Belum Tersedia</h3>
                 <p>Sistem kurikulum akan segera diisi oleh administrator. Silakan kunjungi kembali nanti.</p>
             </div>
         @endif
     </div>
 </section>
 
-<script>
-    // Simple fade-in animation on scroll
-    const boxes = document.querySelectorAll('.kurikulum-box');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '0';
-                entry.target.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    entry.target.style.transition = 'all 0.6s';
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }, 100);
-            }
-        });
-    });
-    
-    boxes.forEach(box => observer.observe(box));
-</script>
+<script src="{{ asset('js/kurikulum.js') }}"></script>
+
 @endsection

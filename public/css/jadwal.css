@@ -1,0 +1,509 @@
+/* ==================== VARIABLES ==================== */
+:root {
+    --primary-color: #1a5f3a;
+    --primary-dark: #0f3d22;
+    --primary-light: #2d8659;
+    --secondary-color: #f39c12;
+    --secondary-light: #f5b041;
+    --text-dark: #2c3e50;
+    --text-light: #7f8c8d;
+    --border-color: #ecf0f1;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.15);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== HERO SECTION ==================== */
+.hero-jadwal {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 50%, var(--primary-light) 100%);
+    padding: clamp(60px, 10vw, 100px) 20px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-jadwal::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    animation: float 8s ease-in-out infinite;
+}
+
+.hero-jadwal::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -5%;
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    animation: float 10s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+    }
+    50% {
+        transform: translateY(-30px) translateX(20px);
+    }
+}
+
+.hero-jadwal-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+    animation: slideInUp 0.8s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-jadwal h1 {
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+}
+
+.hero-jadwal p {
+    font-size: clamp(14px, 2vw, 18px);
+    opacity: 0.95;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.breadcrumb-custom {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    border-radius: 25px;
+    display: inline-flex;
+    gap: 10px;
+    margin-top: 10px;
+    font-size: clamp(13px, 1.5vw, 15px);
+}
+
+.breadcrumb-custom a {
+    color: white;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.breadcrumb-custom a:hover {
+    opacity: 0.8;
+}
+
+.breadcrumb-custom span {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* ==================== CONTENT SECTION ==================== */
+.jadwal-content-section {
+    padding: clamp(60px, 10vw, 100px) 20px;
+    background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+/* ==================== FILTER TABS ==================== */
+.filter-tabs {
+    display: flex;
+    justify-content: center;
+    gap: clamp(12px, 2vw, 20px);
+    margin-bottom: clamp(40px, 6vw, 60px);
+    flex-wrap: wrap;
+    padding: 0 10px;
+}
+
+.filter-tab {
+    background: white;
+    border: 2px solid var(--border-color);
+    padding: clamp(10px, 2vw, 14px) clamp(20px, 3vw, 30px);
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: clamp(13px, 1.5vw, 15px);
+    color: var(--text-dark);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: var(--shadow-sm);
+}
+
+.filter-tab i {
+    font-size: clamp(14px, 1.8vw, 16px);
+}
+
+.filter-tab:hover {
+    background: var(--primary-light);
+    color: white;
+    border-color: var(--primary-light);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.filter-tab.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-md);
+}
+
+/* ==================== JADWAL CONTAINER ==================== */
+.jadwal-container {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    margin-bottom: clamp(30px, 5vw, 40px);
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==================== JADWAL HEADER ==================== */
+.jadwal-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    color: white;
+    padding: clamp(25px, 4vw, 35px);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.jadwal-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.15), transparent);
+}
+
+.jadwal-header i {
+    font-size: clamp(28px, 4vw, 36px);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    position: relative;
+    z-index: 1;
+}
+
+.jadwal-header h2 {
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 700;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* ==================== TABLE RESPONSIVE ==================== */
+.table-responsive {
+    overflow-x: auto;
+    padding: clamp(20px, 3vw, 30px);
+}
+
+.table-responsive::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+/* ==================== JADWAL TABLE ==================== */
+.jadwal-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+    background: white;
+}
+
+.jadwal-table thead {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+}
+
+.jadwal-table th {
+    padding: clamp(12px, 2vw, 16px);
+    text-align: center;
+    font-weight: 600;
+    font-size: clamp(13px, 1.5vw, 15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    white-space: nowrap;
+}
+
+.jadwal-table th i {
+    margin-right: 5px;
+}
+
+.jadwal-table tbody tr {
+    transition: var(--transition);
+}
+
+.jadwal-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.jadwal-table td {
+    padding: clamp(12px, 2vw, 16px);
+    border: 1px solid var(--border-color);
+    text-align: center;
+    font-size: clamp(12px, 1.5vw, 14px);
+    vertical-align: middle;
+}
+
+.time-cell {
+    background: #f8f9fa;
+    font-weight: 600;
+}
+
+.mapel-cell {
+    min-width: 120px;
+}
+
+/* ==================== BADGES ==================== */
+.waktu-badge {
+    display: inline-block;
+    background: var(--primary-color);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: clamp(11px, 1.3vw, 13px);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.mapel-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--secondary-color);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: clamp(11px, 1.3vw, 13px);
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.mapel-badge:hover {
+    background: var(--secondary-light);
+    transform: scale(1.05);
+}
+
+.istirahat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #ffc107;
+    color: #000;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: clamp(11px, 1.3vw, 13px);
+    font-weight: 600;
+}
+
+.empty-cell {
+    color: #ccc;
+    font-size: 18px;
+}
+
+/* ==================== KETERANGAN BOX ==================== */
+.keterangan-box {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    border-radius: 12px;
+    margin: clamp(20px, 3vw, 30px);
+    overflow: hidden;
+}
+
+.keterangan-header {
+    background: linear-gradient(135deg, #ffc107, #ff9800);
+    color: #000;
+    padding: clamp(15px, 2.5vw, 20px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.keterangan-header i {
+    font-size: clamp(20px, 3vw, 24px);
+}
+
+.keterangan-header h3 {
+    font-size: clamp(16px, 2vw, 20px);
+    font-weight: 700;
+    margin: 0;
+}
+
+.keterangan-body {
+    padding: clamp(15px, 2.5vw, 20px);
+}
+
+.keterangan-body p {
+    color: #856404;
+    font-size: clamp(13px, 1.5vw, 15px);
+    line-height: 1.6;
+    margin: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.keterangan-body i {
+    color: #ff9800;
+    margin-top: 3px;
+    font-size: clamp(16px, 2vw, 18px);
+}
+
+/* ==================== EMPTY JADWAL ==================== */
+.empty-jadwal {
+    text-align: center;
+    padding: clamp(60px, 10vw, 100px) 20px;
+}
+
+.empty-jadwal i {
+    font-size: clamp(48px, 8vw, 72px);
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.empty-jadwal h3 {
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+}
+
+.empty-jadwal p {
+    font-size: clamp(14px, 2vw, 16px);
+    color: var(--text-light);
+    line-height: 1.6;
+    margin: 5px 0;
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 1024px) {
+    .jadwal-table {
+        min-width: 700px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-jadwal {
+        min-height: auto;
+        padding: 50px 20px;
+    }
+
+    .filter-tabs {
+        gap: 10px;
+    }
+
+    .filter-tab {
+        padding: 10px 18px;
+        font-size: 13px;
+    }
+
+    .jadwal-table {
+        min-width: 600px;
+    }
+
+    .jadwal-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 25px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .jadwal-content-section {
+        padding: 40px 15px;
+    }
+
+    .filter-tabs {
+        gap: 8px;
+    }
+
+    .filter-tab {
+        padding: 8px 15px;
+        font-size: 12px;
+    }
+
+    .table-responsive {
+        padding: 15px;
+    }
+
+    .jadwal-table th,
+    .jadwal-table td {
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+
+    .mapel-badge,
+    .istirahat-badge,
+    .waktu-badge {
+        font-size: 10px;
+        padding: 4px 10px;
+    }
+}
+
+@media (max-width: 360px) {
+    .hero-jadwal h1 {
+        font-size: 22px;
+    }
+
+    .filter-tab {
+        padding: 6px 12px;
+    }
+}
+
+/* ==================== ANIMATIONS ==================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
