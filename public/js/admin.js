@@ -281,3 +281,42 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const alerts = document.querySelectorAll('#success-alert, #error-alert');
+        alerts.forEach(alert => {
+            setTimeout(() => {
+                alert.style.opacity = '0';
+                setTimeout(() => alert.style.display = 'none', 600);
+            }, 6000); // Hilang setelah 6 detik
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.delete-form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Yakin ingin menghapus?',
+                    text: 'Data ini akan hilang permanen!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#dc3545',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Iya, Hapus!',
+                    cancelButtonText: 'Tidak'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit(); // Lanjut hapus kalau klik Iya
+                    }
+                });
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const firstInvalid = document.querySelector('.is-invalid');
+        if (firstInvalid) {
+            firstInvalid.focus(); // Fokus ke kolom error pertama
+        }
+    });

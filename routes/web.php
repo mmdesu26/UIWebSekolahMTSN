@@ -102,7 +102,6 @@ Route::prefix('akademik')->name('akademik.')->group(function () {
 */
 Route::get('/admin/login', [AdminController::class, 'showLogin'])->name('admin.login');
 Route::post('/admin/login', [AdminController::class, 'loginSubmit'])->name('admin.login.submit');
-Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
 /*
 | REDIRECT DASHBOARD DEFAULT (UNTUK USER BIASA YANG LOGIN)
@@ -247,9 +246,13 @@ Route::post('/prestasi/delete/{id}', [AdminController::class, 'deletePrestasi'])
     /*
     | LOGOUT (DIRA - DIPINDAH KE DALAM GROUP BIAR TERPROTEKSI)
     */
-    Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
-});
-
+Route::post('/logout', function () {
+    Auth::logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    return redirect('/admin/login')->with('success', 'Berhasil logout.');
+})->name('logout');
+});   
 /*
 |--------------------------------------------------------------------------
 | FALLBACK 404

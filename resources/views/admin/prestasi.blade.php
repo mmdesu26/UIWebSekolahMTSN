@@ -11,13 +11,16 @@
             <i class="fas fa-plus-circle"></i> Tambah Prestasi Baru
         </div>
         <div class="card-body">
-            <form action="{{ route('admin.prestasi.add') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.prestasi.add') }}" method="POST" enctype="multipart/form-data" novalidate>
                 @csrf
                 <div class="row g-3">
                     <div class="col-12">
-                        <label class="form-label">Nama Prestasi <span class="text-danger">*</span></label>
-                        <input type="text" name="nama_prestasi" class="form-control" placeholder="Contoh: Juara 1 KSM Kabupaten Magetan" required>
-                    </div>
+    <label class="form-label">Nama Prestasi <span class="text-danger">*</span></label>
+    <input type="text" name="nama_prestasi" class="form-control @error('nama_prestasi') is-invalid @enderror" value="{{ old('nama_prestasi') }}" placeholder="..." required>
+    @error('nama_prestasi')
+        <small class="text-danger">{{ $message }}</small>
+    @enderror
+</div>
                     <div class="col-12">
                         <label class="form-label">Gambar Bukti (opsional)</label>
                         <input type="file" name="gambar" class="form-control" accept="image/*">
@@ -71,12 +74,12 @@
                                     <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit{{ $item->id }}">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <form action="{{ route('admin.prestasi.delete', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus?')">
-                                        @csrf
-                                        <button type="submit" class="btn btn-sm btn-danger">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
+                                    <form action="{{ route('admin.prestasi.delete', $item->id) }}" method="POST" class="d-inline delete-form">
+    @csrf
+    <button type="submit" class="btn btn-sm btn-danger">
+        <i class="fas fa-trash"></i>
+    </button>
+</form>
                                 </td>
                             </tr>
 
@@ -84,7 +87,7 @@
                             <div class="modal fade" id="edit{{ $item->id }}">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
-                                        <form action="{{ route('admin.prestasi.update', $item->id) }}" method="POST" enctype="multipart/form-data">
+                                        <form action="{{ route('admin.prestasi.update', $item->id) }}" method="POST" enctype="multipart/form-data" novalidate>
                                             @csrf
                                             <div class="modal-header bg-primary text-white">
                                                 <h5 class="modal-title">Edit Prestasi</h5>
@@ -93,8 +96,11 @@
                                             <div class="modal-body">
                                                 <div class="mb-3">
                                                     <label>Nama Prestasi</label>
-                                                    <input type="text" name="nama_prestasi" class="form-control" value="{{ $item->nama_prestasi }}" required>
-                                                </div>
+                                                    <input type="text" name="nama_prestasi" class="form-control @error('nama_prestasi') is-invalid @enderror" value="{{ old('nama_prestasi') }}" placeholder="..." required>
+    @error('nama_prestasi')
+        <small class="text-danger">{{ $message }}</small>
+    @enderror  
+</div>
                                                 <div class="mb-3">
                                                     <label>Gambar Bukti (kosongkan jika tidak ganti)</label>
                                                     <input type="file" name="gambar" class="form-control" accept="image/*">

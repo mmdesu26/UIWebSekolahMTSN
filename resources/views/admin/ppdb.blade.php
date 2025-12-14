@@ -10,20 +10,7 @@
     <div class="row">
         <div class="col-lg-8 offset-lg-2">
 
-            <!-- Success Message -->
-            @if(session('success'))
-            <div class="alert alert-success" role="alert">
-                <i class="fas fa-check-circle"></i>
-                <div class="alert-content">
-                    <strong>Berhasil!</strong> Pengaturan PPDB telah diperbarui.
-                </div>
-                <span class="alert-close" onclick="this.parentElement.style.display='none';">
-                    <i class="fas fa-times"></i>
-                </span>
-            </div>
-            @endif
-
-            <!-- Status Info (Tambah ini untuk admin tahu status otomatis) -->
+            <!-- Status Info -->
             <div class="alert alert-info" role="alert">
                 <i class="fas fa-info-circle"></i>
                 <div class="alert-content">
@@ -46,7 +33,7 @@
                 </div>
 
                 <div class="ppdb-card-body">
-                    <form class="ppdb-form" action="{{ route('admin.ppdb.update') }}" method="POST">
+                    <form class="ppdb-form" action="{{ route('admin.ppdb.update') }}" method="POST" novalidate>
                         @csrf
                         @method('POST')
 
@@ -56,30 +43,50 @@
                                 <i class="fas fa-heading"></i>
                                 <span>Judul PPDB</span>
                             </label>
-                            <input type="text" class="form-control" name="judul" value="{{ old('judul', $ppdb->judul ?? 'Penerimaan Siswa Baru Gelombang Pertama') }}" placeholder="Masukkan judul PPDB..." required>
-                            @error('judul') <small class="text-danger">{{ $message }}</small> @enderror
-                            <small class="form-text">📝 Judul utama untuk program penerimaan peserta didik baru</small>
+                            <input type="text" 
+                                   name="judul" 
+                                   class="form-control @error('judul') is-invalid @enderror" 
+                                   value="{{ old('judul', $ppdb->judul ?? 'Penerimaan Siswa Baru Gelombang Pertama') }}" 
+                                   placeholder="Masukkan judul PPDB..." 
+                                   required>
+                            @error('judul')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                            <small class="form-text">Judul utama untuk program penerimaan peserta didik baru</small>
                         </div>
 
-                        <!-- Tanggal Dibuka & Ditutup -->
+                        <!-- Tanggal Dibuka -->
                         <div class="form-group">
                             <label class="form-label">
                                 <i class="fas fa-calendar-check"></i>
                                 <span>Tanggal Dibuka</span>
                             </label>
-                            <input type="date" class="form-control dibuka-input" name="dibuka" value="{{ old('dibuka', $ppdb->dibuka ?? '2026-02-03') }}" required>
-                            @error('dibuka') <small class="text-danger">{{ $message }}</small> @enderror
-                            <small class="form-text">📅 Tanggal pembukaan pendaftaran</small>
+                            <input type="date" 
+                                   name="dibuka" 
+                                   class="form-control dibuka-input @error('dibuka') is-invalid @enderror" 
+                                   value="{{ old('dibuka', $ppdb->dibuka ?? '') }}" 
+                                   required>
+                            @error('dibuka')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                            <small class="form-text">Tanggal pembukaan pendaftaran</small>
                         </div>
-                        
+
+                        <!-- Tanggal Ditutup -->
                         <div class="form-group">
                             <label class="form-label">
                                 <i class="fas fa-calendar-times"></i>
                                 <span>Tanggal Ditutup</span>
                             </label>
-                            <input type="date" class="form-control ditutup-input" name="ditutup" value="{{ old('ditutup', $ppdb->ditutup ?? '2026-06-26') }}" required>
-                            @error('ditutup') <small class="text-danger">{{ $message }}</small> @enderror
-                            <small class="form-text">📅 Tanggal penutupan pendaftaran</small>
+                            <input type="date" 
+                                   name="ditutup" 
+                                   class="form-control ditutup-input @error('ditutup') is-invalid @enderror" 
+                                   value="{{ old('ditutup', $ppdb->ditutup ?? '') }}" 
+                                   required>
+                            @error('ditutup')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                            <small class="form-text">Tanggal penutupan pendaftaran</small>
                         </div>
 
                         <!-- Kuota -->
@@ -88,9 +95,17 @@
                                 <i class="fas fa-users"></i>
                                 <span>Kuota Siswa</span>
                             </label>
-                            <input type="number" class="form-control" name="kuota" value="{{ old('kuota', $ppdb->kuota ?? '300') }}" min="1" placeholder="Masukkan jumlah kuota..." required>
-                            @error('kuota') <small class="text-danger">{{ $message }}</small> @enderror
-                            <small class="form-text">👥 Total jumlah siswa yang akan diterima</small>
+                            <input type="number" 
+                                   name="kuota" 
+                                   class="form-control @error('kuota') is-invalid @enderror" 
+                                   value="{{ old('kuota', $ppdb->kuota ?? '300') }}" 
+                                   min="1" 
+                                   placeholder="Masukkan jumlah kuota..." 
+                                   required>
+                            @error('kuota')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                            <small class="form-text">Total jumlah siswa yang akan diterima</small>
                         </div>
 
                         <div class="form-divider"></div>
@@ -101,9 +116,15 @@
                                 <i class="fas fa-list-ul"></i>
                                 <span>Persyaratan</span>
                             </label>
-                            <textarea class="form-control persyaratan-textarea" name="persyaratan" placeholder="Tuliskan persyaratan pendaftaran..." required>{{ old('persyaratan', $ppdb->persyaratan ?? "Foto copy Akte (1 Lembar)\nFoto copy KK (1 Lembar)\nFoto copy KIP/KKS/PKH/SKTM (jika ada)\nPas Foto 3x4 (2 Lembar)\nMengisi Formulir Pendaftaran\nNorek Bank (jika ada)") }}</textarea>
-                            @error('persyaratan') <small class="text-danger">{{ $message }}</small> @enderror
-                            <small class="form-text">📋 Persyaratan akan ditampilkan sebagai daftar terpisah pada halaman PPDB</small>
+                            <textarea name="persyaratan" 
+                                      class="form-control persyaratan-textarea @error('persyaratan') is-invalid @enderror" 
+                                      placeholder="Tuliskan persyaratan pendaftaran..." 
+                                      rows="6" 
+                                      required>{{ old('persyaratan', $ppdb->persyaratan ?? "Foto copy Akte (1 Lembar)\nFoto copy KK (1 Lembar)\nFoto copy KIP/KKS/PKH/SKTM (jika ada)\nPas Foto 3x4 (2 Lembar)\nMengisi Formulir Pendaftaran\nNorek Bank (jika ada)") }}</textarea>
+                            @error('persyaratan')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                            <small class="form-text">Persyaratan akan ditampilkan sebagai daftar terpisah pada halaman PPDB</small>
                         </div>
 
                         <!-- Konten Deskripsi -->
@@ -112,44 +133,97 @@
                                 <i class="fas fa-file-alt"></i>
                                 <span>Konten Deskripsi PPDB</span>
                             </label>
-                            <textarea class="form-control konten-textarea" name="konten" placeholder="Tuliskan deskripsi lengkap tentang program PPDB..." required>{{ old('konten', $ppdb->konten ?? "Ayo Bergabung Bersama Kami! Media Sosial: Instagram @humasmtsn1magetan, Facebook MTs Negeri 1 Magetan. Lokasi: MTsN 1 Magetan, Desa Baluk, Kec. Karangrejo, Kab. Magetan. Syarat Pendaftaran: Foto copy Akte (1 Lembar), dll. Ekstrakurikuler: Pramuka, PMR, Banjari, Drumband, Volly, Futsal, Karate, Taekwondo, Seni Musik, Seni Tari. Pendaftaran Online: https://forms.gle/MP5nhGic4Zxga8n8. Hubungi: Ibu Emy Lathifah 0856 4618 0815") }}</textarea>
-                            @error('konten') <small class="text-danger">{{ $message }}</small> @enderror
-                            <small class="form-text">📝 Deskripsi akan ditampilkan di halaman utama PPDB</small>
+                            <textarea name="konten" 
+                                      class="form-control konten-textarea @error('konten') is-invalid @enderror" 
+                                      placeholder="Tuliskan deskripsi lengkap tentang program PPDB..." 
+                                      rows="8" 
+                                      required>{{ old('konten', $ppdb->konten ?? "Ayo Bergabung Bersama Kami! Media Sosial: Instagram @humasmtsn1magetan, Facebook MTs Negeri 1 Magetan. Lokasi: MTsN 1 Magetan, Desa Baluk, Kec. Karangrejo, Kab. Magetan. Syarat Pendaftaran: Foto copy Akte (1 Lembar), dll. Ekstrakurikuler: Pramuka, PMR, Banjari, Drumband, Volly, Futsal, Karate, Taekwondo, Seni Musik, Seni Tari. Pendaftaran Online: https://forms.gle/MP5nhGic4Zxga8n8. Hubungi: Ibu Emy Lathifah 0856 4618 0815") }}</textarea>
+                            @error('konten')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                            <small class="form-text">Deskripsi akan ditampilkan di halaman utama PPDB</small>
                         </div>
 
-                        <!-- Jadwal Pendaftaran -->
-<div class="form-group">
-    <label class="form-label">
-        <i class="fas fa-calendar-check"></i>
-        <span>Jadwal Pendaftaran (Timeline)</span>
-    </label>
-    <div id="timeline-items">
-        @php
-            $timelineItems = old('timeline', json_decode($ppdb->timeline ?? '[]', true));
-        @endphp
-        @foreach($timelineItems as $index => $item)
-            <div class="timeline-item-input mb-3 p-3 border rounded">
-                <div class="form-group">
-                    <label>Tanggal</label>
-                    <input type="text" class="form-control" name="timeline[{{ $index }}][date]" value="{{ $item['date'] ?? '' }}" placeholder="Contoh: Gelombang Pertama atau 10 Mei 2025" required>
-                </div>
-                <div class="form-group">
-                    <label>Judul</label>
-                    <input type="text" class="form-control" name="timeline[{{ $index }}][title]" value="{{ $item['title'] ?? '' }}" placeholder="Contoh: Pendaftaran Online" required>
-                </div>
-                <div class="form-group">
-                    <label>Deskripsi</label>
-                    <textarea class="form-control" name="timeline[{{ $index }}][description]" placeholder="Deskripsi singkat" required>{{ $item['description'] ?? '' }}</textarea>
-                </div>
-                <button type="button" class="btn btn-danger btn-sm remove-timeline-item">Hapus</button>
-            </div>
-        @endforeach
-    </div>
-    <button type="button" id="add-timeline-item" class="btn btn-secondary mt-2">
-        <i class="fas fa-plus"></i> Tambah Jadwal
-    </button>
-    <small class="form-text">📅 Tambahkan jadwal seperti gelombang, tes, atau pengumuman.</small>
-</div>
+                        <!-- Timeline (Jadwal) -->
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-calendar-check"></i>
+                                <span>Jadwal Pendaftaran (Timeline)</span>
+                            </label>
+                            <div id="timeline-items">
+                                @php
+                                    $timelineItems = old('timeline', json_decode($ppdb->timeline ?? '[]', true));
+                                    $timelineItems = is_array($timelineItems) ? $timelineItems : [];
+                                @endphp
+
+                                @if(empty($timelineItems))
+                                    <div class="timeline-item-input mb-3 p-3 border rounded">
+                                        <div class="form-group">
+                                            <label>Tanggal</label>
+                                            <input type="text" class="form-control @error('timeline.0.date') is-invalid @enderror" name="timeline[0][date]" placeholder="Contoh: Gelombang Pertama atau 10 Mei 2025" required>
+                                            @error('timeline.0.date') <small class="text-danger">{{ $message }}</small> @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Judul</label>
+                                            <input type="text" class="form-control @error('timeline.0.title') is-invalid @enderror" name="timeline[0][title]" placeholder="Contoh: Pendaftaran Online" required>
+                                            @error('timeline.0.title') <small class="text-danger">{{ $message }}</small> @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Deskripsi</label>
+                                            <textarea class="form-control @error('timeline.0.description') is-invalid @enderror" name="timeline[0][description]" placeholder="Deskripsi singkat" required></textarea>
+                                            @error('timeline.0.description') <small class="text-danger">{{ $message }}</small> @enderror
+                                        </div>
+                                        <button type="button" class="btn btn-danger btn-sm remove-timeline-item">Hapus</button>
+                                    </div>
+                                @else
+                                    @foreach($timelineItems as $index => $item)
+                                        <div class="timeline-item-input mb-3 p-3 border rounded">
+                                            <div class="form-group">
+                                                <label>Tanggal</label>
+                                                <input type="text" 
+                                                       class="form-control @error("timeline.{$index}.date") is-invalid @enderror" 
+                                                       name="timeline[{{ $index }}][date]" 
+                                                       value="{{ $item['date'] ?? '' }}" 
+                                                       placeholder="Contoh: Gelombang Pertama atau 10 Mei 2025" 
+                                                       required>
+                                                @error("timeline.{$index}.date")
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Judul</label>
+                                                <input type="text" 
+                                                       class="form-control @error("timeline.{$index}.title") is-invalid @enderror" 
+                                                       name="timeline[{{ $index }}][title]" 
+                                                       value="{{ $item['title'] ?? '' }}" 
+                                                       placeholder="Contoh: Pendaftaran Online" 
+                                                       required>
+                                                @error("timeline.{$index}.title")
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Deskripsi</label>
+                                                <textarea class="form-control @error("timeline.{$index}.description") is-invalid @enderror" 
+                                                          name="timeline[{{ $index }}][description]" 
+                                                          placeholder="Deskripsi singkat" 
+                                                          required>{{ $item['description'] ?? '' }}</textarea>
+                                                @error("timeline.{$index}.description")
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <button type="button" class="btn btn-danger btn-sm remove-timeline-item">Hapus</button>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+
+                            <button type="button" id="add-timeline-item" class="btn btn-secondary mt-2">
+                                <i class="fas fa-plus"></i> Tambah Jadwal
+                            </button>
+                            <small class="form-text">Tambahkan jadwal seperti gelombang, tes, atau pengumuman.</small>
+                        </div>
+
                         <!-- Submit Button -->
                         <button type="submit" class="btn btn-primary">
                             <div class="btn-content">
@@ -160,25 +234,12 @@
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 
-@if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
-@if (session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
-
-<!-- Link to the external CSS file -->
+<!-- CSS & JS -->
 <link rel="stylesheet" href="{{ asset('css/admin-ppdb.css') }}">
-<!-- Link to the external JavaScript file -->
 <script src="{{ asset('js/admin-ppdb.js') }}"></script>
 
 @endsection

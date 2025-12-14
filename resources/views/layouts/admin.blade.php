@@ -17,6 +17,7 @@
     <!-- Bootstrap & Font Awesome -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
@@ -24,7 +25,30 @@
     @yield('css')
 </head>
 <body>
+<!-- Global Alerts -->
+@if(session('success'))
+<div class="alert alert-success" role="alert" id="success-alert">
+    <i class="fas fa-check-circle"></i>
+    <div class="alert-content">
+        <strong>Berhasil!</strong> {{ session('success') }}
+    </div>
+    <span class="alert-close" onclick="document.getElementById('success-alert').style.display='none';">
+        <i class="fas fa-times"></i>
+    </span>
+</div>
+@endif
 
+@if(session('error'))
+<div class="alert alert-danger" role="alert" id="error-alert">
+    <i class="fas fa-exclamation-triangle"></i>
+    <div class="alert-content">
+        <strong>Gagal!</strong> {{ session('error') }}
+    </div>
+    <span class="alert-close" onclick="document.getElementById('error-alert').style.display='none';">
+        <i class="fas fa-times"></i>
+    </span>
+</div>
+@endif
 <div class="layout-wrapper">
 
     <!-- SIDEBAR -->
@@ -88,10 +112,12 @@
                     </a>
                 </div>
             </div>
-            <a href="{{ route('admin.logout') }}" data-logout="true"
-               onclick="return confirm('Apakah Anda yakin ingin logout?')">
-                <i class="fas fa-sign-out-alt"></i><span>Logout</span>
-            </a>
+            <form action="{{ route('admin.logout') }}" method="POST" class="d-inline">
+    @csrf
+    <button type="submit" class="btn btn-link text-white p-0 border-0 bg-transparent logout-confirm" style="cursor:pointer;">
+        <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+    </button>
+</form>
         </nav>
     </aside>
 
@@ -110,7 +136,34 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('js/admin.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Konfirmasi Logout
+        document.querySelectorAll('.logout-confirm').forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault(); // Cegah langsung submit
+
+                Swal.fire({
+                    title: 'Yakin ingin logout?',
+                    text: 'Anda akan keluar dari panel admin.',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#28a745',
+                    cancelButtonColor: '#dc3545',
+                    confirmButtonText: 'Ya, Logout!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Kalau ya, baru submit form
+                        button.closest('form').submit();
+                    }
+                });
+            });
+        });
+    });
+</script>
 @yield('js')
 </body>
 </html>

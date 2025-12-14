@@ -8,94 +8,107 @@
     <div class="row justify-content-center">
         <div class="col-lg-10">
 
-            {{-- Success Message --}}
-            @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <i class="fas fa-check-circle me-2"></i>
-                    <strong>Berhasil!</strong> {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            @endif
-
             {{-- Form Tambah Berita Baru --}}
             <div class="card shadow-sm mb-4 border-0">
                 <div class="card-header bg-primary text-white">
                     <h5 class="mb-0"><i class="fas fa-plus-circle me-2"></i>Tambah Berita / Pengumuman Baru</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.berita.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.berita.store') }}" method="POST" enctype="multipart/form-data" novalidate>
                         @csrf
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="mb-3">
-                                    <label class="form-label fw-bold">Judul Berita</label>
-                                    <input type="text" name="judul" class="form-control @error('judul') is-invalid @enderror"
-                                           value="{{ old('judul') }}" placeholder="Masukkan judul..." required>
-                                    @error('judul') <div class="text-danger small">{{ $message }}</div> @enderror
+                                    <label class="form-label fw-bold">Judul Berita <span class="text-danger">*</span></label>
+                                    <input type="text" 
+                                           name="judul" 
+                                           class="form-control @error('judul') is-invalid @enderror"
+                                           value="{{ old('judul') }}" 
+                                           placeholder="Masukkan judul..." 
+                                           required>
+                                    @error('judul')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label class="form-label fw-bold">Tipe</label>
+                                    <label class="form-label fw-bold">Tipe <span class="text-danger">*</span></label>
                                     <select name="tipe" class="form-select @error('tipe') is-invalid @enderror" required>
                                         <option value="">-- Pilih Tipe --</option>
                                         <option value="berita" {{ old('tipe') == 'berita' ? 'selected' : '' }}>Berita</option>
                                         <option value="pengumuman" {{ old('tipe') == 'pengumuman' ? 'selected' : '' }}>Pengumuman</option>
+                                        <option value="kegiatan" {{ old('tipe') == 'kegiatan' ? 'selected' : '' }}>Kegiatan</option>
                                     </select>
-                                    @error('tipe') <div class="text-danger small">{{ $message }}</div> @enderror
+                                    @error('tipe')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
 
                         <div class="mb-3">
-    <label class="form-label fw-bold">Gambar Berita</label>
-    <input type="file" name="image_file" class="form-control mb-2" accept="image/*" id="imageInput">
+                            <label class="form-label fw-bold">Gambar Berita</label>
+                            <input type="file" name="image_file" class="form-control mb-2" accept="image/*" id="imageInput">
 
-    <input type="url" name="image_url" class="form-control" placeholder="Atau masukkan URL gambar (panjang bebas)" 
-           value="{{ old('image_url', $item->image ?? '') }}">
+                            <input type="url" 
+                                   name="image_url" 
+                                   class="form-control @error('image_url') is-invalid @enderror" 
+                                   placeholder="Atau masukkan URL gambar (opsional)" 
+                                   value="{{ old('image_url') }}">
+                            @error('image_url')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
 
-    <!-- Preview untuk upload file -->
-    <div class="mt-3" id="imagePreview" style="display: none;">
-        <p class="small text-muted mb-1">Pratinjau upload:</p>
-        <img id="previewImg" src="" class="img-fluid rounded shadow-sm" style="max-height: 200px;">
-    </div>
-
-    <!-- Gambar saat ini kalau edit -->
-    @if(isset($item) && $item->image)
-        <div class="mt-3">
-            <p class="small text-muted mb-1">Gambar saat ini:</p>
-            <img src="{{ $item->image }}" class="img-thumbnail" style="max-height: 120px;">
-        </div>
-    @endif
-</div>
+                            <!-- Preview untuk upload file -->
+                            <div class="mt-3" id="imagePreview" style="display: none;">
+                                <p class="small text-muted mb-1">Pratinjau upload:</p>
+                                <img id="previewImg" src="" class="img-fluid rounded shadow-sm" style="max-height: 200px;">
+                            </div>
+                        </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Tanggal Berita</label>
-                                    <input type="date" name="news_date" class="form-control" value="{{ old('news_date', now()->format('Y-m-d')) }}">
+                                    <input type="date" 
+                                           name="news_date" 
+                                           class="form-control" 
+                                           value="{{ old('news_date', now()->format('Y-m-d')) }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Sumber (opsional)</label>
-                                    <input type="text" name="source" class="form-control" value="{{ old('source') }}"
+                                    <input type="text" 
+                                           name="source" 
+                                           class="form-control" 
+                                           value="{{ old('source') }}"
                                            placeholder="Contoh: Kompas.com, Website Resmi, dll">
                                 </div>
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Konten Berita</label>
-                            <textarea name="konten" class="form-control @error('konten') is-invalid @enderror" rows="8"
-                                      placeholder="Tuliskan isi berita secara lengkap..." required>{{ old('konten') }}</textarea>
-                            @error('konten') <div class="text-danger small">{{ $message }}</div> @enderror
+                            <label class="form-label fw-bold">Konten Berita <span class="text-danger">*</span></label>
+                            <textarea name="konten" 
+                                      class="form-control @error('konten') is-invalid @enderror" 
+                                      rows="8"
+                                      placeholder="Tuliskan isi berita secara lengkap..." 
+                                      required>{{ old('konten') }}</textarea>
+                            @error('konten')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="is_published" value="1"
-                                       {{ old('is_published', true) ? 'checked' : '' }} id="publish">
+                                <input class="form-check-input" 
+                                       type="checkbox" 
+                                       name="is_published" 
+                                       value="1"
+                                       {{ old('is_published', 1) ? 'checked' : '' }} 
+                                       id="publish">
                                 <label class="form-check-label fw-bold text-success" for="publish">
                                     Tampilkan di website (Publish)
                                 </label>
@@ -168,8 +181,8 @@
                                                 </button>
 
                                                 <form action="{{ route('admin.berita.destroy', $item->id) }}"
-                                                      method="POST" class="d-inline"
-                                                      onsubmit="return confirm('Yakin ingin menghapus berita ini?')">
+                                                      method="POST" 
+                                                      class="d-inline delete-form">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-danger">
@@ -179,8 +192,126 @@
                                             </td>
                                         </tr>
 
-                                        {{-- Modal Edit --}}
-                                        @include('admin.modal-edit-berita', ['item' => $item])
+                                        {{-- Modal Edit Berita --}}
+                                        <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <form action="{{ route('admin.berita.update', $item->id) }}" 
+                                                          method="POST" 
+                                                          enctype="multipart/form-data" 
+                                                          novalidate>
+                                                        @csrf
+                                                        @method('PUT')
+
+                                                        <div class="modal-header bg-primary text-white">
+                                                            <h5 class="modal-title">Edit Berita: {{ Str::limit($item->title, 30) }}</h5>
+                                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <!-- Isi sama seperti form tambah, tapi dengan old + data item -->
+                                                            <div class="row">
+                                                                <div class="col-md-8">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label fw-bold">Judul Berita <span class="text-danger">*</span></label>
+                                                                        <input type="text" 
+                                                                               name="judul" 
+                                                                               class="form-control @error('judul') is-invalid @enderror"
+                                                                               value="{{ old('judul', $item->title) }}" 
+                                                                               required>
+                                                                        @error('judul')
+                                                                            <small class="text-danger">{{ $message }}</small>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label fw-bold">Tipe <span class="text-danger">*</span></label>
+                                                                        <select name="tipe" class="form-select @error('tipe') is-invalid @enderror" required>
+                                                                            <option value="berita" {{ old('tipe', $item->tipe) == 'berita' ? 'selected' : '' }}>Berita</option>
+                                                                            <option value="pengumuman" {{ old('tipe', $item->tipe) == 'pengumuman' ? 'selected' : '' }}>Pengumuman</option>
+                                                                            <option value="kegiatan" {{ old('tipe', $item->tipe) == 'kegiatan' ? 'selected' : '' }}>Kegiatan</option>
+                                                                        </select>
+                                                                        @error('tipe')
+                                                                            <small class="text-danger">{{ $message }}</small>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <label class="form-label fw-bold">Gambar Berita</label>
+                                                                <input type="file" name="image_file" class="form-control mb-2" accept="image/*">
+
+                                                                <input type="url" 
+                                                                       name="image_url" 
+                                                                       class="form-control @error('image_url') is-invalid @enderror" 
+                                                                       placeholder="Atau ganti dengan URL gambar" 
+                                                                       value="{{ old('image_url') }}">
+                                                                @error('image_url')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+
+                                                                @if($item->image)
+                                                                    <div class="mt-3">
+                                                                        <p class="small text-muted mb-1">Gambar saat ini:</p>
+                                                                        <img src="{{ $item->image }}" class="img-thumbnail" style="max-height: 150px;">
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Tanggal Berita</label>
+                                                                        <input type="date" 
+                                                                               name="news_date" 
+                                                                               class="form-control" 
+                                                                               value="{{ old('news_date', $item->news_date?->format('Y-m-d')) }}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Sumber</label>
+                                                                        <input type="text" 
+                                                                               name="source" 
+                                                                               class="form-control" 
+                                                                               value="{{ old('source', $item->source) }}">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <label class="form-label fw-bold">Konten Berita <span class="text-danger">*</span></label>
+                                                                <textarea name="konten" 
+                                                                          class="form-control @error('konten') is-invalid @enderror" 
+                                                                          rows="8" 
+                                                                          required>{{ old('konten', $item->content) }}</textarea>
+                                                                @error('konten')
+                                                                    <small class="text-danger">{{ $message }}</small>
+                                                                @enderror
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" 
+                                                                           type="checkbox" 
+                                                                           name="is_published" 
+                                                                           value="1"
+                                                                           {{ old('is_published', $item->is_published) ? 'checked' : '' }}>
+                                                                    <label class="form-check-label fw-bold text-success">
+                                                                        Tampilkan di website (Publish)
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                            <button type="submit" class="btn btn-primary">Update Berita</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endforeach
                                 </tbody>
                             </table>
