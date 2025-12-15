@@ -869,3 +869,63 @@
         opacity: 1 !important;
     }
 }
+
+/* ==================== PRESTASI LIST STYLING ==================== */
+.prestasi-list {
+    font-size: clamp(12px, 1.5vw, 14px);
+    color: var(--text-light);
+    line-height: 1.8;
+    margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Styling untuk setiap baris prestasi */
+.prestasi-list br + * {
+    display: block;
+    margin-top: 8px;
+}
+
+/* Optional: Tambahkan bullet point otomatis jika mau */
+.prestasi-list-bullets {
+    font-size: clamp(12px, 1.5vw, 14px);
+    color: var(--text-light);
+    line-height: 1.8;
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+.prestasi-list-bullets li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 8px;
+}
+
+.prestasi-list-bullets li::before {
+    content: '🏆';
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 14px;
+}
+
+/* Alternative dengan icon FontAwesome */
+.prestasi-list-bullets.fa-style li::before {
+    content: '\f091'; /* fa-trophy */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: var(--secondary-color);
+}
+
+/* Tambahkan padding pada prestasi info item agar tidak terlalu rapat */
+.ekstra-info-item .prestasi-list {
+    padding-top: 4px;
+}
+
+/* Styling untuk text muted (jika belum ada prestasi) */
+.ekstra-info-item .text-muted {
+    font-size: clamp(12px, 1.5vw, 14px);
+    font-style: italic;
+    opacity: 0.7;
+}
