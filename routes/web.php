@@ -53,19 +53,9 @@ Route::prefix('profil-sekolah')->group(function () {
     Route::get('/visi-misi', [UserVisiMisiController::class, 'index'])->name('profil.visi-misi');
     Route::get('/struktur', [UserStrukturController::class, 'index'])->name('profil.struktur-organisasi');
     Route::get('/guru', fn() => redirect()->route('profil.struktur-organisasi'))->name('profil.guru');
-
-    // OLD (masih dibiarkan agar tidak merusak fitur lain)
-    Route::get('/fasilitas', fn() => view('user.profil.fasilitas_sekolah'))->name('profil.fasilitas');
-<<<<<<< HEAD
+    Route::get('/fasilitas', [UserFasilitasController::class, 'index'])->name('profil.fasilitas');
     Route::get('/akreditasi', [FrontendUserController::class, 'akreditasi'])
      ->name('profil.akreditasi');
-=======
-
-    // NEW – REPLACE ROUTE FASILITAS DENGAN CONTROLLER
-    Route::get('/fasilitas', [UserFasilitasController::class, 'index'])->name('profil.fasilitas'); // NEW
-
-    Route::get('/akreditasi', fn() => view('user.profil.akreditasi'))->name('profil.akreditasi');
->>>>>>> 8fcd95139ce45fd6e79a029fe14468c9b2340e84
 });
 
 /*
@@ -139,7 +129,6 @@ Route::prefix('admin')->middleware('adminauth')->name('admin.')->group(function 
     Route::get('/ekstrakurikuler/edit/{id}', [AdminController::class, 'editEkstra'])->name('ekstra.edit');
     Route::put('/ekstrakurikuler/update/{id}', [AdminController::class, 'updateEkstra'])->name('ekstra.update');
     Route::post('/ekstrakurikuler/delete/{id}', [AdminController::class, 'deleteEkstra'])->name('ekstra.delete');
-<<<<<<< HEAD
           
     /*
     | MANAJEMEN PRESTASI (DIRA)
@@ -154,17 +143,6 @@ Route::get('/prestasi', [AdminController::class, 'managePrestasi'])->name('prest
     /*
     | SETTINGS (DIRA)
     */
-=======
-
-    // PRESTASI
-    Route::get('/prestasi', [AdminController::class, 'managePrestasi'])->name('prestasi');
-    Route::post('/prestasi/add', [AdminController::class, 'addPrestasi'])->name('prestasi.add');
-    Route::get('/prestasi/edit/{id}', [AdminController::class, 'editPrestasi'])->name('prestasi.edit');
-    Route::put('/prestasi/update/{id}', [AdminController::class, 'updatePrestasi'])->name('prestasi.update');
-    Route::post('/prestasi/delete/{id}', [AdminController::class, 'deletePrestasi'])->name('prestasi.delete');
-
-    // SETTINGS
->>>>>>> 8fcd95139ce45fd6e79a029fe14468c9b2340e84
     Route::get('/settings', [AdminController::class, 'manageSettings'])->name('settings');
     Route::post('/settings/update', [AdminController::class, 'updateSettings'])->name('settings.update');
 
