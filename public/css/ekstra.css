@@ -175,168 +175,323 @@
         margin-top: 30px;
     }
 
-    /* ==================== EKSTRAKURIKULER GRID ==================== */
+    /* ==================== EKSTRAKURIKULER GRID - IMPROVED ==================== */
+.ekstrakurikuler-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    gap: clamp(24px, 3vw, 32px);
+    margin-bottom: clamp(40px, 8vw, 60px);
+    align-items: stretch;
+}
+
+/* ==================== EKSTRAKURIKULER CARD - ENHANCED ==================== */
+.ekstra-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    animation: fadeInUp 0.6s ease-out backwards;
+}
+
+.ekstra-card:nth-child(1) { animation-delay: 0.1s; }
+.ekstra-card:nth-child(2) { animation-delay: 0.15s; }
+.ekstra-card:nth-child(3) { animation-delay: 0.2s; }
+.ekstra-card:nth-child(4) { animation-delay: 0.25s; }
+.ekstra-card:nth-child(5) { animation-delay: 0.3s; }
+.ekstra-card:nth-child(6) { animation-delay: 0.35s; }
+.ekstra-card:nth-child(7) { animation-delay: 0.4s; }
+.ekstra-card:nth-child(8) { animation-delay: 0.45s; }
+.ekstra-card:nth-child(9) { animation-delay: 0.5s; }
+.ekstra-card:nth-child(10) { animation-delay: 0.55s; }
+.ekstra-card:nth-child(11) { animation-delay: 0.6s; }
+.ekstra-card:nth-child(12) { animation-delay: 0.65s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.ekstra-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 16px 40px rgba(26, 95, 58, 0.15);
+    border-color: var(--primary-light);
+}
+
+.ekstra-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--primary-color));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.ekstra-card:hover::before {
+    opacity: 1;
+}
+
+/* ==================== EKSTRA CARD HEADER - FIXED HEIGHT ==================== */
+.ekstra-card-header {
+    padding: clamp(30px, 5vw, 40px) clamp(20px, 4vw, 30px);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
+    max-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    color: white;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+}
+
+.ekstra-card-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.15), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+}
+
+.ekstra-card:hover .ekstra-card-header::before {
+    opacity: 1;
+}
+
+.ekstra-card-header i {
+    font-size: clamp(44px, 6vw, 56px);
+    color: white;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.ekstra-card:hover .ekstra-card-header i {
+    transform: scale(1.15) rotate(-5deg);
+}
+
+.ekstra-card-header h3 {
+    color: white;
+    font-size: clamp(18px, 3vw, 22px);
+    font-weight: 700;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+    line-height: 1.3;
+    letter-spacing: -0.3px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* ==================== EKSTRA CARD BODY - EQUAL HEIGHT ==================== */
+.ekstra-card-body {
+    padding: clamp(24px, 4vw, 32px);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background: white;
+}
+
+.ekstra-info {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    flex-grow: 1;
+}
+
+.ekstra-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.ekstra-info-item:hover {
+    background: white;
+    border-color: var(--primary-light);
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(26, 95, 58, 0.08);
+}
+
+.ekstra-info-item i {
+    color: var(--secondary-color);
+    font-size: 20px;
+    min-width: 24px;
+    margin-top: 2px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.ekstra-info-item:hover i {
+    transform: scale(1.2);
+    color: var(--primary-color);
+}
+
+.ekstra-info-item div {
+    flex: 1;
+    min-width: 0;
+}
+
+.ekstra-info-item h4 {
+    font-size: clamp(13px, 1.8vw, 15px);
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0 0 4px 0;
+    letter-spacing: 0.3px;
+}
+
+.ekstra-info-item p {
+    font-size: clamp(12px, 1.5vw, 14px);
+    color: var(--text-light);
+    margin: 0;
+    line-height: 1.5;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* ==================== RESPONSIVE GRID ==================== */
+@media (min-width: 1400px) {
     .ekstrakurikuler-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: clamp(20px, 3vw, 35px);
-        margin-bottom: clamp(40px, 8vw, 60px);
+        grid-template-columns: repeat(4, 1fr);
     }
+}
 
-    /* ==================== EKSTRAKURIKULER CARD ==================== */
-    .ekstra-card {
-        background: white;
-        border-radius: 15px;
-        overflow: hidden;
-        box-shadow: var(--shadow-md);
-        transition: var(--transition);
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        animation: fadeInUp 0.6s ease-out backwards;
+@media (min-width: 1024px) and (max-width: 1399px) {
+    .ekstrakurikuler-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
+}
 
-    .ekstra-card:nth-child(1) { animation-delay: 0.1s; }
-    .ekstra-card:nth-child(2) { animation-delay: 0.2s; }
-    .ekstra-card:nth-child(3) { animation-delay: 0.3s; }
-    .ekstra-card:nth-child(4) { animation-delay: 0.4s; }
-    .ekstra-card:nth-child(5) { animation-delay: 0.5s; }
-    .ekstra-card:nth-child(6) { animation-delay: 0.6s; }
-
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+@media (min-width: 768px) and (max-width: 1023px) {
+    .ekstrakurikuler-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
     }
-
-    .ekstra-card:hover {
-        transform: translateY(-15px) scale(1.02);
-        box-shadow: var(--shadow-lg);
-    }
-
-    .ekstra-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, transparent, var(--secondary-color), transparent);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    .ekstra-card:hover::before {
-        opacity: 1;
-    }
-
-    /* ==================== EKSTRA HEADER ==================== */
+    
     .ekstra-card-header {
-        padding: clamp(30px, 5vw, 40px);
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-        min-height: 200px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+        min-height: 180px;
+        max-height: 180px;
     }
+}
 
-    .ekstra-card-header::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.15), transparent);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        z-index: 1;
+@media (max-width: 767px) {
+    .ekstrakurikuler-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
     }
-
-    .ekstra-card:hover .ekstra-card-header::before {
-        opacity: 1;
+    
+    .ekstra-card {
+        max-width: 500px;
+        margin-inline: auto;
     }
-
-    .ekstra-icon {
-        font-size: clamp(40px, 6vw, 60px);
-        color: white;
-        margin-bottom: 15px;
-        position: relative;
-        z-index: 2;
-        animation: scaleIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    .ekstra-card-header {
+        min-height: 170px;
+        max-height: 170px;
+        padding: 25px 20px;
     }
-
-    @keyframes scaleIn {
-        0% {
-            opacity: 0;
-            transform: scale(0);
-        }
-        100% {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-
-    .ekstra-card:hover .ekstra-icon {
-        animation: bounce 0.6s ease-out;
-    }
-
-    @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
-    }
-
-    .ekstra-card-header h3 {
-        color: white;
-        font-size: clamp(18px, 3vw, 24px);
-        font-weight: 700;
-        margin: 0;
-        position: relative;
-        z-index: 2;
-        line-height: 1.2;
-    }
-
-    /* ==================== EKSTRA BODY ==================== */
+    
     .ekstra-card-body {
-        padding: clamp(20px, 4vw, 30px);
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
+        padding: 20px;
     }
-
+    
     .ekstra-info {
-        display: flex;
-        align-items: center;
+        gap: 14px;
+    }
+    
+    .ekstra-info-item {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ekstrakurikuler-grid {
+        gap: 16px;
+    }
+    
+    .ekstra-card-header {
+        min-height: 160px;
+        max-height: 160px;
+        padding: 20px 16px;
+    }
+    
+    .ekstra-card-header i {
+        font-size: 40px;
+    }
+    
+    .ekstra-card-header h3 {
+        font-size: 17px;
+    }
+    
+    .ekstra-card-body {
+        padding: 16px;
+    }
+    
+    .ekstra-info {
         gap: 12px;
-        margin-bottom: 15px;
-        color: var(--text-light);
-        font-size: clamp(12px, 1.5vw, 14px);
-        transition: var(--transition);
     }
-
-    .ekstra-card:hover .ekstra-info {
-        color: var(--primary-color);
-        padding-left: 5px;
+    
+    .ekstra-info-item {
+        padding: 10px;
     }
-
-    .ekstra-info i {
-        color: var(--secondary-color);
-        font-size: 16px;
+    
+    .ekstra-info-item i {
+        font-size: 18px;
         min-width: 20px;
-        transition: var(--transition);
     }
+}
 
-    .ekstra-card:hover .ekstra-info i {
-        transform: scale(1.2) rotate(10deg);
+/* ==================== ACCESSIBILITY & PERFORMANCE ==================== */
+@media (prefers-reduced-motion: reduce) {
+    .ekstra-card,
+    .ekstra-card *,
+    .ekstra-info-item {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
+}
+
+/* ==================== LOADING STATE ==================== */
+.ekstra-card.loading {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.ekstra-card.loading::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
     
     /* ==================== BENEFITS SECTION ==================== */
     .benefits-section {
@@ -428,90 +583,6 @@
     .benefit-item p {
         color: var(--text-light);
         font-size: clamp(13px, 1.5vw, 15px);
-        line-height: 1.6;
-        margin: 0;
-    }
-
-    /* ==================== ACHIEVEMENTS SECTION ==================== */
-    .achievements-section {
-        margin-top: clamp(60px, 10vw, 100px);
-        animation: fadeInUp 0.8s ease-out 0.6s both;
-    }
-
-    .achievements-header {
-        text-align: center;
-        margin-bottom: clamp(40px, 8vw, 60px);
-    }
-
-    .achievements-header h3 {
-        font-size: clamp(22px, 4vw, 36px);
-        font-weight: 700;
-        color: var(--primary-color);
-        margin-bottom: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 12px;
-    }
-
-    .achievements-header h3 i {
-        color: var(--secondary-color);
-        font-size: clamp(24px, 4vw, 32px);
-    }
-
-    .achievements-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: clamp(20px, 3vw, 30px);
-    }
-
-    .achievement-card {
-        background: white;
-        border-radius: 15px;
-        padding: clamp(20px, 4vw, 30px);
-        box-shadow: var(--shadow-md);
-        border-left: 5px solid var(--secondary-color);
-        transition: var(--transition);
-        animation: fadeInUp 0.6s ease-out backwards;
-    }
-
-    .achievement-card:nth-child(1) { animation-delay: 0.1s; }
-    .achievement-card:nth-child(2) { animation-delay: 0.2s; }
-    .achievement-card:nth-child(3) { animation-delay: 0.3s; }
-    .achievement-card:nth-child(4) { animation-delay: 0.4s; }
-    .achievement-card:nth-child(5) { animation-delay: 0.5s; }
-    .achievement-card:nth-child(6) { animation-delay: 0.6s; }
-    .achievement-card:nth-child(7) { animation-delay: 0.7s; }
-    .achievement-card:nth-child(8) { animation-delay: 0.8s; }
-
-    .achievement-card:hover {
-        transform: translateY(-10px);
-        box-shadow: var(--shadow-lg);
-        border-left-width: 8px;
-    }
-
-    .achievement-title {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 12px;
-    }
-
-    .achievement-title i {
-        color: var(--secondary-color);
-        font-size: clamp(18px, 2vw, 24px);
-    }
-
-    .achievement-title h4 {
-        font-size: clamp(15px, 2vw, 18px);
-        font-weight: 700;
-        color: var(--primary-color);
-        margin: 0;
-    }
-
-    .achievement-text {
-        color: var(--text-light);
-        font-size: clamp(12px, 1.5vw, 14px);
         line-height: 1.6;
         margin: 0;
     }
