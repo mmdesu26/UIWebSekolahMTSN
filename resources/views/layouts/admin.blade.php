@@ -101,14 +101,17 @@
             </a>
 
             <!-- AKADEMIK DROPDOWN -->
-            <div class="menu-parent @if(request()->routeIs('admin.kurikulum*')) open @endif">
+            <div class="menu-parent @if(request()->routeIs('admin.kurikulum*') || request()->routeIs('admin.kelas-program*')) open @endif">
                 <button class="menu-toggle">
                     <span><i class="fas fa-book-open"></i> Akademik</span>
                     <i class="fas fa-chevron-down arrow-icon"></i>
                 </button>
-                <div class="submenu @if(request()->routeIs('admin.kurikulum*')) show @endif">
+                <div class="submenu @if(request()->routeIs('admin.kurikulum*') || request()->routeIs('admin.kelas-program*')) show @endif">
                     <a href="{{ route('admin.kurikulum') }}" class="@if(request()->routeIs('admin.kurikulum')) active @endif">
                         <i class="fas fa-book"></i><span>Kurikulum</span>
+                    </a>
+                    <a href="{{ route('admin.kelas-program.index') }}" class="@if(request()->routeIs('admin.kelas-program.*')) active @endif">
+                        <i class="fas fa-chalkboard-teacher"></i><span>Kelas Program</span>
                     </a>
                     <a href="{{ route('admin.kalender.index') }}" class="@if(request()->routeIs('admin.kalender.*')) active @endif">
                         <i class="fas fa-calendar-alt"></i><span>Kalender Pendidikan</span>

@@ -159,24 +159,24 @@
 /* ==================== PROGRAM UNGGULAN GRID ==================== */
 .program-unggulan-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: clamp(20px, 3vw, 30px);
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: clamp(24px, 3vw, 32px);
     margin-bottom: clamp(60px, 10vw, 80px);
 }
 
-/* ==================== PROGRAM UNGGULAN CARD ==================== */
+/* ==================== PROGRAM UNGGULAN CARD - IMPROVED ==================== */
 .program-unggulan-card {
     background: white;
-    border-radius: 20px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
     transition: var(--transition);
     position: relative;
     display: flex;
     flex-direction: column;
     height: 100%;
     animation: fadeInUp 0.6s ease-out backwards;
-    border: 3px solid transparent;
+    border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .program-unggulan-card:nth-child(1) { animation-delay: 0.1s; }
@@ -199,45 +199,30 @@
 }
 
 .program-unggulan-card:hover {
-    transform: translateY(-15px) scale(1.02);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 8px 16px rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.1);
 }
 
-.program-unggulan-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, transparent, currentColor, transparent);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.program-unggulan-card:hover::before {
-    opacity: 1;
-}
-
-/* ==================== PROGRAM UNGGULAN HEADER ==================== */
+/* ==================== PROGRAM UNGGULAN HEADER - IMPROVED ==================== */
 .program-unggulan-header {
-    padding: clamp(35px, 5vw, 45px);
+    padding: 48px 32px;
     text-align: center;
     position: relative;
     overflow: hidden;
-    min-height: 240px;
+    background: #f8f9fa;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: white;
+    gap: 16px;
 }
 
 .program-unggulan-header::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.2), transparent);
+    background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.4), transparent 70%);
     opacity: 0;
     transition: opacity 0.3s ease;
     z-index: 1;
@@ -247,117 +232,56 @@
     opacity: 1;
 }
 
-/* Warna untuk setiap program unggulan */
-.program-unggulan-card.lpdc .program-unggulan-header {
-    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-}
-
-.program-unggulan-card.lpdc {
-    border-color: rgba(231, 76, 60, 0.3);
-}
-
-.program-unggulan-card.tahfiz .program-unggulan-header {
-    background: linear-gradient(135deg, #16a085 0%, #138d75 100%);
-}
-
-.program-unggulan-card.tahfiz {
-    border-color: rgba(22, 160, 133, 0.3);
-}
-
-.program-unggulan-card.hadist .program-unggulan-header {
-    background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
-}
-
-.program-unggulan-card.hadist {
-    border-color: rgba(39, 174, 96, 0.3);
-}
-
-.program-unggulan-card.english .program-unggulan-header {
-    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-}
-
-.program-unggulan-card.english {
-    border-color: rgba(52, 152, 219, 0.3);
-}
-
-.program-unggulan-card.sains-unggulan .program-unggulan-header {
-    background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
-}
-
-.program-unggulan-card.sains-unggulan {
-    border-color: rgba(155, 89, 182, 0.3);
-}
-
-.program-unggulan-card.olahraga-unggulan .program-unggulan-header {
-    background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
-}
-
-.program-unggulan-card.olahraga-unggulan {
-    border-color: rgba(230, 126, 34, 0.3);
-}
-
-.program-unggulan-card.it-unggulan .program-unggulan-header {
-    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
-}
-
-.program-unggulan-card.it-unggulan {
-    border-color: rgba(52, 73, 94, 0.3);
-}
-
+/* ==================== ICON WRAPPER - NEW IMPROVED DESIGN ==================== */
 .program-unggulan-icon {
-    font-size: clamp(50px, 7vw, 70px);
-    color: white;
-    margin-bottom: 20px;
+    width: 96px;
+    height: 96px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
     z-index: 2;
-    animation: scaleIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
-}
-
-@keyframes scaleIn {
-    0% {
-        opacity: 0;
-        transform: scale(0);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
 }
 
 .program-unggulan-card:hover .program-unggulan-icon {
-    animation: bounce 0.6s ease-out;
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 6px 12px rgba(0, 0, 0, 0.12);
 }
 
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
+.program-unggulan-icon i {
+    font-size: 48px;
+    color: white;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 .program-unggulan-header h3 {
-    color: white;
-    font-size: clamp(20px, 3vw, 26px);
+    color: var(--text-dark);
+    font-size: clamp(22px, 3vw, 28px);
     font-weight: 700;
-    margin-bottom: 12px;
+    margin: 0;
     position: relative;
     z-index: 2;
-    line-height: 1.2;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    line-height: 1.3;
 }
 
 .program-unggulan-header p {
-    color: rgba(255, 255, 255, 0.95);
-    font-size: clamp(13px, 1.5vw, 15px);
+    color: var(--text-light);
+    font-size: clamp(14px, 1.5vw, 16px);
     position: relative;
     z-index: 2;
     margin: 0;
-    font-weight: 500;
+    font-weight: 400;
+    line-height: 1.6;
 }
 
 /* ==================== PROGRAM UNGGULAN BODY ==================== */
 .program-unggulan-body {
-    padding: clamp(25px, 4vw, 35px);
+    padding: 32px;
     flex-grow: 1;
+    background: white;
 }
 
 .program-unggulan-features {
@@ -367,14 +291,15 @@
 }
 
 .program-unggulan-features li {
-    padding: clamp(12px, 2vw, 16px) 0;
+    padding: 14px 0;
     color: var(--text-light);
-    font-size: clamp(13px, 1.5vw, 15px);
+    font-size: clamp(14px, 1.5vw, 15px);
     display: flex;
     align-items: flex-start;
-    gap: 14px;
-    border-bottom: 1px solid var(--border-color);
+    gap: 12px;
+    border-bottom: 1px solid #f0f0f0;
     transition: var(--transition);
+    line-height: 1.6;
 }
 
 .program-unggulan-features li:last-child {
@@ -383,41 +308,42 @@
 
 .program-unggulan-card:hover .program-unggulan-features li {
     color: var(--text-dark);
-    padding-left: 8px;
+    padding-left: 4px;
 }
 
 .program-unggulan-features i {
     color: var(--secondary-color);
-    font-size: 18px;
-    margin-top: 2px;
-    min-width: 20px;
+    font-size: 16px;
+    margin-top: 3px;
+    min-width: 16px;
     transition: var(--transition);
 }
 
 .program-unggulan-card:hover .program-unggulan-features li:hover i {
-    transform: scale(1.3) rotate(15deg);
+    transform: scale(1.2) rotate(10deg);
 }
 
 /* ==================== PROGRAM GRID ==================== */
 .program-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: clamp(20px, 3vw, 35px);
+    gap: clamp(24px, 3vw, 32px);
     margin-bottom: clamp(40px, 8vw, 60px);
 }
 
-/* ==================== PROGRAM CARD ==================== */
+/* ==================== PROGRAM CARD - IMPROVED ==================== */
 .program-card {
     background: white;
-    border-radius: 15px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
     transition: var(--transition);
     position: relative;
     display: flex;
     flex-direction: column;
     height: 100%;
     animation: fadeInUp 0.6s ease-out backwards;
+    border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .program-card:nth-child(1) { animation-delay: 0.1s; }
@@ -428,45 +354,30 @@
 .program-card:nth-child(6) { animation-delay: 0.6s; }
 
 .program-card:hover {
-    transform: translateY(-12px) scale(1.01);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 8px 16px rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.1);
 }
 
-.program-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, transparent, currentColor, transparent);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.program-card:hover::before {
-    opacity: 1;
-}
-
-/* ==================== PROGRAM HEADER ==================== */
+/* ==================== PROGRAM HEADER - IMPROVED ==================== */
 .program-header {
-    padding: clamp(30px, 5vw, 40px);
+    padding: 48px 32px;
     text-align: center;
     position: relative;
     overflow: hidden;
-    min-height: 220px;
+    background: #f8f9fa;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: white;
+    gap: 16px;
 }
 
 .program-header::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.15), transparent);
+    background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.4), transparent 70%);
     opacity: 0;
     transition: opacity 0.3s ease;
     z-index: 1;
@@ -476,66 +387,55 @@
     opacity: 1;
 }
 
-/* Warna untuk setiap program */
-.program-card.sains .program-header {
-    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-}
-
-.program-card.bilingual .program-header {
-    background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
-}
-
-.program-card.religi .program-header {
-    background: linear-gradient(135deg, #16a085 0%, #138d75 100%);
-}
-
-.program-card.olahraga .program-header {
-    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-}
-
-.program-card.it .program-header {
-    background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
-}
-
-.program-card.reguler .program-header {
-    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
-}
-
+/* ==================== ICON WRAPPER - NEW IMPROVED DESIGN ==================== */
 .program-icon {
-    font-size: clamp(40px, 6vw, 60px);
-    color: white;
-    margin-bottom: 15px;
+    width: 88px;
+    height: 88px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
     z-index: 2;
-    animation: scaleIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
 }
 
 .program-card:hover .program-icon {
-    animation: bounce 0.6s ease-out;
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+.program-icon i {
+    font-size: 44px;
+    color: white;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 .program-header h3 {
-    color: white;
-    font-size: clamp(20px, 3vw, 28px);
+    color: var(--text-dark);
+    font-size: clamp(20px, 3vw, 26px);
     font-weight: 700;
-    margin-bottom: 10px;
+    margin: 0;
     position: relative;
     z-index: 2;
-    line-height: 1.2;
+    line-height: 1.3;
 }
 
 .program-header p {
-    color: rgba(255, 255, 255, 0.95);
-    font-size: clamp(13px, 1.5vw, 15px);
+    color: var(--text-light);
+    font-size: clamp(14px, 1.5vw, 15px);
     position: relative;
     z-index: 2;
     margin: 0;
+    line-height: 1.6;
 }
 
 /* ==================== PROGRAM BODY ==================== */
 .program-body {
-    padding: clamp(20px, 4vw, 30px);
+    padding: 32px;
     flex-grow: 1;
+    background: white;
 }
 
 .program-features {
@@ -545,14 +445,15 @@
 }
 
 .program-features li {
-    padding: clamp(10px, 2vw, 14px) 0;
+    padding: 14px 0;
     color: var(--text-light);
-    font-size: clamp(13px, 1.5vw, 15px);
+    font-size: clamp(14px, 1.5vw, 15px);
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid #f0f0f0;
     transition: var(--transition);
+    line-height: 1.6;
 }
 
 .program-features li:last-child {
@@ -561,76 +462,19 @@
 
 .program-card:hover .program-features li {
     color: var(--text-dark);
-    padding-left: 5px;
+    padding-left: 4px;
 }
 
 .program-features i {
     color: var(--secondary-color);
     font-size: 16px;
-    margin-top: 2px;
-    min-width: 20px;
+    margin-top: 3px;
+    min-width: 16px;
     transition: var(--transition);
 }
 
 .program-card:hover .program-features li:hover i {
     transform: scale(1.2) rotate(10deg);
-}
-
-/* ==================== PROGRAM FOOTER ==================== */
-.program-footer {
-    padding: 0 clamp(20px, 4vw, 30px) clamp(20px, 4vw, 30px);
-}
-
-.btn-program-detail {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    padding: clamp(12px, 2vw, 14px) 20px;
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: clamp(13px, 1.5vw, 15px);
-    transition: var(--transition);
-    border: 2px solid transparent;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-}
-
-.btn-program-detail::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: -1;
-}
-
-.btn-program-detail:hover::before {
-    opacity: 1;
-}
-
-.btn-program-detail:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(26, 95, 58, 0.3);
-}
-
-.btn-program-detail:active {
-    transform: translateY(0);
-}
-
-.btn-program-detail i {
-    transition: var(--transition);
-}
-
-.btn-program-detail:hover i {
-    transform: translateX(4px);
 }
 
 /* ==================== CTA SECTION ==================== */
@@ -738,6 +582,29 @@
     transform: scale(1.1);
 }
 
+/* ==================== EMPTY STATE ==================== */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-light);
+}
+
+.empty-state i {
+    font-size: 64px;
+    color: var(--border-color);
+    margin-bottom: 20px;
+}
+
+.empty-state h3 {
+    font-size: 24px;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+
+.empty-state p {
+    font-size: 16px;
+}
+
 /* ==================== RESPONSIVE DESIGN ==================== */
 @media (max-width: 1024px) {
     .program-grid {
@@ -746,10 +613,6 @@
 
     .program-unggulan-grid {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
-
-    .cta-program-section {
-        padding: 40px 30px;
     }
 }
 
@@ -761,55 +624,46 @@
 
     .program-grid {
         grid-template-columns: 1fr;
-        gap: 25px;
+        gap: 20px;
     }
 
     .program-unggulan-grid {
         grid-template-columns: 1fr;
-        gap: 25px;
+        gap: 20px;
     }
 
     .program-header {
-        min-height: 200px;
-        padding: 30px 20px;
+        padding: 40px 24px;
     }
 
     .program-unggulan-header {
-        min-height: 220px;
-        padding: 35px 20px;
+        padding: 40px 24px;
     }
 
     .program-icon {
-        margin-bottom: 10px;
+        width: 80px;
+        height: 80px;
+    }
+
+    .program-icon i {
+        font-size: 40px;
     }
 
     .program-unggulan-icon {
-        margin-bottom: 15px;
+        width: 88px;
+        height: 88px;
     }
 
-    .section-intro-program h2 {
-        margin-bottom: 25px;
+    .program-unggulan-icon i {
+        font-size: 44px;
     }
 
-    .section-intro-program h2::after {
-        width: 60px;
+    .program-body {
+        padding: 24px;
     }
 
-    .cta-program-section h3 {
-        margin-bottom: 12px;
-    }
-
-    .btn-program-daftar {
-        width: 100%;
-        max-width: 300px;
-    }
-
-    .hero-program::before,
-    .hero-program::after,
-    .cta-program-section::before,
-    .cta-program-section::after {
-        width: 300px;
-        height: 300px;
+    .program-unggulan-body {
+        padding: 24px;
     }
 }
 
@@ -823,69 +677,58 @@
     }
 
     .program-grid {
-        gap: 15px;
+        gap: 16px;
     }
 
     .program-unggulan-grid {
-        gap: 15px;
+        gap: 16px;
     }
 
     .program-card {
-        border-radius: 10px;
+        border-radius: 12px;
     }
 
     .program-unggulan-card {
-        border-radius: 15px;
+        border-radius: 12px;
     }
 
     .program-header {
-        padding: 25px 15px;
-        min-height: 180px;
+        padding: 32px 20px;
     }
 
     .program-unggulan-header {
-        padding: 30px 15px;
-        min-height: 200px;
+        padding: 32px 20px;
+    }
+
+    .program-icon {
+        width: 72px;
+        height: 72px;
+    }
+
+    .program-icon i {
+        font-size: 36px;
+    }
+
+    .program-unggulan-icon {
+        width: 80px;
+        height: 80px;
+    }
+
+    .program-unggulan-icon i {
+        font-size: 40px;
     }
 
     .program-body {
-        padding: 15px;
+        padding: 20px;
     }
 
     .program-unggulan-body {
         padding: 20px;
     }
 
-    .program-footer {
-        padding: 0 15px 15px;
-    }
-
-    .program-features li {
-        padding: 10px 0;
-        font-size: 13px;
-    }
-
-    .program-unggulan-features li {
-        padding: 12px 0;
-        font-size: 13px;
-    }
-
     .cta-program-section {
         padding: 30px 15px;
         border-radius: 12px;
-    }
-
-    .cta-program-section h3 {
-        margin-bottom: 10px;
-    }
-
-    .cta-program-section p {
-        margin-bottom: 20px;
-    }
-
-    .btn-program-daftar {
-        padding: 12px 25px;
-        font-size: 14px;
     }
 
     .section-intro-program {
@@ -897,59 +740,7 @@
     }
 }
 
-@media (max-width: 360px) {
-    .hero-program h1 {
-        font-size: 22px;
-    }
-
-    .hero-program p {
-        font-size: 13px;
-    }
-
-    .program-header h3 {
-        font-size: 18px;
-    }
-
-    .program-header p {
-        font-size: 12px;
-    }
-
-    .program-unggulan-header h3 {
-        font-size: 18px;
-    }
-
-    .program-unggulan-header p {
-        font-size: 12px;
-    }
-
-    .section-intro-program h2 {
-        font-size: 20px;
-    }
-}
-
 /* ==================== ANIMATIONS & UTILITIES ==================== */
-@keyframes slideInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
