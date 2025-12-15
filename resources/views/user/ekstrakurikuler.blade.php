@@ -29,7 +29,7 @@
             @foreach($ekstrakurikuler as $item)
             <div class="ekstra-card">
                 <div class="ekstra-card-header">
-                    <i class="{{ $item->icon ?? 'fas fa-star' }}"></i> <!-- Asumsi bisa tambah field icon jika mau, default star -->
+                    <i class="{{ $item->icon ?? 'fas fa-star' }}"></i>
                     <h3>{{ $item->name }}</h3>
                 </div>
                 <div class="ekstra-card-body">
@@ -52,11 +52,16 @@
                             <i class="fas fa-trophy"></i>
                             <div>
                                 <h4>Prestasi</h4>
-                                <p>{{ $item->prestasi }}</p>
+                                @if($item->prestasi)
+                                    {{-- Gunakan nl2br() untuk convert newline menjadi <br> tag --}}
+                                    <div class="prestasi-list">{!! nl2br(e($item->prestasi)) !!}</div>
+                                @else
+                                    <p class="text-muted">Belum ada prestasi</p>
+                                @endif
                             </div>
                         </div>
                     </div>
-                        </div>
+                </div>
             </div>
             @endforeach
         </div>
@@ -119,7 +124,6 @@
                 </div>
             </div>
         </div>
-
 
     </div>
 </section>
