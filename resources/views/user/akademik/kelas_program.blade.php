@@ -223,26 +223,26 @@
                     <div class="program-unggulan-icon">
                         <i class="fas fa-microchip"></i>
                     </div>
-                    <h3>Program IT (Informasi Teknologi)</h3>
-                    <p>Digital Technology & Innovation</p>
+                    <h3>Program Multimedia</h3>
+                    <p>Pengolahan media digital</p>
                 </div>
                 <div class="program-unggulan-body">
                     <ul class="program-unggulan-features">
                         <li>
                             <i class="fas fa-star"></i>
-                            <span>Pembelajaran coding & programming</span>
+                            <span>Pemanfaatan software multimedia</span>
                         </li>
                         <li>
                             <i class="fas fa-star"></i>
-                            <span>Lab komputer modern</span>
+                            <span>Lab komputer</span>
                         </li>
                         <li>
                             <i class="fas fa-star"></i>
-                            <span>Sertifikasi IT</span>
+                            <span>Project multimedia & pengembangan portofolio</span>
                         </li>
                         <li>
                             <i class="fas fa-star"></i>
-                            <span>Project & portfolio development</span>
+                            <span>Mengembangkan Soft Skills</span>
                         </li>
                     </ul>
                 </div>

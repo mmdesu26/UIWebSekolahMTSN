@@ -55,7 +55,6 @@
     <!-- SIDEBAR -->
     <aside class="sidebar">
         <h4><i class="fas fa-graduation-cap"></i> Admin Panel</h4>
-
         <nav>
             <a href="{{ route('admin.dashboard') }}" class="@if(request()->routeIs('admin.dashboard')) active @endif">
                 <i class="fas fa-chart-line"></i><span>Dashboard</span>
@@ -63,24 +62,30 @@
             <a href="{{ route('admin.settings') }}" class="@if(request()->routeIs('admin.settings')) active @endif">
                 <i class="fas fa-cog"></i><span>Beranda User</span>
             </a>
-            <a href="{{ route('admin.sejarah.index') }}" class="@if(request()->routeIs('admin.sejarah.*')) active @endif">
+            
+            <div class="menu-parent @if(request()->routeIs('admin.sejarah*')) open @endif">
+                <button class="menu-toggle">
+                    <span><i class="fas fa-book-open"></i> Profil</span>
+                    <i class="fas fa-chevron-down arrow-icon"></i>
+                </button>
+                <div class="submenu @if(request()->routeIs('admin.sejarah*')) show @endif">
+                    <a href="{{ route('admin.sejarah.index') }}" class="@if(request()->routeIs('admin.sejarah.*')) active @endif">
                 <i class="fas fa-history"></i><span>Sejarah Sekolah</span>
             </a>
-
-            <a href="{{ route('admin.visi-misi.index') }}" class="@if(request()->routeIs('admin.visi-misi.*')) active @endif">
+                    <a href="{{ route('admin.visi-misi.index') }}" class="@if(request()->routeIs('admin.visi-misi.*')) active @endif">
                 <i class="fas fa-lightbulb"></i><span>Visi & Misi</span>
             </a>
-
-            <a href="{{ route('admin.struktur.index') }}" class="@if(request()->routeIs('admin.struktur.*')) active @endif">
+                    <a href="{{ route('admin.struktur.index') }}" class="@if(request()->routeIs('admin.struktur.*')) active @endif">
                 <i class="fas fa-sitemap"></i><span>Struktur & Guru</span>
             </a>
+            <a href="{{ route('admin.prestasi') }}" class="@if(request()->routeIs('admin.prestasi')) active @endif">
+                <i class="fas fa-trophy"></i><span>Prestasi</span>
+            </a>
+                </div>
+            </div>
 
             <a href="{{ route('admin.ekstrakurikuler') }}" class="@if(request()->routeIs('admin.ekstrakurikuler')) active @endif">
                 <i class="fas fa-star"></i><span>Ekstrakurikuler</span>
-            </a>
-
-            <a href="{{ route('admin.prestasi') }}" class="@if(request()->routeIs('admin.prestasi')) active @endif">
-                <i class="fas fa-trophy"></i><span>Prestasi</span>
             </a>
 
             <a href="{{ route('admin.berita') }}" class="@if(request()->routeIs('admin.berita')) active @endif">
