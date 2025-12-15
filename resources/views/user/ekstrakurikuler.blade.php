@@ -119,30 +119,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Prestasi Umum (Tidak Terikat Ekskul) -->
-<div class="achievements-section mt-5">
-    <div class="achievements-header">
-        <h3><i class="fas fa-medal"></i> Prestasi Sekolah</h3>
-        <p>Beberapa prestasi gemilang yang diraih oleh siswa MTsN 1 Magetan</p>
-    </div>
-    <div class="achievements-grid">
-        @forelse($prestasi as $item)
-            <div class="achievement-card">
-                <div class="achievement-title">
-                    <i class="fas fa-trophy"></i>
-                    <h4>{{ $item->nama_prestasi }}</h4>
-                </div>
-                @if($item->gambar)
-                    <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->nama_prestasi }}" class="img-fluid mt-2 rounded" style="max-height: 150px;">
-                @endif
-            </div>
-        @empty
-            <p class="text-center col-12">Belum ada prestasi yang tercatat.</p>
-        @endforelse
-    </div>
-</div>
-
     </div>
 </section>
 

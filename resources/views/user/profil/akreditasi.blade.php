@@ -10,12 +10,12 @@
 <!-- Hero Section -->
 <section class="akreditasi-hero">
     <div class="container">
-        <div class="hero-content text-center">
-            <div class="hero-badge" data-aos="zoom-in">
-                <i class="fas fa-award"></i>
-            </div>
-            <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">Akreditasi & Prestasi</h1>
-            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">
+        <div class="akreditasi-hero-content text-center">
+            <h1 data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-trophy" style="margin-right: 15px;"></i>
+                Akreditasi & Prestasi
+            </h1>
+            <p data-aos="fade-up" data-aos-delay="200">
                 Komitmen Kami Terhadap Standar Pendidikan Berkualitas
             </p>
         </div>

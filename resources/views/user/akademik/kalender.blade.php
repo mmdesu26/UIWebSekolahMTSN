@@ -462,13 +462,6 @@
         <div class="akademik-hero-content">
             <h1><i class="fas fa-calendar-alt" style="margin-right: 10px;"></i>Kalender Pendidikan 2024/2025</h1>
             <p>Berikut adalah jadwal lengkap kegiatan akademik dan non-akademik MTsN 1 Magetan</p>
-            <div class="breadcrumb">
-                <a href="{{ url('/') }}"><i class="fas fa-home"></i> Beranda</a>
-                <span>/</span>
-                <a href="{{ route('akademik.kurikulum') }}">Akademik</a>
-                <span>/</span>
-                <span>Kalender Pendidikan</span>
-            </div>
         </div>
     </div>
 </div>

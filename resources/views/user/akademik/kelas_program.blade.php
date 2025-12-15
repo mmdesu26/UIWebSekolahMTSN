@@ -8,9 +8,12 @@
 
 <!-- Hero Section -->
 <section class="hero-program" id="hero">
-    <div class="container d-flex align-items-center justify-content-center min-vh-100">
-        <div class="hero-program-content text-center w-100">
-            <h1>Kelas-Kelas Program MTsN 1 Magetan</h1>
+    <div class="hero-program-wrapper">
+        <div class="hero-program-content">
+            <h1>
+                <i class="fas fa-chalkboard-teacher" style="margin-right: 15px;"></i>
+                Kelas-Kelas Program MTsN 1 Magetan
+            </h1>
             <p>Program unggulan yang dirancang untuk mengembangkan potensi siswa sesuai minat dan bakat mereka</p>
         </div>
     </div>

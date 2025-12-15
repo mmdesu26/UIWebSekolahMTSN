@@ -8,9 +8,12 @@
 
 <!-- Hero Section -->
 <section class="hero-struktur">
-    <div class="container d-flex align-items-center justify-content-center min-vh-50">
-        <div class="hero-struktur-content text-center w-100">
-            <h1>Struktur Organisasi</h1>
+    <div class="hero-struktur-wrapper">
+        <div class="hero-struktur-content">
+            <h1>
+                <i class="fas fa-sitemap" style="margin-right: 15px;"></i>
+                Struktur Organisasi
+            </h1>
             <p>Manajemen dan kepemimpinan yang profesional untuk pendidikan berkualitas</p>
         </div>
     </div>

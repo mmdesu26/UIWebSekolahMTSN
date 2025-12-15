@@ -36,9 +36,37 @@ html {
     overflow: hidden;
     min-height: 60vh;
     display: flex;
+    align-items: center;      /* Vertikal tengah */
+    justify-content: center;  /* Horizontal tengah */
+}
+
+/* Wrapper untuk membatasi lebar konten agar tetap rapi di layar lebar */
+.sejarah-hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 20px; /* agar tidak menempel di pinggir layar kecil */
+}
+
+/* Typography disamakan dengan hero lainnya */
+.sejarah-hero h1 {
+    font-size: clamp(32px, 6vw, 56px);
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 }
+
+.sejarah-hero p {
+    font-size: clamp(14px, 2vw, 18px);
+    opacity: 0.95;
+    line-height: 1.8;
+    margin-bottom: 0;
+}
+
 
 .sejarah-hero::before {
     content: '';
@@ -89,23 +117,6 @@ html {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-.sejarah-hero h1 {
-    font-size: clamp(32px, 6vw, 56px);
-    font-weight: 700;
-    margin-bottom: 20px;
-    line-height: 1.2;
-    letter-spacing: -0.5px;
-    font-family: 'Playfair Display', serif;
-}
-
-.sejarah-hero p {
-    font-size: clamp(14px, 2vw, 18px);
-    opacity: 0.95;
-    line-height: 1.8;
-    font-weight: 300;
-    margin-bottom: 0;
 }
 
 .breadcrumb-custom {

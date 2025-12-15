@@ -113,7 +113,7 @@
             }
         }
 
-        .hero-title {
+        /* .hero-title {
             font-size: clamp(32px, 6vw, 56px);
             font-weight: 700;
             margin-bottom: 20px;
@@ -127,7 +127,22 @@
             margin-bottom: 40px;
             line-height: 1.6;
             font-weight: 300;
-        }
+        } */
+
+        .hero-content h1 {
+    font-size: clamp(36px, 7vw, 64px);
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero-content p {
+    font-size: clamp(16px, 2.5vw, 22px);
+    opacity: 0.95;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+}
 
         .btn-group-hero {
             display: flex;

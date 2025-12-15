@@ -12,11 +12,6 @@
         <div class="hero-jadwal-content text-center w-100">
             <h1>Jadwal Pelajaran</h1>
             <p>Jadwal pembelajaran untuk seluruh kelas MTsN 1 Magetan</p>
-            <div class="breadcrumb-custom">
-                <a href="{{ url('/') }}">Beranda</a>
-                <span>/</span>
-                <span>Jadwal Pelajaran</span>
-            </div>
         </div>
     </div>
 </section>

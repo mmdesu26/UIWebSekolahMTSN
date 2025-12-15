@@ -8,9 +8,12 @@
 
 <!-- Hero Section -->
 <section class="hero-fasilitas">
-    <div class="container d-flex align-items-center justify-content-center min-vh-50">
-        <div class="hero-fasilitas-content text-center w-100">
-            <h1>Fasilitas Sekolah</h1>
+    <div class="hero-fasilitas-wrapper">
+        <div class="hero-fasilitas-content">
+            <h1>
+                <i class="fas fa-school" style="margin-right: 15px;"></i>
+                Fasilitas Sekolah
+            </h1>
             <p>Sarana dan prasarana pendukung pembelajaran berkualitas untuk masa depan gemilang</p>
         </div>
     </div>

@@ -13,17 +13,19 @@
 @section('content')
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="hero-content">
-            <h1 class="hero-title">
-                {{ $settings['hero_title'] ?? 'Selamat Datang di MTsN 1 Magetan' }}
-            </h1>
-            <p class="hero-subtitle">
-                {{ $settings['hero_subtitle'] ?? 'TERWUJUDNYA SISWA YANG BERPRESTASI, MANDIRI, DAN BERAKHLAQUL KARIMAH' }}
-            </p>
-            <div class="btn-group-hero">
-                <a href="{{ route('ppdb') }}" class="btn btn-primary">
-                    Daftar PPDB Sekarang
-                </a>
+        <!-- Ganti .container dengan .hero-wrapper agar full width tapi tetap center -->
+        <div class="hero-wrapper">
+            <div class="hero-content">
+                <h1>
+                    <i class="fas fa-graduation-cap" style="margin-right: 15px;"></i>
+                    {{ $settings['hero_title'] ?? 'Selamat Datang di MTsN 1 Magetan' }}
+                </h1>
+                <p>Madrasah Hebat Bermartabat – Menuju Generasi Berakhlak Mulia</p>
+                <div class="btn-group-hero" style="margin-top: clamp(40px, 6vw, 80px);">
+                    <a href="{{ route('ppdb') }}" class="btn btn-primary">
+                        Daftar PPDB Sekarang
+                    </a>
+                </div>
             </div>
         </div>
     </section>

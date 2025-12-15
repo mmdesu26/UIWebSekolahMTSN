@@ -8,16 +8,13 @@
 
 <!-- Hero Section -->
 <section class="hero-kurikulum">
-    <div class="container d-flex align-items-center justify-content-center min-vh-50">
-        <div class="hero-kurikulum-content text-center w-100">
-            <h1>Kurikulum MTsN 1 Magetan</h1>
-            <div class="breadcrumb-custom">
-                <a href="{{ url('/') }}">Beranda</a>
-                <span>/</span>
-                <a href="{{ route('akademik.kurikulum') }}">Akademik</a>
-                <span>/</span>
-                <span>Kurikulum</span>
-            </div>
+    <div class="hero-kurikulum-wrapper">
+        <div class="hero-kurikulum-content">
+            <h1>
+                <i class="fas fa-book-reader" style="margin-right: 15px;"></i>
+                Kurikulum MTsN 1 Magetan
+            </h1>
+            <p>Mengintegrasikan Kurikulum Merdeka dengan pendidikan berbasis akhlak mulia dan keilmuan yang berkualitas</p>
         </div>
     </div>
 </section>

@@ -8,21 +8,15 @@
 <link rel="stylesheet" href="{{ asset('css/user/sejarah.css') }}">
 
 <!-- Hero Section -->
-<div class="sejarah-hero">
-    <div class="container">
-        <div class="sejarah-hero-content">
-            <h1><i class="fas fa-book-open" style="margin-right: 15px;"></i>Sejarah Sekolah</h1>
-            <p>Perjalanan panjang pendidikan MTsN 1 Magetan dari masa lalu hingga sekarang</p>
-            <div class="breadcrumb-custom">
-                <a href="{{ url('/') }}"><i class="fas fa-home"></i> Beranda</a>
-                <span>/</span>
-                <a href="#">Profil</a>
-                <span>/</span>
-                <span>Sejarah Sekolah</span>
-            </div>
-        </div>
+<section class="sejarah-hero">
+    <div class="sejarah-hero-content">
+        <h1>
+            <i class="fas fa-book-open" style="margin-right: 15px;"></i>
+            Sejarah MTsN 1 Magetan
+        </h1>
+        <p>Perjalanan madrasah dalam mendidik generasi berakhlak mulia sejak berdiri hingga kini</p>
     </div>
-</div>
+</section>
 
 <!-- Content Section -->
 <section class="sejarah-content-section">

@@ -1,0 +1,40 @@
+.hero-visi-misi, .hero-struktur, .hero-fasilitas, .hero-galeri, .hero-program {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 50%, var(--primary-light) 100%);
+    color: white;
+    padding: clamp(60px, 10vw, 100px) 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-visi-misi-wrapper, .hero-struktur-wrapper, .hero-fasilitas-wrapper, 
+.hero-galeri-wrapper, .hero-program-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.hero-visi-misi h1, .hero-struktur h1, .hero-fasilitas h1, 
+.hero-galeri h1, .hero-program h1 {
+    font-size: clamp(32px, 6vw, 56px);
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-visi-misi p, .hero-struktur p, .hero-fasilitas p, 
+.hero-galeri p, .hero-program p {
+    font-size: clamp(14px, 2vw, 18px);
+    opacity: 0.95;
+    line-height: 1.8;
+    margin-bottom: 0;
+}

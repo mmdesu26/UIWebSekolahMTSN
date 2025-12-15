@@ -32,85 +32,88 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-
+<!-- LOGO -->
+<li class="nav-item d-none d-lg-flex align-items-center mx-4">
+    <img src="{{ asset('logo mts.png') }}" 
+         alt="Logo MTsN 1 Magetan" 
+         class="navbar-center-logo">
+</li>
                     <!-- Beranda -->
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}"
                            href="{{ route('home') }}">
-                            Beranda
+                            <i class="fas fa-home"></i>
+                            <span>Beranda</span>
                         </a>
                     </li>
 
                     <!-- Dropdown Profil -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ request()->is('profil-sekolah/*') ? 'active' : '' }}"
-                           href="#"
-                           role="button"
-                           id="profilDropdown"
-                           data-bs-toggle="dropdown"
-                           data-bs-auto-close="true"
-                           aria-expanded="false">
-                            Profil <i class="fas fa-chevron-down dropdown-arrow"></i>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="profilDropdown">
-                            <li><a class="dropdown-item" href="{{ route('profil.sejarah') }}">Sejarah Sekolah</a></li>
-                            <li><a class="dropdown-item" href="{{ route('profil.visi-misi') }}">Visi & Misi</a></li>
-                            <li><a class="dropdown-item" href="{{ route('profil.struktur-organisasi') }}">Struktur Organisasi</a></li>
-                            <li><a class="dropdown-item" href="{{ route('profil.akreditasi') }}">Akreditasi & Prestasi</a></li>
-                            <li><a class="dropdown-item" href="{{ route('profil.fasilitas') }}">Fasilitas Sekolah</a></li>
-                        </ul>
-                    </li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle {{ request()->is('profil-sekolah/*') ? 'active' : '' }}"
+       href="#" role="button" id="profilDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-school"></i>
+        <span class="menu-text">Profil</span>
+        <i class="fas fa-chevron-down dropdown-arrow"></i>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="profilDropdown">
+        <li><a class="dropdown-item" href="{{ route('profil.sejarah') }}"><i class="fas fa-book-open"></i> Sejarah Sekolah</a></li>
+        <li><a class="dropdown-item" href="{{ route('profil.visi-misi') }}"><i class="fas fa-bullseye"></i> Visi & Misi</a></li>
+        <li><a class="dropdown-item" href="{{ route('profil.struktur-organisasi') }}"><i class="fas fa-sitemap"></i> Struktur Organisasi</a></li>
+        <li><a class="dropdown-item" href="{{ route('profil.akreditasi') }}"><i class="fas fa-trophy"></i> Akreditasi & Prestasi</a></li>
+        <li><a class="dropdown-item" href="{{ route('profil.fasilitas') }}"><i class="fas fa-building"></i> Fasilitas Sekolah</a></li>
+    </ul>
+</li>
 
                     <!-- Berita -->
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('berita') ? 'active' : '' }}"
                            href="{{ route('berita') }}">
-                            Berita
+                            <i class="fas fa-newspaper"></i>
+                            <span>Berita</span>
                         </a>
                     </li>
 
                     <!-- PPDB -->
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('ppdb') ? 'active' : '' }}"
-                           href="{{ route('ppdb') }}">
-                            PPDB
-                        </a>
-                    </li>
+<li class="nav-item">
+    <a class="nav-link {{ request()->routeIs('ppdb') ? 'active' : '' }}"
+       href="{{ route('ppdb') }}">
+        <i class="fas fa-user-graduate"></i>
+        <span>PPDB</span>
+    </a>
+</li>
 
-                    <!-- Ekstrakurikuler -->
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('ekstrakurikuler') ? 'active' : '' }}"
-                           href="{{ route('ekstrakurikuler') }}">
-                            Ekstrakurikuler
-                        </a>
-                    </li>
-
+<!-- Ekstrakurikuler -->
+<li class="nav-item">
+    <a class="nav-link {{ request()->routeIs('ekstrakurikuler') ? 'active' : '' }}"
+       href="{{ route('ekstrakurikuler') }}">
+        <i class="fas fa-futbol"></i>
+        <span>Ekstrakurikuler</span>
+    </a>
+</li>
                     <!-- Galeri -->
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('galeri') ? 'active' : '' }}"
                            href="{{ route('galeri') }}">
-                            Galeri
+                            <i class="fas fa-images"></i>
+                            <span>Galeri</span>
                         </a>
                     </li>
 
                     <!-- Dropdown Akademik -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ request()->is('akademik/*') ? 'active' : '' }}"
-                           href="#"
-                           role="button"
-                           id="akademikDropdown"
-                           data-bs-toggle="dropdown"
-                           data-bs-auto-close="true"
-                           aria-expanded="false">
-                            Akademik <i class="fas fa-chevron-down dropdown-arrow"></i>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="akademikDropdown">
-                            <li><a class="dropdown-item" href="{{ route('akademik.kurikulum') }}">Kurikulum</a></li>
-                            <li><a class="dropdown-item" href="{{ route('akademik.kelas-program') }}">Kelas Program</a></li>
-                            <li><a class="dropdown-item" href="{{ route('akademik.kalender-pendidikan') }}">Kalender Pendidikan</a></li>
-                            <li><a class="dropdown-item" href="{{ route('akademik.jadwal') }}">Jadwal Pelajaran</a></li>
-                        </ul>
-                    </li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle {{ request()->is('akademik/*') ? 'active' : '' }}"
+       href="#" role="button" id="akademikDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-book"></i>
+        <span class="menu-text">Akademik</span>
+        <i class="fas fa-chevron-down dropdown-arrow"></i>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="akademikDropdown">
+        <li><a class="dropdown-item" href="{{ route('akademik.kurikulum') }}"><i class="fas fa-list-check"></i> Kurikulum</a></li>
+        <li><a class="dropdown-item" href="{{ route('akademik.kelas-program') }}"><i class="fas fa-chalkboard-user"></i> Kelas Program</a></li>
+        <li><a class="dropdown-item" href="{{ route('akademik.kalender-pendidikan') }}"><i class="fas fa-calendar-days"></i> Kalender Pendidikan</a></li>
+        <li><a class="dropdown-item" href="{{ route('akademik.jadwal') }}"><i class="fas fa-clock"></i> Jadwal Pelajaran</a></li>
+    </ul>
+</li>
                 </ul>
             </div>
         </div>

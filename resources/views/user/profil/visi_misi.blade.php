@@ -5,12 +5,16 @@
 @section('content')
 
 <link rel="stylesheet" href="{{ asset('css/visi_misi.css') }}">
+<link rel="stylesheet" href="{{ asset('css/user/iconmenu.css') }}">
 
 <!-- Hero Section -->
 <section class="hero-visi-misi">
-    <div class="container d-flex align-items-center justify-content-center min-vh-50">
-        <div class="hero-visi-misi-content text-center w-100">
-            <h1>Visi & Misi MTsN 1 Magetan</h1>
+    <div class="hero-visi-misi-wrapper">
+        <div class="hero-visi-misi-content">
+            <h1>
+                <i class="fas fa-bullseye" style="margin-right: 15px;"></i>
+                Visi & Misi MTsN 1 Magetan
+            </h1>
             <p>Komitmen kami untuk memberikan pendidikan terbaik bagi generasi masa depan</p>
         </div>
     </div>

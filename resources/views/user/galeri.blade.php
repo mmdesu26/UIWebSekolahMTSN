@@ -6,14 +6,20 @@
 
 <!-- Link to CSS -->
 <link rel="stylesheet" href="{{ asset('css/user/galeri.css') }}">
+<link rel="stylesheet" href="{{ asset('css/user/iconmenu.css') }}">
 
 <!-- Hero Section -->
-<div class="hero-section">
-    <div class="container text-center">
-        <h1>Galeri MTsN 1 Magetan</h1>
-        <p>Dokumentasi kegiatan di MTsN 1 Magetan</p>
+<section class="hero-galeri">
+    <div class="hero-galeri-wrapper">
+        <div class="hero-galeri-content">
+            <h1>
+                <i class="fas fa-images" style="margin-right: 15px;"></i>
+                Galeri MTsN 1 Magetan
+            </h1>
+            <p>Dokumentasi kegiatan di MTsN 1 Magetan</p>
+        </div>
     </div>
-</div>
+</section>
 
 <!-- Gallery Grid -->
 <div class="container">
