@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="{{ asset('css/user/iconmenu.css') }}">
 
 <!-- Hero Section -->
-<section class="hero-galeri">
+<section class="hero-section">
     <div class="hero-galeri-wrapper">
         <div class="hero-galeri-content">
             <h1>
