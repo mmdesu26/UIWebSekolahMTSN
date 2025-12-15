@@ -81,6 +81,9 @@
             <a href="{{ route('admin.prestasi') }}" class="@if(request()->routeIs('admin.prestasi')) active @endif">
                 <i class="fas fa-trophy"></i><span>Prestasi</span>
             </a>
+            <a href="{{ route('admin.fasilitas.index') }}" class="@if(request()->routeIs('admin.fasilitas.*')) active @endif">
+                <i class="fas fa-school"></i><span>Fasilitas Sekolah</span>
+            </a>
                 </div>
             </div>
 

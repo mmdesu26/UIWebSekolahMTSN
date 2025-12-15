@@ -11,7 +11,7 @@ use App\Http\Controllers\FrontendUserController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\KurikulumController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\UserKelasProgramController; // NEW
+use App\Http\Controllers\UserKelasProgramController;
 
 // ADMIN CONTROLLERS (LENI)
 use App\Http\Controllers\Admin\AdminSejarahController;
@@ -21,7 +21,11 @@ use App\Http\Controllers\Admin\AdminKurikulumController;
 use App\Http\Controllers\Admin\AdminKalenderController;
 use App\Http\Controllers\Admin\AdminGaleriController;
 use App\Http\Controllers\Admin\AdminJadwalController;
-use App\Http\Controllers\Admin\AdminKelasProgramController; // NEW
+use App\Http\Controllers\Admin\AdminKelasProgramController;
+
+// NEW – FASILITAS SEKOLAH
+use App\Http\Controllers\Admin\AdminFasilitasController; // NEW
+use App\Http\Controllers\UserFasilitasController;         // NEW
 
 // USER / FRONTEND CONTROLLERS (LENI)
 use App\Http\Controllers\Profil\UserSejarahController;
@@ -49,7 +53,13 @@ Route::prefix('profil-sekolah')->group(function () {
     Route::get('/visi-misi', [UserVisiMisiController::class, 'index'])->name('profil.visi-misi');
     Route::get('/struktur', [UserStrukturController::class, 'index'])->name('profil.struktur-organisasi');
     Route::get('/guru', fn() => redirect()->route('profil.struktur-organisasi'))->name('profil.guru');
+
+    // OLD (masih dibiarkan agar tidak merusak fitur lain)
     Route::get('/fasilitas', fn() => view('user.profil.fasilitas_sekolah'))->name('profil.fasilitas');
+
+    // NEW – REPLACE ROUTE FASILITAS DENGAN CONTROLLER
+    Route::get('/fasilitas', [UserFasilitasController::class, 'index'])->name('profil.fasilitas'); // NEW
+
     Route::get('/akreditasi', fn() => view('user.profil.akreditasi'))->name('profil.akreditasi');
 });
 
@@ -85,7 +95,7 @@ Route::get('/galeri/{kategori}', [UserGaleriController::class, 'kategori'])->nam
 */
 Route::prefix('akademik')->name('akademik.')->group(function () {
     Route::get('/kurikulum', [KurikulumController::class, 'kurikulum'])->name('kurikulum');
-    Route::get('/kelas-program', [UserKelasProgramController::class, 'index'])->name('kelas-program'); // NEW
+    Route::get('/kelas-program', [UserKelasProgramController::class, 'index'])->name('kelas-program');
     Route::get('/kalender-pendidikan', [UserKalenderController::class, 'index'])->name('kalender-pendidikan');
     Route::get('/jadwal-pelajaran', [UserJadwalController::class, 'index'])->name('jadwal');
 });
@@ -124,7 +134,7 @@ Route::prefix('admin')->middleware('adminauth')->name('admin.')->group(function 
     Route::get('/ekstrakurikuler/edit/{id}', [AdminController::class, 'editEkstra'])->name('ekstra.edit');
     Route::put('/ekstrakurikuler/update/{id}', [AdminController::class, 'updateEkstra'])->name('ekstra.update');
     Route::post('/ekstrakurikuler/delete/{id}', [AdminController::class, 'deleteEkstra'])->name('ekstra.delete');
-          
+
     // PRESTASI
     Route::get('/prestasi', [AdminController::class, 'managePrestasi'])->name('prestasi');
     Route::post('/prestasi/add', [AdminController::class, 'addPrestasi'])->name('prestasi.add');
@@ -203,9 +213,9 @@ Route::prefix('admin')->middleware('adminauth')->name('admin.')->group(function 
         Route::post('/delete/{id}', [AdminGaleriController::class, 'destroy'])->name('delete');
     });
 
-    // ========================================================================
-    // KELAS PROGRAM (NEW) - NESTED IN AKADEMIK SUBMENU
-    // ========================================================================
+    // ============================
+    // KELAS PROGRAM (NEW)
+    // ============================
     Route::prefix('kelas-program')->name('kelas-program.')->group(function () {
         Route::get('/', [AdminKelasProgramController::class, 'index'])->name('index');
         Route::get('/create', [AdminKelasProgramController::class, 'create'])->name('create');
@@ -213,6 +223,19 @@ Route::prefix('admin')->middleware('adminauth')->name('admin.')->group(function 
         Route::get('/{id}/edit', [AdminKelasProgramController::class, 'edit'])->name('edit');
         Route::put('/{id}', [AdminKelasProgramController::class, 'update'])->name('update');
         Route::delete('/{id}', [AdminKelasProgramController::class, 'destroy'])->name('destroy');
+    });
+
+    // ============================
+    // FASILITAS SEKOLAH (NEW)
+    // ============================
+    Route::prefix('fasilitas')->name('fasilitas.')->group(function () {
+        Route::get('/', [AdminFasilitasController::class, 'index'])->name('index');
+        Route::get('/create', [AdminFasilitasController::class, 'create'])->name('create');
+        Route::post('/store', [AdminFasilitasController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [AdminFasilitasController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [AdminFasilitasController::class, 'update'])->name('update');
+        Route::delete('/{id}', [AdminFasilitasController::class, 'destroy'])->name('destroy');
+        Route::patch('/{id}/toggle', [AdminFasilitasController::class, 'toggleStatus'])->name('toggle');
     });
 
     // LOGOUT
