@@ -16,6 +16,7 @@ use App\Models\Ekstrakurikuler;
 use App\Models\SiteSetting;
 use App\Models\Ppdb;
 use Carbon\Carbon;
+use App\Models\Akreditasi; 
 use App\Models\Prestasi;
 
 /*
@@ -195,17 +196,9 @@ class FrontendUserController extends Controller
     public function ekstrakurikuler()
 {
     $ekstrakurikuler = Ekstrakurikuler::all();
-    $prestasi = Prestasi::all(); 
 
-    return view('user.ekstrakurikuler', compact('ekstrakurikuler', 'prestasi'));
+    return view('user.ekstrakurikuler', compact('ekstrakurikuler'));
 }
-
-    public function prestasi()
-    {
-        $prestasi = Prestasi::all();
-
-        return view('user.prestasi', compact('prestasi'));
-    }
     /*
     |--------------------------------------------------------------------------
     | =========================
@@ -230,4 +223,12 @@ class FrontendUserController extends Controller
     {
         return view('user.galeri', ['galeri' => $this->data['galeri'], 'data' => $this->data]);
     }
+
+    public function akreditasi()
+{
+    $akreditasi = Akreditasi::first();
+    $prestasi = Prestasi::latest()->get();
+
+    return view('user.profil.akreditasi', compact('akreditasi', 'prestasi'));
+}
 }

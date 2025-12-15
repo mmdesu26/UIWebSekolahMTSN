@@ -432,3 +432,57 @@ html {
         font-size: 24px;
     }
 }
+
+/* === PRESTASI CARD FIX RAPI === */
+
+.prestasi-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.prestasi-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+/* Area gambar / icon */
+.prestasi-media {
+    width: 100%;
+    height: 160px;
+    border-radius: 12px;
+    background: #f4f6f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+/* Gambar */
+.prestasi-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Icon fallback */
+.prestasi-media i {
+    font-size: 48px;
+    color: #f1c40f;
+}
+
+/* Judul */
+.prestasi-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--dark-text);
+    margin-top: auto;
+    line-height: 1.4;
+}

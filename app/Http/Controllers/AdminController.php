@@ -17,6 +17,7 @@ use App\Models\Sejarah;
 use App\Models\VisiMisi;
 use App\Models\Kurikulum;
 use App\Models\Galeri;
+use App\Models\Akreditasi;
 
 class AdminController extends Controller
 {
@@ -481,12 +482,6 @@ public function updateEkstra($id, Request $request)
     // ====================================================================
     // CRUD PRESTASI
     // ====================================================================
-    public function managePrestasi()
-{
-    $prestasi = Prestasi::all();
-    return view('admin.prestasi', compact('prestasi'));
-}
-
 public function addPrestasi(Request $request)
 {
     $request->validate([
@@ -594,6 +589,37 @@ public function deletePrestasi($id)
     } catch (\Exception $e) {
         return redirect()->back()->with('error', 'Gagal menghapus prestasi!');
     }
+}
+public function managePrestasi()
+{
+    $akreditasi = Akreditasi::firstOrCreate(
+        ['id' => 1], 
+        [
+            'peringkat'   => 'A',
+            'nomor_sk'    => '1179/BAN-SM/SK/2021',
+            'tanggal_sk'  => '2021-11-16',
+            'keterangan'  => 'Terakreditasi A (Sangat Baik) oleh BAN-S/M',
+        ]
+    );
+
+    $prestasi = Prestasi::latest()->get();
+
+    return view('admin.prestasi', compact('akreditasi', 'prestasi'));
+}
+
+public function updateAkreditasi(Request $request)
+{
+    $request->validate([
+        'peringkat'   => 'required|string|max:10',
+        'nomor_sk'     => 'required|string|max:255',
+        'tanggal_sk'  => 'required|date',
+        'keterangan'  => 'nullable|string',
+    ]);
+
+    $akreditasi = Akreditasi::first(); 
+    $akreditasi->update($request->only(['peringkat', 'nomor_sk', 'tanggal_sk', 'keterangan']));
+
+    return back()->with('success', 'Data akreditasi berhasil diperbarui!');
 }
 
     // ====================================================================

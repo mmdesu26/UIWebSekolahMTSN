@@ -1,0 +1,567 @@
+:root {
+    --primary-color: #667eea;
+    --primary-dark: #5568d3;
+    --primary-light: #7c8ef7;
+    --secondary-color: #764ba2;
+    --success-color: #48bb78;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --text-dark: #1e293b;
+    --text-light: #64748b;
+    --border-color: #e2e8f0;
+    --bg-light: #f8fafc;
+    --shadow-sm: 0 2px 8px rgba(102, 126, 234, 0.08);
+    --shadow-md: 0 4px 16px rgba(102, 126, 234, 0.12);
+    --shadow-lg: 0 8px 24px rgba(102, 126, 234, 0.15);
+}
+
+/* ===== GLOBAL ANIMATIONS ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shine {
+    0% { left: -100%; }
+    50%, 100% { left: 100%; }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* ===== CONTAINER ===== */
+.container-fluid {
+    padding: 24px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* ===== CARD BASE ===== */
+.card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    margin-bottom: 24px;
+    animation: slideUp 0.6s ease-out;
+    border: 1px solid rgba(102, 126, 234, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+/* Support untuk form-card dari blade */
+.form-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    margin-bottom: 24px;
+    animation: slideUp 0.6s ease-out;
+    border: 1px solid rgba(102, 126, 234, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+/* ===== CARD HEADER ===== */
+.card-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    padding: 20px 24px;
+    font-size: 17px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Support untuk form-card-header (dari blade) */
+.form-card-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    padding: 20px 24px;
+    font-size: 17px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.form-card-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shine 3s infinite;
+}
+
+.card-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shine 3s infinite;
+}
+
+.card-header i {
+    font-size: 20px;
+    margin-right: 8px;
+}
+
+.form-card-header i {
+    font-size: 20px;
+}
+
+/* Badge count styling */
+.card-header .badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+.bg-light {
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* ===== FORM STYLES ===== */
+.form-control {
+    border-radius: 10px;
+    border: 2px solid var(--border-color);
+    padding: 12px 16px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    outline: none;
+}
+
+.form-control::placeholder {
+    color: #cbd5e1;
+}
+
+label {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    font-size: 14px;
+    display: block;
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* ===== BUTTON STYLES ===== */
+.btn {
+    border-radius: 10px;
+    font-weight: 600;
+    padding: 12px 20px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--success-color), #38a169);
+    color: white;
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(72, 187, 120, 0.4);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, var(--warning-color), #d97706);
+    color: white;
+}
+
+.btn-warning:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, var(--danger-color), #dc2626);
+    color: white;
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.btn-sm {
+    padding: 8px 14px;
+    font-size: 13px;
+    border-radius: 8px;
+}
+
+/* ===== TABLE STYLES ===== */
+.table {
+    margin-bottom: 0;
+}
+
+.table-light {
+    background: linear-gradient(180deg, #f8fafc, #f1f5f9);
+}
+
+.table thead th {
+    color: var(--text-dark);
+    font-weight: 700;
+    border: none;
+    padding: 16px 16px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.table tbody tr:hover {
+    background: linear-gradient(90deg, rgba(102, 126, 234, 0.03), rgba(118, 75, 162, 0.03));
+    transform: scale(1.002);
+}
+
+.table tbody td {
+    padding: 16px 16px;
+    color: var(--text-dark);
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.table tbody td strong {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.table tbody td img {
+    max-height: 60px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.table tbody td img:hover {
+    transform: scale(1.5);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== EMPTY STATE ===== */
+.text-center.py-5 {
+    animation: fadeIn 0.8s ease-out;
+}
+
+.text-center.py-5 i {
+    font-size: 64px;
+    color: var(--border-color);
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+.text-center.py-5 p {
+    color: var(--text-light);
+    font-size: 15px;
+    margin: 0;
+}
+
+/* ===== BADGE ===== */
+.badge {
+    animation: pulse 2s infinite;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+/* ===== SPACING UTILITIES ===== */
+.mb-4 {
+    margin-bottom: 24px;
+}
+
+.mt-3 {
+    margin-top: 16px;
+}
+
+.g-3 {
+    gap: 16px;
+}
+
+/* ===== TEXT UTILITIES ===== */
+.text-danger {
+    color: var(--danger-color);
+}
+
+.text-warning {
+    color: var(--warning-color) !important;
+}
+
+.text-muted {
+    color: var(--text-light);
+}
+
+.text-dark {
+    color: var(--text-dark);
+}
+
+/* ===== FORM INLINE ===== */
+form.d-inline {
+    display: inline-block;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.align-items-end {
+    align-items: flex-end;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 992px) {
+    .container-fluid {
+        padding: 20px;
+    }
+
+    .card-header {
+        padding: 16px 20px;
+        font-size: 16px;
+        flex-wrap: wrap;
+    }
+
+    .table thead th,
+    .table tbody td {
+        padding: 12px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 16px;
+    }
+
+    .card {
+        margin-bottom: 20px;
+        border-radius: 14px;
+    }
+
+    .form-card {
+        margin-bottom: 20px;
+        border-radius: 14px;
+    }
+
+    .card-header {
+        padding: 14px 16px;
+        font-size: 15px;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .form-card-header {
+        padding: 14px 16px;
+        font-size: 15px;
+    }
+
+    .card-header span {
+        width: 100%;
+    }
+
+    .form-control {
+        padding: 10px 14px;
+        font-size: 14px;
+    }
+
+    .btn {
+        padding: 10px 16px;
+        font-size: 13px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .btn-sm {
+        padding: 7px 12px;
+        font-size: 12px;
+        width: auto;
+    }
+
+    .table thead th,
+    .table tbody td {
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+
+    .table tbody td img {
+        max-height: 50px;
+    }
+
+    .row.g-3 {
+        gap: 12px !important;
+    }
+
+    .col-md-2,
+    .col-md-3,
+    .col-md-4,
+    .col-md-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .text-center.py-5 i {
+        font-size: 48px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container-fluid {
+        padding: 12px;
+    }
+
+    .card-header {
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+
+    .form-control {
+        padding: 9px 12px;
+        font-size: 13px;
+    }
+
+    .btn {
+        padding: 9px 14px;
+        font-size: 12px;
+    }
+
+    .btn-sm {
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+
+    .table thead th,
+    .table tbody td {
+        padding: 8px 6px;
+        font-size: 11px;
+    }
+
+    .table tbody td img {
+        max-height: 40px;
+    }
+
+    label {
+        font-size: 13px;
+    }
+}
+
+/* ===== UTILITIES ===== */
+.p-0 {
+    padding: 0 !important;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.shadow-sm {
+    box-shadow: var(--shadow-sm);
+}
+
+.border-primary {
+    border-color: var(--primary-color) !important;
+}
+
+.bg-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+}

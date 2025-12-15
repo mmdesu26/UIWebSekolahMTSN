@@ -79,7 +79,7 @@
                 <i class="fas fa-sitemap"></i><span>Struktur & Guru</span>
             </a>
             <a href="{{ route('admin.prestasi') }}" class="@if(request()->routeIs('admin.prestasi')) active @endif">
-                <i class="fas fa-trophy"></i><span>Prestasi</span>
+                <i class="fas fa-trophy"></i><span>Akreditasi & Prestasi</span>
             </a>
                 </div>
             </div>

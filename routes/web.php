@@ -53,7 +53,8 @@ Route::prefix('profil-sekolah')->group(function () {
     Route::get('/struktur', [UserStrukturController::class, 'index'])->name('profil.struktur-organisasi');
     Route::get('/guru', fn() => redirect()->route('profil.struktur-organisasi'))->name('profil.guru');
     Route::get('/fasilitas', fn() => view('user.profil.fasilitas_sekolah'))->name('profil.fasilitas');
-    Route::get('/akreditasi', fn() => view('user.profil.akreditasi'))->name('profil.akreditasi');
+    Route::get('/akreditasi', [FrontendUserController::class, 'akreditasi'])
+     ->name('profil.akreditasi');
 });
 
 /*
@@ -143,12 +144,13 @@ Route::prefix('admin')->middleware('adminauth')->name('admin.')->group(function 
     /*
     | MANAJEMEN PRESTASI (DIRA)
     */
-    Route::get('/prestasi', [AdminController::class, 'managePrestasi'])->name('prestasi');
     Route::post('/prestasi/add', [AdminController::class, 'addPrestasi'])->name('prestasi.add');
     Route::get('/prestasi/edit/{id}', [AdminController::class, 'editPrestasi'])->name('prestasi.edit');
     Route::put('/prestasi/update/{id}', [AdminController::class, 'updatePrestasi'])->name('prestasi.update');
-    Route::post('/prestasi/delete/{id}', [AdminController::class, 'deletePrestasi'])->name('prestasi.delete');
-
+    Route::delete('/prestasi/delete/{id}', [AdminController::class, 'deletePrestasi'])->name('prestasi.delete');
+Route::get('/prestasi', [AdminController::class, 'managePrestasi'])->name('prestasi');
+    // Update Akreditasi 
+    Route::put('/prestasi/akreditasi', [AdminController::class, 'updateAkreditasi'])->name('akreditasi.update');;
     /*
     | SETTINGS (DIRA)
     */

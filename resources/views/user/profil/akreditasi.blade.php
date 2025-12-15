@@ -4,7 +4,7 @@
 
 @section('content')
 
-<!-- Link to CSS -->
+<!-- CSS -->
 <link rel="stylesheet" href="{{ asset('css/user/akreditasi.css') }}">
 
 <!-- Hero Section -->
@@ -22,48 +22,39 @@
     </div>
 </section>
 
-<!-- Akreditasi Utama -->
-<section class="akreditasi-main">
+<section class="akreditasi-main py-5">
     <div class="container">
         <div class="akreditasi-showcase" data-aos="fade-up">
             <div class="showcase-content">
                 <div class="akreditasi-letter-wrap">
-                    <div class="akreditasi-letter">A</div>
+                    <div class="akreditasi-letter">{{ $akreditasi->peringkat ?? 'A' }}</div>
                     <div class="akreditasi-glow"></div>
                 </div>
                 <div class="showcase-text">
-                    <h2>Terakreditasi A</h2>
+                    <h2>Terakreditasi {{ $akreditasi->peringkat ?? 'A' }} (Unggul)</h2>
                     <h3>Badan Akreditasi Nasional Sekolah/Madrasah (BAN-S/M)</h3>
-                    <p class="lead">Sekolah ini telah terakreditasi A dengan Nomor SK Akreditasi 1179/BAN-SM/SK/2021 pada tanggal 16 November 2021. Alamat MTSN 1 MAGETAN terletak di JL.RAYA MAOSPATI-NGAWI, DS.BALUK, KEC.KARANGREJO, KAB. MAGETAN, BALUK, Kec. Karangrejo, Kab. Magetan, Jawa Timur.</p>
-                    
-                    <div class="akreditasi-details">
+                    <p class="lead">
+                        MTsN 1 Magetan telah memperoleh predikat 
+                        <strong>Terakreditasi {{ $akreditasi->peringkat ?? 'A' }}</strong>
+                        berdasarkan SK No. <strong>{{ $akreditasi->nomor_sk ?? '-' }}</strong>
+                        tanggal <strong>{{ $akreditasi->tanggal_sk ? \Carbon\Carbon::parse($akreditasi->tanggal_sk)->format('d F Y') : '-' }}</strong>.
+                    </p>
+                    @if($akreditasi->keterangan)
+                        <p>{{ $akreditasi->keterangan }}</p>
+                    @endif
+
+                    <div class="akreditasi-details mt-4">
                         <div class="detail-item">
                             <i class="fas fa-calendar-check"></i>
-                            <div>
-                                <strong>Tanggal Akreditasi</strong>
-                                <p>16 November 2021</p>
-                            </div>
+                            <div><strong>Tanggal</strong><p>{{ $akreditasi->tanggal_sk ? \Carbon\Carbon::parse($akreditasi->tanggal_sk)->format('d F Y') : '-' }}</p></div>
                         </div>
                         <div class="detail-item">
                             <i class="fas fa-star"></i>
-                            <div>
-                                <strong>Peringkat</strong>
-                                <p>A (Sangat Baik)</p>
-                            </div>
+                            <div><strong>Peringkat</strong><p>{{ $akreditasi->peringkat ?? 'A' }} (Sangat Baik)</p></div>
                         </div>
                         <div class="detail-item">
                             <i class="fas fa-certificate"></i>
-                            <div>
-                                <strong>No. SK Akreditasi</strong>
-                                <p>1179/BAN-SM/SK/2021</p>
-                            </div>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div>
-                                <strong>Lokasi</strong>
-                                <p>Karangrejo, Magetan</p>
-                            </div>
+                            <div><strong>No. SK</strong><p>{{ $akreditasi->nomor_sk ?? '-' }}</p></div>
                         </div>
                     </div>
                 </div>
@@ -72,175 +63,81 @@
     </div>
 </section>
 
-<!-- Prestasi -->
-<section class="prestasi-section">
+<!-- ================= PRESTASI SECTION ================= -->
+<section class="prestasi-section py-5 bg-light">
     <div class="container">
-        <div class="section-header" data-aos="fade-up">
+
+        <!-- Header -->
+        <div class="section-header text-center mb-5" data-aos="fade-up">
             <h2 class="section-title">Prestasi MTsN 1 Magetan</h2>
-            <p class="section-subtitle">Pencapaian membanggakan siswa-siswi kami</p>
+            <p class="section-subtitle">
+                Deretan pencapaian membanggakan siswa-siswi kami
+            </p>
         </div>
 
-        <div class="prestasi-grid">
-            <!-- Prestasi 1 -->
-            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="50">
-                <div class="prestasi-icon">
-                    <i class="fas fa-medal"></i>
-                </div>
-                <h4>Juara 1 Beregu KSM Magetan</h4>
+        @if($prestasi->isEmpty())
+            <!-- Empty State -->
+            <div class="text-center py-5">
+                <i class="fas fa-inbox fa-4x text-muted mb-3"></i>
+                <p class="text-muted">Belum ada prestasi yang tercatat</p>
             </div>
+        @else
+            <!-- Grid -->
+            <div class="prestasi-grid">
 
-            <!-- Prestasi 2 -->
-            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="75">
-                <div class="prestasi-icon">
-                    <i class="fas fa-medal"></i>
-                </div>
-                <h4>Juara 2 KSM IPA</h4>
-            </div>
+                @foreach($prestasi as $item)
+                    <div class="prestasi-card"
+                         data-aos="fade-up"
+                         data-aos-delay="{{ $loop->iteration * 70 }}">
 
-            <!-- Prestasi 3 -->
-            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="prestasi-icon">
-                    <i class="fas fa-medal"></i>
-                </div>
-                <h4>Finalis Myres Tk Nasional</h4>
-            </div>
+                        <!-- Media -->
+                        <div class="prestasi-media">
+                            @if($item->gambar)
+                                <img src="{{ $item->gambar }}"
+                                     alt="{{ $item->nama_prestasi }}">
+                            @else
+                                <i class="fas fa-medal"></i>
+                            @endif
+                        </div>
 
-            <!-- Prestasi 4 -->
-            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="125">
-                <div class="prestasi-icon">
-                    <i class="fas fa-medal"></i>
-                </div>
-                <h4>Juara 1 Olimpiade IPA</h4>
-            </div>
+                        <!-- Title -->
+                        <h5 class="prestasi-title">
+                            {{ $item->nama_prestasi }}
+                        </h5>
 
-            <!-- Prestasi 5 -->
-            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="150">
-                <div class="prestasi-icon">
-                    <i class="fas fa-medal"></i>
-                </div>
-                <h4>Juara 1 Olimpiade MTK</h4>
-            </div>
+                    </div>
+                @endforeach
 
-            <!-- Prestasi 6 -->
-            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="175">
-                <div class="prestasi-icon">
-                    <i class="fas fa-medal"></i>
-                </div>
-                <h4>Juara 2 Olimpiade IPS Terpadu</h4>
             </div>
+        @endif
 
-            <!-- Prestasi 7 -->
-            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="prestasi-icon">
-                    <i class="fas fa-medal"></i>
-                </div>
-                <h4>Juara 2 Nembang Campursari Putri</h4>
-            </div>
-
-            <!-- Prestasi 8 -->
-            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="225">
-                <div class="prestasi-icon">
-                    <i class="fas fa-medal"></i>
-                </div>
-                <h4>Juara 1 Kata Perorangan SMP 7-8 Putri</h4>
-            </div>
-
-            <!-- Prestasi 9 -->
-            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="250">
-                <div class="prestasi-icon">
-                    <i class="fas fa-medal"></i>
-                </div>
-                <h4>Juara 3 Bulutangkis Ganda Putra</h4>
-            </div>
-
-            <!-- Prestasi 10 -->
-            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="275">
-                <div class="prestasi-icon">
-                    <i class="fas fa-medal"></i>
-                </div>
-                <h4>Juara 1 Karate Kelas 60-65 kg Piala Koni Pusat</h4>
-            </div>
-
-            <!-- Prestasi 11 -->
-            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="prestasi-icon">
-                    <i class="fas fa-medal"></i>
-                </div>
-                <h4>Juara 1 Futsal</h4>
-            </div>
-
-            <!-- Prestasi 12 -->
-            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="325">
-                <div class="prestasi-icon">
-                    <i class="fas fa-medal"></i>
-                </div>
-                <h4>Juara 1 Try Out UKM</h4>
-            </div>
-
-            <!-- Prestasi 13 -->
-            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="350">
-                <div class="prestasi-icon">
-                    <i class="fas fa-medal"></i>
-                </div>
-                <h4>Juara 1 Taekwondo Nasional Piala Kapolri</h4>
-            </div>
-
-            <!-- Prestasi 14 -->
-            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="375">
-                <div class="prestasi-icon">
-                    <i class="fas fa-medal"></i>
-                </div>
-                <h4>Juara 1 MTQ Porseni</h4>
-            </div>
-
-            <!-- Prestasi 15 -->
-            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="400">
-                <div class="prestasi-icon">
-                    <i class="fas fa-medal"></i>
-                </div>
-                <h4>Juara 3 Lomba PBB Piala Panglima TNI</h4>
-            </div>
-
-            <!-- Prestasi 16 -->
-            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="425">
-                <div class="prestasi-icon">
-                    <i class="fas fa-medal"></i>
-                </div>
-                <h4>Juara 1 Lari 100m Putri Porseni</h4>
-            </div>
-
-            <!-- Prestasi 17 -->
-            <div class="prestasi-card" data-aos="fade-up" data-aos-delay="450">
-                <div class="prestasi-icon">
-                    <i class="fas fa-medal"></i>
-                </div>
-                <h4>Juara 2 Kata Perorangan Kejurnas Karate</h4>
-            </div>
-        </div>
     </div>
 </section>
 
 <!-- CTA Section -->
-<section class="akreditasi-cta">
+<section class="akreditasi-cta py-5">
     <div class="container">
-        <div class="cta-content" data-aos="zoom-in">
-            <div class="cta-icon">
-                <i class="fas fa-graduation-cap"></i>
+        <div class="cta-content text-center" data-aos="zoom-in">
+            <div class="cta-icon mb-4">
+                <i class="fas fa-graduation-cap fa-3x"></i>
             </div>
-            <h2>Bergabunglah dengan Madrasah Terakreditasi A</h2>
-            <p>Dapatkan pendidikan berkualitas dengan standar nasional</p>
-            <a href="{{ route('ppdb') }}" class="btn btn-primary btn-large">
-                <i class="fas fa-arrow-right"></i> Daftar Sekarang
+            <h2>Bergabunglah dengan Madrasah Terakreditasi {{ $akreditasi->peringkat ?? 'A' }}</h2>
+            <p class="lead">Daftar sekarang dan jadilah bagian dari keluarga besar MTsN 1 Magetan</p>
+            <a href="{{ route('ppdb') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-user-plus"></i> Daftar PPDB Sekarang
             </a>
         </div>
     </div>
 </section>
 
-<!-- AOS Library -->
+<!-- AOS -->
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-<!-- Link to JS -->
-<script src="{{ asset('js/user/akreditasi.js') }}"></script>
+<script>
+    AOS.init({
+        once: true,
+        duration: 800
+    });
+</script>
 
 @endsection
