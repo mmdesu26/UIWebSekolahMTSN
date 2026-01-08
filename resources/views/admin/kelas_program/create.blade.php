@@ -12,9 +12,6 @@
     
     <div class="form-header">
         <h2><i class="fas fa-plus-circle"></i> Tambah Program Baru</h2>
-        <a href="{{ route('admin.kelas-program.index') }}" class="btn-back">
-            <i class="fas fa-arrow-left"></i> Kembali
-        </a>
     </div>
 
     <form action="{{ route('admin.kelas-program.store') }}" method="POST" class="program-form">

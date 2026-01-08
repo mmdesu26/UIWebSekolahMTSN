@@ -70,21 +70,21 @@
 </div>
 
 <!-- Lightbox Modal -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+<div class="lightbox" id="lightbox">
+    <div class="lightbox-overlay" onclick="closeLightbox(event)"></div>
+
     <span class="lightbox-close" onclick="closeLightbox(event)">&times;</span>
+
     <span class="lightbox-nav lightbox-prev" onclick="changeImage(-1, event)">&#10094;</span>
     <span class="lightbox-nav lightbox-next" onclick="changeImage(1, event)">&#10095;</span>
     
-    <div class="lightbox-content" id="lightbox-content">
-        <!-- Content will be dynamically inserted here -->
-    </div>
-    <div class="lightbox-caption" id="lightbox-caption"></div>
+    <div class="lightbox-content" id="lightbox-content"></div>
 </div>
+
 
 <!-- Link to JS -->
 <script src="{{ asset('js/user/galeri.js') }}"></script>
 <script>
-    // Initialize gallery data
     initGaleriData(@json($galeri));
 </script>
 

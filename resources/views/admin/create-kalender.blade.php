@@ -6,9 +6,6 @@
 @section('content')
 <div class="container-fluid">
     <div class="card form-card">
-        <div class="form-card-header">
-            <i class="fas fa-plus-circle"></i> Tambah Kegiatan Kalender Baru
-        </div>
         <div class="card-body">
             <form action="{{ route('admin.kalender.store') }}" method="POST">
                 @csrf

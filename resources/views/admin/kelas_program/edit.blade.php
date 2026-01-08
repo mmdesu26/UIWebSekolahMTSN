@@ -12,9 +12,6 @@
     
     <div class="form-header">
         <h2><i class="fas fa-edit"></i> Edit Program: {{ $program->nama }}</h2>
-        <a href="{{ route('admin.kelas-program.index') }}" class="btn-back">
-            <i class="fas fa-arrow-left"></i> Kembali
-        </a>
     </div>
 
     <form action="{{ route('admin.kelas-program.update', $program->id) }}" method="POST" class="program-form">

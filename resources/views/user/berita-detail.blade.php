@@ -15,10 +15,12 @@
         
         <div class="container position-relative z-2">
             <div class="hero-content max-w-4xl mx-auto text-center">
-                <span class="news-badge px-4 py-2 rounded text-sm font-semibold mb-4 d-inline-block
-                    {{ $berita->tipe === 'pengumuman' ? 'bg-warning text-dark' : 'bg-primary' }}">
-                    {{ ucfirst($berita->tipe ?? 'berita') }}
-                </span>
+                <span class="news-badge px-4 py-2 rounded text-sm font-semibold d-inline-block mb-4
+    {{ $berita->tipe === 'pengumuman' ? 'bg-warning text-dark' : 'bg-primary text-white' }}"
+    style="transform: translateY(-100px);">
+    {{ ucfirst($berita->tipe ?? 'berita') }}
+</span>
+
 
                 <h1 class="display-4 fw-bold mb-4">{{ $berita->title }}</h1>
 

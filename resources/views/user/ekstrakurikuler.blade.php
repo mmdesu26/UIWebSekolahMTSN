@@ -69,7 +69,7 @@
         <!-- Stats -->
         <div class="stats-ekstra">
             <div class="stat-ekstra-item">
-                <div class="stat-ekstra-number">12+</div>
+                <div class="stat-ekstra-number">10+</div>
                 <div class="stat-ekstra-label">Jenis Ekstrakurikuler</div>
             </div>
             <div class="stat-ekstra-item">

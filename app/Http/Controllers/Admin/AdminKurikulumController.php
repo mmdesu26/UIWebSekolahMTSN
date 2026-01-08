@@ -62,7 +62,7 @@ class AdminKurikulumController extends Controller
     }
 
     /**
-     * Delete data kurikulum (opsional, jika perlu)
+     * Delete data kurikulum
      */
     public function delete()
     {

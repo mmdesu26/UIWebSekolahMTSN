@@ -54,8 +54,6 @@ function showImage(index) {
         img.alt = item.judul;
         contentDiv.appendChild(img);
     }
-    
-    document.getElementById('lightbox-caption').textContent = item.judul;
 }
 
 function getEmbedHTML(url) {
@@ -97,4 +95,16 @@ document.addEventListener('keydown', function(e) {
             changeImage(1, e);
         }
     }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.gallery-item').forEach((item, i) => {
+        item.style.opacity = 0;
+        item.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+            item.style.transition = 'all 0.5s ease';
+            item.style.opacity = 1;
+            item.style.transform = 'translateY(0)';
+        }, i * 100);
+    });
 });

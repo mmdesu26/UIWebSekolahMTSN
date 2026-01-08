@@ -216,19 +216,53 @@ document.addEventListener('DOMContentLoaded', function() {
         form.addEventListener('submit', function(e) {
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalContent = submitBtn.innerHTML;
-            
+
+            // Disable warning beforeunload
+            hasChanges = false;
+
             submitBtn.innerHTML = '<div class="btn-content"><i class="fas fa-spinner fa-spin"></i><span>Menyimpan...</span></div>';
             submitBtn.disabled = true;
         });
     }
 });
 
-// ==================== RESET FORM ==================== 
-function resetForm() {
-    if (confirm('Yakin ingin mereset konten? Perubahan yang belum disimpan akan hilang.')) {
-        location.reload();
+// ==================== BATAL / CANCEL ==================== 
+function cancelForm() {
+    if (hasChanges) {
+        // Tampilkan confirm manual
+        const leave = confirm('Ada perubahan yang belum disimpan. Yakin ingin meninggalkan halaman?');
+        if (leave) {
+            // Matikan beforeunload sementara supaya tidak muncul alert browser
+            window.removeEventListener('beforeunload', beforeUnloadHandler);
+
+            // Kembali ke halaman sebelumnya
+            history.back();
+        }
+    } else {
+        history.back();
     }
 }
+
+// ==================== PREVENT ACCIDENTAL UNLOAD ==================== 
+let hasChanges = false;
+const textarea = document.querySelector('.sejarah-textarea');
+const originalContent = textarea.value;
+
+// Taruh handler ini supaya bisa di-remove saat cancel
+function beforeUnloadHandler(e) {
+    if (hasChanges) {
+        e.preventDefault();
+        e.returnValue = 'Ada perubahan yang belum disimpan. Yakin ingin meninggalkan halaman?';
+    }
+}
+
+textarea.addEventListener('input', function() {
+    hasChanges = this.value !== originalContent;
+});
+
+window.addEventListener('beforeunload', beforeUnloadHandler);
+
+
 
 // ==================== INPUT FOCUS EFFECT ==================== 
 document.querySelectorAll('.form-control').forEach(textarea => {
@@ -292,22 +326,6 @@ document.querySelector('.sejarah-textarea').addEventListener('input', function()
         localStorage.setItem('sejarah_draft', this.value);
         console.log('Draft tersimpan otomatis');
     }, 3000);
-});
-
-// ==================== PREVENT ACCIDENTAL UNLOAD ==================== 
-let hasChanges = false;
-const textarea = document.querySelector('.sejarah-textarea');
-const originalContent = textarea.value;
-
-textarea.addEventListener('input', function() {
-    hasChanges = this.value !== originalContent;
-});
-
-window.addEventListener('beforeunload', function(e) {
-    if (hasChanges) {
-        e.preventDefault();
-        e.returnValue = 'Ada perubahan yang belum disimpan. Yakin ingin meninggalkan halaman?';
-    }
 });
 
 // ==================== NOTIFICATION HELPER ==================== 

@@ -21,16 +21,36 @@
             @endphp
 
             @if($status == 'open')
-                <h1><i class="fas fa-graduation-cap" style="margin-right: 15px;"></i>Penerimaan Peserta Didik Baru</h1>
-                <p>{{ $ppdb->judul ?? 'PPDB MTsN 1 Magetan Tahun Ajaran 2025/2026' }}</p>
-            @elseif($status == 'coming_soon')
-                <h1><i class="fas fa-clock" style="margin-right: 15px;"></i>PPDB Tahun Ajaran Berikutnya</h1>
-                <p class="display-4 text-warning mt-4">Coming Soon!</p>
-                <p class="lead">Pendaftaran akan dibuka pada {{ \Carbon\Carbon::parse($ppdb->dibuka ?? '2026-02-03')->format('d F Y') }}</p>
-            @else
-                <h1><i class="fas fa-lock" style="margin-right: 15px;"></i>PPDB Telah Ditutup</h1>
-                <p>Terima kasih atas minatnya. Pantau website ini untuk informasi PPDB tahun ajaran berikutnya.</p>
-            @endif
+    <h1>
+        <i class="fas fa-graduation-cap me-3"></i>
+        Penerimaan Peserta Didik Baru
+    </h1>
+    <p>{{ $ppdb->judul ?? 'PPDB MTsN 1 Magetan Tahun Ajaran 2025/2026' }}</p>
+
+@elseif($status == 'coming_soon')
+    <h1>
+        <i class="fas fa-clock me-3"></i>
+        PPDB Tahun Ajaran Berikutnya
+    </h1>
+
+    <p class="display-4 text-warning mt-4">Segera Hadir</p>
+
+    <p class="lead">
+        Pendaftaran akan dibuka pada
+        {{ \Carbon\Carbon::parse($ppdb->dibuka ?? '2026-02-03')->translatedFormat('d F Y') }}
+    </p>
+
+@else
+    <h1>
+        <i class="fas fa-times-circle me-3"></i>
+        PPDB Telah Ditutup
+    </h1>
+    <p class="lead">
+        Pendaftaran ditutup pada
+        {{ \Carbon\Carbon::parse($ppdb->ditutup)->translatedFormat('d F Y') }}
+    </p>
+@endif
+
         </div>
     </div>
 </div>
@@ -109,9 +129,10 @@
             <div class="cta-registration">
                 <h3>Siap Bergabung Bersama Kami?</h3>
                 <p>Ayo daftarkan diri Anda sekarang dan jadilah bagian dari keluarga besar MTsN 1 Magetan!</p>
-                <a href="https://forms.gle/MP5nhGic4Zxga8n8" class="register-btn" target="_blank">
-                    <i class="fas fa-arrow-right"></i> Mulai Pendaftaran Online
-                </a>
+                <button class="register-btn" id="goToRegistration">
+    <i class="fas fa-check"></i> Lanjut ke Pendaftaran
+</button>
+
                    </div>
         @else
             <!-- Tampilan Coming Soon / Closed -->
@@ -156,5 +177,48 @@
 <!-- Include CSS and JS Files -->
 <link rel="stylesheet" href="{{ asset('css/ppdb.css') }}">
 <script src="{{ asset('js/ppdb.js') }}"></script>
+
+<script>
+    const openBtn = document.getElementById('openPpdbModal');
+    const modal = document.getElementById('ppdbModal');
+    const closeBtn = document.getElementById('closePpdbModal');
+    const goBtn = document.getElementById('goToRegistration');
+
+    // ambil konten deskripsi dari Blade
+    const kontenText = `{!! addslashes($ppdb->konten ?? '') !!}`;
+
+    // regex untuk ambil URL pertama
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const foundLinks = kontenText.match(urlRegex);
+
+    const registrationLink = foundLinks ? foundLinks[0] : null;
+
+    if (openBtn && modal && closeBtn) {
+        openBtn.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    }
+
+    if (goBtn) {
+        goBtn.addEventListener('click', () => {
+            if (registrationLink) {
+                window.open(registrationLink, '_blank');
+            } else {
+                alert('Link pendaftaran belum tersedia. Silakan hubungi panitia.');
+            }
+        });
+    }
+</script>
+
 
 @endsection

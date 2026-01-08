@@ -39,13 +39,16 @@
 
                     <div class="col-md-6">
                         <label class="form-label">Tanggal Mulai <span class="text-danger">*</span></label>
-                        <input type="date" name="tanggal_mulai" class="form-control @error('tanggal_mulai') is-invalid @enderror" value="{{ old('tanggal_mulai', $kalender->tanggal_mulai) }}" required>
-                        @error('tanggal_mulai') <small class="text-danger">{{ $message }}</small> @enderror
+                        <input type="date" name="tanggal_mulai" class="form-control @error('tanggal_mulai') is-invalid @enderror" 
+       value="{{ old('tanggal_mulai', $kalender->tanggal_mulai_for_input) }}" required>
+
+       @error('tanggal_mulai') <small class="text-danger">{{ $message }}</small> @enderror
                     </div>
 
                     <div class="col-md-6">
                         <label class="form-label">Tanggal Selesai <small class="text-muted">(Opsional)</small></label>
-                        <input type="date" name="tanggal_selesai" class="form-control @error('tanggal_selesai') is-invalid @enderror" value="{{ old('tanggal_selesai', $kalender->tanggal_selesai) }}">
+                        <input type="date" name="tanggal_selesai" class="form-control @error('tanggal_selesai') is-invalid @enderror" 
+       value="{{ old('tanggal_selesai', $kalender->tanggal_selesai_for_input) }}">
                         @error('tanggal_selesai') <small class="text-danger">{{ $message }}</small> @enderror
                     </div>
 

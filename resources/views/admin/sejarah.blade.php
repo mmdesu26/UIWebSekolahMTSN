@@ -5,33 +5,10 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/admin/sejarah.css') }}">
-{{-- ⭐ PENTING: Tambahkan meta CSRF token untuk AJAX requests --}}
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 @section('content')
-
-<!-- Success/Error Messages -->
-@if(session('success'))
-<div class="alert alert-success alert-dismissible fade show" role="alert" style="animation: slideInDown 0.5s ease;">
-    <i class="fas fa-check-circle"></i>
-    <strong>Berhasil!</strong> {{ session('success') }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-</div>
-@endif
-
-@if($errors->any())
-<div class="alert alert-danger alert-dismissible fade show" role="alert" style="animation: slideInDown 0.5s ease;">
-    <i class="fas fa-exclamation-circle"></i>
-    <strong>Gagal!</strong>
-    <ul class="mb-0">
-        @foreach($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-</div>
-@endif
 
 <!-- Main Container -->
 <div class="sejarah-container">
@@ -160,20 +137,21 @@
                         </div>
 
                         <!-- Buttons -->
-                        <div class="btn-container">
-                            <button type="submit" class="btn btn-primary">
-                                <div class="btn-content">
-                                    <i class="fas fa-save"></i>
-                                    <span>Simpan Perubahan</span>
-                                </div>
-                            </button>
-                            <button type="button" class="btn btn-secondary" onclick="resetForm()">
-                                <div class="btn-content">
-                                    <i class="fas fa-undo"></i>
-                                    <span>Reset</span>
-                                </div>
-                            </button>
-                        </div>
+                        <!-- Buttons -->
+<div class="btn-container">
+    <button type="submit" class="btn btn-primary">
+        <div class="btn-content">
+            <i class="fas fa-save"></i>
+            <span>Simpan Perubahan</span>
+        </div>
+    </button>
+    <button type="button" class="btn btn-secondary" onclick="cancelForm()">
+        <div class="btn-content">
+            <i class="fas fa-times"></i>
+            <span>Batal</span>
+        </div>
+    </button>
+</div>
                     </form>
                 </div>
             </div>

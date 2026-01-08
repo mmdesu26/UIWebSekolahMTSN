@@ -25,7 +25,6 @@
                         <select name="tipe" class="form-select @error('tipe') is-invalid @enderror" required>
                             <option value="berita" {{ $berita->tipe == 'berita' ? 'selected' : '' }}>Berita</option>
                             <option value="pengumuman" {{ $berita->tipe == 'pengumuman' ? 'selected' : '' }}>Pengumuman</option>
-                            <option value="kegiatan" {{ $berita->tipe == 'kegiatan' ? 'selected' : '' }}>Kegiatan</option>
                         </select>
                         @error('tipe') <small class="text-danger">{{ $message }}</small> @enderror
                     </div>

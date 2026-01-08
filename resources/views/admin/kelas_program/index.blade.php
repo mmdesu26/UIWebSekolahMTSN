@@ -5,6 +5,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/admin_kelas_program.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 @endsection
 
 @section('content')
@@ -59,7 +60,7 @@
                                 <a href="{{ route('admin.kelas-program.edit', $program->id) }}" class="btn-edit" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <button class="btn-delete" onclick="confirmDelete({{ $program->id }}, '{{ $program->nama }}')" title="Hapus">
+                                <button type="button" class="btn-delete" onclick="confirmDelete({{ $program->id }}, '{{ $program->nama }}')" title="Hapus">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
@@ -117,7 +118,7 @@
                                 <a href="{{ route('admin.kelas-program.edit', $program->id) }}" class="btn-edit" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <button class="btn-delete" onclick="confirmDelete({{ $program->id }}, '{{ $program->nama }}')" title="Hapus">
+                                <button type="button" class="btn-delete" onclick="confirmDelete({{ $program->id }}, '{{ $program->nama }}')" title="Hapus">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
@@ -143,5 +144,28 @@
 @endsection
 
 @section('js')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ asset('js/admin_kelas_program.js') }}"></script>
+
+<script>
+function confirmDelete(id, nama) {
+    const form = document.getElementById('delete-form');
+    form.action = `/admin/kelas-program/${id}`; // sesuaikan route delete
+
+    Swal.fire({
+        title: `Yakin hapus "${nama}"?`,
+        text: "Data yang dihapus tidak dapat dikembalikan!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Ya, hapus!',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+        }
+    });
+}
+</script>
 @endsection

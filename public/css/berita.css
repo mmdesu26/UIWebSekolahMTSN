@@ -119,10 +119,6 @@
     background: #f39c12;
 }
 
-.news-badge.kegiatan {
-    background: #27ae60;
-}
-
 .news-badge.berita {
     background: #1a5f3a;
 }
@@ -268,7 +264,6 @@
 
 /* Badge colors: keep exactly as you set */
 .news-badge.pengumuman { background: #f39c12; }
-.news-badge.kegiatan   { background: #27ae60; }
 .news-badge.berita     { background: #1a5f3a; }
 
 /* ==================== BUTTON / LINK MICRO-INTERACTION ==================== */

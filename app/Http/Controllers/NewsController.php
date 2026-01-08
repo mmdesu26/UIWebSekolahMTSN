@@ -12,7 +12,7 @@ class NewsController extends Controller
     {
         $request->validate([
             'judul' => 'required|string|max:255',
-            'tipe'  => 'required|in:berita,pengumuman,kegiatan',
+            'tipe'  => 'required|in:berita,pengumuman',
             'konten'=> 'required|string',
         ]);
 
@@ -31,7 +31,7 @@ class NewsController extends Controller
     {
         $request->validate([
             'judul' => 'required|string|max:255',
-            'tipe'  => 'required|in:berita,pengumuman,kegiatan',
+            'tipe'  => 'required|in:berita,pengumuman',
             'konten'=> 'required|string',
         ]);
 

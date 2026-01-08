@@ -19,7 +19,7 @@ class UserGaleriController extends Controller
             return [
                 'id' => $item->id,
                 'judul' => $item->judul,
-                'gambar' => $item->gambar, // Gambar sudah berisi thumbnail untuk semua tipe
+                'gambar' => $item->gambar,
                 'tanggal' => $item->created_at->format('Y-m-d'),
                 'tipe' => $item->tipe,
                 'embed_link' => $item->embed_link

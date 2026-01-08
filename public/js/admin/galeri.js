@@ -310,15 +310,24 @@ function previewEmbedLink(inputId, containerId) {
     container.classList.add('show');
 }
 
-// ==================== DELETE FUNCTION ====================
 function confirmDelete(id) {
-    if (confirm('Apakah Anda yakin ingin menghapus media ini? Tindakan ini tidak dapat dibatalkan.')) {
-        const form = document.getElementById('deleteForm');
-        if (form) {
-            form.action = `/admin/galeri/delete/${id}`;
+    Swal.fire({
+        title: 'Yakin ingin menghapus media ini?',
+        text: "Data yang dihapus tidak dapat dikembalikan!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Ya, hapus!',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Ambil form global
+            const form = document.getElementById('deleteForm');
+            form.action = `/admin/galeri/delete/${id}`; // route delete dinamis
             form.submit();
         }
-    }
+    });
 }
 
 // ==================== MODAL EVENTS ====================

@@ -51,13 +51,15 @@ class KalenderPendidikan extends Model
     }
 
     // Format tanggal untuk display
-    public function getTanggalFormatAttribute()
-    {
-        if ($this->tanggal_selesai && $this->tanggal_mulai != $this->tanggal_selesai) {
-            return $this->tanggal_mulai->format('d M Y') . ' - ' . $this->tanggal_selesai->format('d M Y');
-        }
-        return $this->tanggal_mulai->format('d M Y');
-    }
+   public function getTanggalMulaiForInputAttribute()
+{
+    return $this->tanggal_mulai ? $this->tanggal_mulai->format('Y-m-d') : null;
+}
+
+public function getTanggalSelesaiForInputAttribute()
+{
+    return $this->tanggal_selesai ? $this->tanggal_selesai->format('Y-m-d') : null;
+}
 
     // Get class untuk kategori badge
     public function getKategoriClassAttribute()

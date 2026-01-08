@@ -712,42 +712,6 @@
 <div class="visi-misi-container">
     <div class="row">
         <div class="col-lg-8 offset-lg-2">
-
-            <!-- Success Message -->
-            @if(session('success'))
-            <div class="alert alert-success" role="alert">
-                <i class="fas fa-check-circle"></i>
-                <div>
-                    <strong>Berhasil!</strong> {{ session('success') }}
-                </div>
-            </div>
-            @endif
-
-            <!-- Error Message -->
-            @if(session('error'))
-            <div class="alert alert-danger" role="alert">
-                <i class="fas fa-exclamation-circle"></i>
-                <div>
-                    <strong>Error!</strong> {{ session('error') }}
-                </div>
-            </div>
-            @endif
-
-            <!-- Validation Errors -->
-            @if($errors->any())
-            <div class="alert alert-danger" role="alert">
-                <i class="fas fa-exclamation-triangle"></i>
-                <div>
-                    <strong>Terjadi kesalahan:</strong>
-                    <ul style="margin: 8px 0 0 20px; padding: 0;">
-                        @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-            @endif
-
             <!-- Main Card -->
             <div class="vm-card">
                 <div class="vm-card-header">

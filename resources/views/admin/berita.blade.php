@@ -25,7 +25,6 @@
                             <option value="">-- Pilih Tipe --</option>
                             <option value="berita" {{ old('tipe') == 'berita' ? 'selected' : '' }}>Berita</option>
                             <option value="pengumuman" {{ old('tipe') == 'pengumuman' ? 'selected' : '' }}>Pengumuman</option>
-                            <option value="kegiatan" {{ old('tipe') == 'kegiatan' ? 'selected' : '' }}>Kegiatan</option>
                         </select>
                         @error('tipe') <small class="text-danger">{{ $message }}</small> @enderror
                     </div>
@@ -111,7 +110,6 @@
                                         $badgeClass = match($item->tipe) {
                                             'berita' => 'bg-info',
                                             'pengumuman' => 'bg-warning text-dark',
-                                            'kegiatan' => 'bg-success',
                                             default => 'bg-secondary'
                                         };
                                     @endphp

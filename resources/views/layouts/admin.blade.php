@@ -110,7 +110,7 @@
                     <i class="fas fa-chevron-down arrow-icon"></i>
                 </button>
                 <div class="submenu @if(request()->routeIs('admin.kurikulum*') || request()->routeIs('admin.kelas-program*')) show @endif">
-                    <a href="{{ route('admin.kurikulum') }}" class="@if(request()->routeIs('admin.kurikulum')) active @endif">
+                    <a href="{{ route('admin.kurikulum.index') }}" class="@if(request()->routeIs('admin.kurikulum')) active @endif">
                         <i class="fas fa-book"></i><span>Kurikulum</span>
                     </a>
                     <a href="{{ route('admin.kelas-program.index') }}" class="@if(request()->routeIs('admin.kelas-program.*')) active @endif">

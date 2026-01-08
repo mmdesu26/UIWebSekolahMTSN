@@ -64,7 +64,7 @@
                            name="email"
                            class="form-control @error('email') is-invalid @enderror"
                            value="{{ old('email') }}"
-                           placeholder="admin@mtsn1magetan.sch.id"
+                           placeholder="admin@gmail.com"
                            required
                            autofocus>
                     @error('email')

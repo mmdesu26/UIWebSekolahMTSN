@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Response;  // IMPORT INI WAJIB
+use Symfony\Component\HttpFoundation\Response;
 
 class AdminAuth
 {

@@ -92,7 +92,7 @@
                                     <!-- Hapus -->
                                     <form action="{{ route('admin.ekstra.delete', $item->id) }}" method="POST" class="d-inline delete-form">
     @csrf
-    @method('DELETE') <!-- Tambahkan ini karena route delete biasanya memerlukan method DELETE -->
+    @method('DELETE') 
 
     <button type="submit" class="btn btn-sm btn-danger">
         <i class="fas fa-trash"></i>
@@ -111,6 +111,5 @@
 
 <link rel="stylesheet" href="{{ asset('css/admin-ekskul.css') }}">
 
-<!-- Optional: JS untuk efek halaman (animasi, notifikasi, dll) -->
 <script src="{{ asset('js/admin-ekskul.js') }}"></script>
 @endsection

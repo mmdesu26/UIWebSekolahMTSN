@@ -12,38 +12,11 @@
                     <i class="fas fa-book-open text-primary me-2"></i>
                     {{ $kurikulum ? 'Edit Data Kurikulum' : 'Tambah Data Kurikulum' }}
                 </h5>
-                @if($kurikulum)
-                    <span class="badge bg-success">
-                        <i class="fas fa-check me-1"></i>
-                        Data Tersedia
-                    </span>
-                @else
-                    <span class="badge bg-warning">
-                        <i class="fas fa-plus me-1"></i>
-                        Data Baru
-                    </span>
-                @endif
             </div>
-            <div class="card-body">
-                @if (session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <i class="fas fa-check-circle me-2"></i>
-                        <strong>Berhasil!</strong> {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
-                @endif
-
-                @if (session('error'))
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <i class="fas fa-exclamation-circle me-2"></i>
-                        <strong>Gagal!</strong> {{ session('error') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
-                @endif
-
-                <form action="{{ route('admin.kurikulum.update') }}" method="POST">
-                    @csrf
-                    
+            <div class="card-body"> 
+                <!-- FORM UPDATE -->
+                    <form action="{{ route('admin.kurikulum.update') }}" method="POST">
+                        @csrf 
                     <!-- Nama Kurikulum -->
                     <div class="mb-4">
                         <label class="form-label fw-bold">
@@ -128,79 +101,29 @@
 
                     <!-- Action Buttons -->
                     <div class="d-flex gap-2 mt-4 flex-wrap">
-                        <button type="submit" class="btn btn-primary px-4">
-                            <i class="fas fa-save me-2"></i>
-                            {{ $kurikulum ? 'Simpan Perubahan' : 'Tambah Data' }}
-                        </button>
-                        
-                        <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary px-4">
-                            <i class="fas fa-arrow-left me-2"></i>
-                            Kembali ke Dashboard
-                        </a>
-                        
-                        @if($kurikulum)
-                            <form action="{{ route('admin.kurikulum.delete') }}" method="POST" class="d-inline" 
-                                  onsubmit="return confirm('⚠️ Yakin ingin menghapus data kurikulum ini? Data akan hilang permanen dan tidak bisa dikembalikan.');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger px-4">
-                                    <i class="fas fa-trash me-2"></i>
-                                    Hapus Data
-                                </button>
-                            </form>
-                        @endif
-                        
-                        <div class="ms-auto">
-                            <a href="{{ route('akademik.kurikulum') }}" class="btn btn-outline-info px-3" target="_blank">
-                                <i class="fas fa-eye me-1"></i>
-                                <small>Lihat Preview</small>
-                            </a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+        <button type="submit" class="btn btn-primary px-4">
+            <i class="fas fa-save me-2"></i>
+            {{ $kurikulum ? 'Simpan Perubahan' : 'Tambah Data' }}
+        </button>
     </div>
-</div>
+</form>
 
-<!-- Preview Section -->
+{{-- FORM DELETE --}}
 @if($kurikulum)
-<div class="row mt-5">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="mb-0">
-                    <i class="fas fa-eye text-info me-2"></i>
-                    Preview Tampilan User
-                </h5>
-            </div>
-            <div class="card-body p-0">
-                <div class="kurikulum-box p-4" style="background: #f8f9fa;">
-                    <h3 class="text-primary mb-3">
-                        <i class="fas fa-book-open me-2"></i>
-                        {{ $kurikulum->nama_kurikulum }}
-                    </h3>
-                    <p class="mb-4" style="white-space: pre-line; font-size: 14px;">
-                        {{ Str::limit($kurikulum->deskripsi_kurikulum, 150) }}...
-                    </p>
-                    
-                    <h4 class="text-warning mb-3">
-                        <i class="fas fa-bullseye me-2"></i>
-                        Tujuan Utama
-                    </h4>
-                    <ul class="tujuan-list mb-0">
-                        @foreach(explode("\n", $kurikulum->tujuan_kurikulum) as $tujuan)
-                            @if(trim($tujuan))
-                                <li class="mb-2">{{ trim($tujuan) }}</li>
-                            @endif
-                        @endforeach
-                    </ul>
-                </div>
+<form action="{{ route('admin.kurikulum.delete') }}" method="POST" class="d-inline delete-form">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-sm btn-danger" style="margin-top: 10px;">
+        <i class="fas fa-trash me-2"></i>
+        Hapus Data Kurikulum
+    </button>
+</form>
+@endif
+                    </div>
             </div>
         </div>
     </div>
 </div>
-@endif
 
 <style>
     .form-label {
@@ -355,15 +278,38 @@
     }
 </style>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-// Auto dismiss alerts
+document.querySelectorAll('.delete-form').forEach(form => {
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: 'Yakin ingin menghapus data ini?',
+            text: "Data yang dihapus tidak dapat dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    });
+});
+</script>
+
+<script>
 document.addEventListener('DOMContentLoaded', function() {
-    const alerts = document.querySelectorAll('.alert');
-    alerts.forEach(function(alert) {
+    document.querySelectorAll('.alert').forEach(alert => {
         setTimeout(() => {
-            const bsAlert = new bootstrap.Alert(alert);
-            bsAlert.close();
-        }, 5000);
+            alert.classList.remove('show');
+            alert.classList.add('hide');
+            setTimeout(() => alert.remove(), 500); 
+        }, 5000); // 5 detik
     });
 
     // Auto resize textarea

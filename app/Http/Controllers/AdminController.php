@@ -100,7 +100,7 @@ class AdminController extends Controller
     {
         $request->validate([
             'judul'        => 'required|string|min:3|max:255',
-            'tipe'         => 'required|in:berita,pengumuman,kegiatan',
+            'tipe'         => 'required|in:berita,pengumuman',
             'konten'       => 'required|string|min:20',
             'image_file'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
             'image_url'    => 'nullable|url',
@@ -160,7 +160,7 @@ class AdminController extends Controller
 
         $request->validate([
             'judul'        => 'required|string|min:3|max:255',
-            'tipe'         => 'required|in:berita,pengumuman,kegiatan',
+            'tipe'         => 'required|in:berita,pengumuman',
             'konten'       => 'required|string|min:20',
             'image_file'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
             'image_url'    => 'nullable|url',
@@ -257,13 +257,12 @@ class AdminController extends Controller
             'name'     => 'required|string|max:255|unique:ekstrakurikulers,name',
             'jadwal'   => 'required|string|max:255',
             'pembina'  => 'required|string|max:255',
-            'prestasi' => 'required|string',
+            'prestasi' => 'nullable|string',
         ], [
             'name.required'     => 'Nama ekstrakurikuler wajib diisi.',
             'name.unique'       => 'Nama ekstrakurikuler sudah digunakan.',
             'jadwal.required'   => 'Jadwal wajib diisi.',
             'pembina.required'  => 'Nama pembina wajib diisi.',
-            'prestasi.required' => 'Prestasi wajib diisi.',
         ]);
 
         try {
@@ -279,7 +278,9 @@ class AdminController extends Controller
                 'slug'     => $slug,
                 'jadwal'   => $request->jadwal,
                 'pembina'  => $request->pembina,
-                'prestasi' => $request->prestasi,
+                'prestasi' => $request->filled('prestasi')
+    ? $request->prestasi
+    : 'Belum ada prestasi',
             ]);
 
             return redirect()->route('admin.ekstrakurikuler')->with('success', 'Ekstrakurikuler berhasil ditambahkan!');
@@ -309,7 +310,9 @@ public function updateEkstra($id, Request $request)
         'name'     => $request->name,
         'jadwal'   => $request->jadwal,
         'pembina'  => $request->pembina,
-        'prestasi' => $request->prestasi ?? null,
+        'prestasi' => $request->filled('prestasi')
+    ? $request->prestasi
+    : 'Belum ada prestasi',
     ]);
 
     return redirect()->route('admin.ekstrakurikuler')->with('success', 'Ekstrakurikuler berhasil diperbarui!');

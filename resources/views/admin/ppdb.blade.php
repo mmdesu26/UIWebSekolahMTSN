@@ -12,18 +12,18 @@
 
             <!-- Status Info -->
             <div class="alert alert-info" role="alert">
-                <i class="fas fa-info-circle"></i>
-                <div class="alert-content">
-                    <strong>Status PPDB Saat Ini:</strong> 
-                    @if($status == 'open')
-                        Buka (Pendaftaran sedang berlangsung)
-                    @elseif($status == 'closed')
-                        Tutup (Periode telah berakhir)
-                    @else
-                        Coming Soon (Belum dibuka)
-                    @endif
-                </div>
-            </div>
+    <i class="fas fa-info-circle"></i>
+    <div class="alert-content">
+        <strong>Status PPDB Saat Ini:</strong> 
+        @if($status == 'open')
+            Dibuka (Pendaftaran sedang berlangsung)
+        @elseif($status == 'closed')
+            Ditutup (Periode pendaftaran telah berakhir)
+        @else
+            Akan Segera Dibuka
+        @endif
+    </div>
+</div>
 
             <!-- Main Card -->
             <div class="ppdb-card">
@@ -131,17 +131,17 @@
                         <div class="form-group">
                             <label class="form-label">
                                 <i class="fas fa-file-alt"></i>
-                                <span>Konten Deskripsi PPDB</span>
+                                <span>Link PPDB</span>
                             </label>
                             <textarea name="konten" 
                                       class="form-control konten-textarea @error('konten') is-invalid @enderror" 
-                                      placeholder="Tuliskan deskripsi lengkap tentang program PPDB..." 
+                                      placeholder="Tuliskan link lengkap untuk pendaftaran program PPDB..." 
                                       rows="8" 
-                                      required>{{ old('konten', $ppdb->konten ?? "Ayo Bergabung Bersama Kami! Media Sosial: Instagram @humasmtsn1magetan, Facebook MTs Negeri 1 Magetan. Lokasi: MTsN 1 Magetan, Desa Baluk, Kec. Karangrejo, Kab. Magetan. Syarat Pendaftaran: Foto copy Akte (1 Lembar), dll. Ekstrakurikuler: Pramuka, PMR, Banjari, Drumband, Volly, Futsal, Karate, Taekwondo, Seni Musik, Seni Tari. Pendaftaran Online: https://forms.gle/MP5nhGic4Zxga8n8. Hubungi: Ibu Emy Lathifah 0856 4618 0815") }}</textarea>
+                                      required>{{ old('konten', $ppdb->konten ?? "Ayo Bergabung Bersama Kami! Pendaftaran Online: https://forms.gle/MP5nhGic4Zxga8n8. Hubungi: Ibu Emy Lathifah 0856 4618 0815") }}</textarea>
                             @error('konten')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
-                            <small class="form-text">Deskripsi akan ditampilkan di halaman utama PPDB</small>
+                            <small class="form-text">Link untuk pendaftaran</small>
                         </div>
 
                         <!-- Timeline (Jadwal) -->

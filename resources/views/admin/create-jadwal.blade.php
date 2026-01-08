@@ -15,10 +15,6 @@
             <div class="card edit-card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h5><i class="fas fa-plus-circle"></i> Tambah Jadwal Pelajaran</h5>
-                        <a href="{{ route('admin.jadwal.index') }}" class="btn btn-secondary btn-sm">
-                            <i class="fas fa-arrow-left"></i> Kembali
-                        </a>
                     </div>
                 </div>
                 <div class="card-body">

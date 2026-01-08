@@ -452,10 +452,6 @@ body {
     background: #e74c3c;
 }
 
-.news-badge.kegiatan {
-    background: var(--primary-color);
-}
-
 .news-content {
     padding: 25px;
 }

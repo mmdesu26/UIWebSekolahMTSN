@@ -523,10 +523,6 @@
             background: var(--secondary-color);
         }
 
-        .news-badge.kegiatan {
-            background: var(--success-color);
-        }
-
         .news-content {
             padding: clamp(20px, 3vw, 30px);
             flex-grow: 1;

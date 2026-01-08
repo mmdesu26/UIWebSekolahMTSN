@@ -128,7 +128,7 @@ Route::prefix('admin')->middleware('adminauth')->name('admin.')->group(function 
     Route::post('/ekstrakurikuler/add', [AdminController::class, 'addEkstra'])->name('ekstra.add');
     Route::get('/ekstrakurikuler/edit/{id}', [AdminController::class, 'editEkstra'])->name('ekstra.edit');
     Route::put('/ekstrakurikuler/update/{id}', [AdminController::class, 'updateEkstra'])->name('ekstra.update');
-    Route::post('/ekstrakurikuler/delete/{id}', [AdminController::class, 'deleteEkstra'])->name('ekstra.delete');
+    Route::delete('/ekstrakurikuler/delete/{id}', [AdminController::class, 'deleteEkstra'])->name('ekstra.delete');
           
     /*
     | MANAJEMEN PRESTASI (DIRA)
@@ -177,9 +177,13 @@ Route::get('/prestasi', [AdminController::class, 'managePrestasi'])->name('prest
     });
 
     // KURIKULUM
-    Route::get('/kurikulum', [AdminKurikulumController::class, 'index'])->name('kurikulum');
-    Route::post('/kurikulum/update', [AdminKurikulumController::class, 'update'])->name('kurikulum.update');
-    Route::delete('/kurikulum/delete', [AdminKurikulumController::class, 'delete'])->name('kurikulum.delete');
+ // KURIKULUM
+Route::get('/kurikulum', [AdminKurikulumController::class, 'index'])
+    ->name('kurikulum.index');
+Route::post('/kurikulum/update', [AdminKurikulumController::class, 'update'])
+    ->name('kurikulum.update');
+Route::delete('/kurikulum/delete', [AdminKurikulumController::class, 'delete'])
+    ->name('kurikulum.delete');
 
     // KALENDER PENDIDIKAN
     Route::prefix('kalender')->name('kalender.')->group(function () {
@@ -210,8 +214,8 @@ Route::get('/prestasi', [AdminController::class, 'managePrestasi'])->name('prest
         Route::post('/add', [AdminGaleriController::class, 'store'])->name('add');
         Route::post('/upload', [AdminGaleriController::class, 'upload'])->name('upload');
         Route::post('/update/{id}', [AdminGaleriController::class, 'update'])->name('update');
-        Route::post('/delete/{id}', [AdminGaleriController::class, 'destroy'])->name('delete');
-    });
+        Route::delete('/delete/{id}', [AdminGaleriController::class, 'destroy'])->name('delete');
+});
 
     // ============================
     // KELAS PROGRAM (NEW)

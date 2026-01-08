@@ -19,26 +19,6 @@
     </div>
 </div>
 
-<!-- Success Alert -->
-@if(session('success'))
-<div class="alert alert-success" role="alert">
-    <i class="fas fa-check-circle"></i>
-    <div>
-        <strong>Berhasil!</strong> {{ session('success') }}
-    </div>
-</div>
-@endif
-
-<!-- Error Alert -->
-@if(session('error'))
-<div class="alert alert-error" role="alert">
-    <i class="fas fa-exclamation-circle"></i>
-    <div>
-        <strong>Gagal!</strong> {{ session('error') }}
-    </div>
-</div>
-@endif
-
 <!-- Button Add -->
 <div style="margin-bottom: clamp(16px, 2.5vw, 20px); display: flex; justify-content: flex-end;">
     <button class="btn-add" onclick="openAddModal()" type="button">
@@ -120,12 +100,12 @@
                             <span>Edit</span>
                         </div>
                     </button>
-                    <button class="btn-action btn-delete" onclick="confirmDelete({{ $item['id'] }})" type="button" title="Hapus Media">
-                        <div class="btn-action-content">
-                            <i class="fas fa-trash"></i>
-                            <span>Hapus</span>
-                        </div>
-                    </button>
+<button class="btn-action btn-delete" type="button" title="Hapus Media" onclick="confirmDelete({{ $item['id'] }})">
+    <div class="btn-action-content">
+        <i class="fas fa-trash"></i>
+        <span>Hapus</span>
+    </div>
+</button>
                 </div>
             </div>
         </div>
@@ -276,9 +256,9 @@
 </div>
 
 <!-- Form Delete (Hidden) -->
-<form id="deleteForm" method="POST" style="display: none;">
+<form id="deleteForm" method="POST" style="display:none;">
     @csrf
-    @method('POST')
+    @method('DELETE')
 </form>
 
 <!-- Link to JS -->
